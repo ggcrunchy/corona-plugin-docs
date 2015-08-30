@@ -3,7 +3,7 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <head>
-    <title>Snippets documentation</title>
+    <title>MWC documentation</title>
     <link rel="stylesheet" href="ldoc.css" type="text/css" />
 </head>
 <body>
@@ -24,7 +24,7 @@
 
 <div id="navigation">
 <br/>
-<h1>Corona SDK snippets</h1>
+<h1>MWC module</h1>
 
 
 <h2>Contents</h2>
@@ -52,11 +52,11 @@
 <table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#MakeGenerator">MakeGenerator ([opts])</a></td>
-	<td class="summary">Factory.</td>
+	<td class="summary">Instantiates a new random generator.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MakeGenerator_Lib">MakeGenerator_Lib ([opts])</a></td>
-	<td class="summary">Variant of <a href="api.html#MakeGenerator">MakeGenerator</a> with behavior like <a href="http://www.lua.org/manual/5.1/manual.html#pdf-math.random">math.random</a>.</td>
+	<td class="summary">Variant of <a href="api.html#MakeGenerator">MakeGenerator</a>, where the generators behave like <a href="http://www.lua.org/manual/5.1/manual.html#pdf-math.random">math.random</a>.</td>
 	</tr>
 </table>
 
@@ -71,7 +71,7 @@
     <strong>MakeGenerator ([opts])</strong>
     </dt>
     <dd>
-    Factory.
+    Instantiates a new random generator.
 
     <h3>Parameters:</h3>
     <ul>
@@ -83,7 +83,6 @@
 <ul>
     <li><strong>z</strong> Z seed; if absent, uses a default.</li>
     <li><strong>w</strong> W Seed; if absent, uses a default.</li>
-    <li><strong>get_zw</strong>: If true, the second return value is a getter function.</li>
 </ul>
 
         </li>
@@ -91,14 +90,14 @@
 
     <h3>Returns:</h3>
     <ol>
-        <li>
+
            <span class="types"><span class="type">function</span></span>
-        Called as <code>result = gen(want_real)</code>. If <em>want_real</em> is true, <em>result</em>
- will be a random number &isin; [0, 1); otherwise, it will be a random 32-bit integer.</li>
-        <li>
-           <span class="types"><span class="type">function</span> or <span class="type">nil</span></span>
-        Called as <code>z, w = get_zw()</code>, to get the current generator state,
- which may be used to clone or restart the generator later.</li>
+         May be called as <code>z, w = gen("get_zw")</code>, in which case <em>z</em> and <em>w</em> will
+ be the current Z and W seeds, respectively.</p>
+
+<p> Otherwise, called as <code>result = gen(how)</code>. When <em>how</em> is <strong>"float"</strong>, <em>result</em> will be a
+ random number &isin; [0, 1); with anything else, it will instead be a random non-negative
+ 32-bit integer.
     </ol>
 
 
@@ -110,7 +109,7 @@
     <strong>MakeGenerator_Lib ([opts])</strong>
     </dt>
     <dd>
-    Variant of <a href="api.html#MakeGenerator">MakeGenerator</a> with behavior like <a href="http://www.lua.org/manual/5.1/manual.html#pdf-math.random">math.random</a>.
+    Variant of <a href="api.html#MakeGenerator">MakeGenerator</a>, where the generators behave like <a href="http://www.lua.org/manual/5.1/manual.html#pdf-math.random">math.random</a>.
 
     <h3>Parameters:</h3>
     <ul>
@@ -122,12 +121,12 @@
 
     <h3>Returns:</h3>
     <ol>
-        <li>
+
            <span class="types"><span class="type">function</span></span>
-        Generator with the semantics of <a href="http://www.lua.org/manual/5.1/manual.html#pdf-math.random">math.random</a>.</li>
-        <li>
-           <span class="types"><span class="type">function</span> or <span class="type">nil</span></span>
-        As per <a href="api.html#MakeGenerator">MakeGenerator</a>.</li>
+         Generator with the semantics of <a href="http://www.lua.org/manual/5.1/manual.html#pdf-math.random">math.random</a>.</p>
+
+<p> This may also be called as <code>z, w = gen("get_zw")</code>, in which case <em>z</em> and <em>w</em> will be the
+ current Z and W seeds, respectively.
     </ol>
 
 
