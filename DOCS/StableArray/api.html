@@ -1,0 +1,486 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Snippets documentation</title>
+    <link rel="stylesheet" href="ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Stable Array</h1>
+
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+<li><a href="#Fields">Fields</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><strong>StableArray</strong></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>StableArray</code></h1>
+<p>This class provides an array from which elements may be removed without upsetting
+ the positions of other elements, while also maintaining the ability to iterate the
+ elements.</p>
+<p>
+
+</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#New">New ()</a></td>
+	<td class="summary">Factory for stable array objects.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#StableArray:Clear">StableArray:Clear ()</a></td>
+	<td class="summary">Removes all elements from the array.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#StableArray:Find">StableArray:Find (elem)</a></td>
+	<td class="summary">Finds <em>elem</em> in the array.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#StableArray:FindAndRemove">StableArray:FindAndRemove (elem)</a></td>
+	<td class="summary">Removes <em>elem</em> from the array, cf.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#StableArray:Get">StableArray:Get (index)</a></td>
+	<td class="summary">Getter.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#StableArray:GetArray">StableArray:GetArray (null, nil_elem)</a></td>
+	<td class="summary">Gets the elements as an array.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#StableArray:Insert">StableArray:Insert (elem)</a></td>
+	<td class="summary">Inserts <em>elem</em> into the array.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#StableArray:InUse">StableArray:InUse (index)</a></td>
+	<td class="summary">Predicate.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#StableArray:Ipairs">StableArray:Ipairs ()</a></td>
+	<td class="summary">Iterator.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#StableArray:__len">StableArray:__len ()</a></td>
+	<td class="summary">Metamethod.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#StableArray:RemoveAt">StableArray:RemoveAt (index)</a></td>
+	<td class="summary">Removes an element from the array.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#StableArray:SetArray">StableArray:SetArray (arr, null, nil_elem)</a></td>
+	<td class="summary">Clears the stable array and loads elements from a stock Lua array.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#StableArray:Update">StableArray:Update (index, elem)</a></td>
+	<td class="summary">Updates the element at a slot.</td>
+	</tr>
+</table>
+<h2><a href="#Fields">Fields</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#__ipairs">__ipairs</a></td>
+	<td class="summary">Metamethod (in certain Lua implementations), aliases <a href="api.html#StableArray:Ipairs">StableArray:Ipairs</a>.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "New"></a>
+    <strong>New ()</strong>
+    </dt>
+    <dd>
+    Factory for stable array objects.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">StableArray</span></span>
+        A new stable array instance.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "StableArray:Clear"></a>
+    <strong>StableArray:Clear ()</strong>
+    </dt>
+    <dd>
+    Removes all elements from the array.
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "StableArray:Find"></a>
+    <strong>StableArray:Find (elem)</strong>
+    </dt>
+    <dd>
+    Finds <em>elem</em> in the array. </p>
+
+<p> If the array contains multiple instances of <em>elem</em>, only one is found.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">elem</span>
+         Element to find.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span> or <span class="type">nil</span></span>
+        Slot index, or <strong>nil</strong> if <em>elem</em> was not found.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "StableArray:FindAndRemove"></a>
+    <strong>StableArray:FindAndRemove (elem)</strong>
+    </dt>
+    <dd>
+    Removes <em>elem</em> from the array, cf.  <a href="api.html#StableArray:RemoveAt">StableArray:RemoveAt</a>.</p>
+
+<p> If the array contains multiple instances of <em>elem</em>, only one is found and removed.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">elem</span>
+         Element to remove.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span> or <span class="type">nil</span></span>
+        Slot index of <em>elem</em>, or <strong>nil</strong> if it was not found.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "StableArray:Get"></a>
+    <strong>StableArray:Get (index)</strong>
+    </dt>
+    <dd>
+    Getter.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">index</span>
+            <span class="types"><span class="type">uint</span></span>
+         Slot index.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+         If the slot is in use, element in the slot; otherwise, <strong>nil</strong>.</p>
+
+<p> <strong>N.B.</strong> When <strong>nil</strong> elements might have been inserted, <a href="api.html#StableArray:InUse">StableArray:InUse</a> can be
+ used to distinguish missing values from <strong>nil</strong> elements.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "StableArray:GetArray"></a>
+    <strong>StableArray:GetArray (null, nil_elem)</strong>
+    </dt>
+    <dd>
+    Gets the elements as an array.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">null</span>
+         Value to mark unused slots.</p>
+
+<p> If this is callable, the value is instead the result of <code>null(element)</code>, <em>element</em>
+ being whatever occupies the slot.
+        </li>
+        <li><span class="parameter">nil_elem</span>
+         Value to mark <strong>nil</strong> elements.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">array</span></span>
+        Copy of the stable array's elements.</p>
+
+<p> <strong>N.B.</strong> The array can contain holes if one of <em>null</em> or <em>nil_elem</em> is missing.
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="api.html#StableArray:InUse">StableArray:InUse</a></li>
+         <li><a href="api.html#StableArray:__len">StableArray:__len</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "StableArray:Insert"></a>
+    <strong>StableArray:Insert (elem)</strong>
+    </dt>
+    <dd>
+    Inserts <em>elem</em> into the array.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">elem</span>
+         Element to add.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        Slot index at which <em>elem</em> was inserted.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "StableArray:InUse"></a>
+    <strong>StableArray:InUse (index)</strong>
+    </dt>
+    <dd>
+    Predicate.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">index</span>
+            <span class="types"><span class="type">uint</span></span>
+         Slot index.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Slot contains an element?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "StableArray:Ipairs"></a>
+    <strong>StableArray:Ipairs ()</strong>
+    </dt>
+    <dd>
+    Iterator.
+ <a href="http://www.lua.org/manual/5.1/manual.html#pdf-ipairs">ipairs</a>-style iterator over the in-use slots of the array.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">iterator</span></span>
+        Supplies slot index, element in slot.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "StableArray:__len"></a>
+    <strong>StableArray:__len ()</strong>
+    </dt>
+    <dd>
+    Metamethod.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        Array size (element count + free slots).
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "StableArray:RemoveAt"></a>
+    <strong>StableArray:RemoveAt (index)</strong>
+    </dt>
+    <dd>
+    Removes an element from the array.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">index</span>
+            <span class="types"><span class="type">uint</span></span>
+         Slot index of element.</p>
+
+<p> If the slot is not in use, this is a no-op.
+        </li>
+    </ul>
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="api.html#StableArray:InUse">StableArray:InUse</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "StableArray:SetArray"></a>
+    <strong>StableArray:SetArray (arr, null, nil_elem)</strong>
+    </dt>
+    <dd>
+    Clears the stable array and loads elements from a stock Lua array.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">arr</span>
+            <span class="types"><span class="type">array</span></span>
+         Array used to populate the stable array.
+        </li>
+        <li><span class="parameter">null</span>
+         If non-<strong>nil</strong>, instances of <em>null</em> will be removed from the array
+ generated by <em>arr</em>, leaving those slots unused.
+        </li>
+        <li><span class="parameter">nil_elem</span>
+         If non-<strong>nil</strong>, instances of _null_elem\ will be replaced by <strong>nil</strong>.
+        </li>
+    </ul>
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="api.html#StableArray:Clear">StableArray:Clear</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "StableArray:Update"></a>
+    <strong>StableArray:Update (index, elem)</strong>
+    </dt>
+    <dd>
+    Updates the element at a slot. </p>
+
+<p> If the slot is not in use, this is a no-op.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">index</span>
+            <span class="types"><span class="type">uint</span></span>
+         Slot index of element.
+        </li>
+        <li><span class="parameter">elem</span>
+         Element to add.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        Was the element updated?</li>
+        <li>
+        If the element was updated, the previous value.</li>
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="api.html#StableArray:InUse">StableArray:InUse</a>
+    </ul>
+
+
+</dd>
+</dl>
+    <h2><a name="Fields"></a>Fields</h2>
+    <dl class="function">
+    <dt>
+    <a name = "__ipairs"></a>
+    <strong>__ipairs</strong>
+    </dt>
+    <dd>
+    Metamethod (in certain Lua implementations), aliases <a href="api.html#StableArray:Ipairs">StableArray:Ipairs</a>.
+
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
