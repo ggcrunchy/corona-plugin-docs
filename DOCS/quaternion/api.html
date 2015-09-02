@@ -1,0 +1,844 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Snippets documentation</title>
+    <link rel="stylesheet" href="ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Quaternion</h1>
+
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><strong>quaternion</strong></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>quaternion</code></h1>
+<p>Some operations on quaternions.</p>
+<p> A <strong>Quaternion</strong> is a table (or object with <strong>__index</strong> and <strong>__newindex</strong> metamethods)
+ with <strong>x</strong>, <strong>y</strong>, <strong>z</strong>, and <strong>w</strong> components, each being a <strong>number</strong>.</p>
+
+<p> All functions are able to take any combination of their <strong>Quaternion</strong> arguments. Namely,
+ the same <strong>Quaternion</strong> may be passed multiple times without incident. Any routine that
+ produces a <strong>Quaternion</strong> will place it in its <em>qout</em> argument (which is also returned, to
+ allow for easy composition). An argument may be both a pure input and <em>qout</em>; <em>qout</em> is
+ only written once the necessary values have been read.</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#Add">Add (qout, q1, q2)</a></td>
+	<td class="summary">Adds quaternions <em>q1</em> and <em>q2</em>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Add_Scaled">Add_Scaled (qout, q1, q2, k)</a></td>
+	<td class="summary">Adds quaternions <em>q1</em> and a scaled <em>q2</em>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#AngleBetween">AngleBetween (q1, q2)</a></td>
+	<td class="summary">Gives the angle between two quaternions.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Conjugate">Conjugate (qout, q)</a></td>
+	<td class="summary">Computes the conjugate of <em>q</em>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Difference">Difference (qout, q1, q2)</a></td>
+	<td class="summary">Computes the quaternion <em>diff</em> such that <em>q1</em> * <em>diff</em> = <em>q2</em>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Dot">Dot (q1, q2)</a></td>
+	<td class="summary">Dot product of <em>q1</em> and <em>q2</em>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Exp">Exp (qout, q)</a></td>
+	<td class="summary">Computes the exponential of <em>q</em>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FromAxisAngle">FromAxisAngle (qout, angle, vx, vy, vz)</a></td>
+	<td class="summary">Builds a quaternion representing a rotation around an axis.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FromEulerAngles">FromEulerAngles (qout, x, y, z[, method="xyz"])</a></td>
+	<td class="summary">Builds a quaternion representation of a sequence of rotations around the unit axes.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Inverse">Inverse (qout, q)</a></td>
+	<td class="summary">Computes the inverse of a (non-zero) quaternion, i.e.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Length">Length (q)</a></td>
+	<td class="summary">Length of quaternion <em>q</em>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Log">Log (qout, q)</a></td>
+	<td class="summary">Computes the logarithm of <em>q</em>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Multiply">Multiply (qout, q1, q2)</a></td>
+	<td class="summary">Multiplies quaternions <em>q1</em> and <em>q2</em>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Negate">Negate (qout, q)</a></td>
+	<td class="summary">Negates quaternion <em>q</em>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Normalize">Normalize (qout, q)</a></td>
+	<td class="summary">Normalizes a (non-zero) quaternion.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Scale">Scale (qout, q, k)</a></td>
+	<td class="summary">Scales quaternion <em>q</em>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Slerp">Slerp (qout, q1, q2, t)</a></td>
+	<td class="summary">Performs spherical linear interpolation from <em>q1</em> to <em>q2</em>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SquadQ4">SquadQ4 (qout, q1, q2, q3, q4, t)</a></td>
+	<td class="summary">Performs spherical quadrangle interpolation between four quaternions.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Sub">Sub (qout, q1, q2)</a></td>
+	<td class="summary">Subtracts quaternion <em>q2</em> from <em>q1</em>.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "Add"></a>
+    <strong>Add (qout, q1, q2)</strong>
+    </dt>
+    <dd>
+    Adds quaternions <em>q1</em> and <em>q2</em>.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">qout</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         <em>q1</em> + <em>q2</em>.
+        </li>
+        <li><span class="parameter">q1</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         Addend #1...
+        </li>
+        <li><span class="parameter">q2</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         ...and #2.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Quaternion</span></span>
+        <em>qout</em>.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Add_Scaled"></a>
+    <strong>Add_Scaled (qout, q1, q2, k)</strong>
+    </dt>
+    <dd>
+    Adds quaternions <em>q1</em> and a scaled <em>q2</em>.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">qout</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         <em>q1</em> + <em>q2</em> * <em>k</em>.
+        </li>
+        <li><span class="parameter">q1</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         Addend #1...
+        </li>
+        <li><span class="parameter">q2</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         ...and #2.
+        </li>
+        <li><span class="parameter">k</span>
+            <span class="types"><span class="type">number</span></span>
+         Scale factor.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Quaternion</span></span>
+        <em>qout</em>.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "AngleBetween"></a>
+    <strong>AngleBetween (q1, q2)</strong>
+    </dt>
+    <dd>
+    Gives the angle between two quaternions.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">q1</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         Quaternion #1...
+        </li>
+        <li><span class="parameter">q2</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         ...and #2.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        Shorter angle between <em>q1</em> and <em>q2</em>.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Conjugate"></a>
+    <strong>Conjugate (qout, q)</strong>
+    </dt>
+    <dd>
+    Computes the conjugate of <em>q</em>.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">qout</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         Conjugate.
+        </li>
+        <li><span class="parameter">q</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Quaternion</span></span>
+        <em>qout</em>.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Difference"></a>
+    <strong>Difference (qout, q1, q2)</strong>
+    </dt>
+    <dd>
+    Computes the quaternion <em>diff</em> such that <em>q1</em> * <em>diff</em> = <em>q2</em>.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">qout</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         Difference.
+        </li>
+        <li><span class="parameter">q1</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         Initial quaternion.
+        </li>
+        <li><span class="parameter">q2</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         Final quaternion.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Quaternion</span></span>
+        <em>qout</em>.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Dot"></a>
+    <strong>Dot (q1, q2)</strong>
+    </dt>
+    <dd>
+    Dot product of <em>q1</em> and <em>q2</em>.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">q1</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         Quaternion #1...
+        </li>
+        <li><span class="parameter">q2</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         ...and #2.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        Dot product.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Exp"></a>
+    <strong>Exp (qout, q)</strong>
+    </dt>
+    <dd>
+    Computes the exponential of <em>q</em>. </p>
+
+<p> Given <em>q</em> = [<strong>w</strong>, <em>theta</em> * <em>v</em>] (with <em>v</em> a unit vector), the exponential is defined as
+ [cos(<em>theta</em>), sin(<em>theta</em>) * <em>v</em>] * <em>e</em><sup><strong>w</strong></sup>.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">qout</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         <code>exp(q)</code>.
+        </li>
+        <li><span class="parameter">q</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Quaternion</span></span>
+        <em>qout</em>.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FromAxisAngle"></a>
+    <strong>FromAxisAngle (qout, angle, vx, vy, vz)</strong>
+    </dt>
+    <dd>
+    Builds a quaternion representing a rotation around an axis. </p>
+
+<p> The axis does not need to be normalized.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">qout</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         Rotation.
+        </li>
+        <li><span class="parameter">angle</span>
+            <span class="types"><span class="type">number</span></span>
+         Rotation angle, in radians.
+        </li>
+        <li><span class="parameter">vx</span>
+            <span class="types"><span class="type">number</span></span>
+         Axis x-component...
+        </li>
+        <li><span class="parameter">vy</span>
+            <span class="types"><span class="type">number</span></span>
+         ...y-component...
+        </li>
+        <li><span class="parameter">vz</span>
+            <span class="types"><span class="type">number</span></span>
+         ...and z-component.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Quaternion</span></span>
+        <em>qout</em>.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FromEulerAngles"></a>
+    <strong>FromEulerAngles (qout, x, y, z[, method="xyz"])</strong>
+    </dt>
+    <dd>
+    Builds a quaternion representation of a sequence of rotations around the unit axes.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">qout</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         Rotation.
+        </li>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">number</span></span>
+         Angle around the x-axis...
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">number</span></span>
+         ...around the y-axis...
+        </li>
+        <li><span class="parameter">z</span>
+            <span class="types"><span class="type">number</span></span>
+         ...and around the z-axis.
+        </li>
+        <li><span class="parameter">method</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         One of <strong>"xyz"</strong>, <strong>"xzw"</strong>, <strong>"yxz"</strong>, <strong>"yzx"</strong>, <strong>"zxy"</strong>,
+ or <strong>"zyx"</strong>. Where <em>X</em>, <em>Y</em>, and <em>Z</em> are the rotations around those axes, <strong>"xyz"</strong>
+ corresponds to <em>X</em> * <em>Y</em> * <em>Z</em>. The other methods follow likewise.
+         (<em>default</em> "xyz")
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Quaternion</span></span>
+        <em>qout</em>.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Inverse"></a>
+    <strong>Inverse (qout, q)</strong>
+    </dt>
+    <dd>
+    Computes the inverse of a (non-zero) quaternion, i.e.  the quaternion <em>q</em><sup>-1</sup>
+ such that <em>q</em><sup>-1</sup> * <em>q</em> or <em>q</em> * <em>q</em><sup>-1</sup> gives identity quaternion <em>I</em>
+ (<strong>x</strong> = <strong>y</strong> = <strong>z</strong> = 0, <strong>w</strong> = 1).</p>
+
+<p> Given quaternion <em>Q</em>, <em>I</em> * <em>Q</em> or <em>Q</em> * <em>I</em> yield back <em>Q</em>.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">qout</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         Inverse.
+        </li>
+        <li><span class="parameter">q</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Quaternion</span></span>
+        <em>qout</em>.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Length"></a>
+    <strong>Length (q)</strong>
+    </dt>
+    <dd>
+    Length of quaternion <em>q</em>.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">q</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        Length.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Log"></a>
+    <strong>Log (qout, q)</strong>
+    </dt>
+    <dd>
+    Computes the logarithm of <em>q</em>. </p>
+
+<p> Given <em>q</em> = [cos(<em>theta</em>), sin(<em>theta</em>) * <em>v</em>] * length(<em>q</em>), the logarithm is defined as
+ [ln(length(<em>q</em>)), <em>theta</em> * <em>v</em> / length(<em>v</em>)].
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">qout</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         <code>log(q)</code>.
+        </li>
+        <li><span class="parameter">q</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Quaternion</span></span>
+        <em>qout</em>.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Multiply"></a>
+    <strong>Multiply (qout, q1, q2)</strong>
+    </dt>
+    <dd>
+    Multiplies quaternions <em>q1</em> and <em>q2</em>.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">qout</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         <em>q1</em> * <em>q2</em>.
+        </li>
+        <li><span class="parameter">q1</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         Multiplier.
+        </li>
+        <li><span class="parameter">q2</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         Multiplicand.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Quaternion</span></span>
+        <em>qout</em>.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Negate"></a>
+    <strong>Negate (qout, q)</strong>
+    </dt>
+    <dd>
+    Negates quaternion <em>q</em>.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">qout</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         <em>-q</em>.
+        </li>
+        <li><span class="parameter">q</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Quaternion</span></span>
+        <em>qout</em>.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Normalize"></a>
+    <strong>Normalize (qout, q)</strong>
+    </dt>
+    <dd>
+    Normalizes a (non-zero) quaternion.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">qout</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         <em>q</em> scaled to length 1.
+        </li>
+        <li><span class="parameter">q</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         Non-zero quaternion.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Quaternion</span></span>
+        <em>qout</em>.
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="api.html#Length">Length</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "Scale"></a>
+    <strong>Scale (qout, q, k)</strong>
+    </dt>
+    <dd>
+    Scales quaternion <em>q</em>.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">qout</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         <em>q</em> * <em>k</em>.
+        </li>
+        <li><span class="parameter">q</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">k</span>
+            <span class="types"><span class="type">number</span></span>
+         Scale factor.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Quaternion</span></span>
+        <em>qout</em>.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Slerp"></a>
+    <strong>Slerp (qout, q1, q2, t)</strong>
+    </dt>
+    <dd>
+    Performs spherical linear interpolation from <em>q1</em> to <em>q2</em>.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">qout</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         Interpolated result.
+        </li>
+        <li><span class="parameter">q1</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         Initial quaternion.
+        </li>
+        <li><span class="parameter">q2</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         Final quaternion.
+        </li>
+        <li><span class="parameter">t</span>
+            <span class="types"><span class="type">number</span></span>
+         Interpolation time.</p>
+
+<p> At time <em>t</em> = 0 or <em>t</em> = 1, <em>qout</em> will match <em>q1</em> or <em>q2</em> respectively. Times within
+ this range, on the other hand, yield quaternions between <em>q1</em> and <em>q2</em>.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Quaternion</span></span>
+        <em>qout</em>.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SquadQ4"></a>
+    <strong>SquadQ4 (qout, q1, q2, q3, q4, t)</strong>
+    </dt>
+    <dd>
+    Performs spherical quadrangle interpolation between four quaternions. </p>
+
+<p> Quaternions <em>q1</em>, <em>q2</em>, <em>q3</em>, and <em>q4</em> are understood to be in order.</p>
+
+<p> Useful results will typically be sought between <em>q2</em> and <em>q3</em>, with <em>q1</em> and <em>q4</em>
+ being used to guide the shape of the path.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">qout</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         Interpolated result.
+        </li>
+        <li><span class="parameter">q1</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         Quaternion #1...
+        </li>
+        <li><span class="parameter">q2</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         ...quaternion #2...
+        </li>
+        <li><span class="parameter">q3</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         ...quaternion #3...
+        </li>
+        <li><span class="parameter">q4</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         ...and #4.
+        </li>
+        <li><span class="parameter">t</span>
+            <span class="types"><span class="type">number</span></span>
+         Interpolation time.</p>
+
+<p> At time <em>t</em> = 0 or <em>t</em> = 1, <em>qout</em> will match <em>q2</em> or <em>q3</em> respectively. Times within
+ this range, on the other hand, yield quaternions between <em>q2</em> and <em>q3</em>.</p>
+
+<p> Furthermore, <em>t</em> = 0 aligns with <em>t</em> = 1 in the interval (<em>q0</em>, <em>q1</em>, <em>q2</em>, <em>q3</em>).
+ Likewise, <em>t</em> = 1 corresponds to <em>t</em> = 0 in the interval (<em>q2</em>, <em>q3</em>, <em>q4</em>, <em>q5</em>).
+ Owing to this and the interpolation's C&sup2; continuity, it is possible to gracefully
+ transition from one interval to another.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Quaternion</span></span>
+        <em>qout</em>.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Sub"></a>
+    <strong>Sub (qout, q1, q2)</strong>
+    </dt>
+    <dd>
+    Subtracts quaternion <em>q2</em> from <em>q1</em>.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">qout</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         <em>q1</em> - <em>q2</em>.
+        </li>
+        <li><span class="parameter">q1</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         Minuend.
+        </li>
+        <li><span class="parameter">q2</span>
+            <span class="types"><span class="type">Quaternion</span></span>
+         Subtrahend.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Quaternion</span></span>
+        <em>qout</em>.
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
