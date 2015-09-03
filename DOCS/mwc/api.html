@@ -46,6 +46,13 @@
 <p>This module implements a multiply-with-carry RNG.</p>
 <p> Based on code and algorithm by George Marsaglia:
  <a href="http://www.math.uni-bielefeld.de/~sillke/ALGORITHMS/random/marsaglia-c">MWC</a></p>
+
+<p>To use the plugin, add the following in <code>build.settings</code>:</p>
+
+<pre><code class="language-lua">plugins = {  
+    ["plugin.mwc"] = { publisherId = "com.xibalbastudios" }
+}
+</code></pre>
  
 <p>Sample code is available <a href="https://github.com/ggcrunchy/corona-plugin-docs/blob/master/mwc_sample.lua">here</a>.</p>
 
