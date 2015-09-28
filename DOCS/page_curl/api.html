@@ -66,10 +66,6 @@
 	<td class="summary">Captures a target and sets it as the current page.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#PageCurlWidget:Clear">PageCurlWidget:Clear ()</a></td>
-	<td class="summary">Sets a white rectangle as the current page.</td>
-	</tr>
-	<tr>
 	<td class="name" nowrap><a href="#PageCurlWidget:Commit">PageCurlWidget:Commit ()</a></td>
 	<td class="summary">If a batch is in progress, commits it.</td>
 	</tr>
@@ -94,12 +90,16 @@
 	<td class="summary">Gets the widget's currently touchable region.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#PageCurlWidget:PrepareSnapshot">PageCurlWidget:PrepareSnapshot ()</a></td>
+	<td class="name" nowrap><a href="#PageCurlWidget:PrepareSnapshot">PageCurlWidget:PrepareSnapshot ([width[, height]])</a></td>
 	<td class="summary">Prepares a snapshot and sets it as the current page.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#PageCurlWidget:SetBackTextureMethod">PageCurlWidget:SetBackTextureMethod (how)</a></td>
 	<td class="summary">Sets the back texture behavior.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#PageCurlWidget:SetBlankRect">PageCurlWidget:SetBlankRect ([opts])</a></td>
+	<td class="summary">Sets a blank rectangle as the current page.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#PageCurlWidget:SetColor">PageCurlWidget:SetColor (...)</a></td>
@@ -118,12 +118,8 @@
 	<td class="summary">Sets two images as the current page, one for the front side and another for the back.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#PageCurlWidget:SetImage">PageCurlWidget:SetImage (name[, dir=`system.ResourceDirectory`])</a></td>
+	<td class="name" nowrap><a href="#PageCurlWidget:SetImage">PageCurlWidget:SetImage (name[, opts])</a></td>
 	<td class="summary">Sets an image as the current page.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#PageCurlWidget:SetImageRegion">PageCurlWidget:SetImageRegion (x, y, w, h)</a></td>
-	<td class="summary">Updates the curl object's local region.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#PageCurlWidget:SetTintMethod">PageCurlWidget:SetTintMethod (how)</a></td>
@@ -178,9 +174,7 @@
     <dd>
     Captures a target and sets it as the current page. </p>
 
-<p> This will commit any batch in progress, cf. <a href="api.html#PageCurlWidget:Begin">PageCurlWidget:Begin</a>.</p>
-
-<p> The width and height in the image region are ignored, cf. <a href="api.html#PageCurlWidget:SetImageRegion">PageCurlWidget:SetImageRegion</a>.
+<p> This will commit any batch in progress, cf. <a href="api.html#PageCurlWidget:Begin">PageCurlWidget:Begin</a>.
 
     <h3>Parameters:</h3>
     <ul>
@@ -195,21 +189,6 @@
  be a table compatible with <a href="https://docs.coronalabs.com/api/type/DisplayObject/contentBounds.html">object.contentBounds</a>.
         </li>
     </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "PageCurlWidget:Clear"></a>
-    <strong>PageCurlWidget:Clear ()</strong>
-    </dt>
-    <dd>
-    Sets a white rectangle as the current page. </p>
-
-<p> This will commit any batch in progress, cf. <a href="api.html#PageCurlWidget:Begin">PageCurlWidget:Begin</a>.
-
 
 
 
@@ -257,8 +236,8 @@
 
     <h3>See also:</h3>
     <ul>
-         <li><a href="api.html#PageCurlWidget:Clear">PageCurlWidget:Clear</a></li>
          <li><a href="api.html#PageCurlWidget:PrepareSnapshot">PageCurlWidget:PrepareSnapshot</a></li>
+         <li><a href="api.html#PageCurlWidget:SetBlankRect">PageCurlWidget:SetBlankRect</a></li>
     </ul>
 
 
@@ -381,7 +360,7 @@
 </dd>
     <dt>
     <a name = "PageCurlWidget:PrepareSnapshot"></a>
-    <strong>PageCurlWidget:PrepareSnapshot ()</strong>
+    <strong>PageCurlWidget:PrepareSnapshot ([width[, height]])</strong>
     </dt>
     <dd>
     Prepares a snapshot and sets it as the current page.  (When the widget is already using a
@@ -389,6 +368,17 @@
 
 <p> This will commit any batch in progress, cf. <a href="api.html#PageCurlWidget:Begin">PageCurlWidget:Begin</a>.
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">width</span>
+            <span class="types"><span class="type">uint</span></span>
+         Snapshot width... (If absent, the current object width is reused.)
+        </li>
+        <li><span class="parameter">height</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and height. (Ditto.)
+        </li>
+    </ul>
 
     <h3>Returns:</h3>
     <ol>
@@ -437,6 +427,35 @@
 
 </dd>
     <dt>
+    <a name = "PageCurlWidget:SetBlankRect"></a>
+    <strong>PageCurlWidget:SetBlankRect ([opts])</strong>
+    </dt>
+    <dd>
+    Sets a blank rectangle as the current page. </p>
+
+<p> This will commit any batch in progress, cf. <a href="api.html#PageCurlWidget:Begin">PageCurlWidget:Begin</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+<p> Configuration options, with fields:</p>
+
+<ul>
+    <li><strong>width</strong>: Width to assign to page... (If absent, the current width is retained.)</li>
+    <li><strong>height</strong>: ...and the height. (Ditto.)</li>
+</ul>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
     <a name = "PageCurlWidget:SetColor"></a>
     <strong>PageCurlWidget:SetColor (...)</strong>
     </dt>
@@ -449,7 +468,9 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">...</span>
-         Color parameters, cf. <a href="https://docs.coronalabs.com/api/type/ShapeObject/setFillColor.html">object:setFillColor</a>.
+         Color parameters, cf. <a href="https://docs.coronalabs.com/api/type/ShapeObject/setFillColor.html">object:setFillColor</a>.</p>
+
+<p> Gradients are not currently supported.
         </li>
     </ul>
 
@@ -550,8 +571,10 @@
 <p> Configuration options, with fields:</p>
 
 <ul>
-    <li><strong>dir1</strong>: Directory to which <em>front</em> belongs (default is <code>system.ResourceDirectory</code>)...</li>
-    <li><strong>dir2</strong>: ...and <em>back</em> (again, defaulting to <code>system.ResourceDirectory</code>).</li>
+    <li><strong>dir1</strong>: Base directory of <em>front</em>... (The default is <code>system.ResourceDirectory</code>.)</li>
+    <li><strong>dir2</strong>: ...and <em>back</em>. (Ditto.)</li>
+    <li><strong>width</strong>: Width to assign to page... (When absent, the current width is retained.)</li>
+    <li><strong>height</strong>: ...and the height. (Ditto.)</li>
 </ul>
 
         </li>
@@ -564,7 +587,7 @@
 </dd>
     <dt>
     <a name = "PageCurlWidget:SetImage"></a>
-    <strong>PageCurlWidget:SetImage (name[, dir=`system.ResourceDirectory`])</strong>
+    <strong>PageCurlWidget:SetImage (name[, opts])</strong>
     </dt>
     <dd>
     Sets an image as the current page. </p>
@@ -580,42 +603,17 @@
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          Filename of the image.
         </li>
-        <li><span class="parameter">dir</span>
-         Directory to which <em>name</em> belongs.
-         (<em>default</em> `system.ResourceDirectory`)
-        </li>
-    </ul>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
 
+<p> Configuration options, with fields:</p>
 
+<ul>
+    <li><strong>dir</strong>: Base directory of <em>name</em>. (When absent, this is <code>system.ResourceDirectory</code>.)</li>
+    <li><strong>width</strong>: Width to assign to page... (If absent, the current width is retained.)</li>
+    <li><strong>height</strong>: ...and the height. (Ditto.)</li>
+</ul>
 
-
-
-</dd>
-    <dt>
-    <a name = "PageCurlWidget:SetImageRegion"></a>
-    <strong>PageCurlWidget:SetImageRegion (x, y, w, h)</strong>
-    </dt>
-    <dd>
-    Updates the curl object's local region.  Unless stated otherwise, this describes the
- (local) rectangular bounds of the uncurled curl object.
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">x</span>
-            <span class="types"><span class="type">number</span></span>
-         Center of the region, x-coordinate...
-        </li>
-        <li><span class="parameter">y</span>
-            <span class="types"><span class="type">number</span></span>
-         ...and y-coordinate.
-        </li>
-        <li><span class="parameter">w</span>
-            <span class="types"><span class="type">number</span></span>
-         Width of this region...
-        </li>
-        <li><span class="parameter">h</span>
-            <span class="types"><span class="type">number</span></span>
-         ...and height.
         </li>
     </ul>
 
@@ -682,15 +680,11 @@
  clockwise. The <strong>angle_radians</strong> property, which instead uses radians as its unit, is
  provided as a convenience.</p>
 
-<p> The widget is designed to be used both programmatically and via touch.</p>
+<p> The widget is designed to be used both programmatically and through touch.</p>
 
 <p> When touch is active, the widget will dispatch the <strong>"page_dragged"</strong> event during any
  movement that updates the page. The curl widget can be accessed from a listener as
- <code>event.target</code>.</p>
-
-<p> The <strong>PageCurlWidget</strong> type derives from <a href="https://docs.coronalabs.com/api/type/GroupObject/index.html">GroupObject</a>.
- Well-behaved code will leave its children alone, but may treat it otherwise as a normal
- display group.
+ <code>event.target</code>.
 
     <h3>Parameters:</h3>
     <ul>
@@ -700,10 +694,11 @@
 <p> Constructor options. Fields:</p>
 
 <ul>
-    <li><strong>x</strong>: When present, this is assigned as per the <em>x</em> argument, cf. <a href="api.html#PageCurlWidget:SetImageRegion">PageCurlWidget:SetImageRegion</a>...</li>
-    <li><strong>y</strong>: ...as per the <em>y</em> argument...</li>
-    <li><strong>w</strong>: ...as with <em>w</em>...</li>
-    <li><strong>h</strong>: ...and as with <em>h</em>.</li>
+    <li><strong>left</strong>: When present, this is the coordinate of the x-coordinate of the widget's
+    left-hand side... (The default is 0.)</li>
+    <li><strong>top</strong>: ...and this is the y-coordinate of its top. (The default is 0.)</li>
+    <li><strong>width</strong>: The width of the initial (blank) rect... (When absent, a default is used.)</li>
+    <li><strong>h</strong>: ...and the height. (Ditto.)</li>
     <li><strong>size</strong>: A positive integer used to size the grabbable area, for touch purposes.
     This describes how thick the grab region is along the curl direction. In addition, it
     says how much total cushion to provide along the relevant edge of the page, in order to
