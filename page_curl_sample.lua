@@ -35,7 +35,7 @@ local pi = math.pi
 local sin = math.sin
 
 -- Modules --
-local page_curl = require("plugin.page_curl")
+local page_curl = require("plugin.pagecurl")
 
 -- Corona globals --
 local display = display
