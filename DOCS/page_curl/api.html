@@ -1,0 +1,798 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Page Curl Widget Docs</title>
+    <link rel="stylesheet" href="ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Page Curl Widget</h1>
+
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><strong>page_curl</strong></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>page_curl</code></h1>
+<p>This plugin provides a page curl widget, the basic idea being to give the look and feel
+ of turning a physical page as in a book or magazine.</p>
+<p> To use the plugin, add the following in <code>build.settings</code>:</p>
+
+<p> <pre><code class="language-lua">
+ plugins = { <br/>
+   ["plugin.pagecurl"] = { publisherId = "com.xibalbastudios" }
+ }
+ </code></pre></p>
+
+<p> Sample code is available <a href="https://github.com/ggcrunchy/corona-plugin-docs/blob/master/page_curl_sample.lua">here</a>.</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#PageCurlWidget:Begin">PageCurlWidget:Begin ()</a></td>
+	<td class="summary">Puts the widget in batching mode.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#PageCurlWidget:Capture">PageCurlWidget:Capture (target)</a></td>
+	<td class="summary">Captures a target and sets it as the current page.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#PageCurlWidget:Commit">PageCurlWidget:Commit ()</a></td>
+	<td class="summary">If a batch is in progress, commits it.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#PageCurlWidget:Detach">PageCurlWidget:Detach ([into])</a></td>
+	<td class="summary">The display object underlying the page is removed from the widget's control.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#PageCurlWidget:DisableTouch">PageCurlWidget:DisableTouch (no_reset)</a></td>
+	<td class="summary">Disables all touch controls.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#PageCurlWidget:EnableExpansion">PageCurlWidget:EnableExpansion (enable)</a></td>
+	<td class="summary">Enables or disables expansion.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#PageCurlWidget:EnableInnerShadows">PageCurlWidget:EnableInnerShadows (enable)</a></td>
+	<td class="summary">Enables or disables inner shadows.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#PageCurlWidget:GetGrabRegions">PageCurlWidget:GetGrabRegions ()</a></td>
+	<td class="summary">Gets the currently touchable regions.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#PageCurlWidget:GetSize">PageCurlWidget:GetSize ()</a></td>
+	<td class="summary">Gets the (unexpanded) page size.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#PageCurlWidget:PrepareSnapshot">PageCurlWidget:PrepareSnapshot ([width[, height]])</a></td>
+	<td class="summary">Prepares a snapshot and sets it as the current page.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#PageCurlWidget:SetBackTextureMethod">PageCurlWidget:SetBackTextureMethod (how)</a></td>
+	<td class="summary">Sets the back texture behavior.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#PageCurlWidget:SetBlankRect">PageCurlWidget:SetBlankRect ([opts])</a></td>
+	<td class="summary">Sets a blank rectangle as the current page.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#PageCurlWidget:SetColor">PageCurlWidget:SetColor (...)</a></td>
+	<td class="summary">Sets the widget's color.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#PageCurlWidget:SetColorMethod">PageCurlWidget:SetColorMethod (how)</a></td>
+	<td class="summary">Sets the color behavior.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#PageCurlWidget:SetDirection">PageCurlWidget:SetDirection (dir)</a></td>
+	<td class="summary">Sets the curl direction used by touch.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#PageCurlWidget:SetEdgeEffect">PageCurlWidget:SetEdgeEffect (how)</a></td>
+	<td class="summary">Sets the edge effect.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#PageCurlWidget:SetFrontAndBackImages">PageCurlWidget:SetFrontAndBackImages (front, back[, opts])</a></td>
+	<td class="summary">Sets two images as the current page, one for the front side and another for the back.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#PageCurlWidget:SetImage">PageCurlWidget:SetImage (name[, opts])</a></td>
+	<td class="summary">Sets an image as the current page.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#PageCurlWidget:SetTouchSides">PageCurlWidget:SetTouchSides (how)</a></td>
+	<td class="summary">Enables touch on multiple sides, disabling the rest.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#NewPageCurlWidget">NewPageCurlWidget ([opts])</a></td>
+	<td class="summary">Constructs a new page curl widget.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "PageCurlWidget:Begin"></a>
+    <strong>PageCurlWidget:Begin ()</strong>
+    </dt>
+    <dd>
+    Puts the widget in batching mode. </p>
+
+<p> The motivation is to mitigate the potentially expensive overhead that comes with updating
+ the widget's graphics machinery, e.g. creating new shaders, when several setter methods
+ are to be called in succession. Instead, the intermediate values are merely recorded, but
+ not acted upon until the batch is committed, cf. <a href="api.html#PageCurlWidget:Commit">PageCurlWidget:Commit</a>.</p>
+
+<p> When batching is already in progress, this is a no-op.</p>
+
+<p> <strong>N.B. #1</strong> This is irrelevant to touch-related methods.</p>
+
+<p> <strong>N.B. #2</strong> Until the batch has been committed, the widget will be in an irregular state.
+ In the interim, polling the widget's curl properties and getter methods will not in
+ general yield correct results. Touch controls will likewise be out of sync.
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "PageCurlWidget:Capture"></a>
+    <strong>PageCurlWidget:Capture (target)</strong>
+    </dt>
+    <dd>
+    Captures a target and sets it as the current page. </p>
+
+<p> This will commit any batch in progress, cf. <a href="api.html#PageCurlWidget:Begin">PageCurlWidget:Begin</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">target</span>
+            <span class="types"><span class="type">DisplayObject</span>, <span class="type">ContentBounds</span> or <span class="type">nil</span></span>
+         If <em>target</em> is a display object,
+ this method has <a href="https://docs.coronalabs.com/api/library/display/capture.html">display.capture</a> semantics.</p>
+
+<p> If <em>target</em> is <strong>nil</strong> instead, <a href="https://docs.coronalabs.com/api/library/display/captureScreen.html">display.captureScreen</a> semantics are chosen.</p>
+
+<p> Otherwise, <a href="https://docs.coronalabs.com/api/library/display/captureBounds.html">display.captureBounds</a> semantics are used and <em>target</em> is assumed to
+ be a table compatible with <a href="https://docs.coronalabs.com/api/type/DisplayObject/contentBounds.html">object.contentBounds</a>.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "PageCurlWidget:Commit"></a>
+    <strong>PageCurlWidget:Commit ()</strong>
+    </dt>
+    <dd>
+    If a batch is in progress, commits it.  Otherwise, this is a no-op.
+
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="api.html#PageCurlWidget:Begin">PageCurlWidget:Begin</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "PageCurlWidget:Detach"></a>
+    <strong>PageCurlWidget:Detach ([into])</strong>
+    </dt>
+    <dd>
+    The display object underlying the page is removed from the widget's control.  Aside from
+ changing parents, it keeps its most recent state; however, the widget is no longer able to
+ affect it, and <em>vice versa</em>.</p>
+
+<p> The widget itself is cleared to a blank rect; this will commit any batch in progress, cf.
+ <a href="api.html#PageCurlWidget:Begin">PageCurlWidget:Begin</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">into</span>
+            <span class="types"><span class="type">DisplayGroup</span></span>
+         Group that will receive the object. If absent, the stage is used.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">pobject</span></span>
+        Detached object.
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="api.html#PageCurlWidget:SetBlankRect">PageCurlWidget:SetBlankRect</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "PageCurlWidget:DisableTouch"></a>
+    <strong>PageCurlWidget:DisableTouch (no_reset)</strong>
+    </dt>
+    <dd>
+    Disables all touch controls.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">no_reset</span>
+            <span class="types"><span class="type">bool</span></span>
+         Leave the page as is?
+        </li>
+    </ul>
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="api.html#PageCurlWidget:SetDirection">PageCurlWidget:SetDirection</a></li>
+         <li><a href="api.html#PageCurlWidget:SetTouchSides">PageCurlWidget:SetTouchSides</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "PageCurlWidget:EnableExpansion"></a>
+    <strong>PageCurlWidget:EnableExpansion (enable)</strong>
+    </dt>
+    <dd>
+    Enables or disables expansion. </p>
+
+<p> As a page curls, it tends to spill out of the boundaries of the underlying display object.
+ To accommodate this, the object can effectively be expanded, and its textures will be read
+ with this in mind.</p>
+
+<p> When expansion is disabled, out-of-bounds pixels are clipped. This might suffice, for
+ instance, if the area around the widget is already obscured, say when it fills the screen.</p>
+
+<p> Expansion is enabled by default.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">enable</span>
+            <span class="types"><span class="type">bool</span></span>
+         Enable expansion?
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "PageCurlWidget:EnableInnerShadows"></a>
+    <strong>PageCurlWidget:EnableInnerShadows (enable)</strong>
+    </dt>
+    <dd>
+    Enables or disables inner shadows. </p>
+
+<p> Once a page has begun curling, a subtle shadow can be applied inside the curl to convey
+ the reduced incidence of light.</p>
+
+<p> Inner shadows are enabled by default.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">enable</span>
+            <span class="types"><span class="type">bool</span></span>
+         Enable inner shadows?
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "PageCurlWidget:GetGrabRegions"></a>
+    <strong>PageCurlWidget:GetGrabRegions ()</strong>
+    </dt>
+    <dd>
+    Gets the currently touchable regions. </p>
+
+<p> The widget does not draw any of its touch components, but this method lets users know
+ where those are, for instance in order to overlay custom display objects.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         Any (or none) of the <strong>bottom</strong>, <strong>left</strong>, <strong>right</strong>, or <strong>top</strong> keys may
+ be present, corresponding to the sides enabled for touch. Their values are tables with
+ <strong>x</strong>, <strong>y</strong>, <strong>width</strong>, and <strong>height</strong> members, matching the current center and size of
+ the given side's grab region.
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="api.html#PageCurlWidget:SetDirection">PageCurlWidget:SetDirection</a></li>
+         <li><a href="api.html#PageCurlWidget:SetTouchSides">PageCurlWidget:SetTouchSides</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "PageCurlWidget:GetSize"></a>
+    <strong>PageCurlWidget:GetSize ()</strong>
+    </dt>
+    <dd>
+    Gets the (unexpanded) page size.
+
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        Page width...</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        ...and height.</li>
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="api.html#PageCurlWidget:EnableExpansion">PageCurlWidget:EnableExpansion</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "PageCurlWidget:PrepareSnapshot"></a>
+    <strong>PageCurlWidget:PrepareSnapshot ([width[, height]])</strong>
+    </dt>
+    <dd>
+    Prepares a snapshot and sets it as the current page.  (When the widget is already using a
+ snapshot, it simply updates that one.)</p>
+
+<p> This will commit any batch in progress, cf. <a href="api.html#PageCurlWidget:Begin">PageCurlWidget:Begin</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">width</span>
+            <span class="types"><span class="type">uint</span></span>
+         Snapshot width... (If absent, the page's current value is reused.)
+        </li>
+        <li><span class="parameter">height</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and height. (Ditto.)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SnapshotObject</span></span>
+         The snapshot. Well-behaved code will change neither its position
+ nor its dimensions and scale, nor manually remove it (see instead <a href="api.html#PageCurlWidget:Detach">PageCurlWidget:Detach</a>),
+ but otherwise this is meant to be used like any snapshot.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "PageCurlWidget:SetBackTextureMethod"></a>
+    <strong>PageCurlWidget:SetBackTextureMethod (how)</strong>
+    </dt>
+    <dd>
+    Sets the back texture behavior. </p>
+
+<p> If <em>how</em> is unrecognized, this is a no-op.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">how</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+<p> One of the following:</p>
+
+<ul>
+    <li><strong>"same"</strong>: The front texture is reused on the back of the page. This is the default.</li>
+    <li><strong>"none"</strong>: The back of the page is blank, i.e. it has no texture.</li>
+</ul>
+
+        </li>
+    </ul>
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="api.html#PageCurlWidget:SetImage">PageCurlWidget:SetImage</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "PageCurlWidget:SetBlankRect"></a>
+    <strong>PageCurlWidget:SetBlankRect ([opts])</strong>
+    </dt>
+    <dd>
+    Sets a blank rectangle as the current page. </p>
+
+<p> This will commit any batch in progress, cf. <a href="api.html#PageCurlWidget:Begin">PageCurlWidget:Begin</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+<p> Configuration options. Fields:</p>
+
+<ul>
+    <li><strong>width</strong>: Width to assign to page... (If absent, the current value is retained.)</li>
+    <li><strong>height</strong>: ...and the height. (Ditto.)</li>
+</ul>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "PageCurlWidget:SetColor"></a>
+    <strong>PageCurlWidget:SetColor (...)</strong>
+    </dt>
+    <dd>
+    Sets the widget's color.  This behaves like <a href="https://docs.coronalabs.com/api/type/ShapeObject/setFillColor.html">object:setFillColor</a>,
+ albeit constrained by the widget's color method.</p>
+
+<p> White, i.e. <code>1, 1, 1, 1</code>, is the default.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">...</span>
+         Color parameters, cf. <a href="https://docs.coronalabs.com/api/type/ShapeObject/setFillColor.html">object:setFillColor</a>.</p>
+
+<p> Gradients are not supported.
+        </li>
+    </ul>
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="api.html#PageCurlWidget:SetColorMethod">PageCurlWidget:SetColorMethod</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "PageCurlWidget:SetColorMethod"></a>
+    <strong>PageCurlWidget:SetColorMethod (how)</strong>
+    </dt>
+    <dd>
+    Sets the color behavior. </p>
+
+<p> If <em>how</em> is unrecognized, this is a no-op.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">how</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+<p> One of the following:</p>
+
+<ul>
+    <li><strong>"both"</strong>: Color is applied to the front and back sides of the page. This is the
+    default behavior.</li>
+    <li><strong>"front_only"</strong>: Color affects only the front side of the page.</li>
+    <li><strong>"back_only"</strong>: Color affects only the back side of the page.</li>
+</ul>
+
+        </li>
+    </ul>
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="api.html#PageCurlWidget:SetColor">PageCurlWidget:SetColor</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "PageCurlWidget:SetDirection"></a>
+    <strong>PageCurlWidget:SetDirection (dir)</strong>
+    </dt>
+    <dd>
+    Sets the curl direction used by touch.  Touch is enabled in the appropriate region and
+ disabled elsewhere.</p>
+
+<p> If <em>dir</em> is unrecognized, this is a no-op.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">dir</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         One of <strong>"bottom_to_top"</strong>, <strong>"left_to_right"</strong>, <strong>"right_to_left"</strong>,
+ or <strong>"top_to_bottom"</strong>.
+        </li>
+    </ul>
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="api.html#PageCurlWidget:DisableTouch">PageCurlWidget:DisableTouch</a></li>
+         <li><a href="api.html#PageCurlWidget:GetGrabRegions">PageCurlWidget:GetGrabRegions</a></li>
+         <li><a href="api.html#PageCurlWidget:SetTouchSides">PageCurlWidget:SetTouchSides</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "PageCurlWidget:SetEdgeEffect"></a>
+    <strong>PageCurlWidget:SetEdgeEffect (how)</strong>
+    </dt>
+    <dd>
+    Sets the edge effect. </p>
+
+<p> Once a page has been curled a bit, its back side comes into view. An effect may be applied
+ on or near the edges of this back leaf.</p>
+
+<p> If <em>how</em> is unrecognized, this is a no-op.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">how</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+<p> One of the following:</p>
+
+<ul>
+    <li><strong>"edge"</strong>: Thin dark lines demarcate the back side edges. This is the default.</li>
+    <li><strong>"none"</strong>: No effect: back side pixels are not set off from those in front.</li>
+    <li><strong>"shadow"</strong>: Soft shadows overlay the front side of the page near the back's edges.</li>
+</ul>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "PageCurlWidget:SetFrontAndBackImages"></a>
+    <strong>PageCurlWidget:SetFrontAndBackImages (front, back[, opts])</strong>
+    </dt>
+    <dd>
+    Sets two images as the current page, one for the front side and another for the back.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">front</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Filename of the front image...
+        </li>
+        <li><span class="parameter">back</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         ...and back image.</p>
+
+<p> This will commit any batch in progress, cf. <a href="api.html#PageCurlWidget:Begin">PageCurlWidget:Begin</a>.
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+<p> Configuration options. Fields:</p>
+
+<ul>
+    <li><strong>dir1</strong>: Base directory of <em>front</em>... (The default is <code>system.ResourceDirectory</code>.)</li>
+    <li><strong>dir2</strong>: ...and <em>back</em>. (Ditto.)</li>
+    <li><strong>width</strong>: Width to assign to page... (When absent, the current value is retained.)</li>
+    <li><strong>height</strong>: ...and the height. (Ditto.)</li>
+</ul>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "PageCurlWidget:SetImage"></a>
+    <strong>PageCurlWidget:SetImage (name[, opts])</strong>
+    </dt>
+    <dd>
+    Sets an image as the current page. </p>
+
+<p> The back side of the page is determined by the back texture method, cf. <a href="api.html#PageCurlWidget:SetBackTextureMethod">PageCurlWidget:SetBackTextureMethod</a>.</p>
+
+<p> This will commit any batch in progress, cf. <a href="api.html#PageCurlWidget:Begin">PageCurlWidget:Begin</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Filename of the image.
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+<p> Configuration options. Fields:</p>
+
+<ul>
+    <li><strong>dir</strong>: Base directory of <em>name</em>. (When absent, this is <code>system.ResourceDirectory</code>.)</li>
+    <li><strong>width</strong>: Width to assign to page... (If absent, the current value is retained.)</li>
+    <li><strong>height</strong>: ...and the height. (Ditto.)</li>
+</ul>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "PageCurlWidget:SetTouchSides"></a>
+    <strong>PageCurlWidget:SetTouchSides (how)</strong>
+    </dt>
+    <dd>
+    Enables touch on multiple sides, disabling the rest. </p>
+
+<p> In each case, the curl direction is toward the opposite side, e.g. for the right side, the
+ direction is right-to-left.</p>
+
+<p> If <em>how</em> is unrecognized, this is a no-op.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">how</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         This may be <strong>"bottom_and_top"</strong> or <strong>"left_and_right"</strong>.
+        </li>
+    </ul>
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="api.html#PageCurlWidget:DisableTouch">PageCurlWidget:DisableTouch</a></li>
+         <li><a href="api.html#PageCurlWidget:GetGrabRegions">PageCurlWidget:GetGrabRegions</a></li>
+         <li><a href="api.html#PageCurlWidget:SetDirection">PageCurlWidget:SetDirection</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "NewPageCurlWidget"></a>
+    <strong>NewPageCurlWidget ([opts])</strong>
+    </dt>
+    <dd>
+    Constructs a new page curl widget. </p>
+
+<p> The <strong>PageCurlWidget</strong> type derives from <a href="https://docs.coronalabs.com/api/type/GroupObject/index.html">GroupObject</a>.
+ Well-behaved code should leave its children alone, as well as its dimensions and scale,
+ but may otherwise treat it as a normal display group.</p>
+
+<p> In addition to the properties common to all display groups, <strong>PageCurlWidget</strong> introduces
+ <strong>edge_x</strong>, <strong>edge_y</strong>, <strong>angle</strong>, and <strong>angle_radians</strong>. These may be both read and
+ written, say as <code>local angle = my_curl_widget.angle</code> and <code>my_curl_widget.edge_x = .3</code>.</p>
+
+<p> The <strong>edge_x</strong> and <strong>edge_y</strong> properties mark a point along the edge where the page
+ begins to curl, the so-called "curling axis". (Any such point is fine.) The coordinate
+ system goes from left to right horizontally and top to bottom vertically, with a value of
+ 0 corresponding to the left-hand side or top, and 1 to the right-hand side or bottom.</p>
+
+<p> The <strong>angle</strong> property describes the direction of the outward-facing <a href="https://en.wikipedia.org/wiki/Normal_(geometry)">
+ normal</a> to this edge, i.e. along the direction of curl. Angles are denominated in
+ degrees, going clockwise. The <strong>angle_radians</strong> property is provided as an alternative,
+ accepting radians instead. This is merely a convenience, as both modify the same state.</p>
+
+<p> The widget is designed for both programmatic and touch-based usage.</p>
+
+<p> When touch is enabled, the widget dispatches the <strong>"page_dragged"</strong> event during any
+ touch movement that updates the page. The widget can be accessed from a listener as
+ <code>event.target</code>, and the side being touched (one of <strong>"bottom"</strong>, <strong>"left"</strong>, <strong>"top"</strong>,
+ or <strong>"right"</strong>) is available as <code>event.dir</code>.</p>
+
+<p> Likewise, <strong>"page_grabbed"</strong> and <strong>"page_released"</strong> events are fired when touch begins
+ and ends, respectively. The <strong>target</strong> and <strong>dir</strong> members may again be found in <em>event</em>.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+<p> Constructor options. Fields:</p>
+
+<ul>
+    <li><strong>left</strong>: When present, this is the x-coordinate of the widget's left-hand side... (The
+    default is 0.)</li>
+    <li><strong>top</strong>: ...and this is the y-coordinate of its top. (The default is 0.)</li>
+    <li><strong>width</strong>: The width of the initial (blank) rect... (When absent, a default is used.)</li>
+    <li><strong>h</strong>: ...and the height. (Ditto.)</li>
+    <li><strong>size</strong>: A positive integer used to size the grabbable regions, for touch purposes.
+    This specifies both the thickness of each grab region and the amount of cushion added
+    to include touches that are only slightly out-of-bounds. For instance, the bottom will
+    have width and height of <code>size + page width</code> and <code>size</code>, respectively, whereas the right-hand
+    side has <code>size</code>, <code>size + page height</code>. (When absent, a default is used.)</li>
+</ul>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">PageCurlWidget</span></span>
+        New page curl widget.
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
