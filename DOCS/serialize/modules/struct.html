@@ -30,6 +30,10 @@
   <li><a href="../api.html">Index</a></li>
 </ul>
 
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
 
 
 <h2>Modules</h2>
@@ -44,17 +48,239 @@
 <div id="content">
 
 <h1>Module <code>struct</code></h1>
-<p>Struct!</p>
+<p>Corona binding to <a href="http://www.inf.puc-rio.br/~roberto/struct/">struct</a>, a library offering basic
+ facilities to convert Lua values to and from C structs.</p>
 <p>
 
+
+<pre><code>local struct = require("plugin.serialize").struct
+</code></pre>
+
+<p> Its main functions are <strong>pack</strong>, which packs multiple Lua values into a struct-like string; and <strong>unpack</strong>,
+ which unpacks multiple Lua values from a given struct-like string.</p>
+
+<p> The fist argument to both functions is a <em>format string</em>, which describes the layout of the structure.
+ The format string is a sequence of conversion elements, which respect the current endianess and the
+ current alignment requirements. Initially, the current endianess is the machine's native endianness
+ and the current alignment requirement is 1 (meaning no alignment at all). You can change these settings
+ with appropriate directives in the format string.</p>
+
+<p> The elements in the format string are as follows:</p>
+
+<ul>
+    <li><strong>" "</strong> (empty space) ignored.</li>
+    <li><strong>"!<em>n</em>"</strong> flag to set the current alignment requirement to <em>n</em> (necessarily a power of 2); an absent
+    <em>n</em> means the machine's native alignment.</li>
+    <li><strong>"&gt;"</strong> flag to set mode to big endian.</li>
+    <li><strong>"&lt;"</strong> flag to set mode to little endian.</li>
+    <li><strong>"x"</strong> a padding zero byte with no corresponding Lua value.</li>
+    <li><strong>"b"</strong> a signed <code>char</code>.</li>
+    <li><strong>"B"</strong> an unsigned <code>char</code>.</li>
+    <li><strong>"h"</strong> a signed <code>short</code> (native size).</li>
+    <li><strong>"H"</strong> an unsigned <code>short</code> (native size).</li>
+    <li><strong>"l"</strong> a signed <code>long</code> (native size).</li>
+    <li><strong>"L"</strong> an unsigned <code>long</code> (native size).</li>
+    <li><strong>"T"</strong> a <code>size_t</code> (native size).</li>
+    <li><strong>"i<em>n</em>"</strong> a signed integer with <em>n</em> bytes. An absent <em>n</em> means the native size of an <code>int</code>.</li>
+    <li><strong>"I<em>n</em>"</strong> like <strong>"i<em>n</em>"</strong> but unsigned.</li>
+    <li><strong>"f"</strong> a <code>float</code> (native size).</li>
+    <li><strong>"d"</strong> a <code>double</code> (native size).</li>
+    <li><strong>"s"</strong> a zero-terminated string.</li>
+    <li><strong>"c<em>n</em>"</strong> a sequence of exactly <em>n</em> chars corresponding to a single Lua string. An absent
+    <em>n</em> means 1. When packing, the given string must have at least <em>n</em> characters (extra characters
+    are discarded).</li>
+    <li><strong>"c0"</strong> this is like <strong>"c<em>n</em>"</strong>, except that the <em>n</em> is given by other means: When packing,
+    <em>n</em> is the length of the given string; when unpacking, <em>n</em> is the value of the previous unpacked
+    value (which must be a number). In that case, this previous value is not returned.</li>
+</ul>
+
+<p> <strong>Notice in the original:</strong></p>
+
+<p> This package is distributed under the MIT license. See copyright notice at the end of file <code>struct.c</code>.
+ <br><br></p>
+<h1> Examples</h1>
+
+<ul>
+    <li><p>The code <code>print(struct.size("i"))</code> prints the size of a machine's native <code>int</code>.</p></li>
+    <li><p>To pack and unpack the structure</p>
+
+    <p>struct Str {
+     char b;
+     int i[4];
+    };</p></li>
+</ul>
+
+<p> you can use the string <code>"&lt;!4biiii"</code>.</p>
+
+<ul>
+    <li><p>If you need to code a structure with a large array, you may use <a href="https://docs.coronalabs.com/api/library/string/rep.html">string.rep</a>
+to automatically generate part of the string format. For instance, for the structure</p>
+
+
+<pre><code>struct Str {
+  double x;
+  int i[400];
+};
+</code></pre></li>
+</ul>
+
+<p> you can build the format string with the code <code>"d"..string.rep("i", 400)</code>.</p>
+
+<ul>
+    <li><p>To pack a string with its length coded in its first byte, use the following code:</p>
+
+<pre><code>x = struct.pack("Bc0", string.len(s), s)
+</code></pre></li>
+</ul>
+
+<p> To unpack that string, do as follows:</p>
+
+<pre><code>s = struct.unpack("Bc0", x)
+</code></pre>
+
+<p> Note that the length (read by the element <strong>"B"</strong>) is not returned.</p>
+
+<ul>
+    <li><p>Suppose we have to decode a string <em>s</em> with an unknown number of doubles; the end is
+marked by a zero value. We can use the following code:</p>
+
+
+<pre><code>local a = {}
+local i = 1 -- index where to read
+while true do
+  local d
+  d, i = struct.unpack("d", s, i)
+  if d == 0 then break end
+  a[#a + 1] = d
+end
+</code></pre></li>
+    <li><p>To pack a string in a fixed-width field of 10 characters padded with blanks, do as follows:</p>
+
+<pre><code>x = struct.pack("c10", s .. string.rep(" ", 10))
+</code></pre></li>
+</ul>
 </p>
 
 
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#pack">pack (fmt, ...)</a></td>
+	<td class="summary">Returns a string containing the values packed according to the format string <em>fmt</em>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#unpack">unpack (fmt, s[, i=1])</a></td>
+	<td class="summary">Returns the values packed in string <em>s</em> according to the format string <em>fmt</em>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#size">size (fmt)</a></td>
+	<td class="summary">Returns the size of a string formatted according to the format string <em>fmt</em>.</td>
+	</tr>
+</table>
 
 <br/>
 <br/>
 
 
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "pack"></a>
+    <strong>pack (fmt, ...)</strong>
+    </dt>
+    <dd>
+    Returns a string containing the values packed according to the format string <em>fmt</em>.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">fmt</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Format string.
+        </li>
+        <li><span class="parameter">...</span>
+         Values to pack.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Packed string.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "unpack"></a>
+    <strong>unpack (fmt, s[, i=1])</strong>
+    </dt>
+    <dd>
+    Returns the values packed in string <em>s</em> according to the format string <em>fmt</em>.  An
+ optional <em>i</em> marks where in <em>s</em> to start reading (default is 1). After the read
+ values, this function also returns the index in <em>s</em> where it stopped reading, which
+ is also where you should start to read the rest of the string.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">fmt</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Format string.
+        </li>
+        <li><span class="parameter">s</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         String to unpack.
+        </li>
+        <li><span class="parameter">i</span>
+            <span class="types"><span class="type">int</span></span>
+         Initial read position.
+         (<em>default</em> 1)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+        One or more values unpacked from string.</li>
+        <li>
+           <span class="types"><span class="type">int</span></span>
+        Next position to read.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "size"></a>
+    <strong>size (fmt)</strong>
+    </dt>
+    <dd>
+    Returns the size of a string formatted according to the format string <em>fmt</em>.  The
+ format string should contain neither the option <strong>"s"</strong> nor the option <strong>"c0"</strong>.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">fmt</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Format string
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        Size.
+    </ol>
+
+
+
+
+</dd>
+</dl>
 
 
 </div> <!-- id="content" -->

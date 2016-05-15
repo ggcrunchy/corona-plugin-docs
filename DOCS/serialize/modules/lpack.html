@@ -30,6 +30,10 @@
   <li><a href="../api.html">Index</a></li>
 </ul>
 
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
 
 
 <h2>Modules</h2>
@@ -44,40 +48,152 @@
 <div id="content">
 
 <h1>Module <code>lpack</code></h1>
-<p>Corona binding to lpack, a simple Lua library for packing and unpacking binary data.</p>
-<p> The library contains two functions: pack and unpack.</p>
+<p>Corona binding to <a href="http://webserver2.tecgraf.puc-rio.br/~lhf/ftp/lua/#lpack">lpack</a>, a simple Lua library for packing and unpacking binary data.</p>
+<p>
 
-<p> pack is called as follows: pack(F,x1,x2,...), where F is a string describing
- how the values x1, x2, ... are to be interpreted and formatted. Each letter
- in the format string F consumes one of the given values. Only values of type
- number or string are accepted. pack returns a (binary) string containing the
- values packed as described in F. The letter codes understood by pack are listed
- in lpack.c (they are inspired by Perl's codes but are not the same). Numbers
- following letter codes in F indicate repetitions.</p>
 
-<p> unpack is called as follows: unpack(s,F,[init]), where s is a (binary) string
- containing data packed as if by pack, F is a format string describing what is
- to be read from s, and the optional init marks where in s to begin reading the
- values. unpack returns one value per letter in F until F or s is exhausted
- (the letters codes are the same as for pack, except that numbers following `A'
+<pre><code>local lpack = require("plugin.serialize").lpack
+</code></pre>
+
+<p> The library contains two functions: <strong>pack</strong> and <strong>unpack</strong>.</p>
+
+<p> <strong>pack</strong> is called as follows: <code>pack(F,x1,x2,...)</code>, where <em>F</em> is a string describing
+ how the values <em>x1</em>, <em>x2</em>, ... are to be interpreted and formatted. Each letter
+ in the format string <em>F</em> consumes one of the given values. Only values of type
+ number or string are accepted. <strong>pack</strong> returns a (binary) string containing the
+ values packed as described in <em>F</em>. The letter codes understood by pack are listed
+ below (they are inspired by Perl's codes but are not the same). Numbers
+ following letter codes in <em>F</em> indicate repetitions.</p>
+
+<p> <strong>unpack</strong> is called as follows: <code>unpack(s,F,[init])</code>, where <em>s</em> is a (binary) string
+ containing data packed as if by <strong>pack</strong>, <em>F</em> is a format string describing what is
+ to be read from <em>s</em>, and the optional <em>init</em> marks where in <em>s</em> to begin reading the
+ values. <strong>unpack</strong> returns one value per letter in <em>F</em> until <em>F</em> or <em>s</em> is exhausted
+ (the letters codes are the same as for <strong>pack</strong>, except that numbers following <strong>'A'</strong>
  are interpreted as the number of characters to read into the string, not as
  repetitions).</p>
 
-<p> The first value returned by unpack is the next unread position in s, which can
- be used as the init position in a subsequent call to unpack. This allows you to
- unpack values in a loop or in several steps. If the position returned by unpack
- is beyond the end of s, then s has been exhausted; any calls to unpack starting
- beyond the end of s will always return nil values.</p>
+<p> The first value returned by <strong>unpack</strong> is the next unread position in <em>s</em>, which can
+ be used as the <em>init</em> position in a subsequent call to <strong>unpack</strong>. This allows you to
+ unpack values in a loop or in several steps. If the position returned by <strong>unpack</strong>
+ is beyond the end of <em>s</em>, then <em>s</em> has been exhausted; any calls to <strong>unpack</strong> starting
+ beyond the end of <em>s</em> will always return <strong>nil</strong> values.</p>
+
+<p> <strong>Notice in the original:</strong></p>
 
 <p> This code is hereby placed in the public domain.
- Please send comments, suggestions, and bug reports to lhf@tecgraf.puc-rio.br .</p>
+ Please send comments, suggestions, and bug reports to lhf@tecgraf.puc-rio.br.</p>
+
+<h2> Codes</h2>
+
+<ul>
+    <li><strong>z</strong>: zero-terminated string</li>
+    <li><strong>p</strong>: string preceded by length byte</li>
+    <li><strong>P</strong>: string preceded by length word</li>
+    <li><strong>a</strong>: string preceded by length size_t</li>
+    <li><strong>A</strong>: string</li>
+    <li><strong>f</strong>: float</li>
+    <li><strong>d</strong>: double</li>
+    <li><strong>n</strong>: Lua number</li>
+    <li><strong>c</strong>: char</li>
+    <li><strong>b</strong>: byte = unsigned char</li>
+    <li><strong>h</strong>: short</li>
+    <li><strong>H</strong>: unsigned short</li>
+    <li><strong>i</strong>: int</li>
+    <li><strong>I</strong>: unsigned int</li>
+    <li><strong>l</strong>: long</li>
+    <li><strong>L</strong>: unsigned long</li>
+    <li><strong>&lt;</strong>: little endian</li>
+    <li><strong>></strong>: big endian</li>
+    <li><strong>=</strong>: native endian</li>
+</ul>
+</p>
 
 
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#pack">pack (f, ...)</a></td>
+	<td class="summary">Packs values into string (see summary for more info)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#unpack">unpack (s, f[, init])</a></td>
+	<td class="summary">Unpacks values from a string (see summary for more info).</td>
+	</tr>
+</table>
 
 <br/>
 <br/>
 
 
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "pack"></a>
+    <strong>pack (f, ...)</strong>
+    </dt>
+    <dd>
+    Packs values into string (see summary for more info)
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">f</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Format string.
+        </li>
+        <li><span class="parameter">...</span>
+         Values to pack.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Packed string.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "unpack"></a>
+    <strong>unpack (s, f[, init])</strong>
+    </dt>
+    <dd>
+    Unpacks values from a string (see summary for more info).
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Packed string.
+        </li>
+        <li><span class="parameter">f</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Format string.
+        </li>
+        <li><span class="parameter">init</span>
+            <span class="types"><span class="type">int</span></span>
+         Initial position.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">int</span></span>
+        Next unread position.</li>
+        <li>
+        Value(s) from string.</li>
+    </ol>
+
+
+
+
+</dd>
+</dl>
 
 
 </div> <!-- id="content" -->

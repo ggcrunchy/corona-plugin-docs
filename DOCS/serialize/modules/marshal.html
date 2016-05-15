@@ -30,6 +30,10 @@
   <li><a href="../api.html">Index</a></li>
 </ul>
 
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
 
 
 <h2>Modules</h2>
@@ -47,14 +51,184 @@
 <p>Corona binding for <a href="https://github.com/richardhundt/lua-marshal">lua-marshal</a>: fast table serialization for Lua.</p>
 <p>
 
+
+<pre><code>local marshal = require("plugin.serialize").marshal
+</code></pre>
+
+<h2> Features:</h2>
+
+<p> Serializes tables, which may contain cycles, Lua functions with upvalues and basic data types.</p>
+
+<p> All functions take an optional constants table which, if encountered during serialization,
+ are simply referenced from the constants table passed during deserialization. For example:</p>
+
+<pre><code>local orig = { answer = 42, print = print }
+local pack = marshal.encode(orig, { print })
+local copy = marshal.decode(pack, { print })
+assert(copy.print == print)
+</code></pre>
+
+<h2> Hooks</h2>
+
+<p> A hook is provided for influencing serializing behaviour via the <code>__persist</code> metamethod.
+ The <code>__persist</code> metamethod is expected to return a closure which is called during
+ deserialization. The return value of the closure is taken as the final decoded result.</p>
+
+<p> This is useful for serializing both userdata and for use with object-oriented Lua,
+ since metatables are not serialized.</p>
+
+<p> For example:</p>
+
+<pre><code>local Point = { }
+function Point:new(x, y)
+ self.__index = self
+ return setmetatable({ x = x, y = y }, self)
+end
+function Point:move(x, y)
+ self.x = x
+ self.y = y
+end
+function Point:__persist()
+ local x = self.x
+ local y = self.y
+ return function()
+  -- do NOT refer to self in this scope
+  return setmetatable({ x = x, y = y }, Point)
+ end
+end
+</code></pre>
+
+<p> The above shows a way to persist an "instance" of Point (if you're thinking
+ in OO terms). In this case <code>Point</code> itself will be included in the encoded chunk
+ because it's referenced as an upvalue of the returned closure.</p>
+
+<p> The <code>__persist</code> hook may <em>NOT</em> refer to the receiver (i.e. <code>self</code>
+ in the example) because this will cause deep recursion when upvalues
+ are serialized.</p>
+
+<h2> Limitations:</h2>
+
+<p> Coroutines are not serialized. Userdata doesn't serialize either
+ however support for userdata the <code>__persist</code> metatable hook can be used.</p>
+
+<p> Metatables and function environments are not serialized.</p>
+
+<p> Attempt to serialize C functions, threads and userdata without a <code>__persist</code> hook
+ raises an exception.</p>
+
+<p> Serialized code is not portable.</p>
 </p>
 
 
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#encode">encode (v[, constants])</a></td>
+	<td class="summary">Serializes a value to a byte stream.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#decode">decode (s[, constants])</a></td>
+	<td class="summary">Deserializes a byte stream to a value.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#clone">clone (orig[, constants])</a></td>
+	<td class="summary">Deep clone a value (deep for tables and functions).</td>
+	</tr>
+</table>
 
 <br/>
 <br/>
 
 
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "encode"></a>
+    <strong>encode (v[, constants])</strong>
+    </dt>
+    <dd>
+    Serializes a value to a byte stream.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">v</span>
+         Value to encode.
+        </li>
+        <li><span class="parameter">constants</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         See notes in the summary.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Encoded value.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "decode"></a>
+    <strong>decode (s[, constants])</strong>
+    </dt>
+    <dd>
+    Deserializes a byte stream to a value.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Encoded string.
+        </li>
+        <li><span class="parameter">constants</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         See notes in the summary.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        Decoded value.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "clone"></a>
+    <strong>clone (orig[, constants])</strong>
+    </dt>
+    <dd>
+    Deep clone a value (deep for tables and functions).
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">orig</span>
+         Value to clone.
+        </li>
+        <li><span class="parameter">constants</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         See notes in the summary.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        Cloned value.
+    </ol>
+
+
+
+
+</dd>
+</dl>
 
 
 </div> <!-- id="content" -->
