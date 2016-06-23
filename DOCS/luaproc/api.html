@@ -147,6 +147,26 @@
 	<td class="summary">Destroys a channel identified by string name.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#alert">alert (message, payload)</a></td>
+	<td class="summary">Dispatch an alert event (in the main state), e.g.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get_alert_dispatcher">get_alert_dispatcher ()</a></td>
+	<td class="summary">Gets the dispatcher used by <strong>alert()</strong>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#is_main_state">is_main_state ()</a></td>
+	<td class="summary">Check whether the running process is in the main state.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#is_waiting">is_waiting ()</a></td>
+	<td class="summary">Check whether <em>luaproc</em> is waiting for processes to finish, either after a call to <strong>wait()</strong> or while closing.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#sleep">sleep (ms)</a></td>
+	<td class="summary">Causes the current process to sleep.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#wants_to_close">wants_to_close ()</a></td>
 	<td class="summary">Indicates whether Lua wants to close, either from trying to exit the app or Corona simulator, or on account of relaunching the Corona simulator.</td>
 	</tr>
@@ -164,16 +184,25 @@
     </dt>
     <dd>
     Creates a new Lua process to run the specified string of Lua code.  Returns <strong>true</strong> if successful or <strong>nil</strong> and an error
- message if failed. The only libraries loaded in new Lua processes are <em>luaproc</em> itself (available as a global) and the standard
- Lua base and <a href="https://docs.coronalabs.com/api/library/package/index.html">package</a> libraries. The remaining standard Lua libraries
- (<strong>io</strong>, <strong>os</strong>, <strong>table</strong>, <strong>string</strong>, <strong>math</strong>, <strong>debug</strong>, and <strong>coroutine</strong>) are pre-registered and can be loaded with a call to
- the standard Lua function <a href="https://docs.coronalabs.com/api/library/package/require.html">require</a>. (The sample suggests some steps
- for bringing in other modules.)</p>
+ message if failed. The only libraries loaded in new Lua processes are <em>luaproc</em> itself (available as the global <strong>luaproc</strong>) and
+ the standard Lua base and <a href="https://docs.coronalabs.com/api/library/package/index.html">package</a> libraries.</p>
 
-<p> Note that processes are unique Lua states, so Lua modules loaded in multiple processes, or in one process and Corona's thread,
- will have different contents. In the case of dynamic libraries, when several instances are to be used simultaneously, it is best
- to have an explicit guarantee that the library in question is reentrant, i.e. it keeps no state at all or whatever state it has is
- sequestered in instantiable manager objects or behind resource handles.
+<p> The remaining standard Lua libraries (<strong>io</strong>, <strong>os</strong>, <strong>table</strong>, <strong>string</strong>, <strong>math</strong>, <strong>debug</strong>, and <strong>coroutine</strong>) are
+ pre-registered and can be loaded with a call to the standard Lua function
+ <a href="https://docs.coronalabs.com/api/library/package/require.html">require</a>. (The sample suggests some steps for bringing in other
+ modules.)</p>
+
+<p> In addition, <strong>system</strong> can be <strong>require()</strong>'d in a similar way. This contains approximations of the following Corona built-ins,
+ under the same names: <strong>CachesDirectory</strong>, <strong>DocumentsDirectory</strong>, <strong>ResourceDirectory</strong>, <strong>TemporaryDirectory</strong>, <strong>getTimer()</strong>,
+ and <strong>pathForFile()</strong>.</p>
+
+<p> Note that processes are unique Lua states, so Lua modules loaded in multiple processes, or in one process as well as Corona's own
+ thread, will have different contents. Special care must be taken in the case of dynamically loaded libraries, since these may keep
+ some of their state outside Lua.</p>
+
+<p> Thus, libraries meant to allow use in multiple processes should provide explicit guarantees and / or guidelines. This might come
+ in various forms. For instance, a library that keeps no state at all is fine. Other possibilities include keeping state in
+ thread-specific data, or in individually instantiated "world" objects.
 
     <h3>Parameters:</h3>
     <ul>
@@ -205,7 +234,7 @@
     Variant of <strong>newproc</strong> that accepts a function. </p>
 
 <p> Boolean, <strong>nil</strong>, number, and string upvalues will be copied over to this function (at this point, they are their own values).
- Upvalues of any other type will result in an error. This will make innocuous snippets such as</p>
+ Upvalues of any other type will result in an error. Be aware that this will make innocuous snippets such as</p>
 <pre><code>local luaproc = require("plugin.luaproc")
 luaproc.newchannel("channel")
 luaproc.newproc(function()
@@ -482,14 +511,124 @@ end)
 
 </dd>
     <dt>
+    <a name = "alert"></a>
+    <strong>alert (message, payload)</strong>
+    </dt>
+    <dd>
+    Dispatch an alert event (in the main state), e.g.  to react to something in a process.</p>
+
+<p> Listeners will receive an event named <strong>"luaproc_alert"</strong>. Additionally, this event will have <strong>message</strong> (a string) and
+ <strong>payload</strong> (which may be a string, number, boolean, or <strong>nil</strong>) fields, supplied by the arguments..</p>
+
+<p> In the main state, this will be performed immediately. Otherwise, alerts will fire during an <strong>enterFrame</strong>.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">message</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         User-defined message.
+        </li>
+        <li><span class="parameter">payload</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <span class="type">number</span>, <span class="type">boolean</span> or <span class="type">nil</span></span>
+         User-defined payload.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "get_alert_dispatcher"></a>
+    <strong>get_alert_dispatcher ()</strong>
+    </dt>
+    <dd>
+    Gets the dispatcher used by <strong>alert()</strong>. </p>
+
+<p> Calling this outside the main state results in an error.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">EventDispatcher</span></span>
+        Dispatcher.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "is_main_state"></a>
+    <strong>is_main_state ()</strong>
+    </dt>
+    <dd>
+    Check whether the running process is in the main state.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Is this the main state?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "is_waiting"></a>
+    <strong>is_waiting ()</strong>
+    </dt>
+    <dd>
+    Check whether <em>luaproc</em> is waiting for processes to finish, either after a call to <strong>wait()</strong> or while closing.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Is <em>luaproc</em> waiting?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "sleep"></a>
+    <strong>sleep (ms)</strong>
+    </dt>
+    <dd>
+    Causes the current process to sleep. </p>
+
+<p> Calling this from the main state results in an error.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">ms</span>
+            <span class="types"><span class="type">uint</span></span>
+         Milliseconds to sleep, &ge; 0.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
     <a name = "wants_to_close"></a>
     <strong>wants_to_close ()</strong>
     </dt>
     <dd>
     Indicates whether Lua wants to close, either from trying to exit the app or Corona simulator, or on account of relaunching the Corona simulator. </p>
 
-<p> <em>luaproc</em> waits for all its processes to finish, rather than kill them outright. Thus, long-running ones should query this from time to time to
- gracefully quit early. Furthermore, any infinite loop <strong>must</strong> use this, or Corona will hang on exit.
+<p> <em>luaproc</em> waits for all its processes to finish, rather than kill them outright. Long-running ones should therefore query this from time to time if
+ graceful early exits are desired. Furthermore, any infinite loop <strong>must</strong> use this, or Corona will hang on exit.
 
 
     <h3>Returns:</h3>
