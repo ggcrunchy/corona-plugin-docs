@@ -152,7 +152,7 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#get_alert_dispatcher">get_alert_dispatcher ()</a></td>
-	<td class="summary">Gets the dispatcher used by <strong>alert()</strong>.</td>
+	<td class="summary">Gets the dispatcher used by <a href="api.html#alert">alert</a>, in order to add / remove listeners.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#is_main_state">is_main_state ()</a></td>
@@ -160,7 +160,7 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#is_waiting">is_waiting ()</a></td>
-	<td class="summary">Check whether <em>luaproc</em> is waiting for processes to finish, either after a call to <strong>wait()</strong> or while closing.</td>
+	<td class="summary">Check whether <em>luaproc</em> is waiting for processes to finish, either after a call to <a href="api.html#wait">wait</a> or while closing.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#sleep">sleep (ms)</a></td>
@@ -214,12 +214,15 @@
 
     <h3>Returns:</h3>
     <ol>
+
+        <strong>true</strong>, indicating success.
+    </ol>
+     <h3>Or</h3>
+    <ol>
         <li>
-           <span class="types"><span class="type">boolean</span></span>
-        Creation succeeded?</li>
+        <strong>nil</strong>, indicating an error.</li>
         <li>
-           <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        If creation failed, the error message.</li>
+        Error message, of type <strong>string</strong>.</li>
     </ol>
 
 
@@ -253,12 +256,15 @@ end)
 
     <h3>Returns:</h3>
     <ol>
+
+        <strong>true</strong>, indicating success.
+    </ol>
+     <h3>Or</h3>
+    <ol>
         <li>
-           <span class="types"><span class="type">boolean</span></span>
-        Creation succeeded?</li>
+        <strong>nil</strong>, indicating an error.</li>
         <li>
-           <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        If creation failed, the error message.</li>
+        Error message, of type <strong>string</strong>.</li>
     </ol>
 
 
@@ -342,12 +348,15 @@ end)
 
     <h3>Returns:</h3>
     <ol>
+
+        <strong>true</strong>, indicating success.
+    </ol>
+     <h3>Or</h3>
+    <ol>
         <li>
-           <span class="types"><span class="type">true</span> or <span class="type">nil</span></span>
-        Success indicator.</li>
+        <strong>nil</strong>, indicating an error.</li>
         <li>
-           <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        On failure, the error message.</li>
+        Error message, of type <strong>string</strong>.</li>
     </ol>
 
 
@@ -378,12 +387,15 @@ end)
 
     <h3>Returns:</h3>
     <ol>
+
+        <strong>true</strong>, indicating success.
+    </ol>
+     <h3>Or</h3>
+    <ol>
         <li>
-           <span class="types"><span class="type">true</span> or <span class="type">nil</span></span>
-        Success indicator.</li>
+        <strong>nil</strong>, indicating an error.</li>
         <li>
-           <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        On failure, the error message.</li>
+        Error message, of type <strong>string</strong>.</li>
     </ol>
 
 
@@ -475,12 +487,15 @@ end)
 
     <h3>Returns:</h3>
     <ol>
+
+        <strong>true</strong>, indicating success.
+    </ol>
+     <h3>Or</h3>
+    <ol>
         <li>
-           <span class="types"><span class="type">true</span> or <span class="type">nil</span></span>
-        Success indicator.</li>
+        <strong>nil</strong>, indicating an error.</li>
         <li>
-           <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        On failure, the error message.</li>
+        Error message, of type <strong>string</strong>.</li>
     </ol>
 
 
@@ -536,6 +551,10 @@ end)
 
 
 
+    <h3>See also:</h3>
+    <ul>
+         <a href="api.html#get_alert_dispatcher">get_alert_dispatcher</a>
+    </ul>
 
 
 </dd>
@@ -544,7 +563,7 @@ end)
     <strong>get_alert_dispatcher ()</strong>
     </dt>
     <dd>
-    Gets the dispatcher used by <strong>alert()</strong>. </p>
+    Gets the dispatcher used by <a href="api.html#alert">alert</a>, in order to add / remove listeners. </p>
 
 <p> Calling this outside the main state results in an error.
 
@@ -584,7 +603,7 @@ end)
     <strong>is_waiting ()</strong>
     </dt>
     <dd>
-    Check whether <em>luaproc</em> is waiting for processes to finish, either after a call to <strong>wait()</strong> or while closing.
+    Check whether <em>luaproc</em> is waiting for processes to finish, either after a call to <a href="api.html#wait">wait</a> or while closing.
 
 
     <h3>Returns:</h3>
