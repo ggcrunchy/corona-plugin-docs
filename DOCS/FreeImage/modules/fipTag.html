@@ -30,6 +30,10 @@
   <li><a href="../api.html">Index</a></li>
 </ul>
 
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
 
 
 <h2>Modules</h2>
@@ -54,11 +58,533 @@
 <p> FreeImage uses this structure to store metadata information.</p>
 
 
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#fipTag:assign">fipTag:assign (tag)</a></td>
+	<td class="summary">Copies one tag to another.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipTag:clone">fipTag:clone (tag)</a></td>
+	<td class="summary">Creates a new tag that is a copy of another.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipTag:getCount">fipTag:getCount ()</a></td>
+	<td class="summary">Returns the number of components in the tag (in tag type units).</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipTag:getDescription">fipTag:getDescription ()</a></td>
+	<td class="summary">Returns the tag description if available.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipTag:getID">fipTag:getID ()</a></td>
+	<td class="summary">Returns the tag ID if available, returns 0 otherwise.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipTag:getKey">fipTag:getKey ()</a></td>
+	<td class="summary">Returns the tag field name (unique inside a metadata model).</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipTag:getLength">fipTag:getLength ()</a></td>
+	<td class="summary">Returns the length of the tag value in bytes.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipTag:getType">fipTag:getType ()</a></td>
+	<td class="summary">Returns the tag data type.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipTag:getValue">fipTag:getValue ()</a></td>
+	<td class="summary">Returns the tag value.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipTag:isValid">fipTag:isValid ()</a></td>
+	<td class="summary">Indicates whether the tag is valid for use.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipTag:setCount">fipTag:setCount (count)</a></td>
+	<td class="summary">Set the number of data in the tag.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipTag:setDescription">fipTag:setDescription (description)</a></td>
+	<td class="summary">Set the (usually optional) tag description.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipTag:setID">fipTag:setID (id)</a></td>
+	<td class="summary">Set the (usually optional) tag ID.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipTag:setKey">fipTag:setKey (key)</a></td>
+	<td class="summary">Set the tag field name.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipTag:setKeyValue">fipTag:setKeyValue (name, value)</a></td>
+	<td class="summary">Construct a FIDT_ASCII tag (ASCII string).</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipTag:setLength">fipTag:setLength (length)</a></td>
+	<td class="summary">Set the length of the tag value, in bytes.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipTag:setType">fipTag:setType (type)</a></td>
+	<td class="summary">Set the tag data type.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipTag:setValue">fipTag:setValue (value)</a></td>
+	<td class="summary">Set the tag value.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipTag:toString">fipTag:toString (model)</a></td>
+	<td class="summary">Converts a FreeImage tag structure to a string that represents the interpreted tag value.</td>
+	</tr>
+</table>
 
 <br/>
 <br/>
 
 
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "fipTag:assign"></a>
+    <strong>fipTag:assign (tag)</strong>
+    </dt>
+    <dd>
+    Copies one tag to another.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">tag</span>
+            <span class="types"><span class="type">fipTag</span></span>
+         Tag to assign.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipTag:clone"></a>
+    <strong>fipTag:clone (tag)</strong>
+    </dt>
+    <dd>
+    Creates a new tag that is a copy of another.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">tag</span>
+            <span class="types"><span class="type">fipTag</span></span>
+         Tag to clone.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">fipTag</span></span>
+        Clone.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipTag:getCount"></a>
+    <strong>fipTag:getCount ()</strong>
+    </dt>
+    <dd>
+    Returns the number of components in the tag (in tag type units).
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        Count.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipTag:getDescription"></a>
+    <strong>fipTag:getDescription ()</strong>
+    </dt>
+    <dd>
+    Returns the tag description if available.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
+        Description.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipTag:getID"></a>
+    <strong>fipTag:getID ()</strong>
+    </dt>
+    <dd>
+    Returns the tag ID if available, returns 0 otherwise.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        ID.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipTag:getKey"></a>
+    <strong>fipTag:getKey ()</strong>
+    </dt>
+    <dd>
+    Returns the tag field name (unique inside a metadata model).
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Key.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipTag:getLength"></a>
+    <strong>fipTag:getLength ()</strong>
+    </dt>
+    <dd>
+    Returns the length of the tag value in bytes.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Length.</span></span>
+
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipTag:getType"></a>
+    <strong>fipTag:getType ()</strong>
+    </dt>
+    <dd>
+    Returns the tag data type.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Type (TODO: MDTYPEs)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipTag:getValue"></a>
+    <strong>fipTag:getValue ()</strong>
+    </dt>
+    <dd>
+    Returns the tag value.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">userdata</span></span>
+        Value. (TODO!!!!! something more robust for Lua)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipTag:isValid"></a>
+    <strong>fipTag:isValid ()</strong>
+    </dt>
+    <dd>
+    Indicates whether the tag is valid for use.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Tag is allocated?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipTag:setCount"></a>
+    <strong>fipTag:setCount (count)</strong>
+    </dt>
+    <dd>
+    Set the number of data in the tag.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">count</span>
+            <span class="types"><span class="type">uint</span></span>
+         Count to assign.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Assignment succeeded?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipTag:setDescription"></a>
+    <strong>fipTag:setDescription (description)</strong>
+    </dt>
+    <dd>
+    Set the (usually optional) tag description.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">description</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Description to assign.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Assignment succeeded?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipTag:setID"></a>
+    <strong>fipTag:setID (id)</strong>
+    </dt>
+    <dd>
+    Set the (usually optional) tag ID.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">id</span>
+            <span class="types"><span class="type">uint</span></span>
+         ID to assign.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Assignment succeeded?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipTag:setKey"></a>
+    <strong>fipTag:setKey (key)</strong>
+    </dt>
+    <dd>
+    Set the tag field name.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">key</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Key to assign.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Assignment succeeded?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipTag:setKeyValue"></a>
+    <strong>fipTag:setKeyValue (name, value)</strong>
+    </dt>
+    <dd>
+    Construct a FIDT_ASCII tag (ASCII string). </p>
+
+<p> This method is useful to store comments or IPTC tags.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Field name.
+        </li>
+        <li><span class="parameter">value</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Field value.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Assignment succeeded?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipTag:setLength"></a>
+    <strong>fipTag:setLength (length)</strong>
+    </dt>
+    <dd>
+    Set the length of the tag value, in bytes.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">length</span>
+            <span class="types"><span class="type">uint</span></span>
+         Length to assign.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Assignment succeeded?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipTag:setType"></a>
+    <strong>fipTag:setType (type)</strong>
+    </dt>
+    <dd>
+    Set the tag data type.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">type</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Type to assign. (TODO: MDTYPE)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Assignment succeeded?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipTag:setValue"></a>
+    <strong>fipTag:setValue (value)</strong>
+    </dt>
+    <dd>
+    Set the tag value.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+         Value to assign. (TODO: something more robust for Lua!!!!)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Assignment succeeded?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipTag:toString"></a>
+    <strong>fipTag:toString (model)</strong>
+    </dt>
+    <dd>
+    Converts a FreeImage tag structure to a string that represents the interpreted tag value.
+ (NYI: oversight?)
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">model</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Metadata model specification (metadata model from which the tag was extracted). (TODO: MDMODEL)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Representative string.
+    </ol>
+
+
+
+
+</dd>
+</dl>
 
 
 </div> <!-- id="content" -->
