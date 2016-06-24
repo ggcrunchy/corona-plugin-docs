@@ -54,7 +54,7 @@
 <div id="content">
 
 <h1>Module <code>fipImage</code></h1>
-<p>Implementation of <strong>fipImage</strong>, a class used to manage all photo related images and all image types used by the library.</p>
+<p>Corona wrapper for <strong>fipImage</strong>, a class used to manage all photo related images and all image types used by the library.</p>
 <p> <strong>fipImage</strong> encapsulates the FIBITMAP format. It relies on the FreeImage library, especially for loading / saving images
  and for bit depth conversion.</p>
 
@@ -91,325 +91,331 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipImage:clear">fipImage:clear ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Destroy image data.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipImage:clearThumbnail">fipImage:clearThumbnail ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Clear the thumbnail possibly attached to the bitmap.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipImage:clone">fipImage:clone ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#fipImage:clone">fipImage:clone (image)</a></td>
+	<td class="summary">Creates a new image that is a copy of another.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipImage:colorQuantize">fipImage:colorQuantize ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#fipImage:colorQuantize">fipImage:colorQuantize (algorithm)</a></td>
+	<td class="summary">Quantizes a full colour 24-bit bitmap to a palletised 8-bit bitmap.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipImage:combineChannels">fipImage:combineChannels ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#fipImage:combineChannels">fipImage:combineChannels (red, green, blue)</a></td>
+	<td class="summary">Builds a 24-bit RGB image given its red, green and blue channel.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipImage:convertTo4Bits">fipImage:convertTo4Bits ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Converts the bitmap to 4 bits.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipImage:convertTo8Bits">fipImage:convertTo8Bits ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Converts the bitmap to 8 bits.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipImage:convertTo16Bits555">fipImage:convertTo16Bits555 ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Converts the bitmap to 16 bits.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipImage:convertTo16Bits565">fipImage:convertTo16Bits565 ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Converts the bitmap to 16 bits.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipImage:convertTo24Bits">fipImage:convertTo24Bits ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Converts the bitmap to 24 bits.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipImage:convertTo32Bits">fipImage:convertTo32Bits ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Converts the bitmap to 32 bits.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipImage:convertToFloat">fipImage:convertToFloat ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Converts the bitmap to a 32-bit float image.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipImage:convertToGrayscale">fipImage:convertToGrayscale ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Converts the bitmap to 8 bits.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipImage:convertToRGB16">fipImage:convertToRGB16 ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Converts the bitmap to a 48-bit RGB16 image.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipImage:convertToRGBA16">fipImage:convertToRGBA16 ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Converts the bitmap to a 64-bit RGBA16 image.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipImage:convertToRGBAF">fipImage:convertToRGBAF ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Converts the bitmap to a 128-bit RGBAF image.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipImage:convertToRGBF">fipImage:convertToRGBF ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Converts the bitmap to a 96-bit RGBF image.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipImage:convertToType">fipImage:convertToType ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#fipImage:convertToType">fipImage:convertToType (image_type, scale_linearImage)</a></td>
+	<td class="summary">Converts an image to a type supported by FreeImage.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipImage:convertToUINT16">fipImage:convertToUINT16 ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Converts the bitmap to a 16-bit unsigned short image.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipImage:copySubImage">fipImage:copySubImage ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#fipImage:copySubImage">fipImage:copySubImage (left, top, right, bottom)</a></td>
+	<td class="summary">Copy a sub part of the current image and returns it as a <strong>fipImage</strong> object.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipImage:crop">fipImage:crop ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#fipImage:crop">fipImage:crop (left, top, right, bottom)</a></td>
+	<td class="summary">Crop a sub part of the current image and update it accordingly.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipImage:dither">fipImage:dither ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#fipImage:dither">fipImage:dither (algorithm)</a></td>
+	<td class="summary">Converts a 8-bit image to a monochrome 1-bit image using a dithering algorithm.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipImage:flipHorizontal">fipImage:flipHorizontal ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Flip the image horizontally along the vertical axis.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipImage:flipVertical">fipImage:flipVertical ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Flip the image vertically along the horizontal axis.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipImage:getBitsPerPixel">fipImage:getBitsPerPixel ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Returns the bitdepth of the bitmap.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipImage:getChannel">fipImage:getChannel ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#fipImage:getChannel">fipImage:getChannel (channel)</a></td>
+	<td class="summary">Retrieves the red, green, blue or alpha channel of a 24- or 32-bit BGR[A] image.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipImage:getColorsUsed">fipImage:getColorsUsed ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Retrieves the number of colours used in the bitmap.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipImage:getColorType">fipImage:getColorType ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Investigates the colour type of the bitmap.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipImage:getFileBkColor">fipImage:getFileBkColor ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Retrieves the file background color of an image.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipImage:getHeight">fipImage:getHeight ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Returns the image height in pixels.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipImage:getHistogram">fipImage:getHistogram ()</a></td>
-	<td class="summary">DOCME
- NYI</td>
+	<td class="name" nowrap><a href="#fipImage:getHistogram">fipImage:getHistogram (pointer[, channel="BLACK"])</a></td>
+	<td class="summary">Computes image histogram.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipImage:getHorizontalResolution">fipImage:getHorizontalResolution ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Returns the bitmap resolution along the X axis, in pixels / cm.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipImage:getImageMemorySize">fipImage:getImageMemorySize ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Returns the memory footprint of a bitmap, in bytes.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipImage:getImageSize">fipImage:getImageSize ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Returns the size of the bitmap in bytes.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipImage:getImageType">fipImage:getImageType ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Returns the data type of the image.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipImage:getInfo">fipImage:getInfo ()</a></td>
-	<td class="summary">DOCME
- NYI</td>
+	<td class="summary">Returns a pointer to the bitmap's BITMAPINFO header.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipImage:getInfoHeader">fipImage:getInfoHeader ()</a></td>
-	<td class="summary">DOCME
- NYI</td>
+	<td class="summary">Returns a pointer to the bitmap's BITMAPINFOHEADER.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipImage:getLine">fipImage:getLine ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Returns the width of the bitmap in bytes.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipImage:getMetadata">fipImage:getMetadata ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#fipImage:getMetadata">fipImage:getMetadata (model, key)</a></td>
+	<td class="summary">Retrieve a metadata attached to the dib.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipImage:getMetadataCount">fipImage:getMetadataCount ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#fipImage:getMetadataCount">fipImage:getMetadataCount (model)</a></td>
+	<td class="summary">Returns the number of tags contained in the model metadata model attached to the dib.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipImage:getPalette">fipImage:getPalette ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Returns a pointer to the bitmap's palette.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipImage:getPaletteSize">fipImage:getPaletteSize ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Returns the palette size in bytes.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipImage:getPixelColor">fipImage:getPixelColor ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#fipImage:getPixelColor">fipImage:getPixelColor (x, y)</a></td>
+	<td class="summary">Get the pixel color of a 16-, 24- or 32-bit image at position (x, y), including range check (slow access).</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipImage:getPixelIndex">fipImage:getPixelIndex ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#fipImage:getPixelIndex">fipImage:getPixelIndex (x, y)</a></td>
+	<td class="summary">Get the pixel index of a 1-, 4- or 8-bit palettized image at position (x, y), including range check (slow access).</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipImage:getThumbnail">fipImage:getThumbnail ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Retrieves a copy the thumbnail possibly attached to the bitmap.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:getScanLine">fipImage:getScanLine (scanline)</a></td>
+	<td class="summary">Returns a pointer to the start of the given scanline in the bitmap's data-bits.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipImage:getTransparencyCount">fipImage:getTransparencyCount ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">8-bit transparency: get the number of transparent colors.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipImage:getTransparencyTable">fipImage:getTransparencyTable ()</a></td>
-	<td class="summary">DOCME
- NYI</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#fipImage:getVerticalResolution">fipImage:getVerticalResolution ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#fipImage:getWidth">fipImage:getWidth ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#fipImage:hasFileBkColor">fipImage:hasFileBkColor ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#fipImage:hasThumbnail">fipImage:hasThumbnail ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#fipImage:invert">fipImage:invert ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#fipImage:isGrayscale">fipImage:isGrayscale ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#fipImage:isTransparent">fipImage:isTransparent ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#fipImage:isValid">fipImage:isValid ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#fipImage:load">fipImage:load ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#fipImage:loadFromMemory">fipImage:loadFromMemory ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#fipImage:makeThumbnail">fipImage:makeThumbnail ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#fipImage:newTexture">fipImage:newTexture ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#fipImage:pasteSubImage">fipImage:pasteSubImage ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#fipImage:rescale">fipImage:rescale ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#fipImage:rotate">fipImage:rotate ()</a></td>
-	<td class="summary">DOCME
- NYI</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#fipImage:rotateEx">fipImage:rotateEx ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#fipImage:save">fipImage:save ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#fipImage:saveToMemory">fipImage:saveToMemory ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#fipImage:setChannel">fipImage:setChannel ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#fipImage:setFileBkColor">fipImage:setFileBkColor ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#fipImage:setHorizontalResolution">fipImage:setHorizontalResolution ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#fipImage:setMetadata">fipImage:setMetadata ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#fipImage:setPixelColor">fipImage:setPixelColor ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#fipImage:setPixelIndex">fipImage:setPixelIndex ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#fipImage:setSize">fipImage:setSize ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#fipImage:setThumbnail">fipImage:setThumbnail ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#fipImage:setTransparencyTable">fipImage:setTransparencyTable ()</a></td>
-	<td class="summary">DOCME
- NYI</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#fipImage:setVerticalResolution">fipImage:setVerticalResolution ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#fipImage:splitChannels">fipImage:splitChannels ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#fipImage:threshold">fipImage:threshold ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#fipImage:toneMapping">fipImage:toneMapping ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">8-bit transparency: get the bitmap's transparency table.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipImage:getScanWidth">fipImage:getScanWidth ()</a></td>
 	<td class="summary">Returns the width of the bitmap in bytes rounded to the nearest DWORD.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:getVerticalResolution">fipImage:getVerticalResolution ()</a></td>
+	<td class="summary">Returns the bitmap resolution along the Y axis, in pixels / cm.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:getWidth">fipImage:getWidth ()</a></td>
+	<td class="summary">Returns the image width in pixels.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:hasFileBkColor">fipImage:hasFileBkColor ()</a></td>
+	<td class="summary">Getter.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:hasThumbnail">fipImage:hasThumbnail ()</a></td>
+	<td class="summary">Check if the image has an embedded thumbnail.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:invert">fipImage:invert ()</a></td>
+	<td class="summary">Inverts each pixel data.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:isGrayscale">fipImage:isGrayscale ()</a></td>
+	<td class="summary">Getter.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:isModified">fipImage:isModified ()</a></td>
+	<td class="summary">Get the image status.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:isTransparent">fipImage:isTransparent ()</a></td>
+	<td class="summary">Getter.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:isValid">fipImage:isValid ()</a></td>
+	<td class="summary">Indicates whether the image is valid for use.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:load">fipImage:load (name[, flags=0])</a></td>
+	<td class="summary">Loads an image from disk, given its file name and an optional flag.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:loadFromMemory">fipImage:loadFromMemory (memIO[, flags=0])</a></td>
+	<td class="summary">Loads an image using the specified memory stream and an optional flag.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:makeThumbnail">fipImage:makeThumbnail (max_size[, convert=true])</a></td>
+	<td class="summary">Creates a thumbnail image keeping aspect ratio.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:newTexture">fipImage:newTexture ()</a></td>
+	<td class="summary">Get an external texture from the current state that may be used in Corona.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:pasteSubImage">fipImage:pasteSubImage (src, left, top[, alpha=256])</a></td>
+	<td class="summary">Alpha blend or combine a sub part image with the current image.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:rescale">fipImage:rescale (new_width, new_height, filter)</a></td>
+	<td class="summary">Rescale the image to a new width / height.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:rotate">fipImage:rotate (angle, bkcolor)</a></td>
+	<td class="summary">Image rotation by means of three shears.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:rotateEx">fipImage:rotateEx (Image, x_shift, y_shift, x_origin, y_origin, use_mask)</a></td>
+	<td class="summary">Image translation and rotation using B-Splines.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:save">fipImage:save (name[, flags=0])</a></td>
+	<td class="summary">Saves an image to disk, given its file name and an optional flag.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:saveToMemory">fipImage:saveToMemory (memIO[, flags=0])</a></td>
+	<td class="summary">Saves an image using the specified memory stream and an optional flag.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:setChannel">fipImage:setChannel (Input, channel)</a></td>
+	<td class="summary">Insert an 8-bit dib into a 24- or 32-bit image.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:setFileBkColor">fipImage:setFileBkColor ([bkcolor])</a></td>
+	<td class="summary">Set the file background color of an image.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:setHorizontalResolution">fipImage:setHorizontalResolution (value)</a></td>
+	<td class="summary">Set the bitmap resolution along the X axis, in pixels / cm.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:setMetadata">fipImage:setMetadata (key, Tag)</a></td>
+	<td class="summary">Attach a new FreeImage tag to the dib.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:setModified">fipImage:setModified ([bStatus=true])</a></td>
+	<td class="summary">Set the image status as 'modified'.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:setPixelColor">fipImage:setPixelColor (x, y, value)</a></td>
+	<td class="summary">Set the pixel color of a 16-, 24- or 32-bit image at position (x, y), including range check (slow access).</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:setPixelIndex">fipImage:setPixelIndex (x, y, value)</a></td>
+	<td class="summary">Set the pixel index of a 1-, 4- or 8-bit palettized image at position (x, y), including range check (slow access).</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:setSize">fipImage:setSize (type, w, h, bpp[, rmask=0[, gmask=0[, bmask=0]]])</a></td>
+	<td class="summary">Image allocator.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:setThumbnail">fipImage:setThumbnail (image)</a></td>
+	<td class="summary">Attach a thumbnail to the bitmap.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:setTransparencyTable">fipImage:setTransparencyTable ()</a></td>
+	<td class="summary">8-bit transparency: set the bitmap's transparency table.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:setVerticalResolution">fipImage:setVerticalResolution (value)</a></td>
+	<td class="summary">Set the bitmap resolution along the Y axis, in pixels / cm.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:splitChannels">fipImage:splitChannels ()</a></td>
+	<td class="summary">Split a 24-bit RGB image into 3 greyscale images corresponding to the red, green and blue channels.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:threshold">fipImage:threshold (T)</a></td>
+	<td class="summary">Converts the bitmap to 1 bit using a threshold <em>T</em>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:toneMapping">fipImage:toneMapping (tmo[, first=0[, second=0[, third=1[, fourth=0]]]])</a></td>
+	<td class="summary">Converts a High Dynamic Range image (48-bit RGB or 96-bit RGB Float) to a 24-bit RGB image.</td>
 	</tr>
 </table>
 
@@ -505,6 +511,12 @@
         </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
 
 
     <h3>See also:</h3>
@@ -624,7 +636,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">Image</span>
-            <span class="types"><span class="type">fipImage</span>, <span class="type">fipWinImage</span> or <span class="type">userdata</span></span>
+            <span class="types"><span class="type">fipImage</span> or <span class="type">userdata</span></span>
          to assign. (TODO: userdata kind of shaky)
         </li>
     </ul>
@@ -639,7 +651,7 @@
     <strong>fipImage:clear ()</strong>
     </dt>
     <dd>
-    DOCME
+    Destroy image data.
 
 
 
@@ -652,9 +664,15 @@
     <strong>fipImage:clearThumbnail ()</strong>
     </dt>
     <dd>
-    DOCME
+    Clear the thumbnail possibly attached to the bitmap.
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
 
 
 
@@ -662,12 +680,25 @@
 </dd>
     <dt>
     <a name = "fipImage:clone"></a>
-    <strong>fipImage:clone ()</strong>
+    <strong>fipImage:clone (image)</strong>
     </dt>
     <dd>
-    DOCME
+    Creates a new image that is a copy of another.
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">image</span>
+            <span class="types"><span class="type">fipImage</span></span>
+         Image to clone.
+        </li>
+    </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">fipImage</span></span>
+        Clone.
+    </ol>
 
 
 
@@ -675,12 +706,27 @@
 </dd>
     <dt>
     <a name = "fipImage:colorQuantize"></a>
-    <strong>fipImage:colorQuantize ()</strong>
+    <strong>fipImage:colorQuantize (algorithm)</strong>
     </dt>
     <dd>
-    DOCME
+    Quantizes a full colour 24-bit bitmap to a palletised 8-bit bitmap. </p>
 
+<p> The quantize parameter specifies which colour reduction algorithm should be used.
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">algorithm</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Color quantization algorithm to use. (TODO: FREE<em>IMAGE</em>QUANTIZE)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
 
 
 
@@ -688,12 +734,34 @@
 </dd>
     <dt>
     <a name = "fipImage:combineChannels"></a>
-    <strong>fipImage:combineChannels ()</strong>
+    <strong>fipImage:combineChannels (red, green, blue)</strong>
     </dt>
     <dd>
-    DOCME
+    Builds a 24-bit RGB image given its red, green and blue channel.
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">red</span>
+            <span class="types"><span class="type">fipImage</span></span>
+         Input red channel.
+        </li>
+        <li><span class="parameter">green</span>
+            <span class="types"><span class="type">fipImage</span></span>
+         Input green channel.
+        </li>
+        <li><span class="parameter">blue</span>
+            <span class="types"><span class="type">fipImage</span></span>
+         Input blue channel.
+        </li>
+    </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Return <strong>false</strong> if the dib can't be allocated, if the input channels are not 8-bit
+ images; otherwise, <strong>true</strong>.
+    </ol>
 
 
 
@@ -704,9 +772,15 @@
     <strong>fipImage:convertTo4Bits ()</strong>
     </dt>
     <dd>
-    DOCME
+    Converts the bitmap to 4 bits.
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
 
 
 
@@ -717,9 +791,17 @@
     <strong>fipImage:convertTo8Bits ()</strong>
     </dt>
     <dd>
-    DOCME
+    Converts the bitmap to 8 bits. </p>
+
+<p> If the bitmap is 24 or 32-bit RGB, the colour values are converted to greyscale.
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
 
 
 
@@ -730,9 +812,17 @@
     <strong>fipImage:convertTo16Bits555 ()</strong>
     </dt>
     <dd>
-    DOCME
+    Converts the bitmap to 16 bits. </p>
+
+<p> The resulting bitmap has a layout of 5 bits red, 5 bits green, 5 bits blue and 1 unused bit.
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
 
 
 
@@ -743,9 +833,17 @@
     <strong>fipImage:convertTo16Bits565 ()</strong>
     </dt>
     <dd>
-    DOCME
+    Converts the bitmap to 16 bits. </p>
+
+<p> The resulting bitmap has a layout of 5 bits red, 6 bits green and 5 bits blue.
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
 
 
 
@@ -756,9 +854,15 @@
     <strong>fipImage:convertTo24Bits ()</strong>
     </dt>
     <dd>
-    DOCME
+    Converts the bitmap to 24 bits.
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
 
 
 
@@ -769,9 +873,15 @@
     <strong>fipImage:convertTo32Bits ()</strong>
     </dt>
     <dd>
-    DOCME
+    Converts the bitmap to 32 bits.
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
 
 
 
@@ -782,9 +892,15 @@
     <strong>fipImage:convertToFloat ()</strong>
     </dt>
     <dd>
-    DOCME
+    Converts the bitmap to a 32-bit float image.
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
 
 
 
@@ -795,9 +911,17 @@
     <strong>fipImage:convertToGrayscale ()</strong>
     </dt>
     <dd>
-    DOCME
+    Converts the bitmap to 8 bits. </p>
+
+<p> For palletized bitmaps, the color map is converted to a greyscale ramp.
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
 
 
 
@@ -808,9 +932,15 @@
     <strong>fipImage:convertToRGB16 ()</strong>
     </dt>
     <dd>
-    DOCME
+    Converts the bitmap to a 48-bit RGB16 image.
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
 
 
 
@@ -821,9 +951,15 @@
     <strong>fipImage:convertToRGBA16 ()</strong>
     </dt>
     <dd>
-    DOCME
+    Converts the bitmap to a 64-bit RGBA16 image.
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
 
 
 
@@ -834,9 +970,15 @@
     <strong>fipImage:convertToRGBAF ()</strong>
     </dt>
     <dd>
-    DOCME
+    Converts the bitmap to a 128-bit RGBAF image.
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
 
 
 
@@ -847,9 +989,15 @@
     <strong>fipImage:convertToRGBF ()</strong>
     </dt>
     <dd>
-    DOCME
+    Converts the bitmap to a 96-bit RGBF image.
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
 
 
 
@@ -857,12 +1005,29 @@
 </dd>
     <dt>
     <a name = "fipImage:convertToType"></a>
-    <strong>fipImage:convertToType ()</strong>
+    <strong>fipImage:convertToType (image_type, scale_linearImage)</strong>
     </dt>
     <dd>
-    DOCME
+    Converts an image to a type supported by FreeImage.
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">image_type</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         New image type. (TODO: FREE<em>IMAGE</em>TYPE)
+        </li>
+        <li><span class="parameter">scale_linearImage</span>
+            <span class="types"><span class="type">bool</span></span>
+         pixels must be scaled linearly when converting to a standard bitmap?
+        </li>
+    </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
 
 
 
@@ -873,9 +1038,15 @@
     <strong>fipImage:convertToUINT16 ()</strong>
     </dt>
     <dd>
-    DOCME
+    Converts the bitmap to a 16-bit unsigned short image.
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
 
 
 
@@ -883,12 +1054,42 @@
 </dd>
     <dt>
     <a name = "fipImage:copySubImage"></a>
-    <strong>fipImage:copySubImage ()</strong>
+    <strong>fipImage:copySubImage (left, top, right, bottom)</strong>
     </dt>
     <dd>
-    DOCME
+    Copy a sub part of the current image and returns it as a <strong>fipImage</strong> object. </p>
 
+<p> This method works with any bitmap type.
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">left</span>
+            <span class="types"><span class="type">int</span></span>
+         Specifies the left position of the cropped rectangle.
+        </li>
+        <li><span class="parameter">top</span>
+            <span class="types"><span class="type">int</span></span>
+         Specifies the top position of the cropped rectangle.
+        </li>
+        <li><span class="parameter">right</span>
+            <span class="types"><span class="type">int</span></span>
+         Specifies the right position of the cropped rectangle.
+        </li>
+        <li><span class="parameter">bottom</span>
+            <span class="types"><span class="type">int</span></span>
+         Specifies the bottom position of the cropped rectangle.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?</li>
+        <li>
+           <span class="types"><span class="type">fipImage</span></span>
+        On success, output subimage.</li>
+    </ol>
 
 
 
@@ -896,12 +1097,39 @@
 </dd>
     <dt>
     <a name = "fipImage:crop"></a>
-    <strong>fipImage:crop ()</strong>
+    <strong>fipImage:crop (left, top, right, bottom)</strong>
     </dt>
     <dd>
-    DOCME
+    Crop a sub part of the current image and update it accordingly. </p>
 
+<p> This method works with any bitmap type.
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">left</span>
+            <span class="types"><span class="type">int</span></span>
+         Specifies the left position of the cropped rectangle.
+        </li>
+        <li><span class="parameter">top</span>
+            <span class="types"><span class="type">int</span></span>
+         Specifies the top position of the cropped rectangle.
+        </li>
+        <li><span class="parameter">right</span>
+            <span class="types"><span class="type">int</span></span>
+         Specifies the right position of the cropped rectangle.
+        </li>
+        <li><span class="parameter">bottom</span>
+            <span class="types"><span class="type">int</span></span>
+         Specifies the bottom position of the cropped rectangle.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
 
 
 
@@ -909,12 +1137,25 @@
 </dd>
     <dt>
     <a name = "fipImage:dither"></a>
-    <strong>fipImage:dither ()</strong>
+    <strong>fipImage:dither (algorithm)</strong>
     </dt>
     <dd>
-    DOCME
+    Converts a 8-bit image to a monochrome 1-bit image using a dithering algorithm.
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">algorithm</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Dithering algorithm to use. (TODO: FREE<em>IMAGE</em>DITHER)
+        </li>
+    </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
 
 
 
@@ -925,9 +1166,15 @@
     <strong>fipImage:flipHorizontal ()</strong>
     </dt>
     <dd>
-    DOCME
+    Flip the image horizontally along the vertical axis.
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
 
 
 
@@ -938,9 +1185,15 @@
     <strong>fipImage:flipVertical ()</strong>
     </dt>
     <dd>
-    DOCME
+    Flip the image vertically along the horizontal axis.
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
 
 
 
@@ -951,22 +1204,50 @@
     <strong>fipImage:getBitsPerPixel ()</strong>
     </dt>
     <dd>
-    DOCME
+    Returns the bitdepth of the bitmap. </p>
+
+<p> When the image type is <strong>BITMAP</strong>, valid bitdepth can be 1, 4, 8, 16, 24 or 32.
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        Bitdepth.
+    </ol>
 
 
+    <h3>See also:</h3>
+    <ul>
+         <a href="../modules/fipImage.html#fipImage:getImageType">fipImage:getImageType</a>
+    </ul>
 
 
 </dd>
     <dt>
     <a name = "fipImage:getChannel"></a>
-    <strong>fipImage:getChannel ()</strong>
+    <strong>fipImage:getChannel (channel)</strong>
     </dt>
     <dd>
-    DOCME
+    Retrieves the red, green, blue or alpha channel of a 24- or 32-bit BGR[A] image.
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">channel</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Color channel to extract. (TODO: FREE<em>IMAGE</em>COLOR_CHANNEL)
+        </li>
+    </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?</li>
+        <li>
+           <span class="types"><span class="type">fipImage</span></span>
+        On success, the output image to be extracted.</li>
+    </ol>
 
 
 
@@ -977,9 +1258,17 @@
     <strong>fipImage:getColorsUsed ()</strong>
     </dt>
     <dd>
-    DOCME
+    Retrieves the number of colours used in the bitmap. </p>
+
+<p> If the bitmap is non-palletised, 0 is returned.
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        Count.
+    </ol>
 
 
 
@@ -990,9 +1279,15 @@
     <strong>fipImage:getColorType ()</strong>
     </dt>
     <dd>
-    DOCME
+    Investigates the colour type of the bitmap.
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Color type. (TODO: FREE<em>IMAGE</em>COLOR_TYPE)
+    </ol>
 
 
 
@@ -1003,9 +1298,20 @@
     <strong>fipImage:getFileBkColor ()</strong>
     </dt>
     <dd>
-    DOCME
+    Retrieves the file background color of an image. </p>
+
+<p> For 8-bit images, the color index in the palette is returned in the <strong>rgbReserved</strong> member of the result.
 
 
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?</li>
+        <li>
+           <span class="types"><span class="type">RGBQUAD</span></span>
+        On success, a color quad. (TODO?)</li>
+    </ol>
 
 
 
@@ -1016,9 +1322,15 @@
     <strong>fipImage:getHeight ()</strong>
     </dt>
     <dd>
-    DOCME
+    Returns the image height in pixels.
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        Height.
+    </ol>
 
 
 
@@ -1026,13 +1338,35 @@
 </dd>
     <dt>
     <a name = "fipImage:getHistogram"></a>
-    <strong>fipImage:getHistogram ()</strong>
+    <strong>fipImage:getHistogram (pointer[, channel="BLACK"])</strong>
     </dt>
     <dd>
-    DOCME
- NYI
+    Computes image histogram. </p>
 
+<p> For 24-bit and 32-bit images, histogram can be computed from red, green, blue and black channels. For 8-bit images,
+ histogram is computed from the black channel. Other bit depth is not supported.</p>
 
+<p> NYI
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">pointer</span>
+            <span class="types"><span class="type">PDWORD</span></span>
+         to an histogram array. Size of this array is assumed to be 256. (TODO!)
+        </li>
+        <li><span class="parameter">channel</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Color channel to use. (TODO: FREE<em>IMAGE</em>COLOR_CHANNEL)
+         (<em>default</em> "BLACK")
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
 
 
 
@@ -1043,9 +1377,15 @@
     <strong>fipImage:getHorizontalResolution ()</strong>
     </dt>
     <dd>
-    DOCME
+    Returns the bitmap resolution along the X axis, in pixels / cm.
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        Resolution.
+    </ol>
 
 
 
@@ -1056,9 +1396,15 @@
     <strong>fipImage:getImageMemorySize ()</strong>
     </dt>
     <dd>
-    DOCME
+    Returns the memory footprint of a bitmap, in bytes.
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        Size.
+    </ol>
 
 
 
@@ -1069,9 +1415,17 @@
     <strong>fipImage:getImageSize ()</strong>
     </dt>
     <dd>
-    DOCME
+    Returns the size of the bitmap in bytes. </p>
+
+<p> The size of the bitmap is the BITMAPINFOHEADER + the size of the palette + the size of the bitmap data.
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        Size.
+    </ol>
 
 
 
@@ -1082,9 +1436,15 @@
     <strong>fipImage:getImageType ()</strong>
     </dt>
     <dd>
-    DOCME
+    Returns the data type of the image.
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Type. (TODO: FREE<em>IMAGE</em>TYPE)
+    </ol>
 
 
 
@@ -1095,7 +1455,7 @@
     <strong>fipImage:getInfo ()</strong>
     </dt>
     <dd>
-    DOCME
+    Returns a pointer to the bitmap's BITMAPINFO header.
  NYI
 
 
@@ -1109,7 +1469,7 @@
     <strong>fipImage:getInfoHeader ()</strong>
     </dt>
     <dd>
-    DOCME
+    Returns a pointer to the bitmap's BITMAPINFOHEADER.
  NYI
 
 
@@ -1123,22 +1483,54 @@
     <strong>fipImage:getLine ()</strong>
     </dt>
     <dd>
-    DOCME
+    Returns the width of the bitmap in bytes. </p>
+
+<p> This is not the size of the scanline.
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        Width.
+    </ol>
 
 
+    <h3>See also:</h3>
+    <ul>
+         <a href="../modules/fipImage.html#fipImage:getScanWidth">fipImage:getScanWidth</a>
+    </ul>
 
 
 </dd>
     <dt>
     <a name = "fipImage:getMetadata"></a>
-    <strong>fipImage:getMetadata ()</strong>
+    <strong>fipImage:getMetadata (model, key)</strong>
     </dt>
     <dd>
-    DOCME
+    Retrieve a metadata attached to the dib.
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">model</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Metadata model to look for. (TODO: FREE<em>IMAGE</em>MDMODEL)
+        </li>
+        <li><span class="parameter">key</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Metadata field name.
+        </li>
+    </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?</li>
+        <li>
+           <span class="types"><span class="type">fipTag</span></span>
+        On success, the tag.</li>
+    </ol>
 
 
 
@@ -1146,12 +1538,25 @@
 </dd>
     <dt>
     <a name = "fipImage:getMetadataCount"></a>
-    <strong>fipImage:getMetadataCount ()</strong>
+    <strong>fipImage:getMetadataCount (model)</strong>
     </dt>
     <dd>
-    DOCME
+    Returns the number of tags contained in the model metadata model attached to the dib.
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">model</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Metadata model to look for. (TODO: FREE<em>IMAGE</em>MDMODEL)
+        </li>
+    </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        Count.
+    </ol>
 
 
 
@@ -1162,9 +1567,17 @@
     <strong>fipImage:getPalette ()</strong>
     </dt>
     <dd>
-    DOCME
+    Returns a pointer to the bitmap's palette. </p>
+
+<p> If the bitmap doesn't have a palette, getPalette returns NULL. (TODO!)
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">array</span></span>
+        (TODO)
+    </ol>
 
 
 
@@ -1175,9 +1588,15 @@
     <strong>fipImage:getPaletteSize ()</strong>
     </dt>
     <dd>
-    DOCME
+    Returns the palette size in bytes.
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        Size.
+    </ol>
 
 
 
@@ -1185,12 +1604,32 @@
 </dd>
     <dt>
     <a name = "fipImage:getPixelColor"></a>
-    <strong>fipImage:getPixelColor ()</strong>
+    <strong>fipImage:getPixelColor (x, y)</strong>
     </dt>
     <dd>
-    DOCME
+    Get the pixel color of a 16-, 24- or 32-bit image at position (x, y), including range check (slow access).
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">uint</span></span>
+         Pixel position in horizontal direction.
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">uint</span></span>
+         Pixel position in vertical direction.
+        </li>
+    </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?</li>
+        <li>
+           <span class="types"><span class="type">RGBQUAD</span></span>
+        On success, pixel color. (TODO?)</li>
+    </ol>
 
 
 
@@ -1198,12 +1637,32 @@
 </dd>
     <dt>
     <a name = "fipImage:getPixelIndex"></a>
-    <strong>fipImage:getPixelIndex ()</strong>
+    <strong>fipImage:getPixelIndex (x, y)</strong>
     </dt>
     <dd>
-    DOCME
+    Get the pixel index of a 1-, 4- or 8-bit palettized image at position (x, y), including range check (slow access).
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">uint</span></span>
+         Pixel position in horizontal direction.
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">uint</span></span>
+         Pixel position in vertical direction.
+        </li>
+    </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?</li>
+        <li>
+           <span class="types"><span class="type">BYTE</span></span>
+        On success, pixel index. (TODO?)</li>
+    </ol>
 
 
 
@@ -1214,9 +1673,51 @@
     <strong>fipImage:getThumbnail ()</strong>
     </dt>
     <dd>
-    DOCME
+    Retrieves a copy the thumbnail possibly attached to the bitmap.
 
 
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?</li>
+        <li>
+           <span class="types"><span class="type">fipImage</span></span>
+        On success (and a thumbnail was present), the image.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:getScanLine"></a>
+    <strong>fipImage:getScanLine (scanline)</strong>
+    </dt>
+    <dd>
+    Returns a pointer to the start of the given scanline in the bitmap's data-bits. </p>
+
+<p> This pointer can be cast according to the result returned by <a href="../modules/fipImage.html#fipImage:getImageType">fipImage:getImageType</a>.</p>
+
+<p> Use this function with <a href="../modules/fipImage.html#fipImage:getScanWidth">fipImage:getScanWidth</a> to iterates through the pixels.
+ NYI
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">scanline</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Byte stream.
+    </ol>
 
 
 
@@ -1227,9 +1728,15 @@
     <strong>fipImage:getTransparencyCount ()</strong>
     </dt>
     <dd>
-    DOCME
+    8-bit transparency: get the number of transparent colors.
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        The number of transparent colors in a palletised bitmap.
+    </ol>
 
 
 
@@ -1240,415 +1747,16 @@
     <strong>fipImage:getTransparencyTable ()</strong>
     </dt>
     <dd>
-    DOCME
+    8-bit transparency: get the bitmap's transparency table.
  NYI
 
 
-
-
-
-
-</dd>
-    <dt>
-    <a name = "fipImage:getVerticalResolution"></a>
-    <strong>fipImage:getVerticalResolution ()</strong>
-    </dt>
-    <dd>
-    DOCME
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "fipImage:getWidth"></a>
-    <strong>fipImage:getWidth ()</strong>
-    </dt>
-    <dd>
-    DOCME
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "fipImage:hasFileBkColor"></a>
-    <strong>fipImage:hasFileBkColor ()</strong>
-    </dt>
-    <dd>
-    DOCME
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "fipImage:hasThumbnail"></a>
-    <strong>fipImage:hasThumbnail ()</strong>
-    </dt>
-    <dd>
-    DOCME
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "fipImage:invert"></a>
-    <strong>fipImage:invert ()</strong>
-    </dt>
-    <dd>
-    DOCME
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "fipImage:isGrayscale"></a>
-    <strong>fipImage:isGrayscale ()</strong>
-    </dt>
-    <dd>
-    DOCME
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "fipImage:isTransparent"></a>
-    <strong>fipImage:isTransparent ()</strong>
-    </dt>
-    <dd>
-    DOCME
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "fipImage:isValid"></a>
-    <strong>fipImage:isValid ()</strong>
-    </dt>
-    <dd>
-    DOCME
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "fipImage:load"></a>
-    <strong>fipImage:load ()</strong>
-    </dt>
-    <dd>
-    DOCME
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "fipImage:loadFromMemory"></a>
-    <strong>fipImage:loadFromMemory ()</strong>
-    </dt>
-    <dd>
-    DOCME
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "fipImage:makeThumbnail"></a>
-    <strong>fipImage:makeThumbnail ()</strong>
-    </dt>
-    <dd>
-    DOCME
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "fipImage:newTexture"></a>
-    <strong>fipImage:newTexture ()</strong>
-    </dt>
-    <dd>
-    DOCME
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "fipImage:pasteSubImage"></a>
-    <strong>fipImage:pasteSubImage ()</strong>
-    </dt>
-    <dd>
-    DOCME
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "fipImage:rescale"></a>
-    <strong>fipImage:rescale ()</strong>
-    </dt>
-    <dd>
-    DOCME
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "fipImage:rotate"></a>
-    <strong>fipImage:rotate ()</strong>
-    </dt>
-    <dd>
-    DOCME
- NYI
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "fipImage:rotateEx"></a>
-    <strong>fipImage:rotateEx ()</strong>
-    </dt>
-    <dd>
-    DOCME
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "fipImage:save"></a>
-    <strong>fipImage:save ()</strong>
-    </dt>
-    <dd>
-    DOCME
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "fipImage:saveToMemory"></a>
-    <strong>fipImage:saveToMemory ()</strong>
-    </dt>
-    <dd>
-    DOCME
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "fipImage:setChannel"></a>
-    <strong>fipImage:setChannel ()</strong>
-    </dt>
-    <dd>
-    DOCME
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "fipImage:setFileBkColor"></a>
-    <strong>fipImage:setFileBkColor ()</strong>
-    </dt>
-    <dd>
-    DOCME
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "fipImage:setHorizontalResolution"></a>
-    <strong>fipImage:setHorizontalResolution ()</strong>
-    </dt>
-    <dd>
-    DOCME
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "fipImage:setMetadata"></a>
-    <strong>fipImage:setMetadata ()</strong>
-    </dt>
-    <dd>
-    DOCME
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "fipImage:setPixelColor"></a>
-    <strong>fipImage:setPixelColor ()</strong>
-    </dt>
-    <dd>
-    DOCME
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "fipImage:setPixelIndex"></a>
-    <strong>fipImage:setPixelIndex ()</strong>
-    </dt>
-    <dd>
-    DOCME
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "fipImage:setSize"></a>
-    <strong>fipImage:setSize ()</strong>
-    </dt>
-    <dd>
-    DOCME
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "fipImage:setThumbnail"></a>
-    <strong>fipImage:setThumbnail ()</strong>
-    </dt>
-    <dd>
-    DOCME
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "fipImage:setTransparencyTable"></a>
-    <strong>fipImage:setTransparencyTable ()</strong>
-    </dt>
-    <dd>
-    DOCME
- NYI
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "fipImage:setVerticalResolution"></a>
-    <strong>fipImage:setVerticalResolution ()</strong>
-    </dt>
-    <dd>
-    DOCME
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "fipImage:splitChannels"></a>
-    <strong>fipImage:splitChannels ()</strong>
-    </dt>
-    <dd>
-    DOCME
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "fipImage:threshold"></a>
-    <strong>fipImage:threshold ()</strong>
-    </dt>
-    <dd>
-    DOCME
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "fipImage:toneMapping"></a>
-    <strong>fipImage:toneMapping ()</strong>
-    </dt>
-    <dd>
-    DOCME
-
-
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Returns a pointer to the bitmap's transparency table.
+    </ol>
 
 
 
@@ -1667,6 +1775,950 @@
 
            <span class="types"><span class="type">uint</span></span>
         Scan width.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:getVerticalResolution"></a>
+    <strong>fipImage:getVerticalResolution ()</strong>
+    </dt>
+    <dd>
+    Returns the bitmap resolution along the Y axis, in pixels / cm.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        Resolution.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:getWidth"></a>
+    <strong>fipImage:getWidth ()</strong>
+    </dt>
+    <dd>
+    Returns the image width in pixels.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        Width.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:hasFileBkColor"></a>
+    <strong>fipImage:hasFileBkColor ()</strong>
+    </dt>
+    <dd>
+    Getter.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Image has a file background color?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:hasThumbnail"></a>
+    <strong>fipImage:hasThumbnail ()</strong>
+    </dt>
+    <dd>
+    Check if the image has an embedded thumbnail.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Thumbnail is present in the bitmap?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:invert"></a>
+    <strong>fipImage:invert ()</strong>
+    </dt>
+    <dd>
+    Inverts each pixel data.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:isGrayscale"></a>
+    <strong>fipImage:isGrayscale ()</strong>
+    </dt>
+    <dd>
+    Getter.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Bitmap is an 8-bit bitmap with a greyscale palette?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:isModified"></a>
+    <strong>fipImage:isModified ()</strong>
+    </dt>
+    <dd>
+    Get the image status.
+ NYI (forgot!)
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Image is marked as modified?
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../modules/fipImage.html#fipImage:setModified">fipImage:setModified</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:isTransparent"></a>
+    <strong>fipImage:isTransparent ()</strong>
+    </dt>
+    <dd>
+    Getter.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Image is transparent?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:isValid"></a>
+    <strong>fipImage:isValid ()</strong>
+    </dt>
+    <dd>
+    Indicates whether the image is valid for use. </p>
+
+<p> Reimplemented in <a href="../modules/fipWinImage.html#">fipWinImage</a>.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Image is allocated?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:load"></a>
+    <strong>fipImage:load (name[, flags=0])</strong>
+    </dt>
+    <dd>
+    Loads an image from disk, given its file name and an optional flag.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Path and file name of the image to load.
+        </li>
+        <li><span class="parameter">flags</span>
+            <span class="types"><span class="type">uint</span></span>
+         Format-dependent flags. (TODO: Loading flags... actually a table of strings?)
+         (<em>default</em> 0)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:loadFromMemory"></a>
+    <strong>fipImage:loadFromMemory (memIO[, flags=0])</strong>
+    </dt>
+    <dd>
+    Loads an image using the specified memory stream and an optional flag.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">memIO</span>
+            <span class="types"><span class="type">fipMemoryIO</span></span>
+         FreeImage memory stream.
+        </li>
+        <li><span class="parameter">flags</span>
+            <span class="types"><span class="type">uint</span></span>
+         Format-dependent flags. (TODO: Loading flags... actually a table of strings?)
+         (<em>default</em> 0)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:makeThumbnail"></a>
+    <strong>fipImage:makeThumbnail (max_size[, convert=true])</strong>
+    </dt>
+    <dd>
+    Creates a thumbnail image keeping aspect ratio.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">max_size</span>
+            <span class="types"><span class="type">uint</span></span>
+         Maximum width or height in pixel units.
+        </li>
+        <li><span class="parameter">convert</span>
+            <span class="types"><span class="type">bool</span></span>
+         Convert the image to a standard type?
+         (<em>default</em> true)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:newTexture"></a>
+    <strong>fipImage:newTexture ()</strong>
+    </dt>
+    <dd>
+    Get an external texture from the current state that may be used in Corona. </p>
+
+<p> TODO: More thorough, caveats about threading
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">CoronaExternalTexture</span></span>
+        Texture which may be passed to Corona's <strong>display</strong> APIs via its <strong>filename</strong> and
+ <strong>baseDir</strong> fields.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:pasteSubImage"></a>
+    <strong>fipImage:pasteSubImage (src, left, top[, alpha=256])</strong>
+    </dt>
+    <dd>
+    Alpha blend or combine a sub part image with the current image. </p>
+
+<p> The bit depth of dst bitmap must be greater than or equal to the bit depth of <em>src</em>. Upper promotion of <em>src</em> is done
+ internally. Supported bit depth equals to 4, 8, 16, 24 or 32.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">src</span>
+            <span class="types"><span class="type">fipImage</span></span>
+         Source subimage.
+        </li>
+        <li><span class="parameter">left</span>
+            <span class="types"><span class="type">int</span></span>
+         Specifies the left position of the sub image.
+        </li>
+        <li><span class="parameter">top</span>
+            <span class="types"><span class="type">int</span></span>
+         Specifies the top position of the sub image.
+        </li>
+        <li><span class="parameter">alpha</span>
+            <span class="types"><span class="type">int</span></span>
+         Alpha blend factor. The source and destination images are alpha blended if <em>alpha</em> = 0..255. If
+ <em>alpha</em> > 255, then the source image is combined to the destination image.
+         (<em>default</em> 256)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:rescale"></a>
+    <strong>fipImage:rescale (new_width, new_height, filter)</strong>
+    </dt>
+    <dd>
+    Rescale the image to a new width / height.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">new_width</span>
+            <span class="types"><span class="type">uint</span></span>
+         New image width.
+        </li>
+        <li><span class="parameter">new_height</span>
+            <span class="types"><span class="type">uint</span></span>
+         New image height.
+        </li>
+        <li><span class="parameter">filter</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The filter parameter specifies which resampling filter should be used. (TODO: FREE<em>IMAGE</em>FILTER)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:rotate"></a>
+    <strong>fipImage:rotate (angle, bkcolor)</strong>
+    </dt>
+    <dd>
+    Image rotation by means of three shears.
+ NYI
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">angle</span>
+            <span class="types"><span class="type">number</span></span>
+         Image rotation angle, in degree.
+        </li>
+        <li><span class="parameter">bkcolor</span>
+         Background color (image type dependent), default to black background. (TODO)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        Returns rotated dib if successful, returns NULL otherwise. (TODO: bool in docs)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:rotateEx"></a>
+    <strong>fipImage:rotateEx (Image, x_shift, y_shift, x_origin, y_origin, use_mask)</strong>
+    </dt>
+    <dd>
+    Image translation and rotation using B-Splines.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">Image</span>
+            <span class="types"><span class="type">number</span></span>
+         rotation angle, in degree.
+        </li>
+        <li><span class="parameter">x_shift</span>
+            <span class="types"><span class="type">number</span></span>
+         Image horizontal shift.
+        </li>
+        <li><span class="parameter">y_shift</span>
+            <span class="types"><span class="type">number</span></span>
+         Image vertical shift.
+        </li>
+        <li><span class="parameter">x_origin</span>
+            <span class="types"><span class="type">number</span></span>
+         Origin of the x-axis.
+        </li>
+        <li><span class="parameter">y_origin</span>
+            <span class="types"><span class="type">number</span></span>
+         Origin of the y-axis.
+        </li>
+        <li><span class="parameter">use_mask</span>
+            <span class="types"><span class="type">bool</span></span>
+         Mask the image? Image mirroring is applied when <em>use_mask</em> is false.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        Returns the translated &amp; rotated dib if successful, returns NULL otherwise. (TODO: bool in docs)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:save"></a>
+    <strong>fipImage:save (name[, flags=0])</strong>
+    </dt>
+    <dd>
+    Saves an image to disk, given its file name and an optional flag.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Path and file name of the image to save.
+        </li>
+        <li><span class="parameter">flags</span>
+            <span class="types"><span class="type">uint</span></span>
+         Format-dependent flags. (TODO: Saving flags... actually a table of strings?)
+         (<em>default</em> 0)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:saveToMemory"></a>
+    <strong>fipImage:saveToMemory (memIO[, flags=0])</strong>
+    </dt>
+    <dd>
+    Saves an image using the specified memory stream and an optional flag.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">memIO</span>
+            <span class="types"><span class="type">fipMemoryIO</span></span>
+         FreeImage memory stream.
+        </li>
+        <li><span class="parameter">flags</span>
+            <span class="types"><span class="type">uint</span></span>
+         Format-dependent flags. (TODO: Saving flags... actually a table of strings?)
+         (<em>default</em> 0)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:setChannel"></a>
+    <strong>fipImage:setChannel (Input, channel)</strong>
+    </dt>
+    <dd>
+    Insert an 8-bit dib into a 24- or 32-bit image.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">Input</span>
+            <span class="types"><span class="type">image</span></span>
+         8-bit image to insert.
+        </li>
+        <li><span class="parameter">channel</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Color channel to replace. (TODO: FREE<em>IMAGE</em>CHANNEL)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:setFileBkColor"></a>
+    <strong>fipImage:setFileBkColor ([bkcolor])</strong>
+    </dt>
+    <dd>
+    Set the file background color of an image. </p>
+
+<p> When saving an image to PNG, this background color is transparently saved to the PNG file. When the <em>bkcolor</em> parameter
+ is absent, the background color is removed from the image.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">bkcolor</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         (TODO: RGBQUAD)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:setHorizontalResolution"></a>
+    <strong>fipImage:setHorizontalResolution (value)</strong>
+    </dt>
+    <dd>
+    Set the bitmap resolution along the X axis, in pixels / cm.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:setMetadata"></a>
+    <strong>fipImage:setMetadata (key, Tag)</strong>
+    </dt>
+    <dd>
+
+<p>Attach a new FreeImage tag to the dib. </p>
+
+<p> Sample use (TODO: Lua version):</p>
+<pre><code> fipImage image;
+ -- ...
+ fipTag tag;
+ tag.setKeyValue("Caption/Abstract", "my caption");
+ image.setMetadata(FIMD_IPTC, tag.getKey(), tag);
+ tag.setKeyValue("Keywords", "FreeImage;Library;Images;Compression");
+ image.setMetadata(FIMD_IPTC, tag.getKey(), tag);
+</code></pre>
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">key</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Tag field name.
+        </li>
+        <li><span class="parameter">Tag</span>
+            <span class="types"><span class="type">fipTag</span></span>
+         to be attached.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Operation</span></span>
+        was successful?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:setModified"></a>
+    <strong>fipImage:setModified ([bStatus=true])</strong>
+    </dt>
+    <dd>
+    Set the image status as 'modified'. </p>
+
+<p> When using the <a href="../modules/fipWinImage.html#">fipWinImage</a> class, the image status is used to refresh the display. It is changed to FALSE whenever the
+ display has just been refreshed.
+ NYI (missed it :) )
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">bStatus</span>
+            <span class="types"><span class="type">bool</span></span>
+         The image should be marked as modified?
+         (<em>default</em> true)
+        </li>
+    </ul>
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../modules/fipImage.html#fipImage:isModified">fipImage:isModified</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:setPixelColor"></a>
+    <strong>fipImage:setPixelColor (x, y, value)</strong>
+    </dt>
+    <dd>
+    Set the pixel color of a 16-, 24- or 32-bit image at position (x, y), including range check (slow access).
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">uint</span></span>
+         Pixel position in horizontal direction.
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">uint</span></span>
+         Pixel position in vertical direction.
+        </li>
+        <li><span class="parameter">value</span>
+            <span class="types"><span class="type">RGBQUAD</span></span>
+         Pixel color. (TODO: RGBQUAD *)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Operation</span></span>
+        was successful?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:setPixelIndex"></a>
+    <strong>fipImage:setPixelIndex (x, y, value)</strong>
+    </dt>
+    <dd>
+    Set the pixel index of a 1-, 4- or 8-bit palettized image at position (x, y), including range check (slow access).
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">uint</span></span>
+         Pixel position in horizontal direction.
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">uint</span></span>
+         Pixel position in vertical direction.
+        </li>
+        <li><span class="parameter">value</span>
+            <span class="types"><span class="type">BYTE</span></span>
+         Pixel index. (TODO: BYTE *)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Operation</span></span>
+        was successful?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:setSize"></a>
+    <strong>fipImage:setSize (type, w, h, bpp[, rmask=0[, gmask=0[, bmask=0]]])</strong>
+    </dt>
+    <dd>
+    Image allocator.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">type</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         (TODO: FREE<em>IMAGE</em>TYPE)
+        </li>
+        <li><span class="parameter">w</span>
+            <span class="types"><span class="type">uint</span></span>
+         Width.
+        </li>
+        <li><span class="parameter">h</span>
+            <span class="types"><span class="type">uint</span></span>
+         Height.
+        </li>
+        <li><span class="parameter">bpp</span>
+            <span class="types"><span class="type">uint</span></span>
+         Bitdepth.
+        </li>
+        <li><span class="parameter">rmask</span>
+            <span class="types"><span class="type">uint</span></span>
+         Red mask...
+         (<em>default</em> 0)
+        </li>
+        <li><span class="parameter">gmask</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...green...
+         (<em>default</em> 0)
+        </li>
+        <li><span class="parameter">bmask</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and blue.
+         (<em>default</em> 0)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Operation</span></span>
+        was successful?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:setThumbnail"></a>
+    <strong>fipImage:setThumbnail (image)</strong>
+    </dt>
+    <dd>
+    Attach a thumbnail to the bitmap.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">image</span>
+            <span class="types"><span class="type">fipImage</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Operation</span></span>
+        was successful?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:setTransparencyTable"></a>
+    <strong>fipImage:setTransparencyTable ()</strong>
+    </dt>
+    <dd>
+    8-bit transparency: set the bitmap's transparency table.
+ NYI
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:setVerticalResolution"></a>
+    <strong>fipImage:setVerticalResolution (value)</strong>
+    </dt>
+    <dd>
+    Set the bitmap resolution along the Y axis, in pixels / cm.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">value</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:splitChannels"></a>
+    <strong>fipImage:splitChannels ()</strong>
+    </dt>
+    <dd>
+    Split a 24-bit RGB image into 3 greyscale images corresponding to the red, green and blue channels.
+
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        Returns <strong>false</strong> if the dib isn't a valid image, if it's not a 24-bit image or if one of the
+ output channel can't be allocated; otherwise <strong>true</strong>.</li>
+        <li>
+           <span class="types"><span class="type">fipImage</span></span>
+        On success, output red channel...</li>
+        <li>
+           <span class="types"><span class="type">fipImage</span></span>
+        ...green channel...</li>
+        <li>
+           <span class="types"><span class="type">fipImage</span></span>
+        ...and blue channel.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:threshold"></a>
+    <strong>fipImage:threshold (T)</strong>
+    </dt>
+    <dd>
+    Converts the bitmap to 1 bit using a threshold <em>T</em>.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">T</span>
+            <span class="types"><span class="type">byte</span></span>
+         Threshold value in [0..255].
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:toneMapping"></a>
+    <strong>fipImage:toneMapping (tmo[, first=0[, second=0[, third=1[, fourth=0]]]])</strong>
+    </dt>
+    <dd>
+    Converts a High Dynamic Range image (48-bit RGB or 96-bit RGB Float) to a 24-bit RGB image.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">tmo</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Tone mapping operator. (TODO: FREE<em>IMAGE</em>TMO)
+        </li>
+        <li><span class="parameter">first</span>
+            <span class="types"><span class="type">number</span></span>
+         First tone mapping algorithm parameter (algorithm dependant).
+         (<em>default</em> 0)
+        </li>
+        <li><span class="parameter">second</span>
+            <span class="types"><span class="type">number</span></span>
+         Second tone mapping algorithm parameter (algorithm dependant).
+         (<em>default</em> 0)
+        </li>
+        <li><span class="parameter">third</span>
+            <span class="types"><span class="type">number</span></span>
+         Third tone mapping algorithm parameter (algorithm dependant).
+         (<em>default</em> 1)
+        </li>
+        <li><span class="parameter">fourth</span>
+            <span class="types"><span class="type">number</span></span>
+         Fourth tone mapping algorithm parameter (algorithm dependant).
+         (<em>default</em> 0)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
     </ol>
 
 

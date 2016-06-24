@@ -54,25 +54,54 @@
 <div id="content">
 
 <h1>Module <code>fipMetadataFind</code></h1>
-<p>Implementation of <strong>fipMetadataFind</strong>, a metadata iterator.</p>
+<p>Corona wrapper for <strong>fipMetadataFind</strong>, a metadata iterator.</p>
 <p>
 
+<p> Usage :</p>
+
+<pre><code>local freeimage = require("plugin.freeimage")
+local image
+-- ...
+local finder = freeimage.NewMetadataFind()
+local ok, tag = finder:findFirstMetadata("EXIF_MAIN", image)
+
+if ok then
+  repeat
+    -- process the tag
+    print(tag:getKey())
+
+    ok, tag = finder:findNextMetadata()
+  until not ok
+end
+
+-- the class can be called again with another metadata model
+ok, tag = finder:findFirstMetadata("EXIF_EXIF", image)
+
+if ok then
+  repeat
+    -- process the tag
+    print(tag:getKey())
+
+    ok, tag = finder:findNextMetadata()
+  until not ok
+end
+</code></pre>
 </p>
 
 
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#fipMetadataFind:findFirstMetadata">fipMetadataFind:findFirstMetadata ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#fipMetadataFind:findFirstMetadata">fipMetadataFind:findFirstMetadata (model, Input)</a></td>
+	<td class="summary">Provides information about the first instance of a tag that matches the metadata model specified in the model argument.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipMetadataFind:findNextMetadata">fipMetadataFind:findNextMetadata ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Find the next tag, if any, that matches the metadata model argument in a previous call to <a href="../modules/fipMetadataFind.html#fipMetadataFind:findFirstMetadata">fipMetadataFind:findFirstMetadata</a>.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipMetadataFind:isValid">fipMetadataFind:isValid ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Indicates whether the iterator is valid for use.</td>
 	</tr>
 </table>
 
@@ -84,12 +113,32 @@
     <dl class="function">
     <dt>
     <a name = "fipMetadataFind:findFirstMetadata"></a>
-    <strong>fipMetadataFind:findFirstMetadata ()</strong>
+    <strong>fipMetadataFind:findFirstMetadata (model, Input)</strong>
     </dt>
     <dd>
-    DOCME
+    Provides information about the first instance of a tag that matches the metadata model specified in the model argument.
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">model</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Metadata model. (TODO: MDMODEL)
+        </li>
+        <li><span class="parameter">Input</span>
+            <span class="types"><span class="type">fipImage</span></span>
+         image.
+        </li>
+    </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        Find succeeded?</li>
+        <li>
+           <span class="types"><span class="type">fipTag</span></span>
+        On success, the first tag.</li>
+    </ol>
 
 
 
@@ -100,9 +149,18 @@
     <strong>fipMetadataFind:findNextMetadata ()</strong>
     </dt>
     <dd>
-    DOCME
+    Find the next tag, if any, that matches the metadata model argument in a previous call to <a href="../modules/fipMetadataFind.html#fipMetadataFind:findFirstMetadata">fipMetadataFind:findFirstMetadata</a>.
 
 
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        Find succeeded?</li>
+        <li>
+           <span class="types"><span class="type">fipTag</span></span>
+        On success, the next tag.</li>
+    </ol>
 
 
 
@@ -113,9 +171,15 @@
     <strong>fipMetadataFind:isValid ()</strong>
     </dt>
     <dd>
-    DOCME
+    Indicates whether the iterator is valid for use.
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Search handle is allocated?
+    </ol>
 
 
 

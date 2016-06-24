@@ -83,7 +83,7 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#NewMemoryIO">NewMemoryIO ([data[, size_in_bytes=0]])</a></td>
-	<td class="summary">TODO</td>
+	<td class="summary">Wrap a memory buffer containing image data.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#NewMultiPage">NewMultiPage (keep_in_memory)</a></td>
@@ -173,20 +173,20 @@
     <strong>NewMemoryIO ([data[, size_in_bytes=0]])</strong>
     </dt>
     <dd>
-    TODO
+    Wrap a memory buffer containing image data. </p>
+
+<p> The memory buffer is read only and has to be freed by the user when no longer in use. (TODO: true?)</p>
+
+<p> When default arguments are used, open a memory file as read/write.
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">data</span>
-
-
-
+         Pointer to the memory buffer.
         </li>
         <li><span class="parameter">size_in_bytes</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Buffer size in bytes.
          (<em>default</em> 0)
         </li>
     </ul>

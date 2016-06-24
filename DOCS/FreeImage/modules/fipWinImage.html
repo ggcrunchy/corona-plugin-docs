@@ -54,10 +54,7 @@
 <div id="content">
 
 <h1>Module <code>fipWinImage</code></h1>
-<p>Implementation of <strong>fipWinImage</strong>, a class designed for MS Windows (TM) platforms.</p>
-<p>
-
-
+<p>Corona wrapper for <strong>fipWinImage</strong>, a class designed for MS Windows (TM) platforms.</p>
 <p> <strong>fipWinImage</strong> provides methods used to:</p>
 
 <ul>
@@ -65,42 +62,43 @@
     <li>Copy / Paste a DIB to/from Windows devices (HANDLE, HBITMAP, Clipboard)</li>
     <li>Capture a window (HWND) and convert it to an image</li>
 </ul>
-</p>
+
+<p> <strong>fipWinImage</strong> derives from <strong>fipImage</strong> and unless otherwise noted may be treated as one.</p>
 
 
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#fipWinImage:assign">fipWinImage:assign ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#fipWinImage:assign">fipWinImage:assign (image)</a></td>
+	<td class="summary">Copies one (Win) image to another.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipWinImage:captureWindow">fipWinImage:captureWindow ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#fipWinImage:captureWindow">fipWinImage:captureWindow (hWndApplicationWindow, hWndSelectedWindow)</a></td>
+	<td class="summary">Capture a window and convert it to an image.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipWinImage:clear">fipWinImage:clear ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Destroy image data.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipWinImage:copyToClipboard">fipWinImage:copyToClipboard ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#fipWinImage:copyToClipboard">fipWinImage:copyToClipboard (hWndNewOwner)</a></td>
+	<td class="summary">Clipboard copy.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipWinImage:getToneMappingOperator">fipWinImage:getToneMappingOperator ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Get the tone mapping algorithm used for drawing, with its parameters.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipWinImage:isValid">fipWinImage:isValid ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Indicates whether the image is valid for use.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipWinImage:pasteFromClipboard">fipWinImage:pasteFromClipboard ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Retrieves data from the clipboard.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipWinImage:setToneMappingOperator">fipWinImage:setToneMappingOperator ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#fipWinImage:setToneMappingOperator">fipWinImage:setToneMappingOperator (tmo[, first=0[, second=0[, third=1[, fourth=0]]]])</a></td>
+	<td class="summary">Select a tone mapping algorithm used for drawing and set the image as modified so that the display will be refreshed.</td>
 	</tr>
 </table>
 
@@ -112,11 +110,18 @@
     <dl class="function">
     <dt>
     <a name = "fipWinImage:assign"></a>
-    <strong>fipWinImage:assign ()</strong>
+    <strong>fipWinImage:assign (image)</strong>
     </dt>
     <dd>
-    DOCME
+    Copies one (Win) image to another.
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">image</span>
+            <span class="types"><span class="type">fipWinImage</span></span>
+         Image to assign.
+        </li>
+    </ul>
 
 
 
@@ -125,12 +130,29 @@
 </dd>
     <dt>
     <a name = "fipWinImage:captureWindow"></a>
-    <strong>fipWinImage:captureWindow ()</strong>
+    <strong>fipWinImage:captureWindow (hWndApplicationWindow, hWndSelectedWindow)</strong>
     </dt>
     <dd>
-    DOCME
+    Capture a window and convert it to an image.
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">hWndApplicationWindow</span>
+            <span class="types"><span class="type">userdata</span></span>
+         Handle to the application main window. (TODO?)
+        </li>
+        <li><span class="parameter">hWndSelectedWindow</span>
+            <span class="types"><span class="type">userdata</span></span>
+         Handle to the window to be captured.
+        </li>
+    </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
 
 
 
@@ -141,7 +163,7 @@
     <strong>fipWinImage:clear ()</strong>
     </dt>
     <dd>
-    DOCME
+    Destroy image data.
 
 
 
@@ -151,12 +173,25 @@
 </dd>
     <dt>
     <a name = "fipWinImage:copyToClipboard"></a>
-    <strong>fipWinImage:copyToClipboard ()</strong>
+    <strong>fipWinImage:copyToClipboard (hWndNewOwner)</strong>
     </dt>
     <dd>
-    DOCME
+    Clipboard copy.
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">hWndNewOwner</span>
+            <span class="types"><span class="type">userdata</span></span>
+         Handle to the window to be associated with the open clipboard. (TODO?)
+        </li>
+    </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
 
 
 
@@ -167,9 +202,27 @@
     <strong>fipWinImage:getToneMappingOperator ()</strong>
     </dt>
     <dd>
-    DOCME
+    Get the tone mapping algorithm used for drawing, with its parameters.
 
 
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Tone mapping operator. (TODO: Tone mapping operator)</li>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        First tone mapping algorithm parameter.</li>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        Second tone mapping algorithm parameter</li>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        Third tone mapping algorithm parameter</li>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        Fourth tone mapping algorithm parameter</li>
+    </ol>
 
 
 
@@ -180,9 +233,15 @@
     <strong>fipWinImage:isValid ()</strong>
     </dt>
     <dd>
-    DOCME
+    Indicates whether the image is valid for use.
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        The image is allocated?
+    </ol>
 
 
 
@@ -193,9 +252,15 @@
     <strong>fipWinImage:pasteFromClipboard ()</strong>
     </dt>
     <dd>
-    DOCME
+    Retrieves data from the clipboard.
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
 
 
 
@@ -203,11 +268,38 @@
 </dd>
     <dt>
     <a name = "fipWinImage:setToneMappingOperator"></a>
-    <strong>fipWinImage:setToneMappingOperator ()</strong>
+    <strong>fipWinImage:setToneMappingOperator (tmo[, first=0[, second=0[, third=1[, fourth=0]]]])</strong>
     </dt>
     <dd>
-    DOCME
+    Select a tone mapping algorithm used for drawing and set the image as modified so that the display will be refreshed.
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">tmo</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Tone mapping operator. (TODO: FREE<em>IMAGE</em>TMO)
+        </li>
+        <li><span class="parameter">first</span>
+            <span class="types"><span class="type">number</span></span>
+         First tone mapping algorithm parameter (algorithm dependant).
+         (<em>default</em> 0)
+        </li>
+        <li><span class="parameter">second</span>
+            <span class="types"><span class="type">number</span></span>
+         Second tone mapping algorithm parameter (algorithm dependant).
+         (<em>default</em> 0)
+        </li>
+        <li><span class="parameter">third</span>
+            <span class="types"><span class="type">number</span></span>
+         Third tone mapping algorithm parameter (algorithm dependant).
+         (<em>default</em> 1)
+        </li>
+        <li><span class="parameter">fourth</span>
+            <span class="types"><span class="type">number</span></span>
+         Fourth tone mapping algorithm parameter (algorithm dependant).
+         (<em>default</em> 0)
+        </li>
+    </ul>
 
 
 

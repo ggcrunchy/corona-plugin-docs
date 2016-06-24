@@ -54,7 +54,7 @@
 <div id="content">
 
 <h1>Module <code>fipMemoryIO</code></h1>
-<p>Implementation of <strong>fipMemoryIO</strong>, a class that allows you to load / save images from / to a memory stream.</p>
+<p>Corona wrapper for <strong>fipMemoryIO</strong>, a memory handle class that allows you to load / save images from / to a memory stream.</p>
 <p>
 
 </p>
@@ -63,44 +63,52 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#fipMemoryIO:acquire">fipMemoryIO:acquire ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#fipMemoryIO:acquire">fipMemoryIO:acquire (as_table)</a></td>
+	<td class="summary">Provides a direct buffer access to a memory stream.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipMemoryIO:close">fipMemoryIO:close ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Free any allocated memory and invalidate the stream.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipMemoryIO:getFileType">fipMemoryIO:getFileType ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Returns the buffer image format.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipMemoryIO:isValid">fipMemoryIO:isValid ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Indicates whether the memory handle is valid for use.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipMemoryIO:load">fipMemoryIO:load ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#fipMemoryIO:load">fipMemoryIO:load (fif[, flags=0])</a></td>
+	<td class="summary">Loads a dib from a memory stream.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipMemoryIO:read">fipMemoryIO:read ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#fipMemoryIO:loadMultiPage">fipMemoryIO:loadMultiPage ()</a></td>
+	<td class="summary">Loads a multi-page bitmap from a memory stream.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipMemoryIO:save">fipMemoryIO:save ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#fipMemoryIO:read">fipMemoryIO:read (size, count)</a></td>
+	<td class="summary">Reads data from a memory stream.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipMemoryIO:seek">fipMemoryIO:seek ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#fipMemoryIO:save">fipMemoryIO:save (fif, Dib[, flags=0])</a></td>
+	<td class="summary">Saves a dib to a memory stream.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipMemoryIO:saveMultiPage">fipMemoryIO:saveMultiPage ()</a></td>
+	<td class="summary">Saves a multi-page bitmap to a memory stream.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipMemoryIO:seek">fipMemoryIO:seek (offset, origin)</a></td>
+	<td class="summary">Moves the memory pointer to a specified location.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipMemoryIO:tell">fipMemoryIO:tell ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Gets the current position of a memory pointer.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipMemoryIO:write">fipMemoryIO:write ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#fipMemoryIO:write">fipMemoryIO:write (buffer, size, count)</a></td>
+	<td class="summary">Writes data to a memory stream.</td>
 	</tr>
 </table>
 
@@ -112,12 +120,30 @@
     <dl class="function">
     <dt>
     <a name = "fipMemoryIO:acquire"></a>
-    <strong>fipMemoryIO:acquire ()</strong>
+    <strong>fipMemoryIO:acquire (as_table)</strong>
     </dt>
     <dd>
-    DOCME
+    Provides a direct buffer access to a memory stream.
+ TODO: I suppose this is meant to be writeable...
+ NOTE: buggy if failed (returns too many results)
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">as_table</span>
+            <span class="types"><span class="type">bool</span></span>
+         Get the bytes as a table? (TODO: users can already just do string.byte()...)
+        </li>
+    </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        Acquire succeeded?</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Byte stream. (TODO: or table, but see other notes)</li>
+    </ol>
 
 
 
@@ -128,7 +154,7 @@
     <strong>fipMemoryIO:close ()</strong>
     </dt>
     <dd>
-    DOCME
+    Free any allocated memory and invalidate the stream.
 
 
 
@@ -141,9 +167,15 @@
     <strong>fipMemoryIO:getFileType ()</strong>
     </dt>
     <dd>
-    DOCME
+    Returns the buffer image format.
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Format. (TODO: FREE<em>IMAGE</em>FORMAT)
+    </ol>
 
 
 
@@ -154,9 +186,15 @@
     <strong>fipMemoryIO:isValid ()</strong>
     </dt>
     <dd>
-    DOCME
+    Indicates whether the memory handle is valid for use.
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Internal memory buffer is a valid buffer?
+    </ol>
 
 
 
@@ -164,10 +202,42 @@
 </dd>
     <dt>
     <a name = "fipMemoryIO:load"></a>
-    <strong>fipMemoryIO:load ()</strong>
+    <strong>fipMemoryIO:load (fif[, flags=0])</strong>
     </dt>
     <dd>
-    DOCME
+    Loads a dib from a memory stream.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">fif</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Format identifier. (TODO: FREE<em>IMAGE</em>FORMAT)
+        </li>
+        <li><span class="parameter">flags</span>
+            <span class="types"><span class="type">uint</span></span>
+         Format-dependent flags. (TODO: Loading flags... actually a table of strings?)
+         (<em>default</em> 0)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">userdata</span> or <span class="type">nil</span></span>
+        On success, the loaded dib; otherwise <strong>nil</strong>. (TODO: More robust?)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipMemoryIO:loadMultiPage"></a>
+    <strong>fipMemoryIO:loadMultiPage ()</strong>
+    </dt>
+    <dd>
+    Loads a multi-page bitmap from a memory stream.
+ NYI
 
 
 
@@ -177,12 +247,30 @@
 </dd>
     <dt>
     <a name = "fipMemoryIO:read"></a>
-    <strong>fipMemoryIO:read ()</strong>
+    <strong>fipMemoryIO:read (size, count)</strong>
     </dt>
     <dd>
-    DOCME
+    Reads data from a memory stream.
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">size</span>
+            <span class="types"><span class="type">uint</span></span>
+         Item size in bytes.
+        </li>
+        <li><span class="parameter">count</span>
+            <span class="types"><span class="type">uint</span></span>
+         Maximum number of items to be read.
+        </li>
+    </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Bytes read. (TODO: okay? not what FreeImageType does "Returns the number of full items actually read,
+ which may be less than count if an error occurs")
+    </ol>
 
 
 
@@ -190,10 +278,46 @@
 </dd>
     <dt>
     <a name = "fipMemoryIO:save"></a>
-    <strong>fipMemoryIO:save ()</strong>
+    <strong>fipMemoryIO:save (fif, Dib[, flags=0])</strong>
     </dt>
     <dd>
-    DOCME
+    Saves a dib to a memory stream.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">fif</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Format identifier. (TODO: FREE<em>IMAGE</em>FORMAT)
+        </li>
+        <li><span class="parameter">Dib</span>
+            <span class="types"><span class="type">userdata</span></span>
+         to save. (TODO: More robust?)
+        </li>
+        <li><span class="parameter">flags</span>
+            <span class="types"><span class="type">uint</span></span>
+         Format-dependent flags. (TODO: Saving flags... actually a table of strings?)
+         (<em>default</em> 0)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Save succeeded?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipMemoryIO:saveMultiPage"></a>
+    <strong>fipMemoryIO:saveMultiPage ()</strong>
+    </dt>
+    <dd>
+    Saves a multi-page bitmap to a memory stream.
+ NYI
 
 
 
@@ -203,12 +327,33 @@
 </dd>
     <dt>
     <a name = "fipMemoryIO:seek"></a>
-    <strong>fipMemoryIO:seek ()</strong>
+    <strong>fipMemoryIO:seek (offset, origin)</strong>
     </dt>
     <dd>
-    DOCME
+    Moves the memory pointer to a specified location.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">offset</span>
+            <span class="types"><span class="type">int</span></span>
 
 
+
+        </li>
+        <li><span class="parameter">origin</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Seek succeeded?
+    </ol>
 
 
 
@@ -219,9 +364,15 @@
     <strong>fipMemoryIO:tell ()</strong>
     </dt>
     <dd>
-    DOCME
+    Gets the current position of a memory pointer.
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">int</span></span>
+        Position.
+    </ol>
 
 
 
@@ -229,12 +380,33 @@
 </dd>
     <dt>
     <a name = "fipMemoryIO:write"></a>
-    <strong>fipMemoryIO:write ()</strong>
+    <strong>fipMemoryIO:write (buffer, size, count)</strong>
     </dt>
     <dd>
-    DOCME
+    Writes data to a memory stream.
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">buffer</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Pointer to data to be written. (TODO: use __bytes protocol?)
+        </li>
+        <li><span class="parameter">size</span>
+            <span class="types"><span class="type">uint</span></span>
+         Item size in bytes
+        </li>
+        <li><span class="parameter">count</span>
+            <span class="types"><span class="type">uint</span></span>
+         Maximum number of items to be written.
+        </li>
+    </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        The number of full items actually written, which may be less than count if an error occurs.
+    </ol>
 
 
 
