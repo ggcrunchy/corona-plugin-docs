@@ -1,0 +1,349 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Documentation</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>FreeImage</h1>
+
+<ul>
+  <li><a href="../api.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../modules/enums.html">enums</a></li>
+  <li><strong>fipImage</strong></li>
+  <li><a href="../modules/fipMemoryIO.html">fipMemoryIO</a></li>
+  <li><a href="../modules/fipMetadataFind.html">fipMetadataFind</a></li>
+  <li><a href="../modules/fipMultiPage.html">fipMultiPage</a></li>
+  <li><a href="../modules/fipTag.html">fipTag</a></li>
+  <li><a href="../modules/fipWinImage.html">fipWinImage</a></li>
+  <li><a href="../modules/flags.html">flags</a></li>
+  <li><a href="../modules/freeimage.html">freeimage</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>fipImage</code></h1>
+<p>Implementation of <strong>fipImage</strong> class.</p>
+<p>
+
+</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:accessPixels">fipImage:accessPixels ()</a></td>
+	<td class="summary">Returns a pointer to the bitmap bits.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:adjustBrightness">fipImage:adjustBrightness (percentage)</a></td>
+	<td class="summary">Adjusts the brightness of a 8, 24 or 32-bit image by a certain amount.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:adjustBrightnessContrastGamma">fipImage:adjustBrightnessContrastGamma (brightness, constrast, gamma)</a></td>
+	<td class="summary">Adjusts an image's brightness, contrast and gamma within a single operation.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:adjustContrast">fipImage:adjustContrast (percentage)</a></td>
+	<td class="summary">Adjusts the contrast of a 8, 24 or 32-bit image by a certain amount.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:adjustCurve">fipImage:adjustCurve (LUT, channel)</a></td>
+	<td class="summary">Perfoms an histogram transformation on a 8, 24 or 32-bit image according to the values of a lookup table (LUT).</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:adjustGamma">fipImage:adjustGamma (gamma)</a></td>
+	<td class="summary">Performs gamma correction on a 8, 24 or 32-bit image.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:assign">fipImage:assign (Image)</a></td>
+	<td class="summary">Assign one image to another.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipImage:getScanWidth">fipImage:getScanWidth ()</a></td>
+	<td class="summary">Returns the width of the bitmap in bytes rounded to the nearest DWORD.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "fipImage:accessPixels"></a>
+    <strong>fipImage:accessPixels ()</strong>
+    </dt>
+    <dd>
+    Returns a pointer to the bitmap bits. </p>
+
+<p> It is up to you to interpret these bytes correctly, according to the results of FreeImage<em>GetBPP and GetRedMask, FreeImage</em>GetGreenMask
+ and FreeImage_GetBlueMask. Use this function with <a href="../modules/fipImage.html#fipImage:getScanWidth">fipImage:getScanWidth</a> to iterates through the pixels.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Byte stream.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:adjustBrightness"></a>
+    <strong>fipImage:adjustBrightness (percentage)</strong>
+    </dt>
+    <dd>
+    Adjusts the brightness of a 8, 24 or 32-bit image by a certain amount.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">percentage</span>
+            <span class="types"><span class="type">number</span></span>
+         Where -100 &lt;= <em>percentage</em> &lt;= 100.</p>
+
+<p> A value 0 means no change, less than 0 will make the image darker and greater than 0 will make the image brighter.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../modules/fipImage.html#fipImage:adjustCurve">fipImage:adjustCurve</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:adjustBrightnessContrastGamma"></a>
+    <strong>fipImage:adjustBrightnessContrastGamma (brightness, constrast, gamma)</strong>
+    </dt>
+    <dd>
+    Adjusts an image's brightness, contrast and gamma within a single operation. </p>
+
+<p> If more than one of these image display properties need to be adjusted, using this function should be preferred over
+ calling each adjustment function separately. That's particularly true for huge images or if performance is an issue.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">brightness</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">constrast</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">gamma</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="../modules/fipImage.html#fipImage:adjustBrightness">fipImage:adjustBrightness</a></li>
+         <li><a href="../modules/fipImage.html#fipImage:adjustContrast">fipImage:adjustContrast</a></li>
+         <li><a href="../modules/fipImage.html#fipImage:adjustGamma">fipImage:adjustGamma</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:adjustContrast"></a>
+    <strong>fipImage:adjustContrast (percentage)</strong>
+    </dt>
+    <dd>
+    Adjusts the contrast of a 8, 24 or 32-bit image by a certain amount.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">percentage</span>
+            <span class="types"><span class="type">number</span></span>
+         Where -100 &lt;= percentage &lt;= 100.</p>
+
+<p> A value 0 means no change, less than 0 will decrease the contrast and greater than 0 will increase the contrast of the image.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        operation was successful?
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../modules/fipImage.html#fipImage:adjustCurve">fipImage:adjustCurve</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:adjustCurve"></a>
+    <strong>fipImage:adjustCurve (LUT, channel)</strong>
+    </dt>
+    <dd>
+    Perfoms an histogram transformation on a 8, 24 or 32-bit image according to the values of a lookup table (LUT). </p>
+
+<p> The transformation is done as follows.</p>
+
+<p> Image 8-bit : if the image has a color palette, the LUT is applied to this palette, otherwise, it is applied to the grey values.</p>
+
+<p> Image 24-bit &amp; 32-bit : if channel == IPL<em>CC</em>RGB, the same LUT is applied to each color plane (R,G, and B). Otherwise, the LUT is
+ applied to the specified channel only.
+ (NYI, see FREE<em>IMAGE</em>COLOR_CHANNEL)
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">LUT</span>
+         Lookup table. The size of 'LUT' is assumed to be 256.
+        </li>
+        <li><span class="parameter">channel</span>
+         The color channel to be processed (only used with 24 &amp; 32-bit DIB).
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:adjustGamma"></a>
+    <strong>fipImage:adjustGamma (gamma)</strong>
+    </dt>
+    <dd>
+    Performs gamma correction on a 8, 24 or 32-bit image.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">gamma</span>
+            <span class="types"><span class="type">number</span></span>
+         Gamma value to use. A value of 1.0 leaves the image alone, less than one darkens it, and greater than one lightens it.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../modules/fipImage.html#fipImage:adjustCurve">fipImage:adjustCurve</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:assign"></a>
+    <strong>fipImage:assign (Image)</strong>
+    </dt>
+    <dd>
+    Assign one image to another.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">Image</span>
+            <span class="types"><span class="type">fipImage</span>, <span class="type">fipWinImage</span> or <span class="type">userdata</span></span>
+         to assign. (TODO: userdata kind of shaky)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fipImage:getScanWidth"></a>
+    <strong>fipImage:getScanWidth ()</strong>
+    </dt>
+    <dd>
+    Returns the width of the bitmap in bytes rounded to the nearest DWORD.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        Scan width.
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

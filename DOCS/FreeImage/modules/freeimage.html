@@ -1,0 +1,285 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Documentation</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>FreeImage</h1>
+
+<ul>
+  <li><a href="../api.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../modules/enums.html">enums</a></li>
+  <li><a href="../modules/fipImage.html">fipImage</a></li>
+  <li><a href="../modules/fipMemoryIO.html">fipMemoryIO</a></li>
+  <li><a href="../modules/fipMetadataFind.html">fipMetadataFind</a></li>
+  <li><a href="../modules/fipMultiPage.html">fipMultiPage</a></li>
+  <li><a href="../modules/fipTag.html">fipTag</a></li>
+  <li><a href="../modules/fipWinImage.html">fipWinImage</a></li>
+  <li><a href="../modules/flags.html">flags</a></li>
+  <li><strong>freeimage</strong></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>freeimage</code></h1>
+<p>Corona binding for <a href="http://freeimage.sourceforge.net">FreeImage</a>:</p>
+
+<p> "FreeImage is an Open Source library project for developers who would like to
+ support popular graphics image formats like PNG, BMP, JPEG, TIFF and others as
+ needed by today's multimedia applications.</p>
+<p>
+<p> FreeImage is easy to use, fast,
+ multithreading safe, compatible with all 32-bit or 64-bit versions of Windows,
+ and cross-platform (works both with Linux and Mac OS X)."</p>
+
+<p> This binding largely follows <a href="http://freeimage.sourceforge.net/fip/index.html">FreeImagePlus</a>.</p>
+
+<pre><code>local freeimage = require("plugin.freeimage")
+</code></pre>
+</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#IdentifyFIF">IdentifyFIF (string)</a></td>
+	<td class="summary">TODO</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#NewImage">NewImage ([image_type="BITMAP"[, width=0[, height=0[, bpp=0]]]])</a></td>
+	<td class="summary">TODO</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#NewMemoryIO">NewMemoryIO ([data[, size_in_bytes=0]])</a></td>
+	<td class="summary">TODO</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#NewMultiPage">NewMultiPage (keep_in_memory)</a></td>
+	<td class="summary">TODO</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#NewWinImage">NewWinImage ([image_type="BITMAP"[, width=0[, height=0[, bpp=0]]]])</a></td>
+	<td class="summary">TODO</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "IdentifyFIF"></a>
+    <strong>IdentifyFIF (string)</strong>
+    </dt>
+    <dd>
+    TODO
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">string</span>
+         fif
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        FIF
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "NewImage"></a>
+    <strong>NewImage ([image_type="BITMAP"[, width=0[, height=0[, bpp=0]]]])</strong>
+    </dt>
+    <dd>
+    TODO
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">image_type</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         T
+         (<em>default</em> "BITMAP")
+        </li>
+        <li><span class="parameter">width</span>
+            <span class="types"><span class="type">uint</span></span>
+         W
+         (<em>default</em> 0)
+        </li>
+        <li><span class="parameter">height</span>
+            <span class="types"><span class="type">uint</span></span>
+         H
+         (<em>default</em> 0)
+        </li>
+        <li><span class="parameter">bpp</span>
+            <span class="types"><span class="type">uint</span></span>
+         BPP
+         (<em>default</em> 0)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">fipImage</span></span>
+        I
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "NewMemoryIO"></a>
+    <strong>NewMemoryIO ([data[, size_in_bytes=0]])</strong>
+    </dt>
+    <dd>
+    TODO
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">data</span>
+
+
+
+        </li>
+        <li><span class="parameter">size_in_bytes</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+         (<em>default</em> 0)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">fipMemoryIO</span></span>
+        MIO
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "NewMultiPage"></a>
+    <strong>NewMultiPage (keep_in_memory)</strong>
+    </dt>
+    <dd>
+    TODO
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">keep_in_memory</span>
+            <span class="types"><span class="type">bool</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">fipMultiPage</span></span>
+        MP
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "NewWinImage"></a>
+    <strong>NewWinImage ([image_type="BITMAP"[, width=0[, height=0[, bpp=0]]]])</strong>
+    </dt>
+    <dd>
+    TODO
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">image_type</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         T
+         (<em>default</em> "BITMAP")
+        </li>
+        <li><span class="parameter">width</span>
+            <span class="types"><span class="type">uint</span></span>
+         W
+         (<em>default</em> 0)
+        </li>
+        <li><span class="parameter">height</span>
+            <span class="types"><span class="type">uint</span></span>
+         H
+         (<em>default</em> 0)
+        </li>
+        <li><span class="parameter">bpp</span>
+            <span class="types"><span class="type">uint</span></span>
+         BPP
+         (<em>default</em> 0)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">fipWinImage</span></span>
+        WI
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
