@@ -55,15 +55,19 @@
 
 <h1>Module <code>flags</code></h1>
 <p>Various FreeImage flags.</p>
-<p> These are to be passed to various <strong>save</strong> and <strong>load</strong> APIs. Given a file of a certain format, fields
- from the corresponding <strong>save</strong> or <strong>load</strong> table can be passed to the call. Single flags can be passed
- as strings directly (the field name); otherwise, multiple names should be passed as an array.</p>
+<p> The flags are shown here as tables, for documentation purposes, but in practice the Corona binding only
+ accepts strings, namely the various field names.</p>
+
+<p> These are passed to various <strong>save</strong> and <strong>load</strong> APIs. Given a file of a certain format, fields from the
+ corresponding <strong>save</strong> or <strong>load</strong> table can be passed to the call. Single flags can be passed directly,
+ e.g. as <code>"FLOAT"</code>, whereas multiple flags are passed through arrays, e.g. as <code>{ "B44", "LC" }</code>.</p>
 
 <p> All formats support a <strong>"DEFAULT"</strong> flag, which as expected leaves the default behavior intact (though
- additional flags will override it); an absent flags parameter has the same result.</p>
+ additional flags will override it); an absent flags parameter has the same result. Unknown flags (either
+ to the format in question or generally) are ignored.</p>
 
 <p> A special <strong>"LOAD_NOPIXELS"</strong> flag is available for certain formats. Using this flag is a request that
- only the image header is loaded (when not supported, full loading occurs).</p>
+ only the image header is loaded. When not supported, full loading occurs.</p>
 
 
 <h2><a href="#Tables">Tables</a></h2>

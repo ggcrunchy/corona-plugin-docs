@@ -75,11 +75,11 @@
 <table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#IdentifyFIF">IdentifyFIF (string)</a></td>
-	<td class="summary">TODO</td>
+	<td class="summary">Identify an image file's format.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#NewImage">NewImage ([image_type="BITMAP"[, width=0[, height=0[, bpp=0]]]])</a></td>
-	<td class="summary">TODO</td>
+	<td class="summary">Instantiate a new <a href="../modules/fipImage.html#">fipImage</a>.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#NewMemoryIO">NewMemoryIO ([data[, size_in_bytes=0]])</a></td>
@@ -87,11 +87,11 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#NewMultiPage">NewMultiPage (keep_in_memory)</a></td>
-	<td class="summary">TODO</td>
+	<td class="summary">Instantiate a new <a href="../modules/fipMultiPage.html#">fipMultiPage</a>.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#NewWinImage">NewWinImage ([image_type="BITMAP"[, width=0[, height=0[, bpp=0]]]])</a></td>
-	<td class="summary">TODO</td>
+	<td class="summary">Instantiate a new <a href="../modules/fipWinImage.html#">fipWinImage</a>.</td>
 	</tr>
 </table>
 
@@ -106,12 +106,12 @@
     <strong>IdentifyFIF (string)</strong>
     </dt>
     <dd>
-    TODO
+    Identify an image file's format.
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">string</span>
-         fif
+         name Filename.
         </li>
     </ul>
 
@@ -119,7 +119,7 @@
     <ol>
 
            <span class="types"><span class="type">uint</span></span>
-        FIF
+        FIF code. (TODO This is probably broken, should return a file format)
     </ol>
 
 
@@ -131,28 +131,32 @@
     <strong>NewImage ([image_type="BITMAP"[, width=0[, height=0[, bpp=0]]]])</strong>
     </dt>
     <dd>
-    TODO
+    Instantiate a new <a href="../modules/fipImage.html#">fipImage</a>.
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">image_type</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         T, cf. <a href="../modules/enums.html#FREE_IMAGE_TYPE">enums.FREE_IMAGE_TYPE</a>.
+         Image type, cf. <a href="../modules/enums.html#FREE_IMAGE_TYPE">enums.FREE_IMAGE_TYPE</a>.
          (<em>default</em> "BITMAP")
         </li>
         <li><span class="parameter">width</span>
             <span class="types"><span class="type">uint</span></span>
-         W
+
+
+
          (<em>default</em> 0)
         </li>
         <li><span class="parameter">height</span>
             <span class="types"><span class="type">uint</span></span>
-         H
+
+
+
          (<em>default</em> 0)
         </li>
         <li><span class="parameter">bpp</span>
             <span class="types"><span class="type">uint</span></span>
-         BPP
+         Bitdepth.
          (<em>default</em> 0)
         </li>
     </ul>
@@ -161,7 +165,7 @@
     <ol>
 
            <span class="types"><span class="type">fipImage</span></span>
-        I
+        New image.
     </ol>
 
 
@@ -195,7 +199,7 @@
     <ol>
 
            <span class="types"><span class="type">fipMemoryIO</span></span>
-        MIO
+        New memory handle.
     </ol>
 
 
@@ -207,7 +211,7 @@
     <strong>NewMultiPage (keep_in_memory)</strong>
     </dt>
     <dd>
-    TODO
+    Instantiate a new <a href="../modules/fipMultiPage.html#">fipMultiPage</a>.
 
     <h3>Parameters:</h3>
     <ul>
@@ -222,7 +226,7 @@
     <ol>
 
            <span class="types"><span class="type">fipMultiPage</span></span>
-        MP
+        New multi-page.
     </ol>
 
 
@@ -234,28 +238,32 @@
     <strong>NewWinImage ([image_type="BITMAP"[, width=0[, height=0[, bpp=0]]]])</strong>
     </dt>
     <dd>
-    TODO
+    Instantiate a new <a href="../modules/fipWinImage.html#">fipWinImage</a>.
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">image_type</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         T, cf. <a href="../modules/enums.html#FREE_IMAGE_TYPE">enums.FREE_IMAGE_TYPE</a>.
+         Image type, cf. <a href="../modules/enums.html#FREE_IMAGE_TYPE">enums.FREE_IMAGE_TYPE</a>.
          (<em>default</em> "BITMAP")
         </li>
         <li><span class="parameter">width</span>
             <span class="types"><span class="type">uint</span></span>
-         W
+
+
+
          (<em>default</em> 0)
         </li>
         <li><span class="parameter">height</span>
             <span class="types"><span class="type">uint</span></span>
-         H
+
+
+
          (<em>default</em> 0)
         </li>
         <li><span class="parameter">bpp</span>
             <span class="types"><span class="type">uint</span></span>
-         BPP
+         Bitdepth.
          (<em>default</em> 0)
         </li>
     </ul>
@@ -264,7 +272,7 @@
     <ol>
 
            <span class="types"><span class="type">fipWinImage</span></span>
-        WI
+        New (Win) image.
     </ol>
 
 
