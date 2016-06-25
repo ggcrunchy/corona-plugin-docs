@@ -86,7 +86,7 @@
 	<td class="summary">Performs gamma correction on a 8, 24 or 32-bit image.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipImage:assign">fipImage:assign (Image)</a></td>
+	<td class="name" nowrap><a href="#fipImage:assign">fipImage:assign (image)</a></td>
 	<td class="summary">Assign one image to another.</td>
 	</tr>
 	<tr>
@@ -350,7 +350,7 @@
 	<td class="summary">Image rotation by means of three shears.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipImage:rotateEx">fipImage:rotateEx (Image, x_shift, y_shift, x_origin, y_origin, use_mask)</a></td>
+	<td class="name" nowrap><a href="#fipImage:rotateEx">fipImage:rotateEx (angle, x_shift, y_shift, x_origin, y_origin, use_mask)</a></td>
 	<td class="summary">Image translation and rotation using B-Splines.</td>
 	</tr>
 	<tr>
@@ -362,7 +362,7 @@
 	<td class="summary">Saves an image using the specified memory stream and an optional flag.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipImage:setChannel">fipImage:setChannel (Input, channel)</a></td>
+	<td class="name" nowrap><a href="#fipImage:setChannel">fipImage:setChannel (image, channel)</a></td>
 	<td class="summary">Insert an 8-bit dib into a 24- or 32-bit image.</td>
 	</tr>
 	<tr>
@@ -374,7 +374,7 @@
 	<td class="summary">Set the bitmap resolution along the X axis, in pixels / cm.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipImage:setMetadata">fipImage:setMetadata (key, Tag)</a></td>
+	<td class="name" nowrap><a href="#fipImage:setMetadata">fipImage:setMetadata (key, tag)</a></td>
 	<td class="summary">Attach a new FreeImage tag to the dib.</td>
 	</tr>
 	<tr>
@@ -628,16 +628,16 @@
 </dd>
     <dt>
     <a name = "fipImage:assign"></a>
-    <strong>fipImage:assign (Image)</strong>
+    <strong>fipImage:assign (image)</strong>
     </dt>
     <dd>
     Assign one image to another.
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">Image</span>
+        <li><span class="parameter">image</span>
             <span class="types"><span class="type">fipImage</span> or <span class="type">userdata</span></span>
-         to assign. (TODO: userdata kind of shaky)
+         Image to assign. (TODO: userdata kind of shaky)
         </li>
     </ul>
 
@@ -2180,16 +2180,16 @@
 </dd>
     <dt>
     <a name = "fipImage:rotateEx"></a>
-    <strong>fipImage:rotateEx (Image, x_shift, y_shift, x_origin, y_origin, use_mask)</strong>
+    <strong>fipImage:rotateEx (angle, x_shift, y_shift, x_origin, y_origin, use_mask)</strong>
     </dt>
     <dd>
     Image translation and rotation using B-Splines.
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">Image</span>
+        <li><span class="parameter">angle</span>
             <span class="types"><span class="type">number</span></span>
-         rotation angle, in degree.
+         Image rotation angle, in degree.
         </li>
         <li><span class="parameter">x_shift</span>
             <span class="types"><span class="type">number</span></span>
@@ -2285,16 +2285,16 @@
 </dd>
     <dt>
     <a name = "fipImage:setChannel"></a>
-    <strong>fipImage:setChannel (Input, channel)</strong>
+    <strong>fipImage:setChannel (image, channel)</strong>
     </dt>
     <dd>
     Insert an 8-bit dib into a 24- or 32-bit image.
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">Input</span>
-            <span class="types"><span class="type">image</span></span>
-         8-bit image to insert.
+        <li><span class="parameter">image</span>
+            <span class="types"><span class="type">fipImage</span></span>
+         Input 8-bit image to insert.
         </li>
         <li><span class="parameter">channel</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
@@ -2366,7 +2366,7 @@
 </dd>
     <dt>
     <a name = "fipImage:setMetadata"></a>
-    <strong>fipImage:setMetadata (key, Tag)</strong>
+    <strong>fipImage:setMetadata (key, tag)</strong>
     </dt>
     <dd>
 
@@ -2389,9 +2389,9 @@
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          Tag field name.
         </li>
-        <li><span class="parameter">Tag</span>
+        <li><span class="parameter">tag</span>
             <span class="types"><span class="type">fipTag</span></span>
-         to be attached.
+         Tag to be attached.
         </li>
     </ul>
 

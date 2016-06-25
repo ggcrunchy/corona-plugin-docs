@@ -79,7 +79,7 @@
 	<td class="summary">Indicates whether the memory handle is valid for use.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipMemoryIO:load">fipMemoryIO:load (fif, Format)</a></td>
+	<td class="name" nowrap><a href="#fipMemoryIO:load">fipMemoryIO:load (fif, flags)</a></td>
 	<td class="summary">Loads a dib from a memory stream.</td>
 	</tr>
 	<tr>
@@ -91,7 +91,7 @@
 	<td class="summary">Reads data from a memory stream.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipMemoryIO:save">fipMemoryIO:save (fif, Dib, Format)</a></td>
+	<td class="name" nowrap><a href="#fipMemoryIO:save">fipMemoryIO:save (fif, dib, flags)</a></td>
 	<td class="summary">Saves a dib to a memory stream.</td>
 	</tr>
 	<tr>
@@ -202,7 +202,7 @@
 </dd>
     <dt>
     <a name = "fipMemoryIO:load"></a>
-    <strong>fipMemoryIO:load (fif, Format)</strong>
+    <strong>fipMemoryIO:load (fif, flags)</strong>
     </dt>
     <dd>
     Loads a dib from a memory stream.
@@ -213,9 +213,9 @@
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          Format identifier, cf. <a href="../modules/enums.html#FREE_IMAGE_FORMAT">enums.FREE_IMAGE_FORMAT</a>.
         </li>
-        <li><span class="parameter">Format</span>
+        <li><span class="parameter">flags</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">{string,...}</a>, <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
-        -dependent <a href="../modules/flags.html#">flags</a>.
+         Format-dependent <a href="../modules/flags.html#">flags</a>.
         </li>
     </ul>
 
@@ -277,7 +277,7 @@
 </dd>
     <dt>
     <a name = "fipMemoryIO:save"></a>
-    <strong>fipMemoryIO:save (fif, Dib, Format)</strong>
+    <strong>fipMemoryIO:save (fif, dib, flags)</strong>
     </dt>
     <dd>
     Saves a dib to a memory stream.
@@ -288,13 +288,13 @@
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          Format identifier, cf. <a href="../modules/enums.html#FREE_IMAGE_FORMAT">enums.FREE_IMAGE_FORMAT</a>.
         </li>
-        <li><span class="parameter">Dib</span>
+        <li><span class="parameter">dib</span>
             <span class="types"><span class="type">userdata</span></span>
-         to save. (TODO: More robust?)
+         Dib to save. (TODO: More robust?)
         </li>
-        <li><span class="parameter">Format</span>
+        <li><span class="parameter">flags</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">{string,...}</a>, <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
-        -dependent <a href="../modules/flags.html#">flags</a>.
+         Format-dependent <a href="../modules/flags.html#">flags</a>.
         </li>
     </ul>
 

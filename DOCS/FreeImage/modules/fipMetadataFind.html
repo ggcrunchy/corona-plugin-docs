@@ -92,7 +92,7 @@ end
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#fipMetadataFind:findFirstMetadata">fipMetadataFind:findFirstMetadata (model, Input)</a></td>
+	<td class="name" nowrap><a href="#fipMetadataFind:findFirstMetadata">fipMetadataFind:findFirstMetadata (model, image)</a></td>
 	<td class="summary">Provides information about the first instance of a tag that matches the metadata model specified in the model argument.</td>
 	</tr>
 	<tr>
@@ -113,7 +113,7 @@ end
     <dl class="function">
     <dt>
     <a name = "fipMetadataFind:findFirstMetadata"></a>
-    <strong>fipMetadataFind:findFirstMetadata (model, Input)</strong>
+    <strong>fipMetadataFind:findFirstMetadata (model, image)</strong>
     </dt>
     <dd>
     Provides information about the first instance of a tag that matches the metadata model specified in the model argument.
@@ -124,9 +124,9 @@ end
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          Metadata model, cf. <a href="../modules/enums.html#FREE_IMAGE_MDMODEL">enums.FREE_IMAGE_MDMODEL</a>.
         </li>
-        <li><span class="parameter">Input</span>
+        <li><span class="parameter">image</span>
             <span class="types"><span class="type">fipImage</span></span>
-         image.
+         Input image.
         </li>
     </ul>
 
