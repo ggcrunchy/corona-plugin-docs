@@ -61,52 +61,56 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#fipMultiPage:appendPage">fipMultiPage:appendPage ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#fipMultiPage:appendPage">fipMultiPage:appendPage (image)</a></td>
+	<td class="summary">Appends a new page to the end of the bitmap.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipMultiPage:close">fipMultiPage:close ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#fipMultiPage:close">fipMultiPage:close (flags)</a></td>
+	<td class="summary">Close a file stream.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipMultiPage:deletePage">fipMultiPage:deletePage ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#fipMultiPage:deletePage">fipMultiPage:deletePage (page)</a></td>
+	<td class="summary">Deletes the page on the given position.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipMultiPage:getLockedPageNumbers">fipMultiPage:getLockedPageNumbers ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Returns an array of page-numbers that are currently locked in memory.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipMultiPage:getPageCount">fipMultiPage:getPageCount ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Returns the number of pages currently available in the multi-paged bitmap.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipMultiPage:insertPage">fipMultiPage:insertPage ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#fipMultiPage:insertPage">fipMultiPage:insertPage (page, image)</a></td>
+	<td class="summary">Inserts a new page before the given position in the bitmap.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#fipMultiPage:isValid">fipMultiPage:isValid ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Indicates whether the multi-page is valid for use.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipMultiPage:lockPage">fipMultiPage:lockPage ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#fipMultiPage:lockPage">fipMultiPage:lockPage (page)</a></td>
+	<td class="summary">Locks a page in memory for editing.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipMultiPage:movePage">fipMultiPage:movePage ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#fipMultiPage:movePage">fipMultiPage:movePage (target, source)</a></td>
+	<td class="summary">Moves the source page to the position of the target page.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipMultiPage:open">fipMultiPage:open ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#fipMultiPage:open">fipMultiPage:open (name, create_new, read_only, flags)</a></td>
+	<td class="summary">Open a multi-page file.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipMultiPage:saveToMemory">fipMultiPage:saveToMemory ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#fipMultiPage:open2">fipMultiPage:open2 (memIO, flags)</a></td>
+	<td class="summary">Open a multi-page memory stream as read / write.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipMultiPage:unlockPage">fipMultiPage:unlockPage ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#fipMultiPage:saveToMemory">fipMultiPage:saveToMemory (memIO, flags)</a></td>
+	<td class="summary">Saves a multi-page image using the specified memory stream and an optional flag.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fipMultiPage:unlockPage">fipMultiPage:unlockPage (image, changed)</a></td>
+	<td class="summary">Unlocks a previously locked page and gives it back to the multi-page engine.</td>
 	</tr>
 </table>
 
@@ -118,11 +122,18 @@
     <dl class="function">
     <dt>
     <a name = "fipMultiPage:appendPage"></a>
-    <strong>fipMultiPage:appendPage ()</strong>
+    <strong>fipMultiPage:appendPage (image)</strong>
     </dt>
     <dd>
-    DOCME
+    Appends a new page to the end of the bitmap.
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">image</span>
+            <span class="types"><span class="type">fipImage</span></span>
+         Image to append.
+        </li>
+    </ul>
 
 
 
@@ -131,12 +142,26 @@
 </dd>
     <dt>
     <a name = "fipMultiPage:close"></a>
-    <strong>fipMultiPage:close ()</strong>
+    <strong>fipMultiPage:close (flags)</strong>
     </dt>
     <dd>
-    DOCME
+    Close a file stream.
+ TODO: flags not quite right
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">flags</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">{string,...}</a>, <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
+         Format-dependent (save) <a href="../modules/flags.html#">flags</a>.
+        </li>
+    </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
 
 
 
@@ -144,11 +169,18 @@
 </dd>
     <dt>
     <a name = "fipMultiPage:deletePage"></a>
-    <strong>fipMultiPage:deletePage ()</strong>
+    <strong>fipMultiPage:deletePage (page)</strong>
     </dt>
     <dd>
-    DOCME
+    Deletes the page on the given position.
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">page</span>
+            <span class="types"><span class="type">int</span></span>
+         Page number.
+        </li>
+    </ul>
 
 
 
@@ -160,9 +192,18 @@
     <strong>fipMultiPage:getLockedPageNumbers ()</strong>
     </dt>
     <dd>
-    DOCME
+    Returns an array of page-numbers that are currently locked in memory.
 
 
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?</li>
+        <li>
+           <span class="types"><span class="type">{int,...}</span></span>
+        On success, array of page numbers.</li>
+    </ol>
 
 
 
@@ -173,9 +214,15 @@
     <strong>fipMultiPage:getPageCount ()</strong>
     </dt>
     <dd>
-    DOCME
+    Returns the number of pages currently available in the multi-paged bitmap.
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">int</span></span>
+        Count.
+    </ol>
 
 
 
@@ -183,11 +230,22 @@
 </dd>
     <dt>
     <a name = "fipMultiPage:insertPage"></a>
-    <strong>fipMultiPage:insertPage ()</strong>
+    <strong>fipMultiPage:insertPage (page, image)</strong>
     </dt>
     <dd>
-    DOCME
+    Inserts a new page before the given position in the bitmap.
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">page</span>
+            <span class="types"><span class="type">int</span></span>
+         Page number. Page has to be a number smaller than the current number of pages available in the bitmap.
+        </li>
+        <li><span class="parameter">image</span>
+            <span class="types"><span class="type">fipImage</span></span>
+         Image to insert.
+        </li>
+    </ul>
 
 
 
@@ -199,9 +257,15 @@
     <strong>fipMultiPage:isValid ()</strong>
     </dt>
     <dd>
-    DOCME
+    Indicates whether the multi-page is valid for use.
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        The multi-page stream is opened?
+    </ol>
 
 
 
@@ -209,12 +273,41 @@
 </dd>
     <dt>
     <a name = "fipMultiPage:lockPage"></a>
-    <strong>fipMultiPage:lockPage ()</strong>
+    <strong>fipMultiPage:lockPage (page)</strong>
     </dt>
     <dd>
-    DOCME
+
+<p>Locks a page in memory for editing. </p>
+
+<p> You must call <a href="../modules/fipMultiPage.html#fipMultiPage:unlockPage">fipMultiPage:unlockPage</a> to free the page.</p>
+
+<p> Usage: (TODO: Lua)</p>
+
+<pre><code> fipMultiPage mpage;
+ -- ...
+ -- fipImage image; -- You must declare this before
+ image = mpage.lockPage(2);
+ if(image.isValid()) {
+   ...
+   mpage.unlockPage(image, TRUE);
+ }
+</code></pre>
 
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">page</span>
+            <span class="types"><span class="type">int</span></span>
+         Page number.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">userdata</span> or <span class="type">nil</span></span>
+        On success, the page; otherwise <strong>nil</strong>. (TODO?)
+    </ol>
 
 
 
@@ -222,12 +315,29 @@
 </dd>
     <dt>
     <a name = "fipMultiPage:movePage"></a>
-    <strong>fipMultiPage:movePage ()</strong>
+    <strong>fipMultiPage:movePage (target, source)</strong>
     </dt>
     <dd>
-    DOCME
+    Moves the source page to the position of the target page.
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">target</span>
+            <span class="types"><span class="type">int</span></span>
+         Target page position.
+        </li>
+        <li><span class="parameter">source</span>
+            <span class="types"><span class="type">int</span></span>
+         Source page position.
+        </li>
+    </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
 
 
 
@@ -235,12 +345,65 @@
 </dd>
     <dt>
     <a name = "fipMultiPage:open"></a>
-    <strong>fipMultiPage:open ()</strong>
+    <strong>fipMultiPage:open (name, create_new, read_only, flags)</strong>
     </dt>
     <dd>
-    DOCME
+    Open a multi-page file.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">fipMemoryIO</span></span>
+         Name of the multi-page bitmap file.</p>
+
+<p> For the <a href="../modules/fipMemoryIO.html#">fipMemoryIO</a> case, see <a href="../modules/fipMultiPage.html#fipMultiPage:open2">fipMultiPage:open2</a>.
+        </li>
+        <li><span class="parameter">create_new</span>
+            <span class="types"><span class="type">bool</span></span>
+         When true, it means that a new bitmap will be created rather than an existing one being opened.
+        </li>
+        <li><span class="parameter">read_only</span>
+            <span class="types"><span class="type">bool</span></span>
+         When true the bitmap is opened read-only.
+        </li>
+        <li><span class="parameter">flags</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">{string,...}</a>, <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
+         Format-dependent <a href="../modules/flags.html#">flags</a>.
+        </li>
+    </ul>
 
 
+
+
+
+</dd>
+    <dt>
+    <a name = "fipMultiPage:open2"></a>
+    <strong>fipMultiPage:open2 (memIO, flags)</strong>
+    </dt>
+    <dd>
+    Open a multi-page memory stream as read / write. </p>
+
+<p> <strong>N.B.</strong> This is also <a href="../modules/fipMultiPage.html#fipMultiPage:open">fipMultiPage:open</a>, albeit with a <a href="../modules/fipMemoryIO.html#">fipMemoryIO</a> stream.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">memIO</span>
+            <span class="types"><span class="type">fipMemoryIO</span></span>
+         Memory stream. The memory stream MUST BE a wrapped user buffer.
+        </li>
+        <li><span class="parameter">flags</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">{string,...}</a>, <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
+         Format-dependent <a href="../modules/flags.html#">flags</a>.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
 
 
 
@@ -248,12 +411,31 @@
 </dd>
     <dt>
     <a name = "fipMultiPage:saveToMemory"></a>
-    <strong>fipMultiPage:saveToMemory ()</strong>
+    <strong>fipMultiPage:saveToMemory (memIO, flags)</strong>
     </dt>
     <dd>
-    DOCME
+    Saves a multi-page image using the specified memory stream and an optional flag.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">memIO</span>
+            <span class="types"><span class="type">fipMemoryIO</span></span>
 
 
+
+        </li>
+        <li><span class="parameter">flags</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">{string,...}</a>, <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
+         Format-dependent <a href="../modules/flags.html#">flags</a>.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
 
 
 
@@ -261,11 +443,22 @@
 </dd>
     <dt>
     <a name = "fipMultiPage:unlockPage"></a>
-    <strong>fipMultiPage:unlockPage ()</strong>
+    <strong>fipMultiPage:unlockPage (image, changed)</strong>
     </dt>
     <dd>
-    DOCME
+    Unlocks a previously locked page and gives it back to the multi-page engine.
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">image</span>
+            <span class="types"><span class="type">fipImage</span></span>
+         Page to unlock.
+        </li>
+        <li><span class="parameter">changed</span>
+            <span class="types"><span class="type">bool</span></span>
+         When true, the page is marked changed and the new page data is applied in the multi-page bitmap.
+        </li>
+    </ul>
 
 
 

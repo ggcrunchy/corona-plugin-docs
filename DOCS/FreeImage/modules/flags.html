@@ -30,6 +30,10 @@
   <li><a href="../api.html">Index</a></li>
 </ul>
 
+<h2>Contents</h2>
+<ul>
+<li><a href="#Tables">Tables</a></li>
+</ul>
 
 
 <h2>Modules</h2>
@@ -51,16 +55,614 @@
 
 <h1>Module <code>flags</code></h1>
 <p>Various FreeImage flags.</p>
-<p>
+<p> These are to be passed to various <strong>save</strong> and <strong>load</strong> APIs. Given a file of a certain format, fields
+ from the corresponding <strong>save</strong> or <strong>load</strong> table can be passed to the call. Single flags can be passed
+ as strings directly (the field name); otherwise, multiple names should be passed as an array.</p>
 
-</p>
+<p> All formats support a <strong>"DEFAULT"</strong> flag, which as expected leaves the default behavior intact (though
+ additional flags will override it); an absent flags parameter has the same result.</p>
+
+<p> A special <strong>"LOAD_NOPIXELS"</strong> flag is available for certain formats. Using this flag is a request that
+ only the image header is loaded (when not supported, full loading occurs).</p>
 
 
+<h2><a href="#Tables">Tables</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#BMP_save">BMP_save</a></td>
+	<td class="summary">BMP save flags.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#EXR_save">EXR_save</a></td>
+	<td class="summary">EXR save flags.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#GIF_load">GIF_load</a></td>
+	<td class="summary">GIF load flags.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ICO_load">ICO_load</a></td>
+	<td class="summary">ICO load flags.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#JPEG_load">JPEG_load</a></td>
+	<td class="summary">JPEG load flags.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#JPEG_save">JPEG_save</a></td>
+	<td class="summary">JPEG save flags.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#JXR_save">JXR_save</a></td>
+	<td class="summary">JXR save flags.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#PCD_load">PCD_load</a></td>
+	<td class="summary">PCD load flags.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#PNG_load">PNG_load</a></td>
+	<td class="summary">PNG load flags.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#PNG_save">PNG_save</a></td>
+	<td class="summary">PNG save flags.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#PNM_save">PNM_save</a></td>
+	<td class="summary">PNM save flags.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#PSD_load">PSD_load</a></td>
+	<td class="summary">PSD load flags.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#PSD_save">PSD_save</a></td>
+	<td class="summary">PSD save flags.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#RAW_load">RAW_load</a></td>
+	<td class="summary">RAW load flags.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#RAW_save">RAW_save</a></td>
+	<td class="summary">RAW save flags.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TARGA_load">TARGA_load</a></td>
+	<td class="summary">TARGA load flags.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TARGA_save">TARGA_save</a></td>
+	<td class="summary">TARGA save flags.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TIFF_load">TIFF_load</a></td>
+	<td class="summary">TIFF load flags.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TIFF_save">TIFF_save</a></td>
+	<td class="summary">TIFF save flags.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#WEBP_save">WEBP_save</a></td>
+	<td class="summary">WEBP save flags.</td>
+	</tr>
+</table>
 
 <br/>
 <br/>
 
 
+    <h2><a name="Tables"></a>Tables</h2>
+    <dl class="function">
+    <dt>
+    <a name = "BMP_save"></a>
+    <strong>BMP_save</strong>
+    </dt>
+    <dd>
+    BMP save flags.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">RLE</span>
+         Run-length encoding.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "EXR_save"></a>
+    <strong>EXR_save</strong>
+    </dt>
+    <dd>
+    EXR save flags.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">FLOAT</span>
+         Save data as float instead of as half (not recommended).
+        </li>
+        <li><span class="parameter">NONE</span>
+         Save with no compression.
+        </li>
+        <li><span class="parameter">ZIP</span>
+         Save with zlib compression, in blocks of 16 scan lines.
+        </li>
+        <li><span class="parameter">PIZ</span>
+         Save with piz-based wavelet compression.
+        </li>
+        <li><span class="parameter">PXR24</span>
+         Save with lossy 24-bit float compression.
+        </li>
+        <li><span class="parameter">B44</span>
+         Save with lossy 44% float compression - goes to 22% when combined with <strong>LC</strong>.
+        </li>
+        <li><span class="parameter">LC</span>
+         Save images with one luminance and two chroma channels, rather than as RGB (lossy compression).
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "GIF_load"></a>
+    <strong>GIF_load</strong>
+    </dt>
+    <dd>
+    GIF load flags.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">LOAD256</span>
+         Load the image as a 256 color image with unused palette entries, if it's 16 or 2 color.
+        </li>
+        <li><span class="parameter">PLAYBACK</span>
+         'Play' the GIF to generate each frame (as 32bpp) instead of returning raw frame data when loading.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ICO_load"></a>
+    <strong>ICO_load</strong>
+    </dt>
+    <dd>
+    ICO load flags.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">MAKEALPHA</span>
+         Convert to 32bpp and create an alpha channel from the AND-mask when loading.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "JPEG_load"></a>
+    <strong>JPEG_load</strong>
+    </dt>
+    <dd>
+    JPEG load flags.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">FAST</span>
+         Load the file as fast as possible, sacrificing some quality.
+        </li>
+        <li><span class="parameter">ACCURATE</span>
+         Load the file with the best quality, sacrificing some speed.
+        </li>
+        <li><span class="parameter">CMYK</span>
+         Load separated CMYK "as is" (may combine with other load flags).
+        </li>
+        <li><span class="parameter">EXIFROTATE</span>
+         Load and rotate according to Exif 'Orientation' tag if available.
+        </li>
+        <li><span class="parameter">GREYSCALE</span>
+         Load and convert to a 8-bit greyscale image.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "JPEG_save"></a>
+    <strong>JPEG_save</strong>
+    </dt>
+    <dd>
+    JPEG save flags.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">QUALITYSUPERB</span>
+         Save with superb quality (100:1).
+        </li>
+        <li><span class="parameter">QUALITYGOOD</span>
+         Save with good quality (75:1).
+        </li>
+        <li><span class="parameter">QUALITYNORMAL</span>
+         Save with normal quality (50:1).
+        </li>
+        <li><span class="parameter">QUALITYAVERAGE</span>
+         Save with average quality (25:1).
+        </li>
+        <li><span class="parameter">QUALITYBAD</span>
+         Save with bad quality (10:1).
+        </li>
+        <li><span class="parameter">PROGRESSIVE</span>
+         Save as a progressive-JPEG (may combine with other save flags).
+        </li>
+        <li><span class="parameter">SUBSAMPLING_411</span>
+         Save with high 4x1 chroma subsampling (4:1:1) .
+        </li>
+        <li><span class="parameter">SUBSAMPLING_420</span>
+         Save with medium 2x2 medium chroma subsampling (4:2:0) - default value.
+        </li>
+        <li><span class="parameter">SUBSAMPLING_422</span>
+         Save with low 2x1 chroma subsampling (4:2:2).
+        </li>
+        <li><span class="parameter">SUBSAMPLING_444</span>
+         Save with no chroma subsampling (4:4:4).
+        </li>
+        <li><span class="parameter">OPTIMIZE</span>
+         On saving, compute optimal Huffman coding tables (can reduce a few percent of file size).
+        </li>
+        <li><span class="parameter">BASELINE</span>
+         Save basic JPEG, without metadata or any markers.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "JXR_save"></a>
+    <strong>JXR_save</strong>
+    </dt>
+    <dd>
+    JXR save flags.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">LOSSLESS</span>
+         Save lossless.
+        </li>
+        <li><span class="parameter">PROGRESSIVE</span>
+         Save as a progressive-JXR (may combine with other save flags).
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "PCD_load"></a>
+    <strong>PCD_load</strong>
+    </dt>
+    <dd>
+    PCD load flags.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">BASE</span>
+         Load the bitmap sized 768 x 512.
+        </li>
+        <li><span class="parameter">BASEDIV4</span>
+         Load the bitmap sized 384 x 256.
+        </li>
+        <li><span class="parameter">BASEDIV16</span>
+         Load the bitmap sized 192 x 128.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "PNG_load"></a>
+    <strong>PNG_load</strong>
+    </dt>
+    <dd>
+    PNG load flags.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">IGNOREGAMMA</span>
+         Loading: avoid gamma correction.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "PNG_save"></a>
+    <strong>PNG_save</strong>
+    </dt>
+    <dd>
+    PNG save flags.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">Z_BEST_SPEED</span>
+         Save using ZLib level 1 compression flag (default value is 6).
+        </li>
+        <li><span class="parameter">Z_DEFAULT_COMPRESSION</span>
+         Save using ZLib level 6 compression flag (default recommended value).
+        </li>
+        <li><span class="parameter">Z_BEST_COMPRESSION</span>
+         Save using ZLib level 9 compression flag (default value is 6).
+        </li>
+        <li><span class="parameter">Z_NO_COMPRESSION</span>
+         Save without ZLib compression.
+        </li>
+        <li><span class="parameter">INTERLACED</span>
+         Save using Adam7 interlacing (may combine with other save flags).
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "PNM_save"></a>
+    <strong>PNM_save</strong>
+    </dt>
+    <dd>
+    PNM save flags.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">SAVE_ASCII</span>
+         If set the writer saves in ASCII format (i.e. P1, P2 or P3).
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "PSD_load"></a>
+    <strong>PSD_load</strong>
+    </dt>
+    <dd>
+    PSD load flags.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">CMYK</span>
+         Reads tags for separated CMYK (default is conversion to RGB).
+        </li>
+        <li><span class="parameter">LAB</span>
+         Reads tags for CIELab (default is conversion to RGB).
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "PSD_save"></a>
+    <strong>PSD_save</strong>
+    </dt>
+    <dd>
+    PSD save flags.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">CMYK</span>
+         As per load.
+        </li>
+        <li><span class="parameter">LAB</span>
+         As per load.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "RAW_load"></a>
+    <strong>RAW_load</strong>
+    </dt>
+    <dd>
+    RAW load flags.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">PREVIEW</span>
+         Try to load the embedded JPEG preview with included Exif Data or default to RGB 24-bit.
+        </li>
+        <li><span class="parameter">DISPLAY</span>
+         Load the file as RGB 24-bit.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "RAW_save"></a>
+    <strong>RAW_save</strong>
+    </dt>
+    <dd>
+    RAW save flags.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">HALFSIZE</span>
+         Output a half-size color image.
+        </li>
+        <li><span class="parameter">UNPROCESSED</span>
+         Output a FIT_UINT16 raw Bayer image.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TARGA_load"></a>
+    <strong>TARGA_load</strong>
+    </dt>
+    <dd>
+    TARGA load flags.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">LOAD_RGB888</span>
+         If set the loader converts RGB555 and ARGB8888 -> RGB888.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TARGA_save"></a>
+    <strong>TARGA_save</strong>
+    </dt>
+    <dd>
+    TARGA save flags.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">SAVE_RLE</span>
+         If set, the writer saves with RLE compression.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TIFF_load"></a>
+    <strong>TIFF_load</strong>
+    </dt>
+    <dd>
+    TIFF load flags.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">CMYK</span>
+         Reads/stores tags for separated CMYK.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TIFF_save"></a>
+    <strong>TIFF_save</strong>
+    </dt>
+    <dd>
+    TIFF save flags.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">CMYK</span>
+         As with load (may combine with compression flags).
+        </li>
+        <li><span class="parameter">PACKBITS</span>
+         Save using PACKBITS compression.
+        </li>
+        <li><span class="parameter">DEFLATE</span>
+         Save using DEFLATE compression (a.k.a. ZLIB compression).
+        </li>
+        <li><span class="parameter">ADOBE_DEFLATE</span>
+         Save using ADOBE DEFLATE compression.
+        </li>
+        <li><span class="parameter">NONE</span>
+         Save without any compression.
+        </li>
+        <li><span class="parameter">CCITTFAX3</span>
+         Save using CCITT Group 3 fax encoding.
+        </li>
+        <li><span class="parameter">CCITTFAX4</span>
+         Save using CCITT Group 4 fax encoding.
+        </li>
+        <li><span class="parameter">LZW</span>
+         Save using LZW compression.
+        </li>
+        <li><span class="parameter">JPEG</span>
+         Save using JPEG compression.
+        </li>
+        <li><span class="parameter">LOGLUV</span>
+         Save using LogLuv compression.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "WEBP_save"></a>
+    <strong>WEBP_save</strong>
+    </dt>
+    <dd>
+    WEBP save flags.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">LOSSLESS</span>
+         Save in lossless mode.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
 
 
 </div> <!-- id="content" -->

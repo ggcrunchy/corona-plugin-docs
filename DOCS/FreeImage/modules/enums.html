@@ -30,6 +30,10 @@
   <li><a href="../api.html">Index</a></li>
 </ul>
 
+<h2>Contents</h2>
+<ul>
+<li><a href="#Tables">Tables</a></li>
+</ul>
 
 
 <h2>Modules</h2>
@@ -56,11 +60,659 @@
 </p>
 
 
+<h2><a href="#Tables">Tables</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#FREE_IMAGE_COLOR_CHANNEL">FREE_IMAGE_COLOR_CHANNEL</a></td>
+	<td class="summary">Color channels.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FREE_IMAGE_COLOR_TYPE">FREE_IMAGE_COLOR_TYPE</a></td>
+	<td class="summary">Image color type used in FreeImage.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FREE_IMAGE_DITHER">FREE_IMAGE_DITHER</a></td>
+	<td class="summary">Dithering algorithms.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FREE_IMAGE_FILTER">FREE_IMAGE_FILTER</a></td>
+	<td class="summary">Upsampling / downsampling filters.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FREE_IMAGE_FORMAT">FREE_IMAGE_FORMAT</a></td>
+	<td class="summary">I/O image format identifiers.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FREE_IMAGE_MDMODEL">FREE_IMAGE_MDMODEL</a></td>
+	<td class="summary">Metadata models supported by FreeImage.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FREE_IMAGE_MDTYPE">FREE_IMAGE_MDTYPE</a></td>
+	<td class="summary">Tag data type information (based on TIFF specifications).</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FREE_IMAGE_QUANTIZE">FREE_IMAGE_QUANTIZE</a></td>
+	<td class="summary">Color quantization algorithms.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FREE_IMAGE_TMO">FREE_IMAGE_TMO</a></td>
+	<td class="summary">Tone mapping operators.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FREE_IMAGE_TYPE">FREE_IMAGE_TYPE</a></td>
+	<td class="summary">Image type used in FreeImage.</td>
+	</tr>
+</table>
 
 <br/>
 <br/>
 
 
+    <h2><a name="Tables"></a>Tables</h2>
+    <dl class="function">
+    <dt>
+    <a name = "FREE_IMAGE_COLOR_CHANNEL"></a>
+    <strong>FREE_IMAGE_COLOR_CHANNEL</strong>
+    </dt>
+    <dd>
+    Color channels. </p>
+
+<p> Constants used in color manipulation routines.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">RGB</span>
+         Use red, green and blue channels.
+        </li>
+        <li><span class="parameter">RED</span>
+         Use red channel.
+        </li>
+        <li><span class="parameter">GREEN</span>
+         Use green channel.
+        </li>
+        <li><span class="parameter">BLUE</span>
+         Use blue channel.
+        </li>
+        <li><span class="parameter">ALPHA</span>
+         Use alpha channel.
+        </li>
+        <li><span class="parameter">BLACK</span>
+         Use black channel.
+        </li>
+        <li><span class="parameter">REAL</span>
+         Complex images: use real part.
+        </li>
+        <li><span class="parameter">IMAG</span>
+         Complex images: use imaginary part.
+        </li>
+        <li><span class="parameter">MAG</span>
+         Complex images: use magnitude.
+        </li>
+        <li><span class="parameter">PHASE</span>
+         Complex images: use phase.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FREE_IMAGE_COLOR_TYPE"></a>
+    <strong>FREE_IMAGE_COLOR_TYPE</strong>
+    </dt>
+    <dd>
+    Image color type used in FreeImage.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">MINISWHITE</span>
+         Min value is white.
+        </li>
+        <li><span class="parameter">MINISBLACK</span>
+         Min value is black.
+        </li>
+        <li><span class="parameter">RGB</span>
+         RGB color model.
+        </li>
+        <li><span class="parameter">PALETTE</span>
+         Color map indexed.
+        </li>
+        <li><span class="parameter">RGBALPHA</span>
+         RGB color model with alpha channel.
+        </li>
+        <li><span class="parameter">CMYK</span>
+         CMYK color model.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FREE_IMAGE_DITHER"></a>
+    <strong>FREE_IMAGE_DITHER</strong>
+    </dt>
+    <dd>
+    Dithering algorithms.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">FS</span>
+         Floyd &amp; Steinberg error diffusion.
+        </li>
+        <li><span class="parameter">BAYER4x4</span>
+         Bayer ordered dispersed dot dithering (order 2 dithering matrix).
+        </li>
+        <li><span class="parameter">BAYER8x8</span>
+         Bayer ordered dispersed dot dithering (order 3 dithering matrix).
+        </li>
+        <li><span class="parameter">CLUSTER6x6</span>
+         Ordered clustered dot dithering (order 3 - 6x6 matrix).
+        </li>
+        <li><span class="parameter">CLUSTER8x8</span>
+         Ordered clustered dot dithering (order 4 - 8x8 matrix).
+        </li>
+        <li><span class="parameter">CLUSTER16x16</span>
+         Ordered clustered dot dithering (order 8 - 16x16 matrix).
+        </li>
+        <li><span class="parameter">BAYER16x16</span>
+         Bayer ordered dispersed dot dithering (order 4 dithering matrix).
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FREE_IMAGE_FILTER"></a>
+    <strong>FREE_IMAGE_FILTER</strong>
+    </dt>
+    <dd>
+    Upsampling / downsampling filters.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">BOX</span>
+         Box, pulse, Fourier window, 1st order (constant) b-spline.
+        </li>
+        <li><span class="parameter">BICUBIC</span>
+         Mitchell &amp; Netravali's two-param cubic filter.
+        </li>
+        <li><span class="parameter">BILINEAR</span>
+         Bilinear filter.
+        </li>
+        <li><span class="parameter">BSPLINE</span>
+         4th order (cubic) b-spline.
+        </li>
+        <li><span class="parameter">CATMULLROM</span>
+         Catmull-Rom spline, Overhauser spline.
+        </li>
+        <li><span class="parameter">LANCZOS3</span>
+         Lanczos3 filter.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FREE_IMAGE_FORMAT"></a>
+    <strong>FREE_IMAGE_FORMAT</strong>
+    </dt>
+    <dd>
+    I/O image format identifiers.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">UNKNOWN</span>
+
+
+
+        </li>
+        <li><span class="parameter">BMP</span>
+
+
+
+        </li>
+        <li><span class="parameter">ICO</span>
+
+
+
+        </li>
+        <li><span class="parameter">JPEG</span>
+
+
+
+        </li>
+        <li><span class="parameter">JNG</span>
+
+
+
+        </li>
+        <li><span class="parameter">KOALA</span>
+
+
+
+        </li>
+        <li><span class="parameter">LBM</span>
+
+
+
+        </li>
+        <li><span class="parameter">IFF</span>
+         (synonym for <strong>LBM</strong>)
+        </li>
+        <li><span class="parameter">MNG</span>
+
+
+
+        </li>
+        <li><span class="parameter">PBM</span>
+
+
+
+        </li>
+        <li><span class="parameter">PBMRAW</span>
+
+
+
+        </li>
+        <li><span class="parameter">PCD</span>
+
+
+
+        </li>
+        <li><span class="parameter">PCX</span>
+
+
+
+        </li>
+        <li><span class="parameter">PGM</span>
+
+
+
+        </li>
+        <li><span class="parameter">PGMRAW</span>
+
+
+
+        </li>
+        <li><span class="parameter">PNG</span>
+
+
+
+        </li>
+        <li><span class="parameter">PPM</span>
+
+
+
+        </li>
+        <li><span class="parameter">PPMRAW</span>
+
+
+
+        </li>
+        <li><span class="parameter">RAS</span>
+
+
+
+        </li>
+        <li><span class="parameter">TARGA</span>
+
+
+
+        </li>
+        <li><span class="parameter">TIFF</span>
+
+
+
+        </li>
+        <li><span class="parameter">WBMP</span>
+
+
+
+        </li>
+        <li><span class="parameter">PSD</span>
+
+
+
+        </li>
+        <li><span class="parameter">CUT</span>
+
+
+
+        </li>
+        <li><span class="parameter">XBM</span>
+
+
+
+        </li>
+        <li><span class="parameter">XPM</span>
+
+
+
+        </li>
+        <li><span class="parameter">DDS</span>
+
+
+
+        </li>
+        <li><span class="parameter">GIF</span>
+
+
+
+        </li>
+        <li><span class="parameter">HDR</span>
+
+
+
+        </li>
+        <li><span class="parameter">FAXG3</span>
+
+
+
+        </li>
+        <li><span class="parameter">SGI</span>
+
+
+
+        </li>
+        <li><span class="parameter">EXR</span>
+
+
+
+        </li>
+        <li><span class="parameter">J2K</span>
+
+
+
+        </li>
+        <li><span class="parameter">JP2</span>
+
+
+
+        </li>
+        <li><span class="parameter">PFM</span>
+
+
+
+        </li>
+        <li><span class="parameter">PICT</span>
+
+
+
+        </li>
+        <li><span class="parameter">RAW</span>
+
+
+
+        </li>
+        <li><span class="parameter">WEBP</span>
+
+
+
+        </li>
+        <li><span class="parameter">JXR</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FREE_IMAGE_MDMODEL"></a>
+    <strong>FREE_IMAGE_MDMODEL</strong>
+    </dt>
+    <dd>
+    Metadata models supported by FreeImage.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">NODATA</span>
+
+
+
+        </li>
+        <li><span class="parameter">COMMENTS</span>
+         Single comment or keywords.
+        </li>
+        <li><span class="parameter">EXIF_MAIN</span>
+         Exif-TIFF metadata.
+        </li>
+        <li><span class="parameter">EXIF_EXIF</span>
+         Exif-specific metadata.
+        </li>
+        <li><span class="parameter">EXIF_GPS</span>
+         Exif GPS metadata.
+        </li>
+        <li><span class="parameter">EXIF_MAKERNOTE</span>
+         Exif maker note metadata.
+        </li>
+        <li><span class="parameter">EXIF_INTEROP</span>
+         Exif interoperability metadata.
+        </li>
+        <li><span class="parameter">IPTC</span>
+         IPTC/NAA metadata.
+        </li>
+        <li><span class="parameter">XMP</span>
+         Abobe XMP metadata.
+        </li>
+        <li><span class="parameter">GEOTIFF</span>
+         GeoTIFF metadata.
+        </li>
+        <li><span class="parameter">ANIMATION</span>
+         Animation metadata.
+        </li>
+        <li><span class="parameter">CUSTOM</span>
+         Used to attach other metadata types to a dib.
+        </li>
+        <li><span class="parameter">EXIF_RAW</span>
+         Exif metadata as a raw buffer.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FREE_IMAGE_MDTYPE"></a>
+    <strong>FREE_IMAGE_MDTYPE</strong>
+    </dt>
+    <dd>
+    Tag data type information (based on TIFF specifications). </p>
+
+<p> Note: RATIONALs are the ratio of two 32-bit integer values.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">NOTYPE</span>
+         Placeholder .
+        </li>
+        <li><span class="parameter">BYTE</span>
+         8-bit unsigned integer.
+        </li>
+        <li><span class="parameter">ASCII</span>
+         8-bit bytes w/ last byte null.
+        </li>
+        <li><span class="parameter">SHORT</span>
+         16-bit unsigned integer.
+        </li>
+        <li><span class="parameter">LONG</span>
+         32-bit unsigned integer.
+        </li>
+        <li><span class="parameter">RATIONAL</span>
+         64-bit unsigned fraction.
+        </li>
+        <li><span class="parameter">SBYTE</span>
+
+<pre><code>8-bit signed integer.
+</code></pre>
+
+        </li>
+        <li><span class="parameter">UNDEFINED</span>
+
+<pre><code>8-bit untyped data.
+</code></pre>
+
+        </li>
+        <li><span class="parameter">SSHORT</span>
+         16-bit signed integer.
+        </li>
+        <li><span class="parameter">SLONG</span>
+         32-bit signed integer.
+        </li>
+        <li><span class="parameter">SRATIONAL</span>
+         64-bit signed fraction.
+        </li>
+        <li><span class="parameter">FLOAT</span>
+         32-bit IEEE floating point.
+        </li>
+        <li><span class="parameter">DOUBLE</span>
+         64-bit IEEE floating point.
+        </li>
+        <li><span class="parameter">IFD</span>
+         32-bit unsigned integer (offset).
+        </li>
+        <li><span class="parameter">PALETTE</span>
+         32-bit RGBQUAD.
+        </li>
+        <li><span class="parameter">LONG8</span>
+         64-bit unsigned integer.
+        </li>
+        <li><span class="parameter">SLONG8</span>
+         64-bit signed integer.
+        </li>
+        <li><span class="parameter">IFD8</span>
+         64-bit unsigned integer (offset).
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FREE_IMAGE_QUANTIZE"></a>
+    <strong>FREE_IMAGE_QUANTIZE</strong>
+    </dt>
+    <dd>
+    Color quantization algorithms.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">WUQUANT</span>
+         Xiaolin Wu color quantization algorithm.
+        </li>
+        <li><span class="parameter">NNQUANT</span>
+         NeuQuant neural-net quantization algorithm by Anthony Dekker.
+        </li>
+        <li><span class="parameter">LFPQUANT</span>
+         Lossless Fast Pseudo-Quantization Algorithm by Carsten Klein.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FREE_IMAGE_TMO"></a>
+    <strong>FREE_IMAGE_TMO</strong>
+    </dt>
+    <dd>
+    Tone mapping operators.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">DRAGO03</span>
+         Adaptive logarithmic mapping (F. Drago, 2003).
+        </li>
+        <li><span class="parameter">REINHARD05</span>
+         Dynamic range reduction inspired by photoreceptor physiology (E. Reinhard, 2005).
+        </li>
+        <li><span class="parameter">FATTAL02</span>
+         Gradient domain high dynamic range compression (R. Fattal, 2002).
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FREE_IMAGE_TYPE"></a>
+    <strong>FREE_IMAGE_TYPE</strong>
+    </dt>
+    <dd>
+    Image type used in FreeImage.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">UNKNOWN</span>
+         Unknown type.
+        </li>
+        <li><span class="parameter">BITMAP</span>
+         Standard image: 1-, 4-, 8-, 16-, 24-, 32-bit.
+        </li>
+        <li><span class="parameter">UINT16</span>
+         Array of unsigned short: unsigned 16-bit.
+        </li>
+        <li><span class="parameter">INT16</span>
+         Array of short: signed 16-bit.
+        </li>
+        <li><span class="parameter">UINT32</span>
+         Array of unsigned long: unsigned 32-bit.
+        </li>
+        <li><span class="parameter">INT32</span>
+         Array of long: signed 32-bit.
+        </li>
+        <li><span class="parameter">FLOAT</span>
+         Array of float: 32-bit IEEE floating point.
+        </li>
+        <li><span class="parameter">DOUBLE</span>
+         Array of double: 64-bit IEEE floating point.
+        </li>
+        <li><span class="parameter">COMPLEX</span>
+         Array of FICOMPLEX: 2 x 64-bit IEEE floating point.
+        </li>
+        <li><span class="parameter">RGB16</span>
+         48-bit RGB image: 3 x 16-bit.
+        </li>
+        <li><span class="parameter">RGBA16</span>
+         64-bit RGBA image: 4 x 16-bit.
+        </li>
+        <li><span class="parameter">RGBF</span>
+         96-bit RGB float image: 3 x 32-bit IEEE floating point.
+        </li>
+        <li><span class="parameter">RGBAF</span>
+         128-bit RGBA float image: 4 x 32-bit IEEE floating point.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
 
 
 </div> <!-- id="content" -->

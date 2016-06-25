@@ -322,11 +322,11 @@
 	<td class="summary">Indicates whether the image is valid for use.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipImage:load">fipImage:load (name[, flags=0])</a></td>
+	<td class="name" nowrap><a href="#fipImage:load">fipImage:load (name, flags)</a></td>
 	<td class="summary">Loads an image from disk, given its file name and an optional flag.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipImage:loadFromMemory">fipImage:loadFromMemory (memIO[, flags=0])</a></td>
+	<td class="name" nowrap><a href="#fipImage:loadFromMemory">fipImage:loadFromMemory (memIO, flags)</a></td>
 	<td class="summary">Loads an image using the specified memory stream and an optional flag.</td>
 	</tr>
 	<tr>
@@ -354,11 +354,11 @@
 	<td class="summary">Image translation and rotation using B-Splines.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipImage:save">fipImage:save (name[, flags=0])</a></td>
+	<td class="name" nowrap><a href="#fipImage:save">fipImage:save (name, flags)</a></td>
 	<td class="summary">Saves an image to disk, given its file name and an optional flag.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipImage:saveToMemory">fipImage:saveToMemory (memIO[, flags=0])</a></td>
+	<td class="name" nowrap><a href="#fipImage:saveToMemory">fipImage:saveToMemory (memIO, flags)</a></td>
 	<td class="summary">Saves an image using the specified memory stream and an optional flag.</td>
 	</tr>
 	<tr>
@@ -717,7 +717,7 @@
     <ul>
         <li><span class="parameter">algorithm</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         Color quantization algorithm to use. (TODO: FREE<em>IMAGE</em>QUANTIZE)
+         Color quantization algorithm to use, cf. <a href="../modules/enums.html#FREE_IMAGE_QUANTIZE">enums.FREE_IMAGE_QUANTIZE</a>.
         </li>
     </ul>
 
@@ -1014,7 +1014,7 @@
     <ul>
         <li><span class="parameter">image_type</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         New image type. (TODO: FREE<em>IMAGE</em>TYPE)
+         New image type, cf. <a href="../modules/enums.html#FREE_IMAGE_TYPE">enums.FREE_IMAGE_TYPE</a>.
         </li>
         <li><span class="parameter">scale_linearImage</span>
             <span class="types"><span class="type">bool</span></span>
@@ -1146,7 +1146,7 @@
     <ul>
         <li><span class="parameter">algorithm</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         Dithering algorithm to use. (TODO: FREE<em>IMAGE</em>DITHER)
+         Dithering algorithm to use, cf. <a href="../modules/enums.html#FREE_IMAGE_DITHER">enums.FREE_IMAGE_DITHER</a>.
         </li>
     </ul>
 
@@ -1235,7 +1235,7 @@
     <ul>
         <li><span class="parameter">channel</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         Color channel to extract. (TODO: FREE<em>IMAGE</em>COLOR_CHANNEL)
+         Color channel to extract, cf. <a href="../modules/enums.html#FREE_IMAGE_COLOR_CHANNEL">enums.FREE_IMAGE_COLOR_CHANNEL</a>.
         </li>
     </ul>
 
@@ -1286,7 +1286,7 @@
     <ol>
 
            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        Color type. (TODO: FREE<em>IMAGE</em>COLOR_TYPE)
+        Color type, cf. <a href="../modules/enums.html#FREE_IMAGE_COLOR_TYPE">enums.FREE_IMAGE_COLOR_TYPE</a>.
     </ol>
 
 
@@ -1356,7 +1356,7 @@
         </li>
         <li><span class="parameter">channel</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         Color channel to use. (TODO: FREE<em>IMAGE</em>COLOR_CHANNEL)
+         Color channel to use, cf. <a href="../modules/enums.html#FREE_IMAGE_COLOR_CHANNEL">enums.FREE_IMAGE_COLOR_CHANNEL</a>.
          (<em>default</em> "BLACK")
         </li>
     </ul>
@@ -1443,7 +1443,7 @@
     <ol>
 
            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        Type. (TODO: FREE<em>IMAGE</em>TYPE)
+        Type, cf. <a href="../modules/enums.html#FREE_IMAGE_TYPE">enums.FREE_IMAGE_TYPE</a>.
     </ol>
 
 
@@ -1514,7 +1514,7 @@
     <ul>
         <li><span class="parameter">model</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         Metadata model to look for. (TODO: FREE<em>IMAGE</em>MDMODEL)
+         Metadata model to look for, cf. <a href="../modules/enums.html#FREE_IMAGE_MDMODEL">enums.FREE_IMAGE_MDMODEL</a>.
         </li>
         <li><span class="parameter">key</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
@@ -1547,7 +1547,7 @@
     <ul>
         <li><span class="parameter">model</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         Metadata model to look for. (TODO: FREE<em>IMAGE</em>MDMODEL)
+         Metadata model to look for, cf. <a href="../modules/enums.html#FREE_IMAGE_MDMODEL">enums.FREE_IMAGE_MDMODEL</a>.
         </li>
     </ul>
 
@@ -1961,7 +1961,7 @@
 </dd>
     <dt>
     <a name = "fipImage:load"></a>
-    <strong>fipImage:load (name[, flags=0])</strong>
+    <strong>fipImage:load (name, flags)</strong>
     </dt>
     <dd>
     Loads an image from disk, given its file name and an optional flag.
@@ -1973,9 +1973,8 @@
          Path and file name of the image to load.
         </li>
         <li><span class="parameter">flags</span>
-            <span class="types"><span class="type">uint</span></span>
-         Format-dependent flags. (TODO: Loading flags... actually a table of strings?)
-         (<em>default</em> 0)
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">{string,...}</a>, <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
+         Format-dependent <a href="../modules/flags.html#">flags</a>.
         </li>
     </ul>
 
@@ -1992,7 +1991,7 @@
 </dd>
     <dt>
     <a name = "fipImage:loadFromMemory"></a>
-    <strong>fipImage:loadFromMemory (memIO[, flags=0])</strong>
+    <strong>fipImage:loadFromMemory (memIO, flags)</strong>
     </dt>
     <dd>
     Loads an image using the specified memory stream and an optional flag.
@@ -2004,9 +2003,8 @@
          FreeImage memory stream.
         </li>
         <li><span class="parameter">flags</span>
-            <span class="types"><span class="type">uint</span></span>
-         Format-dependent flags. (TODO: Loading flags... actually a table of strings?)
-         (<em>default</em> 0)
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">{string,...}</a>, <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
+         Format-dependent <a href="../modules/flags.html#">flags</a>.
         </li>
     </ul>
 
@@ -2227,7 +2225,7 @@
 </dd>
     <dt>
     <a name = "fipImage:save"></a>
-    <strong>fipImage:save (name[, flags=0])</strong>
+    <strong>fipImage:save (name, flags)</strong>
     </dt>
     <dd>
     Saves an image to disk, given its file name and an optional flag.
@@ -2239,9 +2237,8 @@
          Path and file name of the image to save.
         </li>
         <li><span class="parameter">flags</span>
-            <span class="types"><span class="type">uint</span></span>
-         Format-dependent flags. (TODO: Saving flags... actually a table of strings?)
-         (<em>default</em> 0)
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">{string,...}</a>, <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
+         Format-dependent <a href="../modules/flags.html#">flags</a>.
         </li>
     </ul>
 
@@ -2258,7 +2255,7 @@
 </dd>
     <dt>
     <a name = "fipImage:saveToMemory"></a>
-    <strong>fipImage:saveToMemory (memIO[, flags=0])</strong>
+    <strong>fipImage:saveToMemory (memIO, flags)</strong>
     </dt>
     <dd>
     Saves an image using the specified memory stream and an optional flag.
@@ -2270,9 +2267,8 @@
          FreeImage memory stream.
         </li>
         <li><span class="parameter">flags</span>
-            <span class="types"><span class="type">uint</span></span>
-         Format-dependent flags. (TODO: Saving flags... actually a table of strings?)
-         (<em>default</em> 0)
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">{string,...}</a>, <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
+         Format-dependent <a href="../modules/flags.html#">flags</a>.
         </li>
     </ul>
 
@@ -2302,7 +2298,7 @@
         </li>
         <li><span class="parameter">channel</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         Color channel to replace. (TODO: FREE<em>IMAGE</em>CHANNEL)
+         Color channel to replace, cf. <a href="../modules/enums.html#FREE_IMAGE_COLOR_CHANNEL">enums.FREE_IMAGE_COLOR_CHANNEL</a>.
         </li>
     </ul>
 
@@ -2518,7 +2514,7 @@
     <ul>
         <li><span class="parameter">type</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         (TODO: FREE<em>IMAGE</em>TYPE)
+         Image type, cf. <a href="../modules/enums.html#FREE_IMAGE_TYPE">enums.FREE_IMAGE_TYPE</a>.
         </li>
         <li><span class="parameter">w</span>
             <span class="types"><span class="type">uint</span></span>
@@ -2690,7 +2686,7 @@
     <ul>
         <li><span class="parameter">tmo</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         Tone mapping operator. (TODO: FREE<em>IMAGE</em>TMO)
+         Tone mapping operator, cf. <a href="../modules/enums.html#FREE_IMAGE_TMO">enums.FREE_IMAGE_TMO</a>.
         </li>
         <li><span class="parameter">first</span>
             <span class="types"><span class="type">number</span></span>
