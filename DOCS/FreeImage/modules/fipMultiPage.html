@@ -101,7 +101,7 @@
 	<td class="summary">Open a multi-page file.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#fipMultiPage:open2">fipMultiPage:open2 (memIO, flags)</a></td>
+	<td class="name" nowrap><a href="#fipMultiPage:open">fipMultiPage:open (memIO, flags)</a></td>
 	<td class="summary">Open a multi-page memory stream as read / write.</td>
 	</tr>
 	<tr>
@@ -353,10 +353,8 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">name</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">fipMemoryIO</span></span>
-         Name of the multi-page bitmap file.</p>
-
-<p> For the <a href="../modules/fipMemoryIO.html#">fipMemoryIO</a> case, see <a href="../modules/fipMultiPage.html#fipMultiPage:open2">fipMultiPage:open2</a>.
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Name of the multi-page bitmap file.
         </li>
         <li><span class="parameter">create_new</span>
             <span class="types"><span class="type">bool</span></span>
@@ -372,19 +370,23 @@
         </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
 
 
 
 
 </dd>
     <dt>
-    <a name = "fipMultiPage:open2"></a>
-    <strong>fipMultiPage:open2 (memIO, flags)</strong>
+    <a name = "fipMultiPage:open"></a>
+    <strong>fipMultiPage:open (memIO, flags)</strong>
     </dt>
     <dd>
-    Open a multi-page memory stream as read / write. </p>
-
-<p> <strong>N.B.</strong> This is also <a href="../modules/fipMultiPage.html#fipMultiPage:open">fipMultiPage:open</a>, albeit with a <a href="../modules/fipMemoryIO.html#">fipMemoryIO</a> stream.
+    Open a multi-page memory stream as read / write.
 
     <h3>Parameters:</h3>
     <ul>

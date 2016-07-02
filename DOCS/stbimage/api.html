@@ -30,6 +30,7 @@
 <h2>Contents</h2>
 <ul>
 <li><a href="#Functions">Functions</a></li>
+<li><a href="#Tables">Tables</a></li>
 </ul>
 
 
@@ -45,7 +46,8 @@
 <h1>Module <code>stbimage</code></h1>
 <p>Corona binding for the <strong>stb_image</strong> and <strong>stb_image_write</strong> parts of Sean T.</p>
 <p> Barrett's
- <a href="https://github.com/nothings/stb">stb</a>.</p>
+ <a href="https://github.com/nothings/stb">stb</a>, plus urraka's <a href="http://gist.github.com/urraka/685d9a6340b26b830d49">xload</a>
+ for animated GIF support.</p>
 
 <h2> From stb_image.h, with some revisions:</h2>
 
@@ -64,7 +66,7 @@
 
 <p> PSD (composited view only, no extra channels, 8/16 bit-per-channel)</p>
 
-<p> GIF (*comp always reports as 4-channel)</p>
+<p> GIF (<em>comp</em> always reports as 4-channel)</p>
 
 <p> HDR (radiance rgbE format)</p>
 
@@ -72,11 +74,10 @@
 
 <p> PNM (PPM and PGM binary only)</p>
 
-<p> Animated GIF still needs a proper API, but <a href="http://gist.github.com/urraka/685d9a6340b26b830d49">here</a>'s one way to do it.
- (<strong>N.B.</strong> this is implemented as <a href="api.html#xload">xload</a>.)</p>
+<p> Animated GIF (via <a href="api.html#xload">xload</a>)</p>
 
 <ul>
-    <li>decode from memory or through FILE (define STBI<em>NO</em>STDIO to remove code)</li>
+    <li>decode from memory</li>
     <li>SIMD acceleration on x86/x64 (SSE2) and ARM (NEON)</li>
 </ul>
 
@@ -93,11 +94,11 @@
 </ul>
 
 <p> Basic usage (see HDR discussion below for HDR usage):</p>
-<pre><code>local data, x, y, comp = stbimage.load(filename)
+<pre><code>local data, x, y, comp = stbimage.load(filename, 0)
 -- ... process data if not nil ...
 -- ... x = width, y = height, comp = # 8-bit components per pixel ...
 -- ... replace '0' with '1'..'4' to force that many components per pixel
--- ... but 'n' will always be the number that it would have been if you said 0
+-- ... but comp will always be the number that it would have been if you said 0
 data = nil -- or allow to go out of scope
 </code></pre>
 
@@ -178,9 +179,7 @@ req_comp -- if non-zero, # of image components requested in result
 <p> The output of the JPEG decoder is slightly different from versions where
  SIMD support was introduced (that is, for versions before 1.49). The
  difference is only +-1 in the 8-bit RGB channels, and only on a small
- fraction of pixels. You can force the pre-1.49 behavior by defining
- STBI<em>JPEG</em>OLD, but this will disable some of the SIMD decoding path
- and hence cost some performance.</p>
+ fraction of pixels.</p>
 
 <hr/>
 
@@ -243,21 +242,21 @@ req_comp -- if non-zero, # of image components requested in result
 
 <p> There are four functions, one for each image file format:</p>
 
-<pre><code>int stbi_write_png(char const *filename, int w, int h, int comp, const void *data, int stride_in_bytes);
-int stbi_write_bmp(char const *filename, int w, int h, int comp, const void *data);
-int stbi_write_tga(char const *filename, int w, int h, int comp, const void *data);
-int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *data);
+<pre><code>ok = stbimage.write_png(filename, w, h, comp, data, stride_in_bytes)
+ok = stbimage.write_bmp(filename, w, h, comp, data)
+ok = stbimage.write_tga(filename, w, h, comp, data)
+ok = stbimage.write_hdr(filename, w, h, comp, data)
 </code></pre>
 
-<p> Each function returns 0 on failure and non-0 on success.</p>
+<p> Each function a boolean, where <strong>true</strong> indicates success and <strong>false</strong> failure.</p>
 
 <p> The functions create an image file defined by the parameters. The image
  is a rectangle of pixels stored from left-to-right, top-to-bottom.
- Each pixel contains 'comp' channels of data stored interleaved with 8-bits
+ Each pixel contains <em>comp</em> channels of data stored interleaved with 8-bits
  per channel, in the following order: 1=Y, 2=YA, 3=RGB, 4=RGBA. (Y is
- monochrome color.) The rectangle is 'w' pixels wide and 'h' pixels tall.
- The *data pointer points to the first byte of the top-left-most pixel.
- For PNG, "stride<em>in</em>bytes" is the distance in bytes from the first byte of
+ monochrome color.) The rectangle is <em>w</em> pixels wide and <em>h</em> pixels tall.
+ <em>data</em> points to the first byte of the top-left-most pixel.
+ For PNG, <em>stride_in_bytes</em> is the distance in bytes from the first byte of
  a row of pixels to the first byte of the next row of pixels.</p>
 
 <p> PNG creates output files with the same number of components as the input.
@@ -275,8 +274,7 @@ int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *da
  data, alpha (if provided) is discarded, and for monochrome data it is
  replicated across all three channels.</p>
 
-<p> TGA supports RLE or non-RLE compressed data. To use non-RLE-compressed
- data, set the global variable 'stbi<em>write</em>tga<em>with</em>rle' to 0.</p>
+<p> TGA supports RLE or non-RLE compressed data.</p>
 
 <p> <strong>From both project pages:</strong></p>
 
@@ -296,20 +294,20 @@ int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *da
 	<td class="summary">D!!!</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#info">info (filename[, baseDir])</a></td>
+	<td class="name" nowrap><a href="#info">info (filename[, baseDir=system.ResourceDirectory])</a></td>
 	<td class="summary">Get image dimensions and components without fully decoding.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#info_from_memory">info_from_memory (bytes)</a></td>
-	<td class="summary">E!!!</td>
+	<td class="name" nowrap><a href="#info_from_memory">info_from_memory (data)</a></td>
+	<td class="summary">Memory-based variant of <a href="api.html#info">info</a>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#is_hdr">is_hdr (filename[, baseDir])</a></td>
+	<td class="name" nowrap><a href="#is_hdr">is_hdr (filename[, baseDir=system.ResourceDirectory])</a></td>
 	<td class="summary">FFF!!!</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#is_hdr">is_hdr (bytes)</a></td>
-	<td class="summary">FFF!!!</td>
+	<td class="name" nowrap><a href="#is_hdr_from_memory">is_hdr_from_memory (bytes)</a></td>
+	<td class="summary">Memory-based variant of <a href="api.html#is_hdr">is_hdr</a>.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#ldr_to_hdr_gamma">ldr_to_hdr_gamma (n)</a></td>
@@ -320,40 +318,47 @@ int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *da
 	<td class="summary">G!!!</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#load">load (filename[, baseDir])</a></td>
+	<td class="name" nowrap><a href="#load">load (filename[, baseDir=system.ResourceDirectory])</a></td>
 	<td class="summary">H!!!</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#load_from_memory">load_from_memory (bytes)</a></td>
-	<td class="summary">H!!!</td>
+	<td class="name" nowrap><a href="#load_from_memory">load_from_memory (data)</a></td>
+	<td class="summary">Memory-based variant of <a href="api.html#load">load</a>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#loadf">loadf (filename[, baseDir[, req_comp=0]])</a></td>
+	<td class="name" nowrap><a href="#loadf">loadf (filename[, baseDir=system.ResourceDirectory[, req_comp=0]])</a></td>
 	<td class="summary">I!!!</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#loadf_from_memory">loadf_from_memory (bytes[, req_comp=0])</a></td>
-	<td class="summary">I!!!</td>
+	<td class="summary">Memory-based variant of <a href="api.html#loadf">loadf</a>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#write_bmp">write_bmp (filename[, baseDir], w, h, bpp)</a></td>
+	<td class="name" nowrap><a href="#write_bmp">write_bmp (filename[, baseDir=system.DocumentsDirectory], w, h, bpp, data)</a></td>
 	<td class="summary">J!!!</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#write_hdr">write_hdr (filename[, baseDir], w, h, bpp)</a></td>
+	<td class="name" nowrap><a href="#write_hdr">write_hdr (filename[, baseDir=system.DocumentsDirectory], w, h, bpp, data)</a></td>
 	<td class="summary">J!!!</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#write_png">write_png (filename[, baseDir], w, h, bpp[, stride=0])</a></td>
+	<td class="name" nowrap><a href="#write_png">write_png (filename[, baseDir=system.DocumentsDirectory], w, h, bpp, data[, stride=0])</a></td>
 	<td class="summary">J!!!</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#write_tga">write_tga (filename[, baseDir], w, h, bpp)</a></td>
+	<td class="name" nowrap><a href="#write_tga">write_tga (filename[, baseDir=system.DocumentsDirectory], w, h, bpp, data)</a></td>
 	<td class="summary">J!!!</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#xload">xload (filename[, baseDir])</a></td>
-	<td class="summary">K!!!</td>
+	<td class="name" nowrap><a href="#xload">xload (filename[, baseDir=system.ResourceDirectory])</a></td>
+	<td class="summary">Given a GIF, loads its frames (image data, delay to next frame) into an array.</td>
+	</tr>
+</table>
+<h2><a href="#Tables">Tables</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#GifFrame">GifFrame</a></td>
+	<td class="summary">Represents a single frame in a GIF animation.</td>
 	</tr>
 </table>
 
@@ -409,7 +414,7 @@ int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *da
 </dd>
     <dt>
     <a name = "info"></a>
-    <strong>info (filename[, baseDir])</strong>
+    <strong>info (filename[, baseDir=system.ResourceDirectory])</strong>
     </dt>
     <dd>
     Get image dimensions and components without fully decoding.
@@ -426,6 +431,7 @@ int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *da
 
 
 
+         (<em>default</em> system.ResourceDirectory)
         </li>
     </ul>
 
@@ -451,14 +457,14 @@ int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *da
 </dd>
     <dt>
     <a name = "info_from_memory"></a>
-    <strong>info_from_memory (bytes)</strong>
+    <strong>info_from_memory (data)</strong>
     </dt>
     <dd>
-    E!!!
+    Memory-based variant of <a href="api.html#info">info</a>.
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">bytes</span>
+        <li><span class="parameter">data</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
 
 
@@ -488,7 +494,7 @@ int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *da
 </dd>
     <dt>
     <a name = "is_hdr"></a>
-    <strong>is_hdr (filename[, baseDir])</strong>
+    <strong>is_hdr (filename[, baseDir=system.ResourceDirectory])</strong>
     </dt>
     <dd>
     FFF!!!
@@ -505,6 +511,7 @@ int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *da
 
 
 
+         (<em>default</em> system.ResourceDirectory)
         </li>
     </ul>
 
@@ -520,11 +527,11 @@ int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *da
 
 </dd>
     <dt>
-    <a name = "is_hdr"></a>
-    <strong>is_hdr (bytes)</strong>
+    <a name = "is_hdr_from_memory"></a>
+    <strong>is_hdr_from_memory (bytes)</strong>
     </dt>
     <dd>
-    FFF!!!
+    Memory-based variant of <a href="api.html#is_hdr">is_hdr</a>.
 
     <h3>Parameters:</h3>
     <ul>
@@ -593,7 +600,7 @@ int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *da
 </dd>
     <dt>
     <a name = "load"></a>
-    <strong>load (filename[, baseDir])</strong>
+    <strong>load (filename[, baseDir=system.ResourceDirectory])</strong>
     </dt>
     <dd>
     H!!!
@@ -610,6 +617,7 @@ int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *da
 
 
 
+         (<em>default</em> system.ResourceDirectory)
         </li>
     </ul>
 
@@ -630,9 +638,11 @@ int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *da
     </ol>
      <h3>Or</h3>
     <ol>
-
-           <span class="types"><span class="type">nil</span></span>
-        FAIL
+        <li>
+        <strong>nil</strong>, indicating failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
     </ol>
 
 
@@ -641,14 +651,14 @@ int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *da
 </dd>
     <dt>
     <a name = "load_from_memory"></a>
-    <strong>load_from_memory (bytes)</strong>
+    <strong>load_from_memory (data)</strong>
     </dt>
     <dd>
-    H!!!
+    Memory-based variant of <a href="api.html#load">load</a>.
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">bytes</span>
+        <li><span class="parameter">data</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
 
 
@@ -673,9 +683,11 @@ int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *da
     </ol>
      <h3>Or</h3>
     <ol>
-
-           <span class="types"><span class="type">nil</span></span>
-        FAIL
+        <li>
+        <strong>nil</strong>, indicating failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
     </ol>
 
 
@@ -684,7 +696,7 @@ int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *da
 </dd>
     <dt>
     <a name = "loadf"></a>
-    <strong>loadf (filename[, baseDir[, req_comp=0]])</strong>
+    <strong>loadf (filename[, baseDir=system.ResourceDirectory[, req_comp=0]])</strong>
     </dt>
     <dd>
     I!!!
@@ -701,6 +713,7 @@ int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *da
 
 
 
+         (<em>default</em> system.ResourceDirectory)
         </li>
         <li><span class="parameter">req_comp</span>
             <span class="types"><span class="type">uint</span></span>
@@ -728,9 +741,11 @@ int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *da
     </ol>
      <h3>Or</h3>
     <ol>
-
-           <span class="types"><span class="type">nil</span></span>
-        FAIL
+        <li>
+        <strong>nil</strong>, indicating failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
     </ol>
 
 
@@ -742,7 +757,7 @@ int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *da
     <strong>loadf_from_memory (bytes[, req_comp=0])</strong>
     </dt>
     <dd>
-    I!!!
+    Memory-based variant of <a href="api.html#loadf">loadf</a>.
 
     <h3>Parameters:</h3>
     <ul>
@@ -778,9 +793,11 @@ int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *da
     </ol>
      <h3>Or</h3>
     <ol>
-
-           <span class="types"><span class="type">nil</span></span>
-        FAIL
+        <li>
+        <strong>nil</strong>, indicating failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
     </ol>
 
 
@@ -789,7 +806,7 @@ int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *da
 </dd>
     <dt>
     <a name = "write_bmp"></a>
-    <strong>write_bmp (filename[, baseDir], w, h, bpp)</strong>
+    <strong>write_bmp (filename[, baseDir=system.DocumentsDirectory], w, h, bpp, data)</strong>
     </dt>
     <dd>
     J!!!
@@ -806,6 +823,7 @@ int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *da
 
 
 
+         (<em>default</em> system.DocumentsDirectory)
         </li>
         <li><span class="parameter">w</span>
             <span class="types"><span class="type">uint</span></span>
@@ -825,13 +843,19 @@ int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *da
 
 
         </li>
+        <li><span class="parameter">data</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
            <span class="types"><span class="type">boolean</span></span>
-        B
+        Operation was successful?
     </ol>
 
 
@@ -840,7 +864,7 @@ int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *da
 </dd>
     <dt>
     <a name = "write_hdr"></a>
-    <strong>write_hdr (filename[, baseDir], w, h, bpp)</strong>
+    <strong>write_hdr (filename[, baseDir=system.DocumentsDirectory], w, h, bpp, data)</strong>
     </dt>
     <dd>
     J!!!
@@ -857,6 +881,7 @@ int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *da
 
 
 
+         (<em>default</em> system.DocumentsDirectory)
         </li>
         <li><span class="parameter">w</span>
             <span class="types"><span class="type">uint</span></span>
@@ -872,6 +897,12 @@ int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *da
         </li>
         <li><span class="parameter">bpp</span>
             <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">data</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
 
 
 
@@ -882,7 +913,7 @@ int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *da
     <ol>
 
            <span class="types"><span class="type">boolean</span></span>
-        B
+        Operation was successful?
     </ol>
 
 
@@ -891,7 +922,7 @@ int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *da
 </dd>
     <dt>
     <a name = "write_png"></a>
-    <strong>write_png (filename[, baseDir], w, h, bpp[, stride=0])</strong>
+    <strong>write_png (filename[, baseDir=system.DocumentsDirectory], w, h, bpp, data[, stride=0])</strong>
     </dt>
     <dd>
     J!!!
@@ -908,6 +939,7 @@ int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *da
 
 
 
+         (<em>default</em> system.DocumentsDirectory)
         </li>
         <li><span class="parameter">w</span>
             <span class="types"><span class="type">uint</span></span>
@@ -923,6 +955,12 @@ int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *da
         </li>
         <li><span class="parameter">bpp</span>
             <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">data</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
 
 
 
@@ -940,7 +978,7 @@ int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *da
     <ol>
 
            <span class="types"><span class="type">boolean</span></span>
-        B
+        Operation was successful?
     </ol>
 
 
@@ -949,7 +987,7 @@ int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *da
 </dd>
     <dt>
     <a name = "write_tga"></a>
-    <strong>write_tga (filename[, baseDir], w, h, bpp)</strong>
+    <strong>write_tga (filename[, baseDir=system.DocumentsDirectory], w, h, bpp, data)</strong>
     </dt>
     <dd>
     J!!!
@@ -966,6 +1004,7 @@ int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *da
 
 
 
+         (<em>default</em> system.DocumentsDirectory)
         </li>
         <li><span class="parameter">w</span>
             <span class="types"><span class="type">uint</span></span>
@@ -985,13 +1024,19 @@ int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *da
 
 
         </li>
+        <li><span class="parameter">data</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
            <span class="types"><span class="type">boolean</span></span>
-        B
+        Operation was successful?
     </ol>
 
 
@@ -1000,59 +1045,90 @@ int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *da
 </dd>
     <dt>
     <a name = "xload"></a>
-    <strong>xload (filename[, baseDir])</strong>
+    <strong>xload (filename[, baseDir=system.ResourceDirectory])</strong>
     </dt>
     <dd>
-    K!!!
+    Given a GIF, loads its frames (image data, delay to next frame) into an array.  All frames are loaded
+ as RGBA with the same width and height.</p>
+
+<p> A single image buffer (with no delay info) is returned for non-GIF files and for GIFs that have one frame.
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">filename</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-
-
+         Name of file to load.
         </li>
         <li><span class="parameter">baseDir</span>
-
-
-
+         Directory to search, as per
+ <a href="https://docs.coronalabs.com/api/library/system/pathForFile.html">system.pathForFile</a>.
+         (<em>default</em> system.ResourceDirectory)
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
         <li>
-           <span class="types"><span class="type">{frame,...}</span></span>
+           <span class="types"><a class="type" href="api.html#GifFrame">{GifFrame,...}</a></span>
         frames, where a <strong>frame</strong> is a table with two keys, <strong>image</strong> containing
  a string and <strong>delay</strong> a uint.</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        W</li>
+        Width common to all frames...</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        H</li>
+        ...and height.</li>
     </ol>
      <h3>Or</h3>
     <ol>
         <li>
            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        DATA</li>
+        Image data, in the case there is only one frame or <em>filename</em> was not a GIF.</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        X</li>
+        Image width...</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        Y</li>
+        ...and height.</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        bpp</li>
+        bpp Always 4.</li>
     </ol>
      <h3>Or</h3>
     <ol>
-
-        <strong>false</strong>. (TODO make nil for consistency?)
+        <li>
+        <strong>nil</strong>, indicating failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
     </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2><a name="Tables"></a>Tables</h2>
+    <dl class="function">
+    <dt>
+    <a name = "GifFrame"></a>
+    <strong>GifFrame</strong>
+    </dt>
+    <dd>
+    Represents a single frame in a GIF animation.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">image</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Frame data.
+        </li>
+        <li><span class="parameter">delay</span>
+            <span class="types"><span class="type">uint</span></span>
+         Delay, in milliseconds, for frame.
+        </li>
+    </ul>
+
 
 
 
