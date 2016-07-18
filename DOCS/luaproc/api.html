@@ -532,10 +532,9 @@ end)
     <dd>
     Dispatch an alert event (in the main state), e.g.  to react to something in a process.</p>
 
-<p> Listeners will receive an event named <strong>"luaproc_alert"</strong>. Additionally, this event will have <strong>message</strong> (a string) and
- <strong>payload</strong> (which may be a string, number, boolean, or <strong>nil</strong>) fields, supplied by the arguments..</p>
+<p> Listeners for events named <em>message</em> will be alerted. The event contains <em>payload</em> in field <strong>payload</strong>.</p>
 
-<p> In the main state, this will be performed immediately. Otherwise, alerts will fire during an <strong>enterFrame</strong>.
+<p> In the main state, this is performed immediately. Otherwise, alerts will fire during an <strong>enterFrame</strong>.
 
     <h3>Parameters:</h3>
     <ul>
