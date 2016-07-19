@@ -42,24 +42,30 @@
 
 
   <h2> Module documentation. </h2>
-  <p>
-<pre><code>Bindings to various serialization libraries.
+  <p>Bindings to various serialization libraries.</p>
 
-struct and lpack come courtesy of two of Lua's own authors. These are both
+<p>To use the plugin, add the following in <code>build.settings</code>:</p>
+
+<pre><code class="language-lua">plugins = {
+  ["plugin.serialize"] = { publisherId = "com.xibalbastudios" }
+}
+</code></pre>
+
+
+<p>Sample code is available <a href="https://github.com/ggcrunchy/corona-plugin-docs/blob/master/serialize.lua">here</a>.</p>
+
+<p>struct and lpack come courtesy of two of Lua's own authors. These are both
 similar in intent; which one to use will largely be a matter of preference.
 Both pack data into a Lua string and unpack from the same. This allows for
 structured data to be sent to APIs, e.g. a C library that expects an array of
 floats or small structures. Memory can be sent directly, rather than
 destructuring the data into tables, yet more safely than via blind userdata,
-since strings have a definite length.
+since strings have a definite length.</p>
 
-marshal encodes and decodes data directly, without the aforementioned
+<p>marshal encodes and decodes data directly, without the aforementioned
 libraries' use of an auxiliary data format specifier. This is useful for
 passing around data when human readability is not a concern (as it is with
-JSON), say to persist across program runs or to communicate between threads.
-</code></pre>
-
-</p>
+JSON), say to persist across program runs or to communicate between threads.</p>
 
 <h2>Modules</h2>
 <table class="module_list">
