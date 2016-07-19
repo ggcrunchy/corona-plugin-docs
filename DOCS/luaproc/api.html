@@ -52,8 +52,9 @@
  }
  </code></pre></p>
 
-<p> Sample code is available <a href="https://github.com/ggcrunchy/corona-plugin-docs/blob/master/luaproc.lua">here</a>.
- <strong>From the project page:</strong></p>
+<p> Sample code is available <a href="https://github.com/ggcrunchy/corona-plugin-docs/blob/master/luaproc.lua">here</a>.</p>
+
+<p> <strong>From the project page:</strong></p>
 
 <p> <em>luaproc</em> is a Lua extension library for concurrent programming. This text provides some background information
  and also serves as a reference manual for the library. The library is available under the same <a href="http://www.lua.org/copyright.html">terms and conditions</a>
@@ -541,7 +542,7 @@ end)
     <dd>
     Dispatch an alert event (in the main state), e.g.  to react to something in a process.</p>
 
-<p> Listeners for events named <em>message</em> will receive an alert, with <em>payload</em> in field <strong>payload</strong>.</p>
+<p> Listeners for events named <em>message</em> will be alerted. The event contains <em>payload</em> in field <strong>payload</strong>.</p>
 
 <p> In the main state, this will be performed immediately. Otherwise, alerts will fire during an <strong>enterFrame</strong>; if Lua is
  trying to close, this will do nothing.
