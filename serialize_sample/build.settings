@@ -7,9 +7,9 @@ settings =
 		-- supported = { "landscapeLeft", "landscapeRight", "portrait", "portraitUpsideDown", },
 	},
 	plugins = {
-        ["plugin.memoryBitmap"] =
+        ["plugin.serialize"] =
         {
-            publisherId = "com.coronalabs",
+            publisherId = "com.xibalbastudios",
         },
 	},
 	iphone =
