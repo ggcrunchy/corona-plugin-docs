@@ -57,9 +57,9 @@ lproc.newproc(function()
 	luaproc.alert("process1", string.format("Adding 2.5 to itself %i times\n", n))
 
 	-- Accumulate the count.
-    local count = 0
+        local count = 0
 
-    for i = 1, n / 1e2 do
+        for i = 1, n / 1e2 do
 		if luaproc.wants_to_close() then
 			return
 		else
@@ -70,7 +70,7 @@ lproc.newproc(function()
 	end
 
 	-- Give the results, wait, then start switching an object's colors.
-    luaproc.alert("process1", string.format("Final tally: %.2f\n", count))
+        luaproc.alert("process1", string.format("Final tally: %.2f\n", count))
 	luaproc.sleep(2500)
 	luaproc.alert("process1", "Switching colors")
 
@@ -93,8 +93,8 @@ lproc.newproc(function()
 			local n, b = luaproc.receive("talk")
 
 			if n then -- n.b. receive() fails when "talk" is deleted, giving us a nil n (this is slightly awkward
-					  -- since nil is a valid value, but is what luaproc() does); note that this would only crash
-					  -- the process, not Corona, in the next line  
+				  -- since nil is a valid value, but is what luaproc() does); note that this would only crash
+				  -- the process, not Corona, in the next line  
 				luaproc.alert("process3", "Received " .. n .. " " .. tostring(b))
 			end
 		end
@@ -139,9 +139,9 @@ end)
 -- Send an alert from the main state.
 lproc.alert("process2", "Waiting")
 
--- Update objects while the processes. are running.
+-- Update objects while the processes are running.
 Runtime:addEventListener("enterFrame", function(event)
-	object1.y = display.contentCenterY + math.sin(event.time / 800) * display.contentHeight * .36
+    object1.y = display.contentCenterY + math.sin(event.time / 800) * display.contentHeight * .36
     object2.y = display.contentCenterY + math.cos(event.time / 1900) * display.contentHeight * .42
     object3.x = display.contentCenterX + math.sin(event.time / 3300) * display.contentHeight * .26
 end)
