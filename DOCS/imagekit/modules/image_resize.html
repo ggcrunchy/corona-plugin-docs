@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <head>
     <title>Documentation</title>
-    <link rel="stylesheet" href="ldoc.css" type="text/css" />
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
 </head>
 <body>
 
@@ -24,8 +24,11 @@
 
 <div id="navigation">
 <br/>
-<h1>stbimage</h1>
+<h1>imagekit</h1>
 
+<ul>
+  <li><a href="../api.html">Index</a></li>
+</ul>
 
 <h2>Contents</h2>
 <ul>
@@ -36,14 +39,18 @@
 
 <h2>Modules</h2>
 <ul class="$(kind=='Topics' and '' or 'nowrap'">
-  <li><strong>stbimage</strong></li>
+  <li><a href="../modules/blob.html">blob</a></li>
+  <li><a href="../modules/image.html">image</a></li>
+  <li><strong>image_resize</strong></li>
+  <li><a href="../modules/image_write.html">image_write</a></li>
+  <li><a href="../modules/sdf.html">sdf</a></li>
 </ul>
 
 </div>
 
 <div id="content">
 
-<h1>Module <code>stbimage</code></h1>
+<h1>Module <code>image_resize</code></h1>
 <p>Corona binding for the <strong>stb_image</strong> and <strong>stb_image_write</strong> parts of Sean T.</p>
 <p> Barrett's
  <a href="https://github.com/nothings/stb">stb</a>, plus urraka's <a href="http://gist.github.com/urraka/685d9a6340b26b830d49">xload</a>
@@ -74,7 +81,7 @@
 
 <p> PNM (PPM and PGM binary only)</p>
 
-<p> Animated GIF (via <a href="api.html#xload">xload</a>)</p>
+<p> Animated GIF (via <a href="../modules/image_resize.html#xload">xload</a>)</p>
 
 <ul>
     <li>decode from memory</li>
@@ -299,7 +306,7 @@ ok = stbimage.write_hdr(filename, w, h, comp, data)
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#info_from_memory">info_from_memory (data)</a></td>
-	<td class="summary">Memory-based variant of <a href="api.html#info">info</a>.</td>
+	<td class="summary">Memory-based variant of <a href="../modules/image_resize.html#info">info</a>.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#is_hdr">is_hdr (filename[, baseDir=system.ResourceDirectory])</a></td>
@@ -307,7 +314,7 @@ ok = stbimage.write_hdr(filename, w, h, comp, data)
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#is_hdr_from_memory">is_hdr_from_memory (bytes)</a></td>
-	<td class="summary">Memory-based variant of <a href="api.html#is_hdr">is_hdr</a>.</td>
+	<td class="summary">Memory-based variant of <a href="../modules/image_resize.html#is_hdr">is_hdr</a>.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#ldr_to_hdr_gamma">ldr_to_hdr_gamma (n)</a></td>
@@ -323,7 +330,7 @@ ok = stbimage.write_hdr(filename, w, h, comp, data)
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#load_from_memory">load_from_memory (data)</a></td>
-	<td class="summary">Memory-based variant of <a href="api.html#load">load</a>.</td>
+	<td class="summary">Memory-based variant of <a href="../modules/image_resize.html#load">load</a>.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#loadf">loadf (filename[, baseDir=system.ResourceDirectory[, req_comp=0]])</a></td>
@@ -331,7 +338,7 @@ ok = stbimage.write_hdr(filename, w, h, comp, data)
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#loadf_from_memory">loadf_from_memory (bytes[, req_comp=0])</a></td>
-	<td class="summary">Memory-based variant of <a href="api.html#loadf">loadf</a>.</td>
+	<td class="summary">Memory-based variant of <a href="../modules/image_resize.html#loadf">loadf</a>.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#write_bmp">write_bmp (filename[, baseDir=system.DocumentsDirectory], w, h, bpp, data)</a></td>
@@ -460,7 +467,7 @@ ok = stbimage.write_hdr(filename, w, h, comp, data)
     <strong>info_from_memory (data)</strong>
     </dt>
     <dd>
-    Memory-based variant of <a href="api.html#info">info</a>.
+    Memory-based variant of <a href="../modules/image_resize.html#info">info</a>.
 
     <h3>Parameters:</h3>
     <ul>
@@ -531,7 +538,7 @@ ok = stbimage.write_hdr(filename, w, h, comp, data)
     <strong>is_hdr_from_memory (bytes)</strong>
     </dt>
     <dd>
-    Memory-based variant of <a href="api.html#is_hdr">is_hdr</a>.
+    Memory-based variant of <a href="../modules/image_resize.html#is_hdr">is_hdr</a>.
 
     <h3>Parameters:</h3>
     <ul>
@@ -654,7 +661,7 @@ ok = stbimage.write_hdr(filename, w, h, comp, data)
     <strong>load_from_memory (data)</strong>
     </dt>
     <dd>
-    Memory-based variant of <a href="api.html#load">load</a>.
+    Memory-based variant of <a href="../modules/image_resize.html#load">load</a>.
 
     <h3>Parameters:</h3>
     <ul>
@@ -757,7 +764,7 @@ ok = stbimage.write_hdr(filename, w, h, comp, data)
     <strong>loadf_from_memory (bytes[, req_comp=0])</strong>
     </dt>
     <dd>
-    Memory-based variant of <a href="api.html#loadf">loadf</a>.
+    Memory-based variant of <a href="../modules/image_resize.html#loadf">loadf</a>.
 
     <h3>Parameters:</h3>
     <ul>
@@ -1069,7 +1076,7 @@ ok = stbimage.write_hdr(filename, w, h, comp, data)
     <h3>Returns:</h3>
     <ol>
         <li>
-           <span class="types"><a class="type" href="api.html#GifFrame">{GifFrame,...}</a></span>
+           <span class="types"><a class="type" href="../modules/image_resize.html#GifFrame">{GifFrame,...}</a></span>
         frames, where a <strong>frame</strong> is a table with two keys, <strong>image</strong> containing
  a string and <strong>delay</strong> a uint.</li>
         <li>
