@@ -33,9 +33,9 @@
 <ul class="$(kind=='Topics' and '' or 'nowrap'">
   <li><a href="modules/blob.html">blob</a></li>
   <li><a href="modules/image.html">image</a></li>
-  <li><a href="modules/image_resize.html">image_resize</a></li>
-  <li><a href="modules/image_write.html">image_write</a></li>
+  <li><a href="modules/resize.html">resize</a></li>
   <li><a href="modules/sdf.html">sdf</a></li>
+  <li><a href="modules/write.html">write</a></li>
 </ul>
 
 </div>
@@ -56,6 +56,8 @@
 
 <p>A sample project is available here (TODO).</p>
 
+<p>This plugin is designed to be safely within other <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/luaproc/api.html">Lua processes</a>.</p>
+
 <h2>Modules</h2>
 <table class="module_list">
 	<tr>
@@ -67,16 +69,16 @@
 		<td class="summary">Corona binding for <strong>stb_image</strong>, from Sean T.</td>
 	</tr>
 	<tr>
-		<td class="name"  nowrap><a href="modules/image_resize.html">image_resize</a></td>
+		<td class="name"  nowrap><a href="modules/resize.html">resize</a></td>
 		<td class="summary">Corona binding for <strong>stb_image_resize</strong> by Jorge L Rodriguez (@VinoBS), from Sean T.</td>
-	</tr>
-	<tr>
-		<td class="name"  nowrap><a href="modules/image_write.html">image_write</a></td>
-		<td class="summary">Corona binding for <strong>stb_image_write</strong>, from Sean T.</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/sdf.html">sdf</a></td>
 		<td class="summary">Corona binding for Mikko Mononen's <a href="https://github.com/memononen/SDF">SDF</a>.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/write.html">write</a></td>
+		<td class="summary">Corona binding for <strong>stb_image_write</strong>, from Sean T.</td>
 	</tr>
 </table>
 

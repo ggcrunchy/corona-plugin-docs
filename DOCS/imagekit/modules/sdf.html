@@ -40,9 +40,9 @@
 <ul class="$(kind=='Topics' and '' or 'nowrap'">
   <li><a href="../modules/blob.html">blob</a></li>
   <li><a href="../modules/image.html">image</a></li>
-  <li><a href="../modules/image_resize.html">image_resize</a></li>
-  <li><a href="../modules/image_write.html">image_write</a></li>
+  <li><a href="../modules/resize.html">resize</a></li>
   <li><strong>sdf</strong></li>
+  <li><a href="../modules/write.html">write</a></li>
 </ul>
 
 </div>
@@ -98,7 +98,11 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#hdr_to_ldr_gamma">hdr_to_ldr_gamma (n)</a></td>
+	<td class="name" nowrap><a href="#BuildDistanceField">BuildDistanceField (X, radius, w, h[, opts])</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#CoverageToDistanceField">CoverageToDistanceField (X, w, h[, opts])</a></td>
 	<td class="summary">D!!!</td>
 	</tr>
 </table>
@@ -110,22 +114,98 @@
     <h2><a name="Functions"></a>Functions</h2>
     <dl class="function">
     <dt>
-    <a name = "hdr_to_ldr_gamma"></a>
-    <strong>hdr_to_ldr_gamma (n)</strong>
+    <a name = "BuildDistanceField"></a>
+    <strong>BuildDistanceField (X, radius, w, h[, opts])</strong>
     </dt>
     <dd>
     D!!!
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">n</span>
+        <li><span class="parameter">X</span>
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">radius</span>
             <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">w</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">h</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
 
 
 
         </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Y
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "CoverageToDistanceField"></a>
+    <strong>CoverageToDistanceField (X, w, h[, opts])</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">X</span>
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">w</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">h</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Y
+    </ol>
 
 
 

@@ -40,16 +40,16 @@
 <ul class="$(kind=='Topics' and '' or 'nowrap'">
   <li><a href="../modules/blob.html">blob</a></li>
   <li><a href="../modules/image.html">image</a></li>
-  <li><a href="../modules/image_resize.html">image_resize</a></li>
-  <li><strong>image_write</strong></li>
+  <li><a href="../modules/resize.html">resize</a></li>
   <li><a href="../modules/sdf.html">sdf</a></li>
+  <li><strong>write</strong></li>
 </ul>
 
 </div>
 
 <div id="content">
 
-<h1>Module <code>image_write</code></h1>
+<h1>Module <code>write</code></h1>
 <p>Corona binding for <strong>stb_image_write</strong>, from Sean T.</p>
 <p> Barrett's <a href="https://github.com/nothings/stb">stb</a>. Jon Olick's
  <a href="http://www.jonolick.com/home/gif-writer">GIF writer</a> is used to save GIFs.</p>
@@ -73,7 +73,7 @@ ok = imagekit.write.tga(filename, w, h, comp, data)
 ok = imagekit.write.hdr(filename, w, h, comp, data)
 </code></pre>
 
-<p> Each function a boolean, where <strong>true</strong> indicates success and <strong>false</strong> failure.</p>
+<p> Each function returns <strong>true</strong> to indicate success and <strong>false</strong> for failure.</p>
 
 <p> The functions create an image file defined by the parameters. The image
  is a rectangle of pixels stored from left-to-right, top-to-bottom.
@@ -117,7 +117,23 @@ ok = imagekit.write.hdr(filename, w, h, comp, data)
 	<td class="summary">J!!!</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#bmp_to_memory">bmp_to_memory (w, h, bpp, data)</a></td>
+	<td class="summary">J!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#gif">gif (filename[, baseDir=system.DocumentsDirectory], w, h, frames[, repeat=0[, palette_depth=8]])</a></td>
+	<td class="summary">J!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#gif_to_memory">gif_to_memory (bytes, w, h, frames[, repeat=0[, palette_depth=8]])</a></td>
+	<td class="summary">J!!!</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#hdr">hdr (filename[, baseDir=system.DocumentsDirectory], w, h, bpp, data)</a></td>
+	<td class="summary">J!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#hdr_to_memory">hdr_to_memory (w, h, bpp, data)</a></td>
 	<td class="summary">J!!!</td>
 	</tr>
 	<tr>
@@ -125,7 +141,15 @@ ok = imagekit.write.hdr(filename, w, h, comp, data)
 	<td class="summary">J!!!</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#png_to_memory">png_to_memory (w, h, bpp, data[, stride=0])</a></td>
+	<td class="summary">J!!!</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#tga">tga (filename[, baseDir=system.DocumentsDirectory], w, h, bpp, data)</a></td>
+	<td class="summary">J!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#tga_to_memory">tga_to_memory (w, h, bpp, data)</a></td>
 	<td class="summary">J!!!</td>
 	</tr>
 </table>
@@ -176,7 +200,7 @@ ok = imagekit.write.hdr(filename, w, h, comp, data)
 
         </li>
         <li><span class="parameter">data</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
 
 
 
@@ -188,6 +212,185 @@ ok = imagekit.write.hdr(filename, w, h, comp, data)
 
            <span class="types"><span class="type">boolean</span></span>
         Operation was successful?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "bmp_to_memory"></a>
+    <strong>bmp_to_memory (w, h, bpp, data)</strong>
+    </dt>
+    <dd>
+    J!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">w</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">h</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">bpp</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">data</span>
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <span class="type">Bytes</span> or <span class="type">nil</span></span>
+        X
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "gif"></a>
+    <strong>gif (filename[, baseDir=system.DocumentsDirectory], w, h, frames[, repeat=0[, palette_depth=8]])</strong>
+    </dt>
+    <dd>
+    J!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">filename</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">baseDir</span>
+
+
+
+         (<em>default</em> system.DocumentsDirectory)
+        </li>
+        <li><span class="parameter">w</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">h</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">frames</span>
+            <span class="types"><a class="type" href="../modules/image.html#GifFrame">{image.GifFrame,...}</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">repeat</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+         (<em>default</em> 0)
+        </li>
+        <li><span class="parameter">palette_depth</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+         (<em>default</em> 8)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <strong>true</strong>, indicating success.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>false</strong>, indicating failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "gif_to_memory"></a>
+    <strong>gif_to_memory (bytes, w, h, frames[, repeat=0[, palette_depth=8]])</strong>
+    </dt>
+    <dd>
+    J!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">bytes</span>
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">w</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">h</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">frames</span>
+            <span class="types"><a class="type" href="../modules/image.html#GifFrame">{image.GifFrame,...}</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">repeat</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+         (<em>default</em> 0)
+        </li>
+        <li><span class="parameter">palette_depth</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+         (<em>default</em> 8)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        X
     </ol>
 
 
@@ -234,7 +437,7 @@ ok = imagekit.write.hdr(filename, w, h, comp, data)
 
         </li>
         <li><span class="parameter">data</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
 
 
 
@@ -246,6 +449,52 @@ ok = imagekit.write.hdr(filename, w, h, comp, data)
 
            <span class="types"><span class="type">boolean</span></span>
         Operation was successful?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "hdr_to_memory"></a>
+    <strong>hdr_to_memory (w, h, bpp, data)</strong>
+    </dt>
+    <dd>
+    J!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">w</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">h</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">bpp</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">data</span>
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <span class="type">Bytes</span> or <span class="type">nil</span></span>
+        X
     </ol>
 
 
@@ -292,7 +541,7 @@ ok = imagekit.write.hdr(filename, w, h, comp, data)
 
         </li>
         <li><span class="parameter">data</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
 
 
 
@@ -311,6 +560,59 @@ ok = imagekit.write.hdr(filename, w, h, comp, data)
 
            <span class="types"><span class="type">boolean</span></span>
         Operation was successful?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "png_to_memory"></a>
+    <strong>png_to_memory (w, h, bpp, data[, stride=0])</strong>
+    </dt>
+    <dd>
+    J!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">w</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">h</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">bpp</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">data</span>
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">stride</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+         (<em>default</em> 0)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <span class="type">Bytes</span> or <span class="type">nil</span></span>
+        X
     </ol>
 
 
@@ -357,7 +659,7 @@ ok = imagekit.write.hdr(filename, w, h, comp, data)
 
         </li>
         <li><span class="parameter">data</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
 
 
 
@@ -369,6 +671,52 @@ ok = imagekit.write.hdr(filename, w, h, comp, data)
 
            <span class="types"><span class="type">boolean</span></span>
         Operation was successful?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "tga_to_memory"></a>
+    <strong>tga_to_memory (w, h, bpp, data)</strong>
+    </dt>
+    <dd>
+    J!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">w</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">h</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">bpp</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">data</span>
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <span class="type">Bytes</span> or <span class="type">nil</span></span>
+        X
     </ol>
 
 

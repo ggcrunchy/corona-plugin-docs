@@ -41,9 +41,9 @@
 <ul class="$(kind=='Topics' and '' or 'nowrap'">
   <li><a href="../modules/blob.html">blob</a></li>
   <li><strong>image</strong></li>
-  <li><a href="../modules/image_resize.html">image_resize</a></li>
-  <li><a href="../modules/image_write.html">image_write</a></li>
+  <li><a href="../modules/resize.html">resize</a></li>
   <li><a href="../modules/sdf.html">sdf</a></li>
+  <li><a href="../modules/write.html">write</a></li>
 </ul>
 
 </div>
@@ -256,7 +256,7 @@ req_comp -- if non-zero, # of image components requested in result
 	<td class="summary">Get image dimensions and components without fully decoding.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#info_from_memory">info_from_memory (data)</a></td>
+	<td class="name" nowrap><a href="#info_from_memory">info_from_memory (bytes)</a></td>
 	<td class="summary">Memory-based variant of <a href="../modules/image.html#info">info</a>.</td>
 	</tr>
 	<tr>
@@ -276,24 +276,28 @@ req_comp -- if non-zero, # of image components requested in result
 	<td class="summary">G!!!</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#load">load (filename[, baseDir=system.ResourceDirectory])</a></td>
+	<td class="name" nowrap><a href="#load">load (filename[, baseDir=system.ResourceDirectory[, opts]])</a></td>
 	<td class="summary">H!!!</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#load_from_memory">load_from_memory (data)</a></td>
+	<td class="name" nowrap><a href="#load_from_memory">load_from_memory (bytes[, opts])</a></td>
 	<td class="summary">Memory-based variant of <a href="../modules/image.html#load">load</a>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#loadf">loadf (filename[, baseDir=system.ResourceDirectory[, req_comp=0]])</a></td>
+	<td class="name" nowrap><a href="#loadf">loadf (filename[, baseDir=system.ResourceDirectory[, opts]])</a></td>
 	<td class="summary">I!!!</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#loadf_from_memory">loadf_from_memory (bytes[, req_comp=0])</a></td>
+	<td class="name" nowrap><a href="#loadf_from_memory">loadf_from_memory (bytes[, opts])</a></td>
 	<td class="summary">Memory-based variant of <a href="../modules/image.html#loadf">loadf</a>.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#xload">xload (filename[, baseDir=system.ResourceDirectory])</a></td>
 	<td class="summary">Given a GIF, loads its frames (image data, delay to next frame) into an array.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#xload_from_memory">xload_from_memory (bytes)</a></td>
+	<td class="summary">Variant of <a href="../modules/image.html#xload">xload</a> that loads from memory.</td>
 	</tr>
 </table>
 <h2><a href="#Tables">Tables</a></h2>
@@ -399,15 +403,15 @@ req_comp -- if non-zero, # of image components requested in result
 </dd>
     <dt>
     <a name = "info_from_memory"></a>
-    <strong>info_from_memory (data)</strong>
+    <strong>info_from_memory (bytes)</strong>
     </dt>
     <dd>
     Memory-based variant of <a href="../modules/image.html#info">info</a>.
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">data</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        <li><span class="parameter">bytes</span>
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
 
 
 
@@ -478,7 +482,7 @@ req_comp -- if non-zero, # of image components requested in result
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">bytes</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
 
 
 
@@ -542,7 +546,7 @@ req_comp -- if non-zero, # of image components requested in result
 </dd>
     <dt>
     <a name = "load"></a>
-    <strong>load (filename[, baseDir=system.ResourceDirectory])</strong>
+    <strong>load (filename[, baseDir=system.ResourceDirectory[, opts]])</strong>
     </dt>
     <dd>
     H!!!
@@ -561,12 +565,18 @@ req_comp -- if non-zero, # of image components requested in result
 
          (<em>default</em> system.ResourceDirectory)
         </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+
+        </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><span class="type">Bytes</span></span>
         DATA</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
@@ -593,15 +603,21 @@ req_comp -- if non-zero, # of image components requested in result
 </dd>
     <dt>
     <a name = "load_from_memory"></a>
-    <strong>load_from_memory (data)</strong>
+    <strong>load_from_memory (bytes[, opts])</strong>
     </dt>
     <dd>
     Memory-based variant of <a href="../modules/image.html#load">load</a>.
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">data</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        <li><span class="parameter">bytes</span>
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
 
 
 
@@ -611,7 +627,7 @@ req_comp -- if non-zero, # of image components requested in result
     <h3>Returns:</h3>
     <ol>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><span class="type">Bytes</span></span>
         DATA</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
@@ -638,7 +654,7 @@ req_comp -- if non-zero, # of image components requested in result
 </dd>
     <dt>
     <a name = "loadf"></a>
-    <strong>loadf (filename[, baseDir=system.ResourceDirectory[, req_comp=0]])</strong>
+    <strong>loadf (filename[, baseDir=system.ResourceDirectory[, opts]])</strong>
     </dt>
     <dd>
     I!!!
@@ -657,19 +673,18 @@ req_comp -- if non-zero, # of image components requested in result
 
          (<em>default</em> system.ResourceDirectory)
         </li>
-        <li><span class="parameter">req_comp</span>
-            <span class="types"><span class="type">uint</span></span>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
 
 
 
-         (<em>default</em> 0)
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         DATA</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
@@ -696,7 +711,7 @@ req_comp -- if non-zero, # of image components requested in result
 </dd>
     <dt>
     <a name = "loadf_from_memory"></a>
-    <strong>loadf_from_memory (bytes[, req_comp=0])</strong>
+    <strong>loadf_from_memory (bytes[, opts])</strong>
     </dt>
     <dd>
     Memory-based variant of <a href="../modules/image.html#loadf">loadf</a>.
@@ -704,24 +719,23 @@ req_comp -- if non-zero, # of image components requested in result
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">bytes</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><span class="type">Bytes</span></span>
 
 
 
         </li>
-        <li><span class="parameter">req_comp</span>
-            <span class="types"><span class="type">uint</span></span>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
 
 
 
-         (<em>default</em> 0)
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         DATA</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
@@ -804,6 +818,33 @@ req_comp -- if non-zero, # of image components requested in result
         <li>
            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "xload_from_memory"></a>
+    <strong>xload_from_memory (bytes)</strong>
+    </dt>
+    <dd>
+    Variant of <a href="../modules/image.html#xload">xload</a> that loads from memory.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">bytes</span>
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        As per <a href="../modules/image.html#xload">xload</a>.
     </ol>
 
 

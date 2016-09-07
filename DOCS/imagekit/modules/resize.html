@@ -1,0 +1,1106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Documentation</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>imagekit</h1>
+
+<ul>
+  <li><a href="../api.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../modules/blob.html">blob</a></li>
+  <li><a href="../modules/image.html">image</a></li>
+  <li><strong>resize</strong></li>
+  <li><a href="../modules/sdf.html">sdf</a></li>
+  <li><a href="../modules/write.html">write</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>resize</code></h1>
+<p>Corona binding for <strong>stb_image_resize</strong> by Jorge L Rodriguez (@VinoBS), from Sean T.</p>
+<p> Barrett's
+ <a href="https://github.com/nothings/stb">stb</a>.</p>
+
+<h2> From stb_image_resize.h, with some revisions:</h2>
+
+<p> Written with emphasis on usability, portability, and efficiency. (No
+ SIMD or threads, so it be easily outperformed by libs that use those.)
+ Only scaling and translation is supported, no rotations or shears.
+ Easy API downsamples w/Mitchell filter, upsamples w/cubic interpolation.</p>
+
+<p> <strong>QUICKSTART</strong></p>
+<pre><code>  output_pixels = imagekit.resize.uint8(input_pixels, in_w, in_h,
+                           out_w, out_h, num_channels)
+  output_pixels = imagekit.resize.float(...)
+  output_pixels = imagekit.resize.uint8_srgb(input_pixels, in_w, in_h,
+                           out_w, out_h,
+                           num_channels, alpha_chan)
+  output_pixels = imagekit.resize.uint8_srgb_edgemode(
+                           input_pixels, in_w, in_h,
+                           out_w, out_h,
+                           num_channels, alpha_chan, "CLAMP")
+                                                     -- "WRAP"/"REFLECT"/"ZERO"
+</code></pre>
+
+<p> <strong>Additional documentation:</strong></p>
+
+<p> <strong>SRGB &amp; FLOATING POINT REPRESENTATION</strong>
+   The sRGB functions presume IEEE floating point.</p>
+
+<p> <strong>ALPHA CHANNEL</strong>
+   Most of the resizing functions provide the ability to control how
+   the alpha channel of an image is processed. The important things
+   to know about this:</p>
+
+<ol>
+    <li>The best mathematically-behaved version of alpha to use is
+    called "premultiplied alpha", in which the other color channels
+    have had the alpha value multiplied in. If you use premultiplied
+    alpha, linear filtering (such as image resampling done by this
+    library, or performed in texture units on GPUs) does the "right
+    thing". While premultiplied alpha is standard in the movie CGI
+    industry, it is still uncommon in the videogame/real-time world.</li>
+</ol>
+
+<p>   If you linearly filter non-premultiplied alpha, strange effects
+   occur. (For example, the average of 1% opaque bright green
+   and 99% opaque black produces 50% transparent dark green when
+   non-premultiplied, whereas premultiplied it produces 50%
+   transparent near-black. The former introduces green energy
+   that doesn't exist in the source image.)</p>
+
+<ol>
+    <li><p>Artists should not edit premultiplied-alpha images; artists
+    want non-premultiplied alpha images. Thus, art tools generally output
+    non-premultiplied alpha images.</p></li>
+    <li><p>You will get best results in most cases by converting images
+    to premultiplied alpha before processing them mathematically.</p></li>
+    <li><p>If you pass the flag <strong>"ALPHA_PREMULTIPLIED"</strong>, the
+    resizer does not do anything special for the alpha channel;
+    it is resampled identically to other channels. This produces
+    the correct results for premultiplied-alpha images, but produces
+    less-than-ideal results for non-premultiplied-alpha images.</p></li>
+    <li><p>If you do not pass the flag <strong>"ALPHA_PREMULTIPLIED"</strong>,
+    then the resizer weights the contribution of input pixels
+    based on their alpha values, or, equivalently, it multiplies
+    the alpha value into the color channels, resamples, then divides
+    by the resultant alpha value. Input pixels which have alpha=0 do
+    not contribute at all to output pixels unless <em>all</em> of the input
+    pixels affecting that output pixel have alpha=0, in which case
+    the result for that pixel is the same as it would be without
+    <strong>"ALPHA_PREMULTIPLIED"</strong>. However, this is only true for
+    input images in integer formats. For input images in float format,
+    input pixels with alpha=0 have no effect, and output pixels
+    which have alpha=0 will be 0 in all channels. (For float images,
+    you can manually achieve the same result by adding a tiny epsilon
+    value to the alpha channel of every image, and then subtracting
+    or clamping it at the end.)</p></li>
+    <li><p>You can separately control whether the alpha channel is
+    interpreted as linear or affected by the colorspace. By default
+    it is linear; you almost never want to apply the colorspace.
+    (For example, graphics hardware does not apply sRGB conversion
+    to the alpha channel.)</p></li>
+</ol>
+
+<p> <strong>ADDITIONAL CONTRIBUTORS</strong>
+   Sean Barrett: API design, optimizations</p>
+
+<p> <strong>From stb's project page:</strong></p>
+
+<p> This software is dual-licensed to the public domain and under the following
+ license: you are granted a perpetual, irrevocable license to copy, modify,
+ publish, and distribute this file as you see fit.</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#uint8">uint8 (input, iw, ih, ow, oh, nchannels[, opts])</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#float">float (input, iw, ih, ow, oh, nchannels[, opts])</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#uint8_srgb">uint8_srgb (input, iw, ih, ow, oh, nchannels, alpha[, opts])</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#uint8_srgb_edgemode">uint8_srgb_edgemode (input, iw, ih, ow, oh, nchannels, alpha, wrap[, opts])</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#uint8_generic">uint8_generic (input, iw, ih, ow, oh, nchannels, alpha, wrap, filter, space[, opts])</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#uint16_generic">uint16_generic (input, iw, ih, ow, oh, nchannels, alpha, wrap, filter, space[, opts])</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#float_generic">float_generic (input, iw, ih, ow, oh, nchannels, alpha, wrap, filter, space[, opts])</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#resize">resize (input, iw, ih, ow, oh, nchannels, alpha, hwrap, vwrap, hfilter, vfilter, space[, opts])</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#resize_subpixel">resize_subpixel (input, iw, ih, ow, oh, datatype, nchannels, alpha, hwrap, vwrap, hfilter, vfilter, space, xscale, yscale, xoff, yoff[, opts])</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#resize_region">resize_region (input, iw, ih, ow, oh, datatype, nchannels, alpha, hwrap, vwrap, hfilter, vfilter, space, s0, t0, s1, t1[, opts])</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "uint8"></a>
+    <strong>uint8 (input, iw, ih, ow, oh, nchannels[, opts])</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">input</span>
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">iw</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ih</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ow</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">oh</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">nchannels</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Y
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "float"></a>
+    <strong>float (input, iw, ih, ow, oh, nchannels[, opts])</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">input</span>
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">iw</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ih</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ow</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">oh</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">nchannels</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Y
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "uint8_srgb"></a>
+    <strong>uint8_srgb (input, iw, ih, ow, oh, nchannels, alpha[, opts])</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">input</span>
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">iw</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ih</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ow</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">oh</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">nchannels</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">alpha</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Y
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "uint8_srgb_edgemode"></a>
+    <strong>uint8_srgb_edgemode (input, iw, ih, ow, oh, nchannels, alpha, wrap[, opts])</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">input</span>
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">iw</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ih</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ow</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">oh</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">nchannels</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">alpha</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">wrap</span>
+            <span class="types"><span class="type">stbir_edge_mode</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Y
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "uint8_generic"></a>
+    <strong>uint8_generic (input, iw, ih, ow, oh, nchannels, alpha, wrap, filter, space[, opts])</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">input</span>
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">iw</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ih</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ow</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">oh</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">nchannels</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">alpha</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">wrap</span>
+            <span class="types"><span class="type">stbir_edge_mode</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">filter</span>
+            <span class="types"><span class="type">stbir_filter</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">space</span>
+            <span class="types"><span class="type">stbir_colorspace</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Y
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "uint16_generic"></a>
+    <strong>uint16_generic (input, iw, ih, ow, oh, nchannels, alpha, wrap, filter, space[, opts])</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">input</span>
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">iw</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ih</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ow</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">oh</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">nchannels</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">alpha</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">wrap</span>
+            <span class="types"><span class="type">stbir_edge_mode</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">filter</span>
+            <span class="types"><span class="type">stbir_filter</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">space</span>
+            <span class="types"><span class="type">stbir_colorspace</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Y
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "float_generic"></a>
+    <strong>float_generic (input, iw, ih, ow, oh, nchannels, alpha, wrap, filter, space[, opts])</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">input</span>
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">iw</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ih</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ow</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">oh</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">nchannels</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">alpha</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">wrap</span>
+            <span class="types"><span class="type">stbir_edge_mode</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">filter</span>
+            <span class="types"><span class="type">stbir_filter</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">space</span>
+            <span class="types"><span class="type">stbir_colorspace</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Y
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "resize"></a>
+    <strong>resize (input, iw, ih, ow, oh, nchannels, alpha, hwrap, vwrap, hfilter, vfilter, space[, opts])</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">input</span>
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">iw</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ih</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ow</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">oh</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">nchannels</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">alpha</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">hwrap</span>
+            <span class="types"><span class="type">stbir_edge_mode</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">vwrap</span>
+            <span class="types"><span class="type">stbir_edge_mode</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">hfilter</span>
+            <span class="types"><span class="type">stbir_filter</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">vfilter</span>
+            <span class="types"><span class="type">stbir_filter</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">space</span>
+            <span class="types"><span class="type">stbir_colorspace</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Y
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "resize_subpixel"></a>
+    <strong>resize_subpixel (input, iw, ih, ow, oh, datatype, nchannels, alpha, hwrap, vwrap, hfilter, vfilter, space, xscale, yscale, xoff, yoff[, opts])</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">input</span>
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">iw</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ih</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ow</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">oh</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">datatype</span>
+            <span class="types"><span class="type">stbir_datatype</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">nchannels</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">alpha</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">hwrap</span>
+            <span class="types"><span class="type">stbir_edge_mode</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">vwrap</span>
+            <span class="types"><span class="type">stbir_edge_mode</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">hfilter</span>
+            <span class="types"><span class="type">stbir_filter</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">vfilter</span>
+            <span class="types"><span class="type">stbir_filter</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">space</span>
+            <span class="types"><span class="type">stbir_colorspace</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">xscale</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">yscale</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">xoff</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">yoff</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Y
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "resize_region"></a>
+    <strong>resize_region (input, iw, ih, ow, oh, datatype, nchannels, alpha, hwrap, vwrap, hfilter, vfilter, space, s0, t0, s1, t1[, opts])</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">input</span>
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">iw</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ih</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ow</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">oh</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">datatype</span>
+            <span class="types"><span class="type">stbir_datatype</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">nchannels</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">alpha</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">hwrap</span>
+            <span class="types"><span class="type">stbir_edge_mode</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">vwrap</span>
+            <span class="types"><span class="type">stbir_edge_mode</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">hfilter</span>
+            <span class="types"><span class="type">stbir_filter</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">vfilter</span>
+            <span class="types"><span class="type">stbir_filter</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">space</span>
+            <span class="types"><span class="type">stbir_colorspace</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">s0</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">t0</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">s1</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">t1</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Y
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
