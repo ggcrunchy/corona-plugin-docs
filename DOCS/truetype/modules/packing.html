@@ -1,0 +1,848 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Documentation</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>truetype</h1>
+
+<ul>
+  <li><a href="../api.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+<li><a href="#Tables">Tables</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../modules/font.html">font</a></li>
+  <li><strong>packing</strong></li>
+  <li><a href="../modules/truetype.html">truetype</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>packing</code></h1>
+<p>Corona binding for <strong>stb_image</strong>, from Sean T.</p>
+<p> Barrett's <a href="https://github.com/nothings/stb">stb</a>, plus
+ urraka's <a href="http://gist.github.com/urraka/685d9a6340b26b830d49">xload</a> for animated GIF support.</p>
+
+<h2> From stb_image.h, with some revisions:</h2>
+
+<p> <strong>QUICK NOTES</strong>:</p>
+
+<p> Primarily of interest to game developers and other people who can
+ avoid problematic images and only need the trivial interface</p>
+
+<p> JPEG baseline &amp; progressive (12 bpc/arithmetic not supported, same as stock IJG lib)</p>
+
+<p> PNG 1/2/4/8-bit-per-channel (16 bpc not supported)</p>
+
+<p> TGA (not sure what subset, if a subset)</p>
+
+<p> BMP (non-1bpp, non-RLE)</p>
+
+<p> PSD (composited view only, no extra channels, 8/16 bit-per-channel)</p>
+
+<p> GIF (<em>comp</em> always reports as 4-channel)</p>
+
+<p> HDR (radiance rgbE format)</p>
+
+<p> PIC (Softimage PIC)</p>
+
+<p> PNM (PPM and PGM binary only)</p>
+
+<p> Animated GIF (via <a href="../modules/packing.html#xload">xload</a>)</p>
+
+<ul>
+    <li>decode from memory</li>
+    <li>SIMD acceleration on x86/x64 (SSE2) and ARM (NEON)</li>
+</ul>
+
+<p> <strong>DOCUMENTATION</strong></p>
+
+<p> Limitations:</p>
+
+<ul>
+    <li>no 16-bit-per-channel PNG</li>
+    <li>no 12-bit-per-channel JPEG</li>
+    <li>no JPEGs with arithmetic coding</li>
+    <li>no 1-bit BMP</li>
+    <li>GIF always returns comp=4</li>
+</ul>
+
+<p> Basic usage (see HDR discussion below for HDR usage):</p>
+<pre><code>local data, x, y, comp = imagekit.image.load(filename, 0)
+-- ... process data if not nil ...
+-- ... x = width, y = height, comp = # 8-bit components per pixel ...
+-- ... replace '0' with '1'..'4' to force that many components per pixel
+-- ... but comp will always be the number that it would have been if you said 0
+data = nil -- or allow to go out of scope
+</code></pre>
+
+<p> Standard parameters and results:</p>
+<pre><code>x        -- image width in pixels
+y        -- image height in pixels
+comp     -- # of image components in image file
+req_comp -- if non-zero, # of image components requested in result
+</code></pre>
+
+<p> The return value from an image loader is a string containing
+ the pixel data, or <strong>nil</strong> on an allocation failure or if the image is
+ corrupt or invalid. The pixel data consists of <em>y</em> scanlines of <em>x</em> pixels,
+ with each pixel consisting of N interleaved 8-bit components; the first
+ pixel pointed to is top-left-most in the image. There is no padding between
+ image scanlines or between pixels, regardless of format. The number of
+ components N is <em>req_comp</em> if <em>req_comp</em> is non-zero (and present), or
+ <em>comp</em> otherwise. If <em>req_comp</em> is non-zero, <em>comp</em> has the number of
+ components that <em>would</em> have been output otherwise. E.g. if you set <em>req_comp</em>
+ to 4, you will always get RGBA output, but you can check <em>comp</em> to see if it's
+ trivially opaque because e.g. there were only 3 channels in the source image.</p>
+
+<p> An output image with N components has the following components interleaved
+ in this order in each pixel:</p>
+
+<pre><code> N=#comp     components
+   1           grey
+   2           grey, alpha
+   3           red, green, blue
+   4           red, green, blue, alpha
+</code></pre>
+
+<p> If image loading fails for any reason, the return value will be <strong>nil</strong>,
+ along with an extremely brief explanation of why the load failed.</p>
+
+<p> Paletted PNG, BMP, GIF, and PIC images are automatically depalettized.</p>
+
+<hr/>
+
+<p> <strong>Philosophy</strong>:</p>
+
+<p> stb libraries are designed with the following priorities:</p>
+
+<pre><code>1. easy to use
+2. easy to maintain
+3. good performance
+</code></pre>
+
+<p> Sometimes I let "good performance" creep up in priority over "easy to maintain",
+ and for best performance I may provide less-easy-to-use APIs that give higher
+ performance, in addition to the easy to use ones. Nevertheless, it's important
+ to keep in mind that from the standpoint of you, a client of this library,
+ all you care about is #1 and #3, and stb libraries do not emphasize #3 above all.</p>
+
+<p> Some secondary priorities arise directly from the first two, some of which
+ make more explicit reasons why performance can't be emphasized.</p>
+
+<ul>
+    <li>Portable ("ease of use")</li>
+    <li>Small footprint ("easy to maintain")</li>
+    <li>No dependencies ("ease of use")</li>
+</ul>
+
+<hr/>
+
+<p> <strong>SIMD support</strong>:</p>
+
+<p> The JPEG decoder will try to automatically use SIMD kernels on x86 when
+ supported by the compiler. For ARM Neon support, you must explicitly
+ request it.</p>
+
+<p> On x86, SSE2 will automatically be used when available based on a run-time
+ test; if not, the generic C versions are used as a fall-back. On ARM targets,
+ the typical path is to have separate builds for NEON and non-NEON devices
+ (at least this is true for iOS and Android). Therefore, the NEON support is
+ toggled by a build flag: define STBI_NEON to get NEON loops.</p>
+
+<p> The output of the JPEG decoder is slightly different from versions where
+ SIMD support was introduced (that is, for versions before 1.49). The
+ difference is only +-1 in the 8-bit RGB channels, and only on a small
+ fraction of pixels.</p>
+
+<hr/>
+
+<p> <strong>HDR image support</strong>:</p>
+
+<p> stb_image now supports loading HDR images in general, and currently
+ the Radiance .HDR file format, although the support is provided
+ generically. You can still load any file through the existing interface;
+ if you attempt to load an HDR file, it will be automatically remapped to
+ LDR, assuming gamma 2.2 and an arbitrary scale factor defaulting to 1;
+ both of these constants can be reconfigured through this interface:</p>
+
+<pre><code> imagekit.image.hdr_to_ldr_gamma(2.2)
+ imagekit.image.hdr_to_ldr_scale(1.0)
+</code></pre>
+
+<p> (note, do not use <em>inverse</em> constants; stbi_image will invert them
+ appropriately).</p>
+
+<p> Additionally, there is a new, parallel interface for loading files as
+ (linear) floats to preserve the full dynamic range:</p>
+
+<pre><code>local data, x, y, n = imagekit.image.loadf(filename)
+</code></pre>
+
+<p> If you load LDR images through this interface, those images will
+ be promoted to floating point values, run through the inverse of
+ constants corresponding to the above:</p>
+
+<pre><code> imagekit.image.ldr_to_hdr_scale(1.0)
+ imagekit.image.ldr_to_hdr_gamma(2.2)
+</code></pre>
+
+<p> Finally, given a filename (or an open file or memory block--see header
+ file for details) containing image data, you can query for the "most
+ appropriate" interface to use (that is, whether the image is HDR or
+ not), using:</p>
+
+<pre><code> imagekit.image.is_hdr(filename)
+</code></pre>
+
+<hr/>
+
+<p> <strong>iPhone PNG support</strong>:</p>
+
+<p> By default we convert iphone-formatted PNGs back to RGB, even though
+ they are internally encoded differently.</p>
+
+<p> <strong>From stb's project page:</strong></p>
+
+<p> This software is dual-licensed to the public domain and under the following
+ license: you are granted a perpetual, irrevocable license to copy, modify,
+ publish, and distribute this file as you see fit.</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#hdr_to_ldr_gamma">hdr_to_ldr_gamma (n)</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#hdr_to_ldr_scale">hdr_to_ldr_scale (n)</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#info">info (filename[, baseDir=system.ResourceDirectory])</a></td>
+	<td class="summary">Get image dimensions and components without fully decoding.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#info_from_memory">info_from_memory (data)</a></td>
+	<td class="summary">Memory-based variant of <a href="../modules/packing.html#info">info</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#is_hdr">is_hdr (filename[, baseDir=system.ResourceDirectory])</a></td>
+	<td class="summary">FFF!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#is_hdr_from_memory">is_hdr_from_memory (bytes)</a></td>
+	<td class="summary">Memory-based variant of <a href="../modules/packing.html#is_hdr">is_hdr</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ldr_to_hdr_gamma">ldr_to_hdr_gamma (n)</a></td>
+	<td class="summary">G!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ldr_to_hdr_scale">ldr_to_hdr_scale (n)</a></td>
+	<td class="summary">G!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#load">load (filename[, baseDir=system.ResourceDirectory])</a></td>
+	<td class="summary">H!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#load_from_memory">load_from_memory (data)</a></td>
+	<td class="summary">Memory-based variant of <a href="../modules/packing.html#load">load</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#loadf">loadf (filename[, baseDir=system.ResourceDirectory[, req_comp=0]])</a></td>
+	<td class="summary">I!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#loadf_from_memory">loadf_from_memory (bytes[, req_comp=0])</a></td>
+	<td class="summary">Memory-based variant of <a href="../modules/packing.html#loadf">loadf</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#xload">xload (filename[, baseDir=system.ResourceDirectory])</a></td>
+	<td class="summary">Given a GIF, loads its frames (image data, delay to next frame) into an array.</td>
+	</tr>
+</table>
+<h2><a href="#Tables">Tables</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#GifFrame">GifFrame</a></td>
+	<td class="summary">Represents a single frame in a GIF animation.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "hdr_to_ldr_gamma"></a>
+    <strong>hdr_to_ldr_gamma (n)</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "hdr_to_ldr_scale"></a>
+    <strong>hdr_to_ldr_scale (n)</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "info"></a>
+    <strong>info (filename[, baseDir=system.ResourceDirectory])</strong>
+    </dt>
+    <dd>
+    Get image dimensions and components without fully decoding.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">filename</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">baseDir</span>
+
+
+
+         (<em>default</em> system.ResourceDirectory)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        OK</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        X</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        Y</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        bpp</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "info_from_memory"></a>
+    <strong>info_from_memory (data)</strong>
+    </dt>
+    <dd>
+    Memory-based variant of <a href="../modules/packing.html#info">info</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">data</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        OK</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        X</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        Y</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        bpp</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "is_hdr"></a>
+    <strong>is_hdr (filename[, baseDir=system.ResourceDirectory])</strong>
+    </dt>
+    <dd>
+    FFF!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">filename</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">baseDir</span>
+
+
+
+         (<em>default</em> system.ResourceDirectory)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        B
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "is_hdr_from_memory"></a>
+    <strong>is_hdr_from_memory (bytes)</strong>
+    </dt>
+    <dd>
+    Memory-based variant of <a href="../modules/packing.html#is_hdr">is_hdr</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">bytes</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        B
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ldr_to_hdr_gamma"></a>
+    <strong>ldr_to_hdr_gamma (n)</strong>
+    </dt>
+    <dd>
+    G!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ldr_to_hdr_scale"></a>
+    <strong>ldr_to_hdr_scale (n)</strong>
+    </dt>
+    <dd>
+    G!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "load"></a>
+    <strong>load (filename[, baseDir=system.ResourceDirectory])</strong>
+    </dt>
+    <dd>
+    H!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">filename</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">baseDir</span>
+
+
+
+         (<em>default</em> system.ResourceDirectory)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        DATA</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        X</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        Y</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        bpp</li>
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, indicating failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "load_from_memory"></a>
+    <strong>load_from_memory (data)</strong>
+    </dt>
+    <dd>
+    Memory-based variant of <a href="../modules/packing.html#load">load</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">data</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        DATA</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        X</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        Y</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        bpp</li>
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, indicating failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "loadf"></a>
+    <strong>loadf (filename[, baseDir=system.ResourceDirectory[, req_comp=0]])</strong>
+    </dt>
+    <dd>
+    I!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">filename</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">baseDir</span>
+
+
+
+         (<em>default</em> system.ResourceDirectory)
+        </li>
+        <li><span class="parameter">req_comp</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+         (<em>default</em> 0)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        DATA</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        X</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        Y</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        bpp</li>
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, indicating failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "loadf_from_memory"></a>
+    <strong>loadf_from_memory (bytes[, req_comp=0])</strong>
+    </dt>
+    <dd>
+    Memory-based variant of <a href="../modules/packing.html#loadf">loadf</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">bytes</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">req_comp</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+         (<em>default</em> 0)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        DATA</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        X</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        Y</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        bpp</li>
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, indicating failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "xload"></a>
+    <strong>xload (filename[, baseDir=system.ResourceDirectory])</strong>
+    </dt>
+    <dd>
+    Given a GIF, loads its frames (image data, delay to next frame) into an array.  All frames are loaded
+ as RGBA with the same width and height.</p>
+
+<p> A single image buffer (with no delay info) is returned for non-GIF files and for GIFs that have one frame.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">filename</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Name of file to load.
+        </li>
+        <li><span class="parameter">baseDir</span>
+         Directory to search, as per
+ <a href="https://docs.coronalabs.com/api/library/system/pathForFile.html">system.pathForFile</a>.
+         (<em>default</em> system.ResourceDirectory)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><a class="type" href="../modules/packing.html#GifFrame">{GifFrame,...}</a></span>
+        frames, where a <strong>frame</strong> is a table with two keys, <strong>image</strong> containing
+ a string and <strong>delay</strong> a uint.</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        Width common to all frames...</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        ...and height.</li>
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Image data, in the case there is only one frame or <em>filename</em> was not a GIF.</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        Image width...</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        ...and height.</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        bpp Always 4.</li>
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, indicating failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2><a name="Tables"></a>Tables</h2>
+    <dl class="function">
+    <dt>
+    <a name = "GifFrame"></a>
+    <strong>GifFrame</strong>
+    </dt>
+    <dd>
+    Represents a single frame in a GIF animation.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">image</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Frame data.
+        </li>
+        <li><span class="parameter">delay</span>
+            <span class="types"><span class="type">uint</span></span>
+         Delay, in milliseconds, for frame.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
