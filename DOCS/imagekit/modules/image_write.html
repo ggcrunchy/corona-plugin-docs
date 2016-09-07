@@ -51,15 +51,12 @@
 
 <h1>Module <code>image_write</code></h1>
 <p>Corona binding for <strong>stb_image_write</strong>, from Sean T.</p>
-<p> Barrett's <a href="https://github.com/nothings/stb">stb</a>. (TODO: jo)</p>
-
-<h2> From stb<em>image</em>write.h, with some revisions:</h2>
-<p> TODO!</p>
+<p> Barrett's <a href="https://github.com/nothings/stb">stb</a>. Jon Olick's
+ <a href="http://www.jonolick.com/home/gif-writer">GIF writer</a> is used to save GIFs.</p>
 
 <h2> From stb_image_write.h, with some revisions:</h2>
 
-<p> This header file is a library for writing images to C stdio. It could be
- adapted to write to memory or a general streaming interface; let me know.</p>
+<p> This is a library for writing images to files or memory.</p>
 
 <p> The PNG output is not optimal; it is 20-50% larger than the file
  written by a decent optimizing implementation. This library is designed
@@ -109,6 +106,8 @@ ok = imagekit.write.hdr(filename, w, h, comp, data)
 <p> This software is dual-licensed to the public domain and under the following
  license: you are granted a perpetual, irrevocable license to copy, modify,
  publish, and distribute this file as you see fit.</p>
+
+<p> Jon Olick's GIF writer is likewise public domain.</p>
 
 
 <h2><a href="#Functions">Functions</a></h2>

@@ -56,24 +56,11 @@
 
 <p>A sample project is available here (TODO).</p>
 
-<p>struct and lpack come courtesy of two of Lua's own authors. These are both
-similar in intent; which one to use will largely be a matter of preference.
-Both pack data into a Lua string and unpack from the same. This allows for
-structured data to be sent to APIs, e.g. a C library that expects an array of
-floats or small structures. Memory can be sent directly, rather than
-destructuring the data into tables, yet more safely than via blind userdata,
-since strings have a definite length.</p>
-
-<p>marshal encodes and decodes data directly, without the aforementioned
-libraries' use of an auxiliary data format specifier. This is useful for
-passing around data when human readability is not a concern (as it is with
-JSON), say to persist across program runs or to communicate between threads.</p>
-
 <h2>Modules</h2>
 <table class="module_list">
 	<tr>
 		<td class="name"  nowrap><a href="modules/blob.html">blob</a></td>
-		<td class="summary">Corona binding for the <strong>stb_image</strong> and <strong>stb_image_write</strong> parts of Sean T.</td>
+		<td class="summary">Helper to create and check for <strong>XSBlob</strong> objects.</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/image.html">image</a></td>
@@ -81,7 +68,7 @@ JSON), say to persist across program runs or to communicate between threads.</p>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/image_resize.html">image_resize</a></td>
-		<td class="summary">Corona binding for the <strong>stb_image</strong> and <strong>stb_image_write</strong> parts of Sean T.</td>
+		<td class="summary">Corona binding for <strong>stb_image_resize</strong> by Jorge L Rodriguez (@VinoBS), from Sean T.</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/image_write.html">image_write</a></td>
@@ -89,7 +76,7 @@ JSON), say to persist across program runs or to communicate between threads.</p>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/sdf.html">sdf</a></td>
-		<td class="summary">Corona binding for the <strong>stb_image</strong> and <strong>stb_image_write</strong> parts of Sean T.</td>
+		<td class="summary">Corona binding for Mikko Mononen's <a href="https://github.com/memononen/SDF">SDF</a>.</td>
 	</tr>
 </table>
 
