@@ -51,10 +51,9 @@
 <div id="content">
 
 <h1>Module <code>image</code></h1>
-<p>Corona binding for the <strong>stb_image</strong> and <strong>stb_image_write</strong> parts of Sean T.</p>
-<p> Barrett's
- <a href="https://github.com/nothings/stb">stb</a>, plus urraka's <a href="http://gist.github.com/urraka/685d9a6340b26b830d49">xload</a>
- for animated GIF support.</p>
+<p>Corona binding for <strong>stb_image</strong>, from Sean T.</p>
+<p> Barrett's <a href="https://github.com/nothings/stb">stb</a>, plus
+ urraka's <a href="http://gist.github.com/urraka/685d9a6340b26b830d49">xload</a> for animated GIF support.</p>
 
 <h2> From stb_image.h, with some revisions:</h2>
 
@@ -101,7 +100,7 @@
 </ul>
 
 <p> Basic usage (see HDR discussion below for HDR usage):</p>
-<pre><code>local data, x, y, comp = stbimage.load(filename, 0)
+<pre><code>local data, x, y, comp = imagekit.image.load(filename, 0)
 -- ... process data if not nil ...
 -- ... x = width, y = height, comp = # 8-bit components per pixel ...
 -- ... replace '0' with '1'..'4' to force that many components per pixel
@@ -199,8 +198,8 @@ req_comp -- if non-zero, # of image components requested in result
  LDR, assuming gamma 2.2 and an arbitrary scale factor defaulting to 1;
  both of these constants can be reconfigured through this interface:</p>
 
-<pre><code> stbimage.hdr_to_ldr_gamma(2.2)
- stbimage.hdr_to_ldr_scale(1.0)
+<pre><code> imagekit.image.hdr_to_ldr_gamma(2.2)
+ imagekit.image.hdr_to_ldr_scale(1.0)
 </code></pre>
 
 <p> (note, do not use <em>inverse</em> constants; stbi_image will invert them
@@ -209,15 +208,15 @@ req_comp -- if non-zero, # of image components requested in result
 <p> Additionally, there is a new, parallel interface for loading files as
  (linear) floats to preserve the full dynamic range:</p>
 
-<pre><code>local data, x, y, n = stbimage.loadf(filename)
+<pre><code>local data, x, y, n = imagekit.image.loadf(filename)
 </code></pre>
 
 <p> If you load LDR images through this interface, those images will
  be promoted to floating point values, run through the inverse of
  constants corresponding to the above:</p>
 
-<pre><code> stbimage.ldr_to_hdr_scale(1.0)
- stbimage.ldr_to_hdr_gamma(2.2)
+<pre><code> imagekit.image.ldr_to_hdr_scale(1.0)
+ imagekit.image.ldr_to_hdr_gamma(2.2)
 </code></pre>
 
 <p> Finally, given a filename (or an open file or memory block--see header
@@ -225,7 +224,7 @@ req_comp -- if non-zero, # of image components requested in result
  appropriate" interface to use (that is, whether the image is HDR or
  not), using:</p>
 
-<pre><code> stbimage.is_hdr(filename)
+<pre><code> imagekit.image.is_hdr(filename)
 </code></pre>
 
 <hr/>
@@ -235,55 +234,7 @@ req_comp -- if non-zero, # of image components requested in result
 <p> By default we convert iphone-formatted PNGs back to RGB, even though
  they are internally encoded differently.</p>
 
-<h2> From stb_image_write.h, with some revisions:</h2>
-
-<p> This header file is a library for writing images to C stdio. It could be
- adapted to write to memory or a general streaming interface; let me know.</p>
-
-<p> The PNG output is not optimal; it is 20-50% larger than the file
- written by a decent optimizing implementation. This library is designed
- for source code compactness and simplicity, not optimal image file size
- or run-time performance.</p>
-
-<p> USAGE:</p>
-
-<p> There are four functions, one for each image file format:</p>
-
-<pre><code>ok = stbimage.write_png(filename, w, h, comp, data, stride_in_bytes)
-ok = stbimage.write_bmp(filename, w, h, comp, data)
-ok = stbimage.write_tga(filename, w, h, comp, data)
-ok = stbimage.write_hdr(filename, w, h, comp, data)
-</code></pre>
-
-<p> Each function a boolean, where <strong>true</strong> indicates success and <strong>false</strong> failure.</p>
-
-<p> The functions create an image file defined by the parameters. The image
- is a rectangle of pixels stored from left-to-right, top-to-bottom.
- Each pixel contains <em>comp</em> channels of data stored interleaved with 8-bits
- per channel, in the following order: 1=Y, 2=YA, 3=RGB, 4=RGBA. (Y is
- monochrome color.) The rectangle is <em>w</em> pixels wide and <em>h</em> pixels tall.
- <em>data</em> points to the first byte of the top-left-most pixel.
- For PNG, <em>stride_in_bytes</em> is the distance in bytes from the first byte of
- a row of pixels to the first byte of the next row of pixels.</p>
-
-<p> PNG creates output files with the same number of components as the input.
- The BMP format expands Y to RGB in the file format and does not
- output alpha.</p>
-
-<p> PNG supports writing rectangles of data even when the bytes storing rows of
- data are not consecutive in memory (e.g. sub-rectangles of a larger image),
- by supplying the stride between the beginning of adjacent rows. The other
- formats do not. (Thus you cannot write a native-format BMP through the BMP
- writer, both because it is in BGR order and because it may have padding
- at the end of the line.)</p>
-
-<p> HDR expects linear float data. Since the format is always 32-bit rgb(e)
- data, alpha (if provided) is discarded, and for monochrome data it is
- replicated across all three channels.</p>
-
-<p> TGA supports RLE or non-RLE compressed data.</p>
-
-<p> <strong>From both project pages:</strong></p>
+<p> <strong>From stb's project page:</strong></p>
 
 <p> This software is dual-licensed to the public domain and under the following
  license: you are granted a perpetual, irrevocable license to copy, modify,
@@ -339,22 +290,6 @@ ok = stbimage.write_hdr(filename, w, h, comp, data)
 	<tr>
 	<td class="name" nowrap><a href="#loadf_from_memory">loadf_from_memory (bytes[, req_comp=0])</a></td>
 	<td class="summary">Memory-based variant of <a href="../modules/image.html#loadf">loadf</a>.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#write_bmp">write_bmp (filename[, baseDir=system.DocumentsDirectory], w, h, bpp, data)</a></td>
-	<td class="summary">J!!!</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#write_hdr">write_hdr (filename[, baseDir=system.DocumentsDirectory], w, h, bpp, data)</a></td>
-	<td class="summary">J!!!</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#write_png">write_png (filename[, baseDir=system.DocumentsDirectory], w, h, bpp, data[, stride=0])</a></td>
-	<td class="summary">J!!!</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#write_tga">write_tga (filename[, baseDir=system.DocumentsDirectory], w, h, bpp, data)</a></td>
-	<td class="summary">J!!!</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#xload">xload (filename[, baseDir=system.ResourceDirectory])</a></td>
@@ -805,245 +740,6 @@ ok = stbimage.write_hdr(filename, w, h, comp, data)
         <li>
            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "write_bmp"></a>
-    <strong>write_bmp (filename[, baseDir=system.DocumentsDirectory], w, h, bpp, data)</strong>
-    </dt>
-    <dd>
-    J!!!
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">filename</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-
-
-        </li>
-        <li><span class="parameter">baseDir</span>
-
-
-
-         (<em>default</em> system.DocumentsDirectory)
-        </li>
-        <li><span class="parameter">w</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">h</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">bpp</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">data</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-
-
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">boolean</span></span>
-        Operation was successful?
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "write_hdr"></a>
-    <strong>write_hdr (filename[, baseDir=system.DocumentsDirectory], w, h, bpp, data)</strong>
-    </dt>
-    <dd>
-    J!!!
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">filename</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-
-
-        </li>
-        <li><span class="parameter">baseDir</span>
-
-
-
-         (<em>default</em> system.DocumentsDirectory)
-        </li>
-        <li><span class="parameter">w</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">h</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">bpp</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">data</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-
-
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">boolean</span></span>
-        Operation was successful?
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "write_png"></a>
-    <strong>write_png (filename[, baseDir=system.DocumentsDirectory], w, h, bpp, data[, stride=0])</strong>
-    </dt>
-    <dd>
-    J!!!
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">filename</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-
-
-        </li>
-        <li><span class="parameter">baseDir</span>
-
-
-
-         (<em>default</em> system.DocumentsDirectory)
-        </li>
-        <li><span class="parameter">w</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">h</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">bpp</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">data</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-
-
-        </li>
-        <li><span class="parameter">stride</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-         (<em>default</em> 0)
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">boolean</span></span>
-        Operation was successful?
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "write_tga"></a>
-    <strong>write_tga (filename[, baseDir=system.DocumentsDirectory], w, h, bpp, data)</strong>
-    </dt>
-    <dd>
-    J!!!
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">filename</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-
-
-        </li>
-        <li><span class="parameter">baseDir</span>
-
-
-
-         (<em>default</em> system.DocumentsDirectory)
-        </li>
-        <li><span class="parameter">w</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">h</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">bpp</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">data</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-
-
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">boolean</span></span>
-        Operation was successful?
     </ol>
 
 
