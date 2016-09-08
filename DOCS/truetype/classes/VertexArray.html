@@ -54,7 +54,7 @@
 <div id="content">
 
 <h1>Class <code>VertexArray</code></h1>
-<p><strong>VertexArray</strong> class used intermediately by <a href="../classes/FontInfo.html#">FontInfo</a>s.</p>
+<p>Class used intermediately by <a href="../classes/FontInfo.html#">FontInfo</a>s, representing a shape as an array of vertices.</p>
 <p>
 
 </p>
@@ -68,7 +68,7 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#VertexArray:Rasterize">VertexArray:Rasterize (w, h, xscale, yscale, xshift, yshift, xoff, yoff[, opts])</a></td>
-	<td class="summary">D!!!!</td>
+	<td class="summary">Rasterize a shape with quadratic beziers into a bitmap.</td>
 	</tr>
 </table>
 
@@ -103,7 +103,7 @@
     <strong>VertexArray:Rasterize (w, h, xscale, yscale, xshift, yshift, xoff, yoff[, opts])</strong>
     </dt>
     <dd>
-    D!!!!
+    Rasterize a shape with quadratic beziers into a bitmap.
 
     <h3>Parameters:</h3>
     <ul>
@@ -121,39 +121,27 @@
         </li>
         <li><span class="parameter">xscale</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         Scale applied to vertices' x-components...
         </li>
         <li><span class="parameter">yscale</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         ...and y-components.
         </li>
         <li><span class="parameter">xshift</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         Translation applied to vertices' x-components...
         </li>
         <li><span class="parameter">yshift</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         ...and y-components.
         </li>
         <li><span class="parameter">xoff</span>
             <span class="types"><span class="type">int</span></span>
-
-
-
+         Further translation to the x-components...
         </li>
         <li><span class="parameter">yoff</span>
             <span class="types"><span class="type">int</span></span>
-
-
-
+         ...and y-components.
         </li>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
@@ -167,7 +155,7 @@
     <ol>
 
            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        pixels
+        pixels Rasterized 1-channel bitmap.
     </ol>
 
 

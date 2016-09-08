@@ -70,15 +70,16 @@
 <table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#GetFontOffsetForIndex">GetFontOffsetForIndex (bytes[, index=1])</a></td>
-	<td class="summary">D!!!</td>
+	<td class="summary">Each .ttf/.ttc file may have more than one font.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#NewFont">NewFont (bytes[, offset=0])</a></td>
-	<td class="summary">D!!!</td>
+	<td class="summary">Given an offset into the file that defines a font, this function builds
+ the necessary cached info for the rest of the system.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#GetFontOffsetForIndex">GetFontOffsetForIndex (bytes[, index=1])</a></td>
-	<td class="summary">D!!!</td>
+	<td class="name" nowrap><a href="#NewPacking">NewPacking (w, h[, stride_in_bytes=0[, packing=1]])</a></td>
+	<td class="summary">Initializes a packing context.</td>
 	</tr>
 </table>
 
@@ -93,21 +94,21 @@
     <strong>GetFontOffsetForIndex (bytes[, index=1])</strong>
     </dt>
     <dd>
-    D!!!
+    Each .ttf/.ttc file may have more than one font.  Each font has a sequential
+ index number starting from 1. Call this function to get the font offset for
+ a given index. A regular .ttf file will only define one font and it always be
+ at offset 0, so it will return 0 for index 1, and -1 for all other indices.
+ You can just skip this step if you know it's that kind of font.
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">bytes</span>
             <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-
-
+         Font data, e.g. as read from a file. Data is assumed to be valid.
         </li>
         <li><span class="parameter">index</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Font index, &ge; 1.
          (<em>default</em> 1)
         </li>
     </ul>
@@ -115,11 +116,15 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">uint</span></span>
-        offset
+           <span class="types"><span class="type">int</span></span>
+        offset Offset into <em>bytes</em>, or -1 if <em>index</em> is out of range.
     </ol>
 
 
+    <h3>See also:</h3>
+    <ul>
+         <a href="../modules/truetype.html#NewFont">NewFont</a>
+    </ul>
 
 
 </dd>
@@ -128,7 +133,10 @@
     <strong>NewFont (bytes[, offset=0])</strong>
     </dt>
     <dd>
-    D!!!
+    Given an offset into the file that defines a font, this function builds
+ the necessary cached info for the rest of the system.  You don't need to
+ do anything special to free it, because the contents are pure value data
+ with no additional data structures.
 
     <h3>Parameters:</h3>
     <ul>
@@ -139,10 +147,8 @@
 
         </li>
         <li><span class="parameter">offset</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
+            <span class="types"><span class="type">int</span></span>
+         Offset into <em>bytes</em>, cf. <a href="../modules/truetype.html#GetFontOffsetForIndex">GetFontOffsetForIndex</a>.
          (<em>default</em> 0)
         </li>
     </ul>
@@ -159,21 +165,39 @@
 
 </dd>
     <dt>
-    <a name = "GetFontOffsetForIndex"></a>
-    <strong>GetFontOffsetForIndex (bytes[, index=1])</strong>
+    <a name = "NewPacking"></a>
+    <strong>NewPacking (w, h[, stride_in_bytes=0[, packing=1]])</strong>
     </dt>
     <dd>
-    D!!!
+    Initializes a packing context.  Future calls using this context will pack
+ characters into its 1-channel, width x height bitmap. <em>stride_in_bytes</em> is
+ the distance from one row to the next (or 0 to mean they are packed tightly
+ together). <em>padding</em> is the amount of padding to leave between each
+ character (normally you want 1 for bitmaps you'll use as textures with
+ bilinear filtering).
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">bytes</span>
-            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        <li><span class="parameter">w</span>
+            <span class="types"><span class="type">uint</span></span>
 
 
 
         </li>
-        <li><span class="parameter">index</span>
+        <li><span class="parameter">h</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">stride_in_bytes</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+         (<em>default</em> 0)
+        </li>
+        <li><span class="parameter">packing</span>
             <span class="types"><span class="type">uint</span></span>
 
 

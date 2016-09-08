@@ -54,7 +54,7 @@
 <div id="content">
 
 <h1>Class <code>FontInfo</code></h1>
-<p><strong>FontInfo</strong> class created by truetype.</p>
+<p>Class that represents truetype font info.</p>
 <p>
 
 </p>
@@ -107,36 +107,36 @@
 	<td class="summary">D!!!</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#FontInfo:GetGlyphBitmap">FontInfo:GetGlyphBitmap (xscale, yscale, glyph_index[, opts])</a></td>
-	<td class="summary">D!!!</td>
+	<td class="name" nowrap><a href="#FontInfo:GetGlyphBitmap">FontInfo:GetGlyphBitmap ()</a></td>
+	<td class="summary">Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmap">FontInfo:GetCodepointBitmap</a>, but takes a glyph index rather than a codepoint.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#FontInfo:GetGlyphBitmapBox">FontInfo:GetGlyphBitmapBox (glyph_index, xscale, yscale)</a></td>
-	<td class="summary">D!!!</td>
+	<td class="name" nowrap><a href="#FontInfo:GetGlyphBitmapBox">FontInfo:GetGlyphBitmapBox ()</a></td>
+	<td class="summary">Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmapBox">FontInfo:GetCodepointBitmapBox</a> that takes a glyph index, cf.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#FontInfo:GetGlyphBitmapBoxSubpixel">FontInfo:GetGlyphBitmapBoxSubpixel (glyph_index, xscale, yscale, xshift, yshift)</a></td>
-	<td class="summary">D!!!</td>
+	<td class="name" nowrap><a href="#FontInfo:GetGlyphBitmapBoxSubpixel">FontInfo:GetGlyphBitmapBoxSubpixel ()</a></td>
+	<td class="summary">Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmapBoxSubpixel">FontInfo:GetCodepointBitmapBoxSubpixel</a>, but takes a glyph index rather than a codepoint.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#FontInfo:GetGlyphBitmapSubpixel">FontInfo:GetGlyphBitmapSubpixel (xscale, yscale, xshift, yshift, glyph_index[, opts])</a></td>
-	<td class="summary">D!!!</td>
+	<td class="name" nowrap><a href="#FontInfo:GetGlyphBitmapSubpixel">FontInfo:GetGlyphBitmapSubpixel ()</a></td>
+	<td class="summary">Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmapSubpixel">FontInfo:GetCodepointBitmapSubpixel</a>, but takes a glyph index rather than a codepoint.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#FontInfo:GetGlyphBox">FontInfo:GetGlyphBox (glyph_index)</a></td>
-	<td class="summary">D!!!</td>
+	<td class="name" nowrap><a href="#FontInfo:GetGlyphBox">FontInfo:GetGlyphBox ()</a></td>
+	<td class="summary">Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointBox">FontInfo:GetCodepointBox</a>, but takes a glyph index rather than a codepoint.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#FontInfo:GetGlyphHMetrics">FontInfo:GetGlyphHMetrics (glyph_index)</a></td>
-	<td class="summary">D!!!</td>
+	<td class="name" nowrap><a href="#FontInfo:GetGlyphHMetrics">FontInfo:GetGlyphHMetrics ()</a></td>
+	<td class="summary">Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointHMetrics">FontInfo:GetCodepointHMetrics</a>, but takes a glyph index rather than a codepoint.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#FontInfo:GetGlyphKernAdvance">FontInfo:GetGlyphKernAdvance (glyph_index_1, glyph_index_2)</a></td>
-	<td class="summary">D!!!</td>
+	<td class="name" nowrap><a href="#FontInfo:GetGlyphKernAdvance">FontInfo:GetGlyphKernAdvance ()</a></td>
+	<td class="summary">Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointKernAdvance">FontInfo:GetCodepointKernAdvance</a>, but takes glyph indices rather than codepoints.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#FontInfo:GetGlyphShape">FontInfo:GetGlyphShape (glyph_index)</a></td>
-	<td class="summary">D!!!</td>
+	<td class="name" nowrap><a href="#FontInfo:GetGlyphShape">FontInfo:GetGlyphShape ()</a></td>
+	<td class="summary">Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointShape">FontInfo:GetCodepointShape</a>, but takes a glyph index rather than a codepoint.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#FontInfo:IsGlyphEmpty">FontInfo:IsGlyphEmpty (glyph_index)</a></td>
@@ -498,8 +498,7 @@
      <h3>Or</h3>
     <ol>
 
-           <span class="types"><span class="type">**false**,</span></span>
-        meaning failure.
+        <strong>false</strong>, meaning failure.
     </ol>
 
 
@@ -647,399 +646,137 @@
 </dd>
     <dt>
     <a name = "FontInfo:GetGlyphBitmap"></a>
-    <strong>FontInfo:GetGlyphBitmap (xscale, yscale, glyph_index[, opts])</strong>
+    <strong>FontInfo:GetGlyphBitmap ()</strong>
     </dt>
     <dd>
-    D!!!
+    Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmap">FontInfo:GetCodepointBitmap</a>, but takes a glyph index rather than a codepoint.
 
-    <h3>Parameters:</h3>
+
+
+
+    <h3>See also:</h3>
     <ul>
-        <li><span class="parameter">xscale</span>
-            <span class="types"><span class="type">number</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">yscale</span>
-            <span class="types"><span class="type">number</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">glyph_index</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-
-
-
-        </li>
+         <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">FontInfo:FindGlyphIndex</a>
     </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-        <li>
-           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-
-</li>
-        <li>
-           <span class="types"><span class="type">uint</span></span>
-        w</li>
-        <li>
-           <span class="types"><span class="type">uint</span></span>
-        h</li>
-        <li>
-           <span class="types"><span class="type">int</span></span>
-        xoff</li>
-        <li>
-           <span class="types"><span class="type">int</span></span>
-        yoff</li>
-    </ol>
-     <h3>Or</h3>
-    <ol>
-
-           <span class="types"><span class="type">nil</span></span>
-
-
-
-    </ol>
-
-
 
 
 </dd>
     <dt>
     <a name = "FontInfo:GetGlyphBitmapBox"></a>
-    <strong>FontInfo:GetGlyphBitmapBox (glyph_index, xscale, yscale)</strong>
+    <strong>FontInfo:GetGlyphBitmapBox ()</strong>
     </dt>
     <dd>
-    D!!!
+    Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmapBox">FontInfo:GetCodepointBitmapBox</a> that takes a glyph index, cf.  <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">FontInfo:FindGlyphIndex</a>.
 
-    <h3>Parameters:</h3>
+
+
+
+    <h3>See also:</h3>
     <ul>
-        <li><span class="parameter">glyph_index</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">xscale</span>
-            <span class="types"><span class="type">number</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">yscale</span>
-            <span class="types"><span class="type">number</span></span>
-
-
-
-        </li>
+         <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">FontInfo:FindGlyphIndex</a>
     </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-        <li>
-           <span class="types"><span class="type">uint</span></span>
-        x0</li>
-        <li>
-           <span class="types"><span class="type">uint</span></span>
-        y0</li>
-        <li>
-           <span class="types"><span class="type">uint</span></span>
-        x1</li>
-        <li>
-           <span class="types"><span class="type">uint</span></span>
-        y1</li>
-    </ol>
-
-
 
 
 </dd>
     <dt>
     <a name = "FontInfo:GetGlyphBitmapBoxSubpixel"></a>
-    <strong>FontInfo:GetGlyphBitmapBoxSubpixel (glyph_index, xscale, yscale, xshift, yshift)</strong>
+    <strong>FontInfo:GetGlyphBitmapBoxSubpixel ()</strong>
     </dt>
     <dd>
-    D!!!
+    Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmapBoxSubpixel">FontInfo:GetCodepointBitmapBoxSubpixel</a>, but takes a glyph index rather than a codepoint.
 
-    <h3>Parameters:</h3>
+
+
+
+    <h3>See also:</h3>
     <ul>
-        <li><span class="parameter">glyph_index</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">xscale</span>
-            <span class="types"><span class="type">number</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">yscale</span>
-            <span class="types"><span class="type">number</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">xshift</span>
-            <span class="types"><span class="type">number</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">yshift</span>
-            <span class="types"><span class="type">number</span></span>
-
-
-
-        </li>
+         <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">FontInfo:FindGlyphIndex</a>
     </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-        <li>
-           <span class="types"><span class="type">uint</span></span>
-        x0</li>
-        <li>
-           <span class="types"><span class="type">uint</span></span>
-        y0</li>
-        <li>
-           <span class="types"><span class="type">uint</span></span>
-        x1</li>
-        <li>
-           <span class="types"><span class="type">uint</span></span>
-        y1</li>
-    </ol>
-
-
 
 
 </dd>
     <dt>
     <a name = "FontInfo:GetGlyphBitmapSubpixel"></a>
-    <strong>FontInfo:GetGlyphBitmapSubpixel (xscale, yscale, xshift, yshift, glyph_index[, opts])</strong>
+    <strong>FontInfo:GetGlyphBitmapSubpixel ()</strong>
     </dt>
     <dd>
-    D!!!
+    Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmapSubpixel">FontInfo:GetCodepointBitmapSubpixel</a>, but takes a glyph index rather than a codepoint.
 
-    <h3>Parameters:</h3>
+
+
+
+    <h3>See also:</h3>
     <ul>
-        <li><span class="parameter">xscale</span>
-            <span class="types"><span class="type">number</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">yscale</span>
-            <span class="types"><span class="type">number</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">xshift</span>
-            <span class="types"><span class="type">number</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">yshift</span>
-            <span class="types"><span class="type">number</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">glyph_index</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-
-
-
-        </li>
+         <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">FontInfo:FindGlyphIndex</a>
     </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-        <li>
-           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-
-</li>
-        <li>
-           <span class="types"><span class="type">uint</span></span>
-        w</li>
-        <li>
-           <span class="types"><span class="type">uint</span></span>
-        h</li>
-        <li>
-           <span class="types"><span class="type">int</span></span>
-        xoff</li>
-        <li>
-           <span class="types"><span class="type">int</span></span>
-        yoff</li>
-    </ol>
-     <h3>Or</h3>
-    <ol>
-
-           <span class="types"><span class="type">nil</span></span>
-
-
-
-    </ol>
-
-
 
 
 </dd>
     <dt>
     <a name = "FontInfo:GetGlyphBox"></a>
-    <strong>FontInfo:GetGlyphBox (glyph_index)</strong>
+    <strong>FontInfo:GetGlyphBox ()</strong>
     </dt>
     <dd>
-    D!!!
+    Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointBox">FontInfo:GetCodepointBox</a>, but takes a glyph index rather than a codepoint.
 
-    <h3>Parameters:</h3>
+
+
+
+    <h3>See also:</h3>
     <ul>
-        <li><span class="parameter">glyph_index</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
+         <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">FontInfo:FindGlyphIndex</a>
     </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-        <li>
-        <strong>true</strong>, indicating success.</li>
-        <li>
-           <span class="types"><span class="type">uint</span></span>
-        x0</li>
-        <li>
-           <span class="types"><span class="type">uint</span></span>
-        y0</li>
-        <li>
-           <span class="types"><span class="type">uint</span></span>
-        x1</li>
-        <li>
-           <span class="types"><span class="type">uint</span></span>
-        y1</li>
-    </ol>
-     <h3>Or</h3>
-    <ol>
-
-           <span class="types"><span class="type">**false**,</span></span>
-        meaning failure.
-    </ol>
-
-
 
 
 </dd>
     <dt>
     <a name = "FontInfo:GetGlyphHMetrics"></a>
-    <strong>FontInfo:GetGlyphHMetrics (glyph_index)</strong>
+    <strong>FontInfo:GetGlyphHMetrics ()</strong>
     </dt>
     <dd>
-    D!!!
+    Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointHMetrics">FontInfo:GetCodepointHMetrics</a>, but takes a glyph index rather than a codepoint.
 
-    <h3>Parameters:</h3>
+
+
+
+    <h3>See also:</h3>
     <ul>
-        <li><span class="parameter">glyph_index</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
+         <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">FontInfo:FindGlyphIndex</a>
     </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-        <li>
-           <span class="types"><span class="type">uint</span></span>
-        advance_width</li>
-        <li>
-           <span class="types"><span class="type">int</span></span>
-        left<em>side</em>bearing (TODO: uint or int?)</li>
-    </ol>
-
-
 
 
 </dd>
     <dt>
     <a name = "FontInfo:GetGlyphKernAdvance"></a>
-    <strong>FontInfo:GetGlyphKernAdvance (glyph_index_1, glyph_index_2)</strong>
+    <strong>FontInfo:GetGlyphKernAdvance ()</strong>
     </dt>
     <dd>
-    D!!!
+    Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointKernAdvance">FontInfo:GetCodepointKernAdvance</a>, but takes glyph indices rather than codepoints.
 
-    <h3>Parameters:</h3>
+
+
+
+    <h3>See also:</h3>
     <ul>
-        <li><span class="parameter">glyph_index_1</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">glyph_index_2</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
+         <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">FontInfo:FindGlyphIndex</a>
     </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">int</span></span>
-        kerning (TODO: uint or int?)
-    </ol>
-
-
 
 
 </dd>
     <dt>
     <a name = "FontInfo:GetGlyphShape"></a>
-    <strong>FontInfo:GetGlyphShape (glyph_index)</strong>
+    <strong>FontInfo:GetGlyphShape ()</strong>
     </dt>
     <dd>
-    D!!!
+    Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointShape">FontInfo:GetCodepointShape</a>, but takes a glyph index rather than a codepoint.
 
-    <h3>Parameters:</h3>
+
+
+
+    <h3>See also:</h3>
     <ul>
-        <li><span class="parameter">glyph_index</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
+         <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">FontInfo:FindGlyphIndex</a>
     </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><a class="type" href="../classes/VertexArray.html#">VertexArray</a> or <span class="type">nil</span></span>
-
-
-
-    </ol>
-
-
 
 
 </dd>
