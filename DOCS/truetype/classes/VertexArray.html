@@ -32,33 +32,40 @@
 
 <h2>Contents</h2>
 <ul>
-<li><a href="#Functions">Functions</a></li>
+<li><a href="#Methods">Methods </a></li>
 </ul>
 
 
+<h2>Classes</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../classes/CharArray.html">CharArray</a></li>
+  <li><a href="../classes/FontInfo.html">FontInfo</a></li>
+  <li><a href="../classes/Packing.html">Packing</a></li>
+  <li><a href="../classes/RectArray.html">RectArray</a></li>
+  <li><strong>VertexArray</strong></li>
+</ul>
 <h2>Modules</h2>
 <ul class="$(kind=='Topics' and '' or 'nowrap'">
-  <li><a href="../modules/chararray.html">chararray</a></li>
-  <li><a href="../modules/FontInfo.html">FontInfo</a></li>
-  <li><a href="../modules/Packing.html">Packing</a></li>
-  <li><a href="../modules/rectarray.html">rectarray</a></li>
   <li><a href="../modules/truetype.html">truetype</a></li>
-  <li><strong>vertexarray</strong></li>
 </ul>
 
 </div>
 
 <div id="content">
 
-<h1>Module <code>vertexarray</code></h1>
-<p><strong>VertexArray</strong> class used intermediately by <a href="../modules/FontInfo.html#">FontInfo</a>s.</p>
+<h1>Class <code>VertexArray</code></h1>
+<p><strong>VertexArray</strong> class used intermediately by <a href="../classes/FontInfo.html#">FontInfo</a>s.</p>
 <p>
 
 </p>
 
 
-<h2><a href="#Functions">Functions</a></h2>
+<h2><a href="#Methods">Methods </a></h2>
 <table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#VertexArray:__len">VertexArray:__len ()</a></td>
+	<td class="summary">Metamethod.</td>
+	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#VertexArray:Rasterize">VertexArray:Rasterize (w, h, xscale, yscale, xshift, yshift, xoff, yoff[, opts])</a></td>
 	<td class="summary">D!!!!</td>
@@ -69,8 +76,28 @@
 <br/>
 
 
-    <h2><a name="Functions"></a>Functions</h2>
+    <h2><a name="Methods"></a>Methods </h2>
+
     <dl class="function">
+    <dt>
+    <a name = "VertexArray:__len"></a>
+    <strong>VertexArray:__len ()</strong>
+    </dt>
+    <dd>
+    Metamethod.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        Number of vertices in shape.
+    </ol>
+
+
+
+
+</dd>
     <dt>
     <a name = "VertexArray:Rasterize"></a>
     <strong>VertexArray:Rasterize (w, h, xscale, yscale, xshift, yshift, xoff, yoff[, opts])</strong>
