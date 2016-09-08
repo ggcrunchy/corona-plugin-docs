@@ -31,9 +31,12 @@
 
 <h2>Modules</h2>
 <ul class="$(kind=='Topics' and '' or 'nowrap'">
-  <li><a href="modules/font.html">font</a></li>
-  <li><a href="modules/packing.html">packing</a></li>
+  <li><a href="modules/chararray.html">chararray</a></li>
+  <li><a href="modules/FontInfo.html">FontInfo</a></li>
+  <li><a href="modules/Packing.html">Packing</a></li>
+  <li><a href="modules/rectarray.html">rectarray</a></li>
   <li><a href="modules/truetype.html">truetype</a></li>
+  <li><a href="modules/vertexarray.html">vertexarray</a></li>
 </ul>
 
 </div>
@@ -42,8 +45,7 @@
 
 
   <h2> Module documentation. </h2>
-  <p>
-<p>TODO!</p>
+  <p>TODO!</p>
 
 <p>To use the plugin, add the following in <code>build.settings</code>:</p>
 
@@ -53,21 +55,35 @@
 </code></pre>
 
 
-</p>
+<p>A sample project is available here (TODO).</p>
+
+<p>This plugin is designed to be called safely from other <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/luaproc/api.html">Lua processes</a>.</p>
 
 <h2>Modules</h2>
 <table class="module_list">
 	<tr>
-		<td class="name"  nowrap><a href="modules/font.html">font</a></td>
-		<td class="summary">Corona binding for <strong>stb_image</strong>, from Sean T.</td>
+		<td class="name"  nowrap><a href="modules/chararray.html">chararray</a></td>
+		<td class="summary"><strong>CharArray</strong> class used intermediately by <a href="modules/Packing.html#">Packing</a>s.</td>
 	</tr>
 	<tr>
-		<td class="name"  nowrap><a href="modules/packing.html">packing</a></td>
-		<td class="summary">Corona binding for <strong>stb_image</strong>, from Sean T.</td>
+		<td class="name"  nowrap><a href="modules/FontInfo.html">FontInfo</a></td>
+		<td class="summary"><strong>FontInfo</strong> class created by truetype.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/Packing.html">Packing</a></td>
+		<td class="summary"><strong>Packing</strong> class created by truetype.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/rectarray.html">rectarray</a></td>
+		<td class="summary"><strong>RectArray</strong> class used intermediately by <a href="modules/Packing.html#">Packing</a>s.</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/truetype.html">truetype</a></td>
-		<td class="summary">Corona binding for the <strong>stb_image</strong> and <strong>stb_image_write</strong> parts of Sean T.</td>
+		<td class="summary">Corona binding for <strong>stb_truetype</strong>, from Sean T.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/vertexarray.html">vertexarray</a></td>
+		<td class="summary"><strong>VertexArray</strong> class used intermediately by <a href="modules/FontInfo.html#">FontInfo</a>s.</td>
 	</tr>
 </table>
 

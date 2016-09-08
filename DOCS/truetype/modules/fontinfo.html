@@ -1,0 +1,1400 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Documentation</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>truetype</h1>
+
+<ul>
+  <li><a href="../api.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../modules/chararray.html">chararray</a></li>
+  <li><strong>FontInfo</strong></li>
+  <li><a href="../modules/Packing.html">Packing</a></li>
+  <li><a href="../modules/rectarray.html">rectarray</a></li>
+  <li><a href="../modules/truetype.html">truetype</a></li>
+  <li><a href="../modules/vertexarray.html">vertexarray</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>FontInfo</code></h1>
+<p><strong>FontInfo</strong> class created by truetype.</p>
+<p>
+
+</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#FontInfo:FindGlyphIndex">FontInfo:FindGlyphIndex (codepoint)</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FontInfo:GetCodepointBitmap">FontInfo:GetCodepointBitmap (xscale, yscale, codepoint[, opts])</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FontInfo:GetCodepointBitmapBox">FontInfo:GetCodepointBitmapBox (codepoint, xscale, yscale)</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FontInfo:GetCodepointBitmapBoxSubpixel">FontInfo:GetCodepointBitmapBoxSubpixel (codepoint, xscale, yscale, xshift, yshift)</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FontInfo:GetCodepointBitmapSubpixel">FontInfo:GetCodepointBitmapSubpixel (xscale, yscale, xshift, yshift, codepoint[, opts])</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FontInfo:GetCodepointBox">FontInfo:GetCodepointBox (codepoint)</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FontInfo:GetCodepointHMetrics">FontInfo:GetCodepointHMetrics ()</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FontInfo:GetCodepointKernAdvance">FontInfo:GetCodepointKernAdvance (char_index_1, char_index_2)</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FontInfo:GetCodepointShape">FontInfo:GetCodepointShape (codepoint)</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FontInfo:GetFontBoundingBox">FontInfo:GetFontBoundingBox ()</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FontInfo:GetFontVMetrics">FontInfo:GetFontVMetrics ()</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FontInfo:GetGlyphBitmap">FontInfo:GetGlyphBitmap (xscale, yscale, glyph_index[, opts])</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FontInfo:GetGlyphBitmapBox">FontInfo:GetGlyphBitmapBox (glyph_index, xscale, yscale)</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FontInfo:GetGlyphBitmapBoxSubpixel">FontInfo:GetGlyphBitmapBoxSubpixel (glyph_index, xscale, yscale, xshift, yshift)</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FontInfo:GetGlyphBitmapSubpixel">FontInfo:GetGlyphBitmapSubpixel (xscale, yscale, xshift, yshift, glyph_index[, opts])</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FontInfo:GetGlyphBox">FontInfo:GetGlyphBox (glyph_index)</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FontInfo:GetGlyphHMetrics">FontInfo:GetGlyphHMetrics (glyph_index)</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FontInfo:GetGlyphKernAdvance">FontInfo:GetGlyphKernAdvance (glyph_index_1, glyph_index_2)</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FontInfo:GetGlyphShape">FontInfo:GetGlyphShape (glyph_index)</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FontInfo:IsGlyphEmpty">FontInfo:IsGlyphEmpty (glyph_index)</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FontInfo:MakeCodepointBitmap">FontInfo:MakeCodepointBitmap (ow, oh, xscale, yscale, codepoint[, opts])</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FontInfo:MakeCodepointBitmapSubpixel">FontInfo:MakeCodepointBitmapSubpixel (ow, oh, xscale, yscale, xshift, yshift, codepoint[, opts])</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FontInfo:MakeGlyphBitmap">FontInfo:MakeGlyphBitmap (ow, oh, xscale, yscale, glyph_index[, opts])</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FontInfo:MakeGlyphBitmapSubpixel">FontInfo:MakeGlyphBitmapSubpixel (ow, oh, xscale, yscale, xshift, yshift, glyph_index[, opts])</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FontInfo:ScaleForMappingEmToPixels">FontInfo:ScaleForMappingEmToPixels (pixels)</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#FontInfo:ScaleForPixelHeight">FontInfo:ScaleForPixelHeight (pixels)</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "FontInfo:FindGlyphIndex"></a>
+    <strong>FontInfo:FindGlyphIndex (codepoint)</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">codepoint</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        index
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FontInfo:GetCodepointBitmap"></a>
+    <strong>FontInfo:GetCodepointBitmap (xscale, yscale, codepoint[, opts])</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">xscale</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">yscale</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">codepoint</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        w</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        h</li>
+        <li>
+           <span class="types"><span class="type">int</span></span>
+        xoff</li>
+        <li>
+           <span class="types"><span class="type">int</span></span>
+        yoff</li>
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+           <span class="types"><span class="type">nil</span></span>
+
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FontInfo:GetCodepointBitmapBox"></a>
+    <strong>FontInfo:GetCodepointBitmapBox (codepoint, xscale, yscale)</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">codepoint</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">xscale</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">yscale</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        x0</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        y0</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        x1</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        y1</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FontInfo:GetCodepointBitmapBoxSubpixel"></a>
+    <strong>FontInfo:GetCodepointBitmapBoxSubpixel (codepoint, xscale, yscale, xshift, yshift)</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">codepoint</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">xscale</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">yscale</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">xshift</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">yshift</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        x0</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        y0</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        x1</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        y1</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FontInfo:GetCodepointBitmapSubpixel"></a>
+    <strong>FontInfo:GetCodepointBitmapSubpixel (xscale, yscale, xshift, yshift, codepoint[, opts])</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">xscale</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">yscale</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">xshift</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">yshift</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">codepoint</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        w</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        h</li>
+        <li>
+           <span class="types"><span class="type">int</span></span>
+        xoff</li>
+        <li>
+           <span class="types"><span class="type">int</span></span>
+        yoff</li>
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+           <span class="types"><span class="type">nil</span></span>
+
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FontInfo:GetCodepointBox"></a>
+    <strong>FontInfo:GetCodepointBox (codepoint)</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">codepoint</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+        <strong>true</strong>, indicating success.</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        x0</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        y0</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        x1</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        y1</li>
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+           <span class="types"><span class="type">**false**,</span></span>
+        meaning failure.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FontInfo:GetCodepointHMetrics"></a>
+    <strong>FontInfo:GetCodepointHMetrics ()</strong>
+    </dt>
+    <dd>
+    D!!!
+
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        advance_width</li>
+        <li>
+           <span class="types"><span class="type">int</span></span>
+        left<em>side</em>bearing (TODO: int or uint?)</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FontInfo:GetCodepointKernAdvance"></a>
+    <strong>FontInfo:GetCodepointKernAdvance (char_index_1, char_index_2)</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">char_index_1</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">char_index_2</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">int</span></span>
+        kerning (TODO: int or uint?)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FontInfo:GetCodepointShape"></a>
+    <strong>FontInfo:GetCodepointShape (codepoint)</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">codepoint</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">VertexArray</span> or <span class="type">nil</span></span>
+
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FontInfo:GetFontBoundingBox"></a>
+    <strong>FontInfo:GetFontBoundingBox ()</strong>
+    </dt>
+    <dd>
+    D!!!
+
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        x0</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        y0</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        x1</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        y1</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FontInfo:GetFontVMetrics"></a>
+    <strong>FontInfo:GetFontVMetrics ()</strong>
+    </dt>
+    <dd>
+    D!!!
+
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">int</span></span>
+        ascent (TODO: int or uint?)</li>
+        <li>
+           <span class="types"><span class="type">int</span></span>
+        descent (TODO: ditto)</li>
+        <li>
+           <span class="types"><span class="type">int</span></span>
+        line_grap (TODO: again)</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FontInfo:GetGlyphBitmap"></a>
+    <strong>FontInfo:GetGlyphBitmap (xscale, yscale, glyph_index[, opts])</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">xscale</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">yscale</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">glyph_index</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        w</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        h</li>
+        <li>
+           <span class="types"><span class="type">int</span></span>
+        xoff</li>
+        <li>
+           <span class="types"><span class="type">int</span></span>
+        yoff</li>
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+           <span class="types"><span class="type">nil</span></span>
+
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FontInfo:GetGlyphBitmapBox"></a>
+    <strong>FontInfo:GetGlyphBitmapBox (glyph_index, xscale, yscale)</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">glyph_index</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">xscale</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">yscale</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        x0</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        y0</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        x1</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        y1</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FontInfo:GetGlyphBitmapBoxSubpixel"></a>
+    <strong>FontInfo:GetGlyphBitmapBoxSubpixel (glyph_index, xscale, yscale, xshift, yshift)</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">glyph_index</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">xscale</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">yscale</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">xshift</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">yshift</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        x0</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        y0</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        x1</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        y1</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FontInfo:GetGlyphBitmapSubpixel"></a>
+    <strong>FontInfo:GetGlyphBitmapSubpixel (xscale, yscale, xshift, yshift, glyph_index[, opts])</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">xscale</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">yscale</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">xshift</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">yshift</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">glyph_index</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        w</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        h</li>
+        <li>
+           <span class="types"><span class="type">int</span></span>
+        xoff</li>
+        <li>
+           <span class="types"><span class="type">int</span></span>
+        yoff</li>
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+           <span class="types"><span class="type">nil</span></span>
+
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FontInfo:GetGlyphBox"></a>
+    <strong>FontInfo:GetGlyphBox (glyph_index)</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">glyph_index</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+        <strong>true</strong>, indicating success.</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        x0</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        y0</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        x1</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        y1</li>
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+           <span class="types"><span class="type">**false**,</span></span>
+        meaning failure.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FontInfo:GetGlyphHMetrics"></a>
+    <strong>FontInfo:GetGlyphHMetrics (glyph_index)</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">glyph_index</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        advance_width</li>
+        <li>
+           <span class="types"><span class="type">int</span></span>
+        left<em>side</em>bearing (TODO: uint or int?)</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FontInfo:GetGlyphKernAdvance"></a>
+    <strong>FontInfo:GetGlyphKernAdvance (glyph_index_1, glyph_index_2)</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">glyph_index_1</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">glyph_index_2</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">int</span></span>
+        kerning (TODO: uint or int?)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FontInfo:GetGlyphShape"></a>
+    <strong>FontInfo:GetGlyphShape (glyph_index)</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">glyph_index</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">VertexArray</span> or <span class="type">nil</span></span>
+
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FontInfo:IsGlyphEmpty"></a>
+    <strong>FontInfo:IsGlyphEmpty (glyph_index)</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">glyph_index</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        X
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FontInfo:MakeCodepointBitmap"></a>
+    <strong>FontInfo:MakeCodepointBitmap (ow, oh, xscale, yscale, codepoint[, opts])</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">ow</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">oh</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">xscale</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">yscale</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">codepoint</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FontInfo:MakeCodepointBitmapSubpixel"></a>
+    <strong>FontInfo:MakeCodepointBitmapSubpixel (ow, oh, xscale, yscale, xshift, yshift, codepoint[, opts])</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">ow</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">oh</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">xscale</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">yscale</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">xshift</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">yshift</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">codepoint</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FontInfo:MakeGlyphBitmap"></a>
+    <strong>FontInfo:MakeGlyphBitmap (ow, oh, xscale, yscale, glyph_index[, opts])</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">ow</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">oh</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">xscale</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">yscale</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">glyph_index</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FontInfo:MakeGlyphBitmapSubpixel"></a>
+    <strong>FontInfo:MakeGlyphBitmapSubpixel (ow, oh, xscale, yscale, xshift, yshift, glyph_index[, opts])</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">ow</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">oh</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">xscale</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">yscale</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">xshift</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">yshift</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">glyph_index</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FontInfo:ScaleForMappingEmToPixels"></a>
+    <strong>FontInfo:ScaleForMappingEmToPixels (pixels)</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">pixels</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        scale
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "FontInfo:ScaleForPixelHeight"></a>
+    <strong>FontInfo:ScaleForPixelHeight (pixels)</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">pixels</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        scale
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
