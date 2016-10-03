@@ -1,0 +1,335 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Documentation</title>
+    <link rel="stylesheet" href="ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>MemoryBlob</h1>
+
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><strong>memoryblob</strong></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>memoryblob</code></h1>
+<p>Auxiliary library for creating memory blobs, in order say to recycle or share resources,
+ especially between native plugins.</p>
+<p> To use the plugin, add the following in <code>build.settings</code>:</p>
+
+<p> <pre><code class="language-lua">plugins = {
+   ["plugin.MemoryBlob"] = { publisherId = "com.xibalbastudios" }
+ }</code></pre></p>
+
+<p> Sample code is available (TODO). (<strong>Probably won't be much... this is a pretty boring library on its own</strong>)</p>
+
+<p> Note that the <strong>MemoryBlob</strong> methods below apply to <em>any</em> blob, not only those created by this plugin. In
+ particular, other plugins may create their own blobs via the <strong>BlobXS</strong> API: see <a href="https://github.com/ggcrunchy/corona_enterprise_utils">here</a>,
+ in particular <strong>ByteUtils.h</strong> and <strong>Blob.cpp</strong>.</p>
+
+<p> Blobs implement the <strong>ByteReader</strong> protocol (TODO: polish up docs, link).</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#GetVersion">GetVersion ()</a></td>
+	<td class="summary">Gets the blob version that will be associated with blobs created by <a href="api.html#New">New</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#IsBlob">IsBlob (object[, type])</a></td>
+	<td class="summary">Indicates whether an object (which need not originate from this plugin) is a <strong>MemoryBlob</strong>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#New">New (opts)</a></td>
+	<td class="summary">Creates a new memory blob.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MemoryBlob:Clone">MemoryBlob:Clone ()</a></td>
+	<td class="summary">Creates a clone of the blob.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MemoryBlob:GetProperties">MemoryBlob:GetProperties ([out])</a></td>
+	<td class="summary">
+<p>Populates a table with the following blob properties:</p>
+
+<ul>
+    <li><strong>alignment</strong>: As per <a href="api.html#New">New</a>, an integer &ge; 0, where 0 indicates default alignment.</li>
+</ul>
+</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MemoryBlob:IsLocked">MemoryBlob:IsLocked ()</a></td>
+	<td class="summary">Indicates that the blob is locked for writing (via the native API).</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MemoryBlob:__len">MemoryBlob:__len ()</a></td>
+	<td class="summary">Metamethod.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MemoryBlob:ToBytes">MemoryBlob:ToBytes ()</a></td>
+	<td class="summary">Dumps the blob's contents to a string of bytes.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "GetVersion"></a>
+    <strong>GetVersion ()</strong>
+    </dt>
+    <dd>
+    Gets the blob version that will be associated with blobs created by <a href="api.html#New">New</a>.  Blobs "in the wild"
+ might have been created with an older blob API; a program can handle such mixtures by comparing
+ blobs' versions against this value.</p>
+
+<p> This plugin is intended to track the latest version.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        Version, &ge; 1.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "IsBlob"></a>
+    <strong>IsBlob (object[, type])</strong>
+    </dt>
+    <dd>
+    Indicates whether an object (which need not originate from this plugin) is a <strong>MemoryBlob</strong>.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">object</span>
+         Object to check.
+        </li>
+        <li><span class="parameter">type</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         If present, refine the query to only consider blobs of a given type, cf. <a href="api.html#New">New</a>.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Is <em>object</em> a blob?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "New"></a>
+    <strong>New (opts)</strong>
+    </dt>
+    <dd>
+    Creates a new memory blob.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">opts</span>
+            <span class="types"><span class="type">ptable</span>, <span class="type">uint</span> or <span class="type">nil</span></span>
+         Blob creation options.</p>
+
+<p> When <em>opts</em> is a table, it may contain the following options:</p>
+
+<ul>
+    <li><strong>alignment</strong>: If specified, the memory alignment, which must be a multiple of 2, &ge; 4. The
+    blob's memory will start at an address that is a multiple of this value, which is useful and / or
+    needed e.g. for SIMD operations. By default, blobs use the Lua allocator's alignment.</li>
+    <li><strong>resizable</strong>: If true, the blob can be resized (via the native API). Off by default.</li>
+    <li><strong>size</strong>: Blob size, in bytes. In the case of resizable blobs, this is the blob's initial size
+    (&ge; 0; if absent, 0); otherwise, this is mandatory and specifies the fixed size &gt; 0.</li>
+    <li><strong>type</strong>: A string that will be used as the blob userdata's metatable name; if absent, a default
+    is used. Blobs themselves make no further use of this value; rather it is exposed as a convenience,
+    e.g. so plugin authors can identify their own blobs via <a href="api.html#IsBlob">IsBlob</a>.</li>
+</ul>
+
+<p> If <em>opts</em> is an integer (&gt; 0), it specifies the fixed size of the blob to create.</p>
+
+<p> For any other value of <em>opts</em>, a resizable blob will be created.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">MemoryBlob</span></span>
+        The new blob.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MemoryBlob:Clone"></a>
+    <strong>MemoryBlob:Clone ()</strong>
+    </dt>
+    <dd>
+    Creates a clone of the blob. </p>
+
+<p> The clone will have the same alignment, resizability, size, and type as the original blob, as well as
+ a copy of the original's bytes.</p>
+
+<p> The clone begins unlocked.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">MemoryBlob</span></span>
+        Cloned blob.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MemoryBlob:GetProperties"></a>
+    <strong>MemoryBlob:GetProperties ([out])</strong>
+    </dt>
+    <dd>
+
+<p>Populates a table with the following blob properties:</p>
+
+<ul>
+    <li><strong>alignment</strong>: As per <a href="api.html#New">New</a>, an integer &ge; 0, where 0 indicates default alignment. </li>
+    <li><strong>resizable</strong>: As per <a href="api.html#New">New</a>, a boolean indicating resizability.</li>
+    <li><strong>version</strong>: The API version used to create this blob, cf. <a href="api.html#GetVersion">GetVersion</a>.</li>
+</ul>
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">out</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         If provided, this table is populated; otherwise, a new one is created.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        Properties table.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MemoryBlob:IsLocked"></a>
+    <strong>MemoryBlob:IsLocked ()</strong>
+    </dt>
+    <dd>
+    Indicates that the blob is locked for writing (via the native API). </p>
+
+<p> If this is true, the blob is not meant for general use and will be rejected by well-behaved
+ external code (some utilities on the native side provide assistance here).
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        The blob is locked?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MemoryBlob:__len"></a>
+    <strong>MemoryBlob:__len ()</strong>
+    </dt>
+    <dd>
+    Metamethod.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        Current size of blob.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MemoryBlob:ToBytes"></a>
+    <strong>MemoryBlob:ToBytes ()</strong>
+    </dt>
+    <dd>
+    Dumps the blob's contents to a string of bytes.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Copy of current blob bytes.
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
