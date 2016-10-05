@@ -43,7 +43,7 @@
 <div id="content">
 
 <h1>Module <code>bytemap</code></h1>
-<p>Byte-flavored memory bitmap, useful for loading assets from byte streams (and <em>vice versa</em>).</p>
+<p>Byte-flavored memory bitmap, useful for loading image-style assets from byte streams (and <em>vice versa</em>).</p>
 <p> To use the plugin, add the following in <code>build.settings</code>:</p>
 
 <p> <pre><code class="language-lua">plugins = {
@@ -52,20 +52,26 @@
 
 <p> Sample code is available (TODO).</p>
 
+<p> The <strong>Bytes</strong> type&mdash;specified in a few of the bytemap methods&mdash;may be any object that implements <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/ByteReader/policy.html">ByteReader</a>,
+ including strings.</p>
+
+<p> Under investigations: having bytemaps themselves implement <strong>ByteReader</strong>; providing support for <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/MemoryBlob/api.html">MemoryBlob</a>s
+ as the underlying memory target; <strong>extrude</strong> option for <strong>Bytemap:SetBytes</strong> with spritesheet padding in mind.</p>
+
 
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#newTexture">newTexture (config)</a></td>
-	<td class="summary">Creates a new <strong>Bytemap</strong>, huzzah!</td>
+	<td class="summary">Creates a new <strong>Bytemap</strong>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Bytemap:GetBytes">Bytemap:GetBytes ([Options])</a></td>
-	<td class="summary">Gets some bytes!</td>
+	<td class="name" nowrap><a href="#Bytemap:GetBytes">Bytemap:GetBytes ([opts])</a></td>
+	<td class="summary">Gets a bytemap's bytes.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Bytemap:SetBytes">Bytemap:SetBytes (Bytes[, Options])</a></td>
-	<td class="summary">Set some bytes!</td>
+	<td class="name" nowrap><a href="#Bytemap:SetBytes">Bytemap:SetBytes (bytes[, opts])</a></td>
+	<td class="summary">Sets a bytemap's bytes.</td>
 	</tr>
 </table>
 
@@ -80,13 +86,25 @@
     <strong>newTexture (config)</strong>
     </dt>
     <dd>
-    Creates a new <strong>Bytemap</strong>, huzzah!
+    Creates a new <strong>Bytemap</strong>. </p>
+
+<p> Bytemaps are <a href="https://docs.coronalabs.com/api/type/TextureResourceExternal/index.html">external textures</a> and
+ thus integrate with Corona's display objects via their <code>filename</code> and <code>baseDir</code> properties, e.g. in <a href="https://docs.coronalabs.com/api/type/BitmapPaint/index.html">paints</a>,
+ as arguments to <a href="https://docs.coronalabs.com/api/library/display/newImage.html">display.newImage</a>, etc.
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">config</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         TODO!
+
+<p> Parameters used to initialize the bytemap:</p>
+
+<ul>
+    <li><strong>width</strong>: Bitmap width...</li>
+    <li><strong>height</strong>: ...and height.</li>
+    <li><strong>format</strong>: Underlying data format, one of <strong>"mask"</strong>, <strong>"rgb", or **"rgba"</strong>.</li>
+</ul>
+
         </li>
     </ul>
 
@@ -94,7 +112,7 @@
     <ol>
 
            <span class="types"><span class="type">Bytemap</span></span>
-        B
+        The new bytemap.
     </ol>
 
 
@@ -103,24 +121,41 @@
 </dd>
     <dt>
     <a name = "Bytemap:GetBytes"></a>
-    <strong>Bytemap:GetBytes ([Options])</strong>
+    <strong>Bytemap:GetBytes ([opts])</strong>
     </dt>
     <dd>
-    Gets some bytes!
+    Gets a bytemap's bytes.
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">Options</span>
-            <span class="types"><span class="type">ptable</span></span>
-        !
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         Get options, which include:</p>
+
+<ul>
+    <li><strong>get_info</strong>: If true, a table will be populated with some final results of the get operation. If
+    this also happens to be a table, this will be what is returned; otherwise, a new table is created.</li>
+    <li><strong>format</strong>: One of <strong>"mask"</strong>, <strong>"rgb"</strong>, <strong>"rgba"</strong>, <strong>"red"</strong>, <strong>"green"</strong>, <strong>"blue</strong>", <strong>"alpha</strong>".</li>
+    <li><strong>x1</strong>, <strong>y1</strong>, <strong>x2</strong>, <strong>y2</strong>: Region of the bytemap to acquire. By default, these have values 1, 1,
+    <strong>width</strong>, and <strong>height</strong> respectively, cf. <a href="api.html#newTexture">newTexture</a>.</li>
+</ul>
+
+<p> Coordinates outside this original region will be clipped against it. Furthermore, they will be sorted
+ such that <strong>x1</strong> &lt; <strong>x2</strong>, <strong>y1</strong> &lt; <strong>y2</strong>.</p>
+
+<p> If two related coordinates are outside in the same way&mdash;both <strong>x1</strong> and <strong>x2</strong> &lt; 1, for
+ instance&mdash;we have an empty region, so a zero-length string will be returned.
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
-
+        <li>
            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        Bytes.
+        Bytes.</li>
+        <li>
+           <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        If <strong>get_info</strong> was provided as an option, the info table.</li>
     </ol>
 
 
@@ -129,23 +164,38 @@
 </dd>
     <dt>
     <a name = "Bytemap:SetBytes"></a>
-    <strong>Bytemap:SetBytes (Bytes[, Options])</strong>
+    <strong>Bytemap:SetBytes (bytes[, opts])</strong>
     </dt>
     <dd>
-    Set some bytes!
+    Sets a bytemap's bytes.
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">Bytes</span>
-            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        !
+        <li><span class="parameter">bytes</span>
+            <span class="types"><span class="type">Bytes</span></span>
+         Bytes to assign.
         </li>
-        <li><span class="parameter">Options</span>
-            <span class="types"><span class="type">ptable</span></span>
-        !
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+<p> Set options, which include:</p>
+
+<ul>
+    <li><strong>get_info</strong>: As per <a href="api.html#Bytemap:GetBytes">GetBytes</a>.</li>
+    <li><strong>format</strong>: One of <strong>"mask"</strong>, <strong>"rgb"</strong>, <strong>"rgba"</strong>, <strong>"red"</strong>, <strong>"green"</strong>, <strong>"blue</strong>", <strong>"alpha</strong>", <strong>"grayscale"</strong>.</li>
+    <li><strong>x1</strong>, <strong>y1</strong>, <strong>x2</strong>, <strong>y2</strong>:</li>
+    <li><strong>colorkey</strong>:</li>
+</ul>
+
         </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        If <strong>get_info</strong> was provided as an option, the info table.
+    </ol>
 
 
 
