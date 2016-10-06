@@ -1,0 +1,736 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Documentation</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>imagekit</h1>
+
+<ul>
+  <li><a href="../api.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../modules/blob.html">blob</a></li>
+  <li><a href="../modules/image.html">image</a></li>
+  <li><a href="../modules/image_resize.html">image_resize</a></li>
+  <li><strong>image_write</strong></li>
+  <li><a href="../modules/sdf.html">sdf</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>image_write</code></h1>
+<p>Corona binding for <strong>stb_image_write</strong>, from Sean T.</p>
+<p> Barrett's <a href="https://github.com/nothings/stb">stb</a>. Jon Olick's
+ <a href="http://www.jonolick.com/home/gif-writer">GIF writer</a> is used to save GIFs.</p>
+
+<h2> From stb_image_write.h, with some revisions:</h2>
+
+<p> This is a library for writing images to files or memory.</p>
+
+<p> The PNG output is not optimal; it is 20-50% larger than the file
+ written by a decent optimizing implementation. This library is designed
+ for source code compactness and simplicity, not optimal image file size
+ or run-time performance.</p>
+
+<p> USAGE:</p>
+
+<p> There are four functions, one for each image file format:</p>
+
+<pre><code>ok = imagekit.write.png(filename, w, h, comp, data, stride_in_bytes)
+ok = imagekit.write.bmp(filename, w, h, comp, data)
+ok = imagekit.write.tga(filename, w, h, comp, data)
+ok = imagekit.write.hdr(filename, w, h, comp, data)
+</code></pre>
+
+<p> Each function returns <strong>true</strong> to indicate success and <strong>false</strong> for failure.</p>
+
+<p> The functions create an image file defined by the parameters. The image
+ is a rectangle of pixels stored from left-to-right, top-to-bottom.
+ Each pixel contains <em>comp</em> channels of data stored interleaved with 8-bits
+ per channel, in the following order: 1=Y, 2=YA, 3=RGB, 4=RGBA. (Y is
+ monochrome color.) The rectangle is <em>w</em> pixels wide and <em>h</em> pixels tall.
+ <em>data</em> points to the first byte of the top-left-most pixel.
+ For PNG, <em>stride_in_bytes</em> is the distance in bytes from the first byte of
+ a row of pixels to the first byte of the next row of pixels.</p>
+
+<p> PNG creates output files with the same number of components as the input.
+ The BMP format expands Y to RGB in the file format and does not
+ output alpha.</p>
+
+<p> PNG supports writing rectangles of data even when the bytes storing rows of
+ data are not consecutive in memory (e.g. sub-rectangles of a larger image),
+ by supplying the stride between the beginning of adjacent rows. The other
+ formats do not. (Thus you cannot write a native-format BMP through the BMP
+ writer, both because it is in BGR order and because it may have padding
+ at the end of the line.)</p>
+
+<p> HDR expects linear float data. Since the format is always 32-bit rgb(e)
+ data, alpha (if provided) is discarded, and for monochrome data it is
+ replicated across all three channels.</p>
+
+<p> TGA supports RLE or non-RLE compressed data.</p>
+
+<p> <strong>From stb's project page:</strong></p>
+
+<p> This software is dual-licensed to the public domain and under the following
+ license: you are granted a perpetual, irrevocable license to copy, modify,
+ publish, and distribute this file as you see fit.</p>
+
+<p> Jon Olick's GIF writer is likewise public domain.</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#bmp">bmp (filename[, baseDir=system.DocumentsDirectory], w, h, bpp, data)</a></td>
+	<td class="summary">J!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#bmp_to_memory">bmp_to_memory (w, h, bpp, data)</a></td>
+	<td class="summary">J!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#gif">gif (filename[, baseDir=system.DocumentsDirectory], w, h, frames[, repeat=0[, palette_depth=8]])</a></td>
+	<td class="summary">J!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#gif_to_memory">gif_to_memory (bytes, w, h, frames[, repeat=0[, palette_depth=8]])</a></td>
+	<td class="summary">J!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#hdr">hdr (filename[, baseDir=system.DocumentsDirectory], w, h, bpp, data)</a></td>
+	<td class="summary">J!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#hdr_to_memory">hdr_to_memory (w, h, bpp, data)</a></td>
+	<td class="summary">J!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#png">png (filename[, baseDir=system.DocumentsDirectory], w, h, bpp, data[, stride=0])</a></td>
+	<td class="summary">J!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#png_to_memory">png_to_memory (w, h, bpp, data[, stride=0])</a></td>
+	<td class="summary">J!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#tga">tga (filename[, baseDir=system.DocumentsDirectory], w, h, bpp, data)</a></td>
+	<td class="summary">J!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#tga_to_memory">tga_to_memory (w, h, bpp, data)</a></td>
+	<td class="summary">J!!!</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "bmp"></a>
+    <strong>bmp (filename[, baseDir=system.DocumentsDirectory], w, h, bpp, data)</strong>
+    </dt>
+    <dd>
+    J!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">filename</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">baseDir</span>
+
+
+
+         (<em>default</em> system.DocumentsDirectory)
+        </li>
+        <li><span class="parameter">w</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">h</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">bpp</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">data</span>
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "bmp_to_memory"></a>
+    <strong>bmp_to_memory (w, h, bpp, data)</strong>
+    </dt>
+    <dd>
+    J!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">w</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">h</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">bpp</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">data</span>
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <span class="type">Bytes</span> or <span class="type">nil</span></span>
+        X
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "gif"></a>
+    <strong>gif (filename[, baseDir=system.DocumentsDirectory], w, h, frames[, repeat=0[, palette_depth=8]])</strong>
+    </dt>
+    <dd>
+    J!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">filename</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">baseDir</span>
+
+
+
+         (<em>default</em> system.DocumentsDirectory)
+        </li>
+        <li><span class="parameter">w</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">h</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">frames</span>
+            <span class="types"><a class="type" href="../modules/image.html#GifFrame">{image.GifFrame,...}</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">repeat</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+         (<em>default</em> 0)
+        </li>
+        <li><span class="parameter">palette_depth</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+         (<em>default</em> 8)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <strong>true</strong>, indicating success.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>false</strong>, indicating failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "gif_to_memory"></a>
+    <strong>gif_to_memory (bytes, w, h, frames[, repeat=0[, palette_depth=8]])</strong>
+    </dt>
+    <dd>
+    J!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">bytes</span>
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">w</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">h</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">frames</span>
+            <span class="types"><a class="type" href="../modules/image.html#GifFrame">{image.GifFrame,...}</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">repeat</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+         (<em>default</em> 0)
+        </li>
+        <li><span class="parameter">palette_depth</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+         (<em>default</em> 8)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        X
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "hdr"></a>
+    <strong>hdr (filename[, baseDir=system.DocumentsDirectory], w, h, bpp, data)</strong>
+    </dt>
+    <dd>
+    J!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">filename</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">baseDir</span>
+
+
+
+         (<em>default</em> system.DocumentsDirectory)
+        </li>
+        <li><span class="parameter">w</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">h</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">bpp</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">data</span>
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "hdr_to_memory"></a>
+    <strong>hdr_to_memory (w, h, bpp, data)</strong>
+    </dt>
+    <dd>
+    J!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">w</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">h</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">bpp</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">data</span>
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <span class="type">Bytes</span> or <span class="type">nil</span></span>
+        X
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "png"></a>
+    <strong>png (filename[, baseDir=system.DocumentsDirectory], w, h, bpp, data[, stride=0])</strong>
+    </dt>
+    <dd>
+    J!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">filename</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">baseDir</span>
+
+
+
+         (<em>default</em> system.DocumentsDirectory)
+        </li>
+        <li><span class="parameter">w</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">h</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">bpp</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">data</span>
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">stride</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+         (<em>default</em> 0)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "png_to_memory"></a>
+    <strong>png_to_memory (w, h, bpp, data[, stride=0])</strong>
+    </dt>
+    <dd>
+    J!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">w</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">h</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">bpp</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">data</span>
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">stride</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+         (<em>default</em> 0)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <span class="type">Bytes</span> or <span class="type">nil</span></span>
+        X
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "tga"></a>
+    <strong>tga (filename[, baseDir=system.DocumentsDirectory], w, h, bpp, data)</strong>
+    </dt>
+    <dd>
+    J!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">filename</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">baseDir</span>
+
+
+
+         (<em>default</em> system.DocumentsDirectory)
+        </li>
+        <li><span class="parameter">w</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">h</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">bpp</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">data</span>
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Operation was successful?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "tga_to_memory"></a>
+    <strong>tga_to_memory (w, h, bpp, data)</strong>
+    </dt>
+    <dd>
+    J!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">w</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">h</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">bpp</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">data</span>
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <span class="type">Bytes</span> or <span class="type">nil</span></span>
+        X
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
