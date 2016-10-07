@@ -6,10 +6,10 @@ settings =
 		-- supported = { "landscapeLeft", "landscapeRight" },
 		-- supported = { "landscapeLeft", "landscapeRight", "portrait", "portraitUpsideDown", },
 	},
-	plugins = {
+	plugins = {--[[
         ["plugin.MemoryBlob"] = {
             publisherId = "com.xibalbastudios",
-        }
+        }]]
 	},
 	iphone =
 	{
