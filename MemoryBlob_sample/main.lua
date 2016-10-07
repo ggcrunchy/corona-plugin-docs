@@ -127,6 +127,13 @@ resizable:Append("But this will")
 
 PrintContents()
 
+print("Cloning current blobs")
+print("")
+
+local aligned_clone = aligned:Clone()
+local fixed_clone = fixed:Clone()
+local resizable_clone = resizable:Clone()
+
 print("Inserting")
 print("")
 
@@ -161,7 +168,10 @@ local rprops = {}
 for k, props in pairs{
 	aligned = aligned:GetProperties(),
 	fixed = fixed:GetProperties(),
-	resizable = resizable:GetProperties(rprops)
+	resizable = resizable:GetProperties(rprops),
+	aligned_clone = aligned_clone:GetProperties(),
+	fixed_clone = fixed_clone:GetProperties(),
+	resizable_clone = resizable_clone:GetProperties()
 } do
 	print("Which one?", k)
 
@@ -180,3 +190,12 @@ for name, prop in pairs(rprops) do
 end
 
 print("")
+
+print("Send in the clones!")
+print("")
+
+aligned = aligned_clone -- swap these out to spoof PrintContents(); originals are garbage-collected
+fixed = fixed_clone
+resizable = resizable_clone
+
+PrintContents()
