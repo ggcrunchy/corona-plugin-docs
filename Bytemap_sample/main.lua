@@ -23,22 +23,58 @@
 -- [ MIT license: http://www.opensource.org/licenses/mit-license.php ]
 --
 
---[[
-local impack = require("plugin.impack")
+-- Standard library imports --
+local char = string.char
+local cos = math.cos
+local floor = math.floor
+
+-- Plugins --
 local bytemap = require("plugin.Bytemap")
 
-local bbytes, w, h = impack.image.load("FLAG.TGA")
+-- Some basic help.
+display.newText("Click and drag the glowing box to paint the framed region", display.contentCenterX, 35, native.systemFontBold, 14)
+
+-- Make a brush with a time-based shader-ish effect. The pattern is switched
+-- frequently so that the screen doesn't becomes too homogenized once it gets
+-- somewhat full.
+local bconfig_set_bytes, rgb, w, h = { format = "rgb" }, {}, 32, 32
 local btex = bytemap.newTexture{ width = w, height = h, format = "rgba" }
-
-btex:SetBytes(bbytes)
-
 local brush = display.newImage(btex.filename, btex.baseDir)
 
 brush.x, brush.y = display.contentCenterX, display.contentCenterY
 
+timer.performWithDelay(50, function()
+	local t = system.getTimer()
+	local period = t % 9000 -- switch patterns with a period of (6 * 1.5) seconds
+	local index = floor(period / 1500) -- which pattern? (0 to 5)
+	local ri = floor(index / 2) + 1 -- red component...
+	local gi = (ri + index % 2) % 3 + 1 -- ...green...
+	local bi = 6 - ri - gi -- ...and blue
+	local frame_delta = period / 300 -- vary the colors slightly from frame to frame
+
+	for j = 1, h do
+		for i = 1, w do
+			rgb[ri] = floor(255 * cos(frame_delta + (i * j) * 30)^2)
+			rgb[gi] = floor(96 * cos(frame_delta * 5 + (i + j) * 45)^2)
+			rgb[bi] = floor(255 * cos(frame_delta + j * 50)^2)
+
+			-- 1-pixel region. This is just for show; alternatively, we can gather, concatenate,
+			-- and blast the whole 32 x 32 batch in one shot. Note that this is RGB data sent to
+			-- an RGBA target (see config declaration above).
+			bconfig_set_bytes.x1, bconfig_set_bytes.x2 = i, i
+			bconfig_set_bytes.y1, bconfig_set_bytes.y2 = j, j
+
+			btex:SetBytes(char(rgb[1], rgb[2], rgb[3]), bconfig_set_bytes)
+		end
+	end
+
+	btex:invalidate()
+end, 0)
+
+-- The larger bytemap that the brush will be painting.
 local larger = bytemap.newTexture{
-	width = math.floor(.75 * display.contentWidth),
-	height = math.floor(.75 * display.contentHeight),
+	width = math.floor(.75 * display.viewableContentWidth),
+	height = math.floor(.7 * display.viewableContentHeight),
 	format = "rgba"
 }
 
@@ -46,6 +82,8 @@ local fill_me = display.newImage(larger.filename, larger.baseDir)
 
 fill_me.x, fill_me.y = brush.x, brush.y
 
+-- Put a frame around the larger bytemap to indicate the boundaries, since it will
+-- be all black until we fill it up a bit.
 local fbounds = fill_me.contentBounds
 local frect = display.newRect(fill_me.x, fill_me.y, fbounds.xMax - fbounds.xMin, fbounds.yMax - fbounds.yMin)
 
@@ -54,46 +92,10 @@ frect:setStrokeColor(1, 0, 0)
 
 frect.strokeWidth = 2
 
+-- Fade the brush out slightly.
 brush.alpha = .45
 
-local fw, fh = fill_me.width, fill_me.height
-
-local function GetBytes (info)
-	local bytes = ""
-
-	if info.x2 >= 1 and info.x1 <= fw and info.y2 >= 1 and info.y1 <= fh then
-		local x1, y1, x2, y2 = info.x1, info.y1, info.x2, info.y2
-		local xoff, yoff = 0, 0
-
-		if x1 <= 0 then
-			xoff = xoff - x1 + 1
-		end
-
-		if x2 > fw then
-			x2 = fw
-		end
-
-		if y1 <= 0 then
-			yoff = yoff - y1 + 1
-		end
-
-		if y2 > fh then
-			y2 = fh
-		end
-
-		local stride = w * 4
-		local offset = yoff * stride + xoff * 4
-		local bw = (x2 - (x1 + xoff) + 1) * 4
-
-		for y = y1 + yoff, y2 do
-			bytes = bytes .. bbytes:sub(offset + 1, offset + bw)
-			offset = offset + stride
-		end
-	end
-
-	return bytes
-end
-
+-- Allow brush drags.
 brush:addEventListener("touch", function(event)
 	local phase, target = event.phase, event.target
 
@@ -102,31 +104,24 @@ brush:addEventListener("touch", function(event)
 			display.getCurrentStage():setFocus(target)
 
 			target.xwas, target.ywas = event.x, event.y
-		else
+		elseif target.xwas then -- account for drags onto brush from outside
 			target.x, target.y = target.x + event.x - target.xwas, target.y + event.y - target.ywas
 			target.xwas, target.ywas = event.x, event.y
 		end
 
+		-- Stuff the current brush bytes into the larger bytemap, then refresh
+		-- the latter to show the changes.
 		local bounds = target.contentBounds
 		local x1m1, y1m1 = bounds.xMin - fbounds.xMin, bounds.yMin - fbounds.yMin
-		local info = {}
-		local config = {
+
+		larger:SetBytes(btex:GetBytes(), {
 			x1 = x1m1 + 1, x2 = x1m1 + w,
-			y1 = y1m1 + 1, y2 = y1m1 + h,
-			get_info = info
-		}
-
-		larger:SetBytes(btex:GetBytes(), config)
+			y1 = y1m1 + 1, y2 = y1m1 + h
+		})
 		larger:invalidate()
-
-		local bytes = GetBytes(config)
-		local lbytes = larger:GetBytes(config)
-
-		print("COMPARE!", bytes == lbytes)
 	elseif phase == "ended" or phase == "cancelled" then
 		display.getCurrentStage():setFocus(nil)
 	end
 
 	return true
 end)
-]]
