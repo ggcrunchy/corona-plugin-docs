@@ -35,28 +35,30 @@ local bytemap = require("plugin.Bytemap")
 display.newText("Click and drag the glowing box to paint the framed region", display.contentCenterX, 35, native.systemFontBold, 14)
 
 -- Make a brush with a time-based shader-ish effect. The pattern is switched
--- frequently so that the screen doesn't becomes too homogenized once it gets
--- somewhat full.
+-- frequently so that the screen stays a bit varied even as you fill it up.
 local bconfig_set_bytes, rgb, w, h = { format = "rgb" }, {}, 32, 32
 local btex = bytemap.newTexture{ width = w, height = h, format = "rgba" }
 local brush = display.newImage(btex.filename, btex.baseDir)
 
 brush.x, brush.y = display.contentCenterX, display.contentCenterY
 
-timer.performWithDelay(50, function()
-	local t = system.getTimer()
-	local period = t % 9000 -- switch patterns with a period of (6 * 1.5) seconds
-	local index = floor(period / 1500) -- which pattern? (0 to 5)
-	local ri = floor(index / 2) + 1 -- red component...
+local PatternTime = 1500
+local Period = 6 * PatternTime  -- 6 = the number of permutations of (1, 2, 3), so how many ways we can
+								-- switch around the RGB components
+
+timer.performWithDelay(50, function(event)
+	local when = event.time % Period -- switch patterns with a period of (N * Time) seconds
+	local index = floor(when / PatternTime) -- which pattern? (0 to N - 1)
+	local ri = floor(index / 2) + 1 -- "red" component... (use three indices so we can shuffle colors)
 	local gi = (ri + index % 2) % 3 + 1 -- ...green...
 	local bi = 6 - ri - gi -- ...and blue
-	local frame_delta = period / 300 -- vary the colors slightly from frame to frame
+	local frame_delta = when / 300 -- vary the colors slightly from frame to frame
 
 	for j = 1, h do
 		for i = 1, w do
-			rgb[ri] = floor(255 * cos(frame_delta + (i * j) * 30)^2)
-			rgb[gi] = floor(96 * cos(frame_delta * 5 + (i + j) * 45)^2)
-			rgb[bi] = floor(255 * cos(frame_delta + j * 50)^2)
+			rgb[ri] = floor(255 * cos(frame_delta + (i * j) * 30)^2) -- write "red" component...
+			rgb[gi] = floor(96 * cos(frame_delta * 5 + (i + j) * 45)^2) -- ...green...
+			rgb[bi] = floor(255 * cos(frame_delta + j * 50)^2) -- ...blue
 
 			-- 1-pixel region. This is just for show; alternatively, we can gather, concatenate,
 			-- and blast the whole 32 x 32 batch in one shot. Note that this is RGB data sent to
@@ -92,9 +94,6 @@ frect:setStrokeColor(1, 0, 0)
 
 frect.strokeWidth = 2
 
--- Fade the brush out slightly.
-brush.alpha = .45
-
 -- Allow brush drags.
 brush:addEventListener("touch", function(event)
 	local phase, target = event.phase, event.target
@@ -104,23 +103,27 @@ brush:addEventListener("touch", function(event)
 			display.getCurrentStage():setFocus(target)
 
 			target.xwas, target.ywas = event.x, event.y
-		elseif target.xwas then -- account for drags onto brush from outside
+		elseif target.xwas then -- ignore drags onto brush from outside...
 			target.x, target.y = target.x + event.x - target.xwas, target.y + event.y - target.ywas
 			target.xwas, target.ywas = event.x, event.y
+		else -- ... in fact, don't even respond to them
+			return false
 		end
 
-		-- Stuff the current brush bytes into the larger bytemap, then refresh
+		-- Stuff the brush's current bytes into the larger bytemap, then refresh
 		-- the latter to show the changes.
 		local bounds = target.contentBounds
 		local x1m1, y1m1 = bounds.xMin - fbounds.xMin, bounds.yMin - fbounds.yMin
 
-		larger:SetBytes(btex:GetBytes(), {
-			x1 = x1m1 + 1, x2 = x1m1 + w,
+		larger:SetBytes(btex:GetBytes(), {	-- TODO: just 'btex' if Bytemaps implement ByteReader,
+			x1 = x1m1 + 1, x2 = x1m1 + w,	-- which would also avoid a wasteful copy
 			y1 = y1m1 + 1, y2 = y1m1 + h
 		})
 		larger:invalidate()
 	elseif phase == "ended" or phase == "cancelled" then
 		display.getCurrentStage():setFocus(nil)
+
+		target.xwas, target.ywas = nil
 	end
 
 	return true
