@@ -43,9 +43,14 @@
 <div id="content">
 
 <h1>Module <code>bytemap</code></h1>
-<p>Byte-flavored memory bitmap, useful for loading image-style assets from byte streams (and <em>vice versa</em>).</p>
+<p>Byte-flavored memory bitmap, useful for loading image-style assets from byte streams (and <em>vice versa</em>),
+ where components are integers ranging from 0 to 255.</p>
 <p>
 
+
+<p> While bytemaps <em>can</em> be used like Corona's <a href="https://docs.coronalabs.com/plugin/memoryBitmap/type/MemoryBitmap/index.html">memory bitmap</a>,
+ the latter should be preferred for per-pixel operations. More typical bytemap usage will involve bulk operations,
+ such as reading entire images from custom file formats or network downloads.</p>
 
 <p> To use the plugin, add the following in <code>build.settings</code>:</p>
 
@@ -138,36 +143,37 @@
     Gets a bytemap's bytes. </p>
 
 <p> More specifically, gets the region from (<em>x1</em>, <em>y1</em>) in the upper-left to (<em>x2</em>, <em>y2</em>) in the
- lower-right. By default, these have values (1, 1) and (<em>width</em>, <em>height</em>) respectively, cf. <a href="api.html#newTexture">newTexture</a>,
+ lower-right. By default, these have values (1, 1) and (<em>width</em>, <em>height</em>) respectively (cf. <a href="api.html#newTexture">newTexture</a>),
  meaning the full bytemap.</p>
 
-<p> Coordinates outside this full region will be clipped against it. Furthermore, they are sorted so
+<p> Coordinates will be clipped if necessary to stay within this full region. Furthermore, they are sorted so
  that <em>x1</em> &lt; <em>x2</em> and <em>y1</em> &lt; <em>y2</em>.</p>
 
-<p> If two related coordinates are outside in the same way&mdash;both <em>x1</em> and <em>x2</em> &lt; 1, for
- instance&mdash;we have an empty region, so a zero-length string will be returned.
+<p> If two related coordinates are outside in the same way&mdash;<em>x1</em> and <em>x2</em> both &lt; 1, for
+ instance&mdash;the region is empty. In this case, a zero-length string is returned.
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         Get options, which include:</p>
+         Options for getting bytes, which include:</p>
 
 <ul>
-    <li><strong>get_info</strong>: If true, a table will be populated with some final results of the get operation. If
-    this also happens to be a table, this will be what is returned; otherwise, a new table is created.</li>
+    <li><strong>get_info</strong>: If true, a table is populated with some final results (described below). The value
+    may be a table, in which case it will be the one used; otherwise, a new table is created.</li>
     <li><strong>x1</strong>, <strong>y1</strong>, <strong>x2</strong>, <strong>y2</strong>: Custom region coordinates, cf. the summary.</li>
     <li><strong>format</strong>: One of <strong>"mask"</strong>, <strong>"rgb"</strong>, <strong>"rgba"</strong>, <strong>"red"</strong>, <strong>"green"</strong>, <strong>"blue</strong>", <strong>"alpha</strong>",
     describing the format of the final bytes.</li>
 </ul>
 
-<p> If absent, the bytemap's contents are returned as-is. Otherwise, with any of the first three choices,
- the result is converted, lopping off bytes or padding as needed (for blue and green channels, using 0
- bytes; the alpha channel is padded with a 255 byte).</p>
+<p> When absent, the bytemap's contents are returned as-is. Otherwise, with any of the first three choices,
+ the result is converted, lopping off or adding padding bytes as needed (for blue and green channels,
+ using <code>0</code> bytes; the alpha channel is padded with a <code>255</code> byte).</p>
 
-<p> The remaining options provide a result in one-byte-per-pixel form, containing the byte from each pixel
- that belongs to the named component. If the bytemap has no such channel (e.g. its format is <strong>"mask"</strong>,
- and <strong>"green"</strong> or <strong>"alpha"</strong> was requested), a zero-length string is returned.
+<p> The remaining options emit a result in one-byte-per-pixel form, containing the bytes from each pixel
+ belonging to the named component. If the bytemap has no such channel (e.g. its format is <strong>"mask"</strong>,
+ but <strong>"green"</strong> or <strong>"alpha"</strong> was requested), a zero-length string is returned. (<strong>"red"</strong> and <strong>"mask"</strong>
+ are synonyms.)
         </li>
     </ul>
 
@@ -175,20 +181,20 @@
     <ol>
         <li>
            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        Bytes.</li>
+        A copy of the requested bytes.</li>
         <li>
            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          If <strong>get_info</strong> was provided as an option, the info table.</p>
 
 <p> The final region coordinates will be added under the <strong>x1</strong>, <strong>y1</strong>, <strong>x2</strong>, and <strong>y2</strong> fields.
- In the case of null regions these will be the original values (though sorted).</p>
+ In the case of empty regions these will be the original values (though sorted).</p>
 
 <p> Additionally, a <strong>format</strong> field will be assigned one of <strong>"mask"</strong>, <strong>"rgb"</strong>, or <strong>"rgba"</strong>,
  describing the underlying format of the returned bytes. In particular, if anything other than
- <strong>"rgb"</strong> or <strong>"rgba"</strong> was specified in the <strong>format</strong> option, this will be <strong>"mask"</strong>.</p>
+ <strong>"rgb"</strong> or <strong>"rgba"</strong> was specified as the <strong>format</strong> option, this will be <strong>"mask"</strong>.</p>
 
-<p> For non-null regions, the returned bytes are to be understood as a (<em>x2</em> - <em>x1</em> + 1) x (<em>y2</em> -
- <em>y1</em> + 1)-sized region with bytes-per-pixel corresponding to <em>format</em>.</li>
+<p> For non-empty regions, the returned bytes are to be understood as a (<em>x2</em> - <em>x1</em> + 1) &times; (<em>y2</em> -
+ <em>y1</em> + 1)-sized rectangle with bytes-per-pixel corresponding to <em>format</em>.</li>
     </ol>
 
 
@@ -202,8 +208,12 @@
     <dd>
     Sets a bytemap's bytes. </p>
 
-<p> Most of the region details carry over from <a href="api.html#Bytemap:GetBytes">Bytemap:GetBytes</a>, except null regions are merely a
- no-op, rather than affecting a return value.
+<p> The region details largely carry over from <a href="api.html#Bytemap:GetBytes">Bytemap:GetBytes</a>, although see the note about custom
+ region coordinates below. No bytes change when the region is empty.</p>
+
+<p> If too few bytes are provided to service the requested region, it will be clipped against the last
+ line containing pixels. (Color-keyed pixels are considered present for purposes of this analysis.)
+ Furthermore, any incomplete final pixel is discarded.
 
     <h3>Parameters:</h3>
     <ul>
@@ -213,12 +223,13 @@
         </li>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         Set options, which include:</p>
+         Options for setting bytes, which include:</p>
 
 <ul>
     <li><strong>get_info</strong>: As per <a href="api.html#Bytemap:GetBytes">GetBytes</a>.</li>
-    <li><strong>x1</strong>, <strong>y1</strong>, <strong>x2</strong>, <strong>y2</strong>: Custom region coordinates, cf. the summary. The <em>bytes</em> data is
-    interpreted as having dimensions (<em>x2</em> - <em>x1</em> + 1) x (<em>y2</em> - <em>y1</em> + 1), with sorting but no clipping.</li>
+    <li><strong>x1</strong>, <strong>y1</strong>, <strong>x2</strong>, <strong>y2</strong>: Custom region coordinates, cf. the summary. <em>bytes</em> is interpreted
+    as a (<em>x2</em> - <em>x1</em> + 1) &times; (<em>y2</em> - <em>y1</em> + 1)-sized rectangle. <strong>N.B.</strong> <em>bytes</em> sees the coordinates'
+    unclipped values (though sorted), whereas an info table will contain them in their final form.</li>
     <li><strong>colorkey</strong>: If provided, a <strong>Bytes</strong> value of one or more bytes (zero-padded if necessary to agree
     with <em>format</em>; excess bytes are dropped). Pixels in <em>bytes</em> that match <em>colorkey</em> are skipped, leaving
     the bytemap contents intact.</li>
@@ -227,12 +238,12 @@
 </ul>
 
 <p> If absent, the bytemap's format is used. Otherwise, with any of the first three choices, discrepancies
- are handled as follows: if <em>bytes</em> has more components than the bytemap, those are left unwritten; if it
- has fewer, on the other hand, the additional channels in the bytemap are left intact.</p>
+ are handled as follows: if <em>bytes</em> has more components than the bytemap, the extra bytes are not written;
+ with fewer, the additional channels in the bytemap are left alone.</p>
 
 <p> The remaining options assume <em>bytes</em> to be in one-byte-per-pixel form. In the case of <strong>"grayscale"</strong>, the
- byte is copied to all channels of the bytemap's pixel. Otherwise, the byte is written to the named channel
- in that pixel (this is a no-op if the bytemap has no such channel, cf. the similar note for <a href="api.html#Bytemap:GetBytes">Bytemap:GetBytes</a>).
+ byte is copied to each non-alpha channel of the bytemap's pixel. Otherwise, the byte is written to the named
+ channel in that pixel (this is a no-op if the bytemap has no such channel, cf. the similar note for <a href="api.html#Bytemap:GetBytes">Bytemap:GetBytes</a>).
         </li>
     </ul>
 
@@ -243,11 +254,7 @@
          The info table, if requested.</p>
 
 <p> The <strong>format</strong> field is much like that of <a href="api.html#Bytemap:GetBytes">Bytemap:GetBytes</a>, except describing the assigned&mdash;rather
- than returned&mdash;bytes.</p>
-
-<p> However, in the case of non-null regions, the coordinates differ from <a href="api.html#Bytemap:GetBytes">Bytemap:GetBytes</a>, describing the
- (<em>x2</em> - <em>x1</em> + 1) x (<em>y2</em> - <em>y1</em> + 1)-sized region that was actually visited (n.b. not necessarily written,
- due to color keys or insufficient bytes).
+ than returned&mdash;bytes.
     </ol>
 
 
