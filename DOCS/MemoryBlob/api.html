@@ -100,7 +100,7 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MemoryBlob:Insert">MemoryBlob:Insert (pos, bytes)</a></td>
-	<td class="summary">Inserts bytes into the blob, starting at position <em>pos</em>, moving other bytes ahead.</td>
+	<td class="summary">Inserts bytes into the blob, starting at position <em>pos</em>.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MemoryBlob:IsLocked">MemoryBlob:IsLocked ()</a></td>
@@ -112,7 +112,7 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MemoryBlob:Remove">MemoryBlob:Remove ([i1=1[, i2=#self]])</a></td>
-	<td class="summary">Removes a range of bytes from the blob, moving other bytes back.</td>
+	<td class="summary">Removes a range of bytes from the blob.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MemoryBlob:Write">MemoryBlob:Write (pos, bytes)</a></td>
@@ -287,8 +287,8 @@
     <dd>
     Dumps the blob's contents to a string of bytes. </p>
 
-<p> If either of the indices refer to a position outside the blob, or <em>i1</em> &gt; <em>i2</em>, an
- empty string is returned.
+<p> If either index refers to a position outside the blob, or <em>i1</em> &gt; <em>i2</em> (after normalizing any
+ negative indices), an empty string is returned.
 
     <h3>Parameters:</h3>
     <ul>
@@ -360,10 +360,10 @@
     <strong>MemoryBlob:Insert (pos, bytes)</strong>
     </dt>
     <dd>
-    Inserts bytes into the blob, starting at position <em>pos</em>, moving other bytes ahead. </p>
+    Inserts bytes into the blob, starting at position <em>pos</em>. </p>
 
-<p> Fixed-size blobs will move bytes ahead to make room for the additions. Any bytes moved beyond
- the end of the blob are thrown away.</p>
+<p> The current contents from <em>pos</em> onward are moved ahead #<em>bytes</em> positions to make room. In the case of
+ fixed-size blobs, any bytes moved beyond the end of the blob are thrown away.</p>
 
 <p> This is a no-op for locked blobs.
 
@@ -373,8 +373,9 @@
             <span class="types"><span class="type">int</span></span>
          Insert position, &isin; [1, #<em>self</em>]. (In the case of resizable blobs, #<em>self</em> + 1 is
  also valid; the call is then effectively <a href="api.html#MemoryBlob:Append">MemoryBlob:Append</a>.) A negative index may also be
- provided, cf. <a href="api.html#MemoryBlob:GetBytes">MemoryBlob:GetBytes</a> for details. No bytes are inserted when the index falls
- outside the legal range.
+ provided, cf. <a href="api.html#MemoryBlob:GetBytes">MemoryBlob:GetBytes</a> for details.</p>
+
+<p> No bytes are inserted when the position lies outside the legal range.
         </li>
         <li><span class="parameter">bytes</span>
             <span class="types"><span class="type">Bytes</span></span>
@@ -405,8 +406,11 @@
     <dd>
     Indicates that the blob is locked for writing (via the native API). </p>
 
-<p> If this is true, the blob is not meant for general use and will be rejected by well-behaved
- external code (some utilities on the native side provide assistance here).
+<p> This is generally a clue that some code created the blob to use its features (<a href="api.html#MemoryBlob:Clone">MemoryBlob:Clone</a> or
+ <a href="api.html#MemoryBlob:GetBytes">MemoryBlob:GetBytes</a>, for example), but wants exclusive control of the blob's contents.</p>
+
+<p> Well-behaved APIs that write to blobs will reject ones outside their control (some utilities on the
+ native side provide assistance here), so this method can be used to filter them from Lua.
 
 
     <h3>Returns:</h3>
@@ -432,7 +436,7 @@
     <ol>
 
            <span class="types"><span class="type">uint</span></span>
-        Current size of blob.
+        Current size of blob, in bytes.
     </ol>
 
 
@@ -444,10 +448,12 @@
     <strong>MemoryBlob:Remove ([i1=1[, i2=#self]])</strong>
     </dt>
     <dd>
-    Removes a range of bytes from the blob, moving other bytes back. </p>
+    Removes a range of bytes from the blob. </p>
 
-<p> Resizable blobs will be shrunk to match the new size. In the case of fixed-size blobs, some slots
- will be left vacant as other bytes move down; these will be left as-is.</p>
+<p> Any bytes beyond <em>i2</em> will be moved down to fill the vacated positions.</p>
+
+<p> Resizable blobs will be shrunk to match the new size. Since fixed-size blobs cannot do this,
+ there will be some "extra" bytes after bytes are moved down; these will be left as-is.</p>
 
 <p> This is a no-op for locked blobs.
 
@@ -499,8 +505,9 @@
             <span class="types"><span class="type">int</span></span>
          Write position, &isin; [1, #<em>self</em>]. (In the case of resizable blobs, #<em>self</em> + 1 is
  also valid; the call is then effectively <a href="api.html#MemoryBlob:Append">MemoryBlob:Append</a>.) A negative index may also be
- provided, cf. <a href="api.html#MemoryBlob:GetBytes">MemoryBlob:GetBytes</a> for details. No bytes are written when the index falls
- outside the legal range.
+ provided, cf. <a href="api.html#MemoryBlob:GetBytes">MemoryBlob:GetBytes</a> for details.</p>
+
+<p> No bytes are written when the position lies outside the legal range.
         </li>
         <li><span class="parameter">bytes</span>
             <span class="types"><span class="type">Bytes</span></span>
