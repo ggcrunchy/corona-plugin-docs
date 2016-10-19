@@ -77,7 +77,7 @@
 	<td class="summary">Creates a new memory blob.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#MemoryBlob:Append">MemoryBlob:Append (Bytes)</a></td>
+	<td class="name" nowrap><a href="#MemoryBlob:Append">MemoryBlob:Append (bytes)</a></td>
 	<td class="summary">Adds bytes to the end of the blob.</td>
 	</tr>
 	<tr>
@@ -99,7 +99,7 @@
 </td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#MemoryBlob:Insert">MemoryBlob:Insert (pos, Bytes)</a></td>
+	<td class="name" nowrap><a href="#MemoryBlob:Insert">MemoryBlob:Insert (pos, bytes)</a></td>
 	<td class="summary">Inserts bytes into the blob, starting at position <em>pos</em>, moving other bytes ahead.</td>
 	</tr>
 	<tr>
@@ -115,7 +115,7 @@
 	<td class="summary">Removes a range of bytes from the blob, moving other bytes back.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#MemoryBlob:Write">MemoryBlob:Write (pos, Bytes)</a></td>
+	<td class="name" nowrap><a href="#MemoryBlob:Write">MemoryBlob:Write (pos, bytes)</a></td>
 	<td class="summary">Writes bytes to the blob, starting at position <em>pos</em>, overwriting the blob's contents.</td>
 	</tr>
 </table>
@@ -224,7 +224,7 @@
 </dd>
     <dt>
     <a name = "MemoryBlob:Append"></a>
-    <strong>MemoryBlob:Append (Bytes)</strong>
+    <strong>MemoryBlob:Append (bytes)</strong>
     </dt>
     <dd>
     Adds bytes to the end of the blob. </p>
@@ -233,9 +233,9 @@
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">Bytes</span>
+        <li><span class="parameter">bytes</span>
             <span class="types"><span class="type">Bytes</span></span>
-         to write.
+         Bytes to write.
         </li>
     </ul>
 
@@ -261,9 +261,10 @@
     <dd>
     Creates a clone of the blob. </p>
 
-<p> The clone inherits the alignment, resizability, size, and type of the original blob. The original
- blob's current bytes are copied to the clone. From this point onward, the blobs are independent,
- i.e. changes of one's contents are not reflected in the other.</p>
+<p> The clone inherits the alignment, resizability, size, and type of the original blob.</p>
+
+<p> Initially, the clone will contain a copy of the parent's current bytes. The two blobs are independent,
+ however; changes to one's contents are not reflected in the other.</p>
 
 <p> Clones begin unlocked.
 
@@ -356,7 +357,7 @@
 </dd>
     <dt>
     <a name = "MemoryBlob:Insert"></a>
-    <strong>MemoryBlob:Insert (pos, Bytes)</strong>
+    <strong>MemoryBlob:Insert (pos, bytes)</strong>
     </dt>
     <dd>
     Inserts bytes into the blob, starting at position <em>pos</em>, moving other bytes ahead. </p>
@@ -375,9 +376,9 @@
  provided, cf. <a href="api.html#MemoryBlob:GetBytes">MemoryBlob:GetBytes</a> for details. No bytes are inserted when the index falls
  outside the legal range.
         </li>
-        <li><span class="parameter">Bytes</span>
+        <li><span class="parameter">bytes</span>
             <span class="types"><span class="type">Bytes</span></span>
-         to insert.
+         Bytes to insert.
         </li>
     </ul>
 
@@ -482,7 +483,7 @@
 </dd>
     <dt>
     <a name = "MemoryBlob:Write"></a>
-    <strong>MemoryBlob:Write (pos, Bytes)</strong>
+    <strong>MemoryBlob:Write (pos, bytes)</strong>
     </dt>
     <dd>
     Writes bytes to the blob, starting at position <em>pos</em>, overwriting the blob's contents. </p>
@@ -501,9 +502,9 @@
  provided, cf. <a href="api.html#MemoryBlob:GetBytes">MemoryBlob:GetBytes</a> for details. No bytes are written when the index falls
  outside the legal range.
         </li>
-        <li><span class="parameter">Bytes</span>
+        <li><span class="parameter">bytes</span>
             <span class="types"><span class="type">Bytes</span></span>
-         to write.
+         Bytes to write.
         </li>
     </ul>
 
