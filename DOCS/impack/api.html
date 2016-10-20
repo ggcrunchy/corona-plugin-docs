@@ -31,9 +31,10 @@
 
 <h2>Modules</h2>
 <ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="modules/grayscale.html">grayscale</a></li>
   <li><a href="modules/image.html">image</a></li>
+  <li><a href="modules/ops.html">ops</a></li>
   <li><a href="modules/resize.html">resize</a></li>
-  <li><a href="modules/sdf.html">sdf</a></li>
   <li><a href="modules/write.html">write</a></li>
 </ul>
 
@@ -49,8 +50,7 @@
 
 <pre><code class="language-lua">plugins = {
   ["plugin.impack"] = { publisherId = "com.xibalbastudios" }
-}
-</code></pre>
+}</code></pre>
 
 
 <p>A sample project is available <a href="https://github.com/ggcrunchy/corona-plugin-docs/tree/master/impack_sample">here</a>.</p>
@@ -60,18 +60,22 @@
 <h2>Modules</h2>
 <table class="module_list">
 	<tr>
+		<td class="name"  nowrap><a href="modules/grayscale.html">grayscale</a></td>
+		<td class="summary">Operations to find and operate on grayscale values.</td>
+	</tr>
+	<tr>
 		<td class="name"  nowrap><a href="modules/image.html">image</a></td>
 		<td class="summary">Corona binding for <strong>stb_image</strong>, from Sean Barrett's <a href="https://github.com/nothings/stb">stb</a>, plus
  urraka's <a href="http://gist.github.com/urraka/685d9a6340b26b830d49">xload</a> for animated GIF support.</td>
 	</tr>
 	<tr>
+		<td class="name"  nowrap><a href="modules/ops.html">ops</a></td>
+		<td class="summary">Miscellaneous useful image operations.</td>
+	</tr>
+	<tr>
 		<td class="name"  nowrap><a href="modules/resize.html">resize</a></td>
 		<td class="summary">Corona binding for <strong>stb_image_resize</strong> by Jorge L Rodriguez (@VinoBS), from Sean Barrett's
  <a href="https://github.com/nothings/stb">stb</a>.</td>
-	</tr>
-	<tr>
-		<td class="name"  nowrap><a href="modules/sdf.html">sdf</a></td>
-		<td class="summary">Corona binding for Mikko Mononen's <a href="https://github.com/memononen/SDF">SDF</a>.</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/write.html">write</a></td>

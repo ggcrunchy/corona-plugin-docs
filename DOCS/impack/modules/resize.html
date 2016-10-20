@@ -38,9 +38,10 @@
 
 <h2>Modules</h2>
 <ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../modules/grayscale.html">grayscale</a></li>
   <li><a href="../modules/image.html">image</a></li>
+  <li><a href="../modules/ops.html">ops</a></li>
   <li><strong>resize</strong></li>
-  <li><a href="../modules/sdf.html">sdf</a></li>
   <li><a href="../modules/write.html">write</a></li>
 </ul>
 
@@ -62,13 +63,13 @@
  Easy API downsamples w/Mitchell filter, upsamples w/cubic interpolation.</p>
 
 <p> <strong>QUICKSTART</strong></p>
-<pre><code>  output_pixels = imagekit.resize.uint8(input_pixels, in_w, in_h,
+<pre><code>  output_pixels = impack.resize.uint8(input_pixels, in_w, in_h,
                            out_w, out_h, num_channels)
-  output_pixels = imagekit.resize.float(...)
-  output_pixels = imagekit.resize.uint8_srgb(input_pixels, in_w, in_h,
+  output_pixels = impack.resize.float(...)
+  output_pixels = impack.resize.uint8_srgb(input_pixels, in_w, in_h,
                            out_w, out_h,
                            num_channels, alpha_chan)
-  output_pixels = imagekit.resize.uint8_srgb_edgemode(
+  output_pixels = impack.resize.uint8_srgb_edgemode(
                            input_pixels, in_w, in_h,
                            out_w, out_h,
                            num_channels, alpha_chan, "CLAMP")
@@ -206,7 +207,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">input</span>
-            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><span class="type">Bytes</span></span>
 
 
 
@@ -252,7 +253,7 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><span class="type">Bytes</span></span>
         Y
     </ol>
 
@@ -270,7 +271,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">input</span>
-            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><span class="type">Bytes</span></span>
 
 
 
@@ -316,7 +317,7 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><span class="type">Bytes</span></span>
         Y
     </ol>
 
@@ -334,7 +335,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">input</span>
-            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><span class="type">Bytes</span></span>
 
 
 
@@ -386,7 +387,7 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><span class="type">Bytes</span></span>
         Y
     </ol>
 
@@ -404,7 +405,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">input</span>
-            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><span class="type">Bytes</span></span>
 
 
 
@@ -462,7 +463,7 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><span class="type">Bytes</span></span>
         Y
     </ol>
 
@@ -480,7 +481,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">input</span>
-            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><span class="type">Bytes</span></span>
 
 
 
@@ -550,7 +551,7 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><span class="type">Bytes</span></span>
         Y
     </ol>
 
@@ -568,7 +569,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">input</span>
-            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><span class="type">Bytes</span></span>
 
 
 
@@ -638,7 +639,7 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><span class="type">Bytes</span></span>
         Y
     </ol>
 
@@ -656,7 +657,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">input</span>
-            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><span class="type">Bytes</span></span>
 
 
 
@@ -726,7 +727,7 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><span class="type">Bytes</span></span>
         Y
     </ol>
 
@@ -744,7 +745,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">input</span>
-            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><span class="type">Bytes</span></span>
 
 
 
@@ -826,7 +827,7 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><span class="type">Bytes</span></span>
         Y
     </ol>
 
@@ -844,7 +845,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">input</span>
-            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><span class="type">Bytes</span></span>
 
 
 
@@ -956,7 +957,7 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><span class="type">Bytes</span></span>
         Y
     </ol>
 
@@ -974,7 +975,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">input</span>
-            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><span class="type">Bytes</span></span>
 
 
 
@@ -1086,7 +1087,7 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><span class="type">Bytes</span></span>
         Y
     </ol>
 

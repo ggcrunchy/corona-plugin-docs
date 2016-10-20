@@ -39,9 +39,10 @@
 
 <h2>Modules</h2>
 <ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../modules/grayscale.html">grayscale</a></li>
   <li><strong>image</strong></li>
+  <li><a href="../modules/ops.html">ops</a></li>
   <li><a href="../modules/resize.html">resize</a></li>
-  <li><a href="../modules/sdf.html">sdf</a></li>
   <li><a href="../modules/write.html">write</a></li>
 </ul>
 
@@ -100,7 +101,7 @@
 </ul>
 
 <p> Basic usage (see HDR discussion below for HDR usage):</p>
-<pre><code>local data, x, y, comp = imagekit.image.load(filename, 0)
+<pre><code>local data, x, y, comp = impack.image.load(filename, 0)
 -- ... process data if not nil ...
 -- ... x = width, y = height, comp = # 8-bit components per pixel ...
 -- ... replace '0' with '1'..'4' to force that many components per pixel
@@ -173,19 +174,9 @@ req_comp -- if non-zero, # of image components requested in result
 <p> <strong>SIMD support</strong>:</p>
 
 <p> The JPEG decoder will try to automatically use SIMD kernels on x86 when
- supported by the compiler. For ARM Neon support, you must explicitly
- request it.</p>
-
-<p> On x86, SSE2 will automatically be used when available based on a run-time
- test; if not, the generic C versions are used as a fall-back. On ARM targets,
- the typical path is to have separate builds for NEON and non-NEON devices
- (at least this is true for iOS and Android). Therefore, the NEON support is
- toggled by a build flag: define STBI_NEON to get NEON loops.</p>
-
-<p> The output of the JPEG decoder is slightly different from versions where
- SIMD support was introduced (that is, for versions before 1.49). The
- difference is only +-1 in the 8-bit RGB channels, and only on a small
- fraction of pixels.</p>
+ supported by the compiler. SSE2 will automatically be used when available
+ based on a run-time test; if not, the generic C versions are used as a
+ fall-back. Likewise, on ARM targets, NEON will be used when available.</p>
 
 <hr/>
 
@@ -198,8 +189,8 @@ req_comp -- if non-zero, # of image components requested in result
  LDR, assuming gamma 2.2 and an arbitrary scale factor defaulting to 1;
  both of these constants can be reconfigured through this interface:</p>
 
-<pre><code> imagekit.image.hdr_to_ldr_gamma(2.2)
- imagekit.image.hdr_to_ldr_scale(1.0)
+<pre><code> impack.image.hdr_to_ldr_gamma(2.2)
+ impack.image.hdr_to_ldr_scale(1.0)
 </code></pre>
 
 <p> (note, do not use <em>inverse</em> constants; stbi_image will invert them
@@ -208,15 +199,15 @@ req_comp -- if non-zero, # of image components requested in result
 <p> Additionally, there is a new, parallel interface for loading files as
  (linear) floats to preserve the full dynamic range:</p>
 
-<pre><code>local data, x, y, n = imagekit.image.loadf(filename)
+<pre><code>local data, x, y, n = impack.image.loadf(filename)
 </code></pre>
 
 <p> If you load LDR images through this interface, those images will
  be promoted to floating point values, run through the inverse of
  constants corresponding to the above:</p>
 
-<pre><code> imagekit.image.ldr_to_hdr_scale(1.0)
- imagekit.image.ldr_to_hdr_gamma(2.2)
+<pre><code> impack.image.ldr_to_hdr_scale(1.0)
+ impack.image.ldr_to_hdr_gamma(2.2)
 </code></pre>
 
 <p> Finally, given a filename (or an open file or memory block--see header
@@ -224,14 +215,14 @@ req_comp -- if non-zero, # of image components requested in result
  appropriate" interface to use (that is, whether the image is HDR or
  not), using:</p>
 
-<pre><code> imagekit.image.is_hdr(filename)
+<pre><code> impack.image.is_hdr(filename)
 </code></pre>
 
 <hr/>
 
 <p> <strong>iPhone PNG support</strong>:</p>
 
-<p> By default we convert iphone-formatted PNGs back to RGB, even though
+<p> By default we convert iPhone-formatted PNGs back to RGB, even though
  they are internally encoded differently.</p>
 
 <p> <strong>From stb's project page:</strong></p>
@@ -412,7 +403,7 @@ req_comp -- if non-zero, # of image components requested in result
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">bytes</span>
-            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><span class="type">Bytes</span></span>
 
 
 
@@ -483,7 +474,7 @@ req_comp -- if non-zero, # of image components requested in result
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">bytes</span>
-            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><span class="type">Bytes</span></span>
 
 
 
@@ -612,7 +603,7 @@ req_comp -- if non-zero, # of image components requested in result
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">bytes</span>
-            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><span class="type">Bytes</span></span>
 
 
 
@@ -685,7 +676,7 @@ req_comp -- if non-zero, # of image components requested in result
     <h3>Returns:</h3>
     <ol>
         <li>
-           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><span class="type">Bytes</span></span>
         DATA</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
@@ -736,7 +727,7 @@ req_comp -- if non-zero, # of image components requested in result
     <h3>Returns:</h3>
     <ol>
         <li>
-           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><span class="type">Bytes</span></span>
         DATA</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
@@ -835,7 +826,7 @@ req_comp -- if non-zero, # of image components requested in result
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">bytes</span>
-            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><span class="type">Bytes</span></span>
 
 
 
@@ -865,7 +856,7 @@ req_comp -- if non-zero, # of image components requested in result
     <h3>Fields:</h3>
     <ul>
         <li><span class="parameter">image</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><span class="type">Bytes</span></span>
          Frame data.
         </li>
         <li><span class="parameter">delay</span>

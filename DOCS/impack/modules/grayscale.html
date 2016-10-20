@@ -33,14 +33,16 @@
 <h2>Contents</h2>
 <ul>
 <li><a href="#Functions">Functions</a></li>
+<li><a href="#Tables">Tables</a></li>
 </ul>
 
 
 <h2>Modules</h2>
 <ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><strong>grayscale</strong></li>
   <li><a href="../modules/image.html">image</a></li>
+  <li><a href="../modules/ops.html">ops</a></li>
   <li><a href="../modules/resize.html">resize</a></li>
-  <li><strong>sdf</strong></li>
   <li><a href="../modules/write.html">write</a></li>
 </ul>
 
@@ -48,10 +50,9 @@
 
 <div id="content">
 
-<h1>Module <code>sdf</code></h1>
-<p>Corona binding for Mikko Mononen's <a href="https://github.com/memononen/SDF">SDF</a>.</p>
-<p>
-
+<h1>Module <code>grayscale</code></h1>
+<p>Operations to find and operate on grayscale values.</p>
+<p> The signed distance field operations wrap Mikko Mononen's <a href="https://github.com/memononen/SDF">SDF</a>.</p>
 
 <h2> From sdf.h, with some revisions:</h2>
 
@@ -91,18 +92,32 @@
  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.</p>
-</p>
 
 
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#BuildDistanceField">BuildDistanceField (X, radius, w, h[, opts])</a></td>
+	<td class="name" nowrap><a href="#build_distance_field">build_distance_field (X, radius, w, h[, opts])</a></td>
 	<td class="summary">D!!!</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#CoverageToDistanceField">CoverageToDistanceField (X, w, h[, opts])</a></td>
+	<td class="name" nowrap><a href="#coverage_to_distance_field">coverage_to_distance_field (X, w, h[, opts])</a></td>
 	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#rgb_to_gray">rgb_to_gray (X, w, h[, opts])</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#rgba_to_gray">rgba_to_gray (X, w, h[, opts])</a></td>
+	<td class="summary">D!!!</td>
+	</tr>
+</table>
+<h2><a href="#Tables">Tables</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#GrayscaleScheme">GrayscaleScheme</a></td>
+	<td class="summary">Various ways to compute grayscale from RGB.</td>
 	</tr>
 </table>
 
@@ -113,8 +128,8 @@
     <h2><a name="Functions"></a>Functions</h2>
     <dl class="function">
     <dt>
-    <a name = "BuildDistanceField"></a>
-    <strong>BuildDistanceField (X, radius, w, h[, opts])</strong>
+    <a name = "build_distance_field"></a>
+    <strong>build_distance_field (X, radius, w, h[, opts])</strong>
     </dt>
     <dd>
     D!!!
@@ -122,7 +137,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">X</span>
-            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><span class="type">Bytes</span></span>
 
 
 
@@ -156,7 +171,7 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><span class="type">Bytes</span></span>
         Y
     </ol>
 
@@ -165,8 +180,8 @@
 
 </dd>
     <dt>
-    <a name = "CoverageToDistanceField"></a>
-    <strong>CoverageToDistanceField (X, w, h[, opts])</strong>
+    <a name = "coverage_to_distance_field"></a>
+    <strong>coverage_to_distance_field (X, w, h[, opts])</strong>
     </dt>
     <dd>
     D!!!
@@ -174,7 +189,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">X</span>
-            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><span class="type">Bytes</span></span>
 
 
 
@@ -202,9 +217,147 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><span class="type">Bytes</span></span>
         Y
     </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "rgb_to_gray"></a>
+    <strong>rgb_to_gray (X, w, h[, opts])</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">X</span>
+            <span class="types"><span class="type">Bytes</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">w</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">h</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span></span>
+        Y
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "rgba_to_gray"></a>
+    <strong>rgba_to_gray (X, w, h[, opts])</strong>
+    </dt>
+    <dd>
+    D!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">X</span>
+            <span class="types"><span class="type">Bytes</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">w</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">h</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span></span>
+        Y
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2><a name="Tables"></a>Tables</h2>
+    <dl class="function">
+    <dt>
+    <a name = "GrayscaleScheme"></a>
+    <strong>GrayscaleScheme</strong>
+    </dt>
+    <dd>
+    Various ways to compute grayscale from RGB.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">average</span>
+         Grayscale as average of <em>r</em>, <em>g</em>, and <em>b</em>.
+        </li>
+        <li><span class="parameter">lightness</span>
+         Grayscale as average of <code>max(r, g, b)</code> and <code>min(r, g, b)</code>.
+        </li>
+        <li><span class="parameter">max</span>
+         Grayscale as <code>max(r, g, b)</code>...
+        </li>
+        <li><span class="parameter">min</span>
+         ...and <code>min(r, g, b)</code>.
+        </li>
+        <li><span class="parameter">red</span>
+         Grayscale as <em>r</em>...
+        </li>
+        <li><span class="parameter">green</span>
+         ...as <em>g</em>...
+        </li>
+        <li><span class="parameter">blue</span>
+         ...or as <em>b</em>.
+        </li>
+        <li><span class="parameter">601</span>
+         <a href="https://en.wikipedia.org/wiki/YUV">YUV</a> luminance according to <a href="https://en.wikipedia.org/wiki/Rec._601">Recommendation 601</a>...
+        </li>
+        <li><span class="parameter">709</span>
+         ...and <a href="https://en.wikipedia.org/wiki/Rec._709">Recommendation 709</a>.
+        </li>
+    </ul>
+
 
 
 

@@ -38,9 +38,10 @@
 
 <h2>Modules</h2>
 <ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../modules/grayscale.html">grayscale</a></li>
   <li><a href="../modules/image.html">image</a></li>
+  <li><a href="../modules/ops.html">ops</a></li>
   <li><a href="../modules/resize.html">resize</a></li>
-  <li><a href="../modules/sdf.html">sdf</a></li>
   <li><strong>write</strong></li>
 </ul>
 
@@ -51,7 +52,8 @@
 <h1>Module <code>write</code></h1>
 <p>Corona binding for <strong>stb_image_write</strong>, from Sean Barrett's <a href="https://github.com/nothings/stb">stb</a>.</p>
 <p> Jon Olick's
- <a href="http://www.jonolick.com/home/gif-writer">GIF writer</a> is used to save GIFs.</p>
+ <a href="http://www.jonolick.com/home/gif-writer">GIF</a> and <a href="http://www.jonolick.com/home/mpeg-video-writer">MPEG</a> writers
+ are used to save GIFs and MPEGs, respectively.</p>
 
 <h2> From stb_image_write.h, with some revisions:</h2>
 
@@ -66,10 +68,10 @@
 
 <p> There are four functions, one for each image file format:</p>
 
-<pre><code>ok = imagekit.write.png(filename, w, h, comp, data, stride_in_bytes)
-ok = imagekit.write.bmp(filename, w, h, comp, data)
-ok = imagekit.write.tga(filename, w, h, comp, data)
-ok = imagekit.write.hdr(filename, w, h, comp, data)
+<pre><code>ok = impack.write.bmp(filename, w, h, comp, data)
+ok = impack.write.hdr(filename, w, h, comp, data)
+ok = impack.write.png(filename, w, h, comp, data, stride_in_bytes)
+ok = impack.write.tga(filename, w, h, comp, data)
 </code></pre>
 
 <p> Each function returns <strong>true</strong> to indicate success and <strong>false</strong> for failure.</p>
@@ -106,7 +108,7 @@ ok = imagekit.write.hdr(filename, w, h, comp, data)
  license: you are granted a perpetual, irrevocable license to copy, modify,
  publish, and distribute this file as you see fit.</p>
 
-<p> Jon Olick's GIF writer is likewise public domain.</p>
+<p> Jon Olick's GIF and MPEG writers are likewise public domain.</p>
 
 
 <h2><a href="#Functions">Functions</a></h2>
@@ -124,7 +126,7 @@ ok = imagekit.write.hdr(filename, w, h, comp, data)
 	<td class="summary">J!!!</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#gif_to_memory">gif_to_memory (bytes, w, h, frames[, repeat=0[, palette_depth=8]])</a></td>
+	<td class="name" nowrap><a href="#gif_to_memory">gif_to_memory (w, h, frames[, repeat=0[, palette_depth=8]])</a></td>
 	<td class="summary">J!!!</td>
 	</tr>
 	<tr>
@@ -133,6 +135,14 @@ ok = imagekit.write.hdr(filename, w, h, comp, data)
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#hdr_to_memory">hdr_to_memory (w, h, bpp, data)</a></td>
+	<td class="summary">J!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#mpeg">mpeg (filename[, baseDir=system.DocumentsDirectory], w, h, frames[, fps=30])</a></td>
+	<td class="summary">J!!!</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#mpeg_to_memory">mpeg_to_memory (w, h, frames[, fps=30])</a></td>
 	<td class="summary">J!!!</td>
 	</tr>
 	<tr>
@@ -199,7 +209,7 @@ ok = imagekit.write.hdr(filename, w, h, comp, data)
 
         </li>
         <li><span class="parameter">data</span>
-            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><span class="type">Bytes</span></span>
 
 
 
@@ -245,7 +255,7 @@ ok = imagekit.write.hdr(filename, w, h, comp, data)
 
         </li>
         <li><span class="parameter">data</span>
-            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><span class="type">Bytes</span></span>
 
 
 
@@ -255,7 +265,7 @@ ok = imagekit.write.hdr(filename, w, h, comp, data)
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <span class="type">Bytes</span> or <span class="type">nil</span></span>
+           <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
         X
     </ol>
 
@@ -338,19 +348,13 @@ ok = imagekit.write.hdr(filename, w, h, comp, data)
 </dd>
     <dt>
     <a name = "gif_to_memory"></a>
-    <strong>gif_to_memory (bytes, w, h, frames[, repeat=0[, palette_depth=8]])</strong>
+    <strong>gif_to_memory (w, h, frames[, repeat=0[, palette_depth=8]])</strong>
     </dt>
     <dd>
     J!!!
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">bytes</span>
-            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-
-
-        </li>
         <li><span class="parameter">w</span>
             <span class="types"><span class="type">uint</span></span>
 
@@ -436,7 +440,7 @@ ok = imagekit.write.hdr(filename, w, h, comp, data)
 
         </li>
         <li><span class="parameter">data</span>
-            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><span class="type">Bytes</span></span>
 
 
 
@@ -482,7 +486,7 @@ ok = imagekit.write.hdr(filename, w, h, comp, data)
 
         </li>
         <li><span class="parameter">data</span>
-            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><span class="type">Bytes</span></span>
 
 
 
@@ -492,7 +496,120 @@ ok = imagekit.write.hdr(filename, w, h, comp, data)
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <span class="type">Bytes</span> or <span class="type">nil</span></span>
+           <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
+        X
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "mpeg"></a>
+    <strong>mpeg (filename[, baseDir=system.DocumentsDirectory], w, h, frames[, fps=30])</strong>
+    </dt>
+    <dd>
+    J!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">filename</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">baseDir</span>
+
+
+
+         (<em>default</em> system.DocumentsDirectory)
+        </li>
+        <li><span class="parameter">w</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">h</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">frames</span>
+            <span class="types"><span class="type">{Bytes,...}</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">fps</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+         (<em>default</em> 30)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <strong>true</strong>, indicating success.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>false</strong>, indicating failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "mpeg_to_memory"></a>
+    <strong>mpeg_to_memory (w, h, frames[, fps=30])</strong>
+    </dt>
+    <dd>
+    J!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">w</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">h</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">frames</span>
+            <span class="types"><span class="type">{Bytes,...}</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">fps</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+         (<em>default</em> 30)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         X
     </ol>
 
@@ -540,7 +657,7 @@ ok = imagekit.write.hdr(filename, w, h, comp, data)
 
         </li>
         <li><span class="parameter">data</span>
-            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><span class="type">Bytes</span></span>
 
 
 
@@ -593,7 +710,7 @@ ok = imagekit.write.hdr(filename, w, h, comp, data)
 
         </li>
         <li><span class="parameter">data</span>
-            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><span class="type">Bytes</span></span>
 
 
 
@@ -610,7 +727,7 @@ ok = imagekit.write.hdr(filename, w, h, comp, data)
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <span class="type">Bytes</span> or <span class="type">nil</span></span>
+           <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
         X
     </ol>
 
@@ -658,7 +775,7 @@ ok = imagekit.write.hdr(filename, w, h, comp, data)
 
         </li>
         <li><span class="parameter">data</span>
-            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><span class="type">Bytes</span></span>
 
 
 
@@ -704,7 +821,7 @@ ok = imagekit.write.hdr(filename, w, h, comp, data)
 
         </li>
         <li><span class="parameter">data</span>
-            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><span class="type">Bytes</span></span>
 
 
 
@@ -714,7 +831,7 @@ ok = imagekit.write.hdr(filename, w, h, comp, data)
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <span class="type">Bytes</span> or <span class="type">nil</span></span>
+           <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
         X
     </ol>
 
