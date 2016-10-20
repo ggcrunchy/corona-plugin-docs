@@ -406,8 +406,8 @@
     <dd>
     Indicates that the blob is locked for writing (via the native API). </p>
 
-<p> This is generally a clue that some code created the blob to use its features (<a href="api.html#MemoryBlob:Clone">MemoryBlob:Clone</a> or
- <a href="api.html#MemoryBlob:GetBytes">MemoryBlob:GetBytes</a>, for example), but wants exclusive control of the blob's contents.</p>
+<p> This is generally a clue that some code created the blob to use various features (<a href="api.html#MemoryBlob:Clone">MemoryBlob:Clone</a> or
+ <a href="api.html#MemoryBlob:GetBytes">MemoryBlob:GetBytes</a>, for example), but wanted exclusive control over its contents.</p>
 
 <p> Well-behaved APIs that write to blobs will reject ones outside their control (some utilities on the
  native side provide assistance here), so this method can be used to filter them from Lua.
