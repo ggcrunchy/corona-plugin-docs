@@ -33,6 +33,7 @@
 <h2>Contents</h2>
 <ul>
 <li><a href="#Functions">Functions</a></li>
+<li><a href="#Tables">Tables</a></li>
 </ul>
 
 
@@ -58,9 +59,9 @@
 <h2> From stb_image_resize.h, with some revisions:</h2>
 
 <p> Written with emphasis on usability, portability, and efficiency. (No
- SIMD or threads, so it be easily outperformed by libs that use those.)
+ SIMD or threads, so it's easily outperformed by libs that use those.)
  Only scaling and translation is supported, no rotations or shears.
- Easy API downsamples w/Mitchell filter, upsamples w/cubic interpolation.</p>
+ Easy API downsamples with Mitchell filter, upsamples with cubic interpolation.</p>
 
 <p> <strong>QUICKSTART</strong></p>
 <pre><code>  output_pixels = impack.resize.uint8(input_pixels, in_w, in_h,
@@ -150,6 +151,10 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
+	<td class="name" nowrap><a href="#bilinear_rgba">bilinear_rgba (input, iw, ih, ow, oh[, opts])</a></td>
+	<td class="summary">AA!!!!</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#uint8">uint8 (input, iw, ih, ow, oh, nchannels[, opts])</a></td>
 	<td class="summary">D!!!</td>
 	</tr>
@@ -190,6 +195,25 @@
 	<td class="summary">D!!!</td>
 	</tr>
 </table>
+<h2><a href="#Tables">Tables</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#DataType">DataType</a></td>
+	<td class="summary">How to interpret bytes in the most general resize APIs.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#EdgeMode">EdgeMode</a></td>
+	<td class="summary">How to handle sampling outside the image.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Filter">Filter</a></td>
+	<td class="summary">FILTER</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ColorSpace">ColorSpace</a></td>
+	<td class="summary">COLOR SPACE</td>
+	</tr>
+</table>
 
 <br/>
 <br/>
@@ -197,6 +221,64 @@
 
     <h2><a name="Functions"></a>Functions</h2>
     <dl class="function">
+    <dt>
+    <a name = "bilinear_rgba"></a>
+    <strong>bilinear_rgba (input, iw, ih, ow, oh[, opts])</strong>
+    </dt>
+    <dd>
+    AA!!!!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">input</span>
+            <span class="types"><span class="type">Bytes</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">iw</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ih</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ow</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">oh</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span></span>
+        Z
+    </ol>
+
+
+
+
+</dd>
     <dt>
     <a name = "uint8"></a>
     <strong>uint8 (input, iw, ih, ow, oh, nchannels[, opts])</strong>
@@ -447,7 +529,7 @@
 
         </li>
         <li><span class="parameter">wrap</span>
-            <span class="types"><span class="type">stbir_edge_mode</span></span>
+            <span class="types"><a class="type" href="../modules/resize.html#EdgeMode">EdgeMode</a></span>
 
 
 
@@ -523,19 +605,19 @@
 
         </li>
         <li><span class="parameter">wrap</span>
-            <span class="types"><span class="type">stbir_edge_mode</span></span>
+            <span class="types"><a class="type" href="../modules/resize.html#EdgeMode">EdgeMode</a></span>
 
 
 
         </li>
         <li><span class="parameter">filter</span>
-            <span class="types"><span class="type">stbir_filter</span></span>
+            <span class="types"><a class="type" href="../modules/resize.html#Filter">Filter</a></span>
 
 
 
         </li>
         <li><span class="parameter">space</span>
-            <span class="types"><span class="type">stbir_colorspace</span></span>
+            <span class="types"><a class="type" href="../modules/resize.html#ColorSpace">ColorSpace</a></span>
 
 
 
@@ -611,19 +693,19 @@
 
         </li>
         <li><span class="parameter">wrap</span>
-            <span class="types"><span class="type">stbir_edge_mode</span></span>
+            <span class="types"><a class="type" href="../modules/resize.html#EdgeMode">EdgeMode</a></span>
 
 
 
         </li>
         <li><span class="parameter">filter</span>
-            <span class="types"><span class="type">stbir_filter</span></span>
+            <span class="types"><a class="type" href="../modules/resize.html#Filter">Filter</a></span>
 
 
 
         </li>
         <li><span class="parameter">space</span>
-            <span class="types"><span class="type">stbir_colorspace</span></span>
+            <span class="types"><a class="type" href="../modules/resize.html#ColorSpace">ColorSpace</a></span>
 
 
 
@@ -699,19 +781,19 @@
 
         </li>
         <li><span class="parameter">wrap</span>
-            <span class="types"><span class="type">stbir_edge_mode</span></span>
+            <span class="types"><a class="type" href="../modules/resize.html#EdgeMode">EdgeMode</a></span>
 
 
 
         </li>
         <li><span class="parameter">filter</span>
-            <span class="types"><span class="type">stbir_filter</span></span>
+            <span class="types"><a class="type" href="../modules/resize.html#Filter">Filter</a></span>
 
 
 
         </li>
         <li><span class="parameter">space</span>
-            <span class="types"><span class="type">stbir_colorspace</span></span>
+            <span class="types"><a class="type" href="../modules/resize.html#ColorSpace">ColorSpace</a></span>
 
 
 
@@ -787,31 +869,31 @@
 
         </li>
         <li><span class="parameter">hwrap</span>
-            <span class="types"><span class="type">stbir_edge_mode</span></span>
+            <span class="types"><a class="type" href="../modules/resize.html#EdgeMode">EdgeMode</a></span>
 
 
 
         </li>
         <li><span class="parameter">vwrap</span>
-            <span class="types"><span class="type">stbir_edge_mode</span></span>
+            <span class="types"><a class="type" href="../modules/resize.html#EdgeMode">EdgeMode</a></span>
 
 
 
         </li>
         <li><span class="parameter">hfilter</span>
-            <span class="types"><span class="type">stbir_filter</span></span>
+            <span class="types"><a class="type" href="../modules/resize.html#Filter">Filter</a></span>
 
 
 
         </li>
         <li><span class="parameter">vfilter</span>
-            <span class="types"><span class="type">stbir_filter</span></span>
+            <span class="types"><a class="type" href="../modules/resize.html#Filter">Filter</a></span>
 
 
 
         </li>
         <li><span class="parameter">space</span>
-            <span class="types"><span class="type">stbir_colorspace</span></span>
+            <span class="types"><a class="type" href="../modules/resize.html#ColorSpace">ColorSpace</a></span>
 
 
 
@@ -893,31 +975,31 @@
 
         </li>
         <li><span class="parameter">hwrap</span>
-            <span class="types"><span class="type">stbir_edge_mode</span></span>
+            <span class="types"><a class="type" href="../modules/resize.html#EdgeMode">EdgeMode</a></span>
 
 
 
         </li>
         <li><span class="parameter">vwrap</span>
-            <span class="types"><span class="type">stbir_edge_mode</span></span>
+            <span class="types"><a class="type" href="../modules/resize.html#EdgeMode">EdgeMode</a></span>
 
 
 
         </li>
         <li><span class="parameter">hfilter</span>
-            <span class="types"><span class="type">stbir_filter</span></span>
+            <span class="types"><a class="type" href="../modules/resize.html#Filter">Filter</a></span>
 
 
 
         </li>
         <li><span class="parameter">vfilter</span>
-            <span class="types"><span class="type">stbir_filter</span></span>
+            <span class="types"><a class="type" href="../modules/resize.html#Filter">Filter</a></span>
 
 
 
         </li>
         <li><span class="parameter">space</span>
-            <span class="types"><span class="type">stbir_colorspace</span></span>
+            <span class="types"><a class="type" href="../modules/resize.html#ColorSpace">ColorSpace</a></span>
 
 
 
@@ -1005,7 +1087,7 @@
 
         </li>
         <li><span class="parameter">datatype</span>
-            <span class="types"><span class="type">stbir_datatype</span></span>
+            <span class="types"><a class="type" href="../modules/resize.html#DataType">DataType</a></span>
 
 
 
@@ -1023,31 +1105,31 @@
 
         </li>
         <li><span class="parameter">hwrap</span>
-            <span class="types"><span class="type">stbir_edge_mode</span></span>
+            <span class="types"><a class="type" href="../modules/resize.html#EdgeMode">EdgeMode</a></span>
 
 
 
         </li>
         <li><span class="parameter">vwrap</span>
-            <span class="types"><span class="type">stbir_edge_mode</span></span>
+            <span class="types"><a class="type" href="../modules/resize.html#EdgeMode">EdgeMode</a></span>
 
 
 
         </li>
         <li><span class="parameter">hfilter</span>
-            <span class="types"><span class="type">stbir_filter</span></span>
+            <span class="types"><a class="type" href="../modules/resize.html#Filter">Filter</a></span>
 
 
 
         </li>
         <li><span class="parameter">vfilter</span>
-            <span class="types"><span class="type">stbir_filter</span></span>
+            <span class="types"><a class="type" href="../modules/resize.html#Filter">Filter</a></span>
 
 
 
         </li>
         <li><span class="parameter">space</span>
-            <span class="types"><span class="type">stbir_colorspace</span></span>
+            <span class="types"><a class="type" href="../modules/resize.html#ColorSpace">ColorSpace</a></span>
 
 
 
@@ -1090,6 +1172,126 @@
            <span class="types"><span class="type">Bytes</span></span>
         Y
     </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2><a name="Tables"></a>Tables</h2>
+    <dl class="function">
+    <dt>
+    <a name = "DataType"></a>
+    <strong>DataType</strong>
+    </dt>
+    <dd>
+    How to interpret bytes in the most general resize APIs.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">UINT8</span>
+         Components are 8-bit unsigned integers, i.e. 0 to 255, fairly common for images...
+        </li>
+        <li><span class="parameter">UINT16</span>
+         ...are 16-bit unsigned integers...
+        </li>
+        <li><span class="parameter">UINT32</span>
+         ...or are 32-bit unsigned integers.
+        </li>
+        <li><span class="parameter">FLOAT</span>
+         Components are single-precision floating-point numbers.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "EdgeMode"></a>
+    <strong>EdgeMode</strong>
+    </dt>
+    <dd>
+    How to handle sampling outside the image.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">CLAMP</span>
+         Samples are clamped to the nearest edge value, e.g. position <code>0</code> snaps to <code>1</code> and
+ <em>n</em> + 1 to <em>n</em>.
+        </li>
+        <li><span class="parameter">REFLECT</span>
+         Samples reflect back across the image, e.g. position <em>n</em> + 3 maps to <em>n</em> - 3.
+        </li>
+        <li><span class="parameter">WRAP</span>
+         Samples wrap around to the other side of the image, e.g. position <em>n</em> + 1 maps to <code>1</code>.
+        </li>
+        <li><span class="parameter">ZERO</span>
+         Samples are read back as values of <code>0</code>.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Filter"></a>
+    <strong>Filter</strong>
+    </dt>
+    <dd>
+    FILTER
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">DEFAULT</span>
+         Use the same filter type that the easy-to-use API chooses.
+        </li>
+        <li><span class="parameter">BOX</span>
+         A trapezoid with 1-pixel wide ramps; same result as box for integer scale ratios.
+        </li>
+        <li><span class="parameter">TRIANGLE</span>
+         On upsampling, produces same results as bilinear texture filtering.
+        </li>
+        <li><span class="parameter">CUBICBSPLINE</span>
+         The cubic b-spline (aka Mitchell-Netrevalli with <strong>B</strong> = 1, <strong>C</strong> = 0). Gaussian-esque.
+        </li>
+        <li><span class="parameter">CATMULLROM</span>
+         An interpolating cubic spline.
+        </li>
+        <li><span class="parameter">MITCHELL</span>
+         Mitchell-Netrevalli filter with <strong>B</strong> = 1/3, <strong>C</strong> = 1/3.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ColorSpace"></a>
+    <strong>ColorSpace</strong>
+    </dt>
+    <dd>
+    COLOR SPACE
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">LINEAR</span>
+
+
+
+        </li>
+        <li><span class="parameter">SRGB</span>
+
+
+
+        </li>
+    </ul>
+
 
 
 
