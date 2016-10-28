@@ -51,12 +51,16 @@
 <div id="content">
 
 <h1>Module <code>resize</code></h1>
-<p>Corona binding for <strong>stb_image_resize</strong> by Jorge L Rodriguez (@VinoBS), from Sean Barrett's
- <a href="https://github.com/nothings/stb">stb</a>.</p>
-<p>
+<p>Utilities for resizing images.</p>
+<p> Most of the underlying algorithms come courtesy of Jorge L Rodriguez (@VinoBS), from Sean Barrett's <a href="https://github.com/nothings/stb">stb</a>. Any others use
+ the same libraries behind the routines in the <a href="../modules/ops.html#">ops</a> module.</p>
 
+<p> The <strong>Bytes</strong> type&mdash;specified below&mdash;may be any object that implements <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/ByteReader/policy.html">ByteReader</a>,
+ including strings.</p>
 
-<h2> From stb_image_resize.h, with some revisions:</h2>
+<hr/>
+
+<p> <strong>(The comments that follow were adapted from <a href="https://raw.githubusercontent.com/nothings/stb/master/stb_image_resize.h">stb_image_resize.h</a>.)</strong></p>
 
 <p> Written with emphasis on usability, portability, and efficiency. (No
  SIMD or threads, so it's easily outperformed by libs that use those.)
@@ -145,7 +149,6 @@
 <p> This software is dual-licensed to the public domain and under the following
  license: you are granted a perpetual, irrevocable license to copy, modify,
  publish, and distribute this file as you see fit.</p>
-</p>
 
 
 <h2><a href="#Functions">Functions</a></h2>

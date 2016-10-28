@@ -52,17 +52,25 @@
 
 <h1>Module <code>grayscale</code></h1>
 <p>Operations to find and operate on grayscale values.</p>
+<p>
+
+
 <p> The signed distance field operations wrap Mikko Mononen's <a href="https://github.com/memononen/SDF">SDF</a>.</p>
 
-<h2> From sdf.h, with some revisions:</h2>
+<p> The <strong>Bytes</strong> type&mdash;specified below&mdash;may be any object that implements <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/ByteReader/policy.html">ByteReader</a>,
+ including strings.</p>
+
+<hr/>
+
+<p> <strong>(The comments that follow were adapted from <a href="https://raw.githubusercontent.com/memononen/SDF/master/src/sdf.h">sdf.h</a>.)</strong></p>
 
 <p> Sweep-and-update Euclidean distance transform of an antialiased image for contour texturing.</p>
 
-<p> The code is based on <strong>edtaa3func.c</strong> by Stefan Gustavson and improves the original in terms
- of memory usage and execution time.</p>
+<p> The code is based on <a href="http://webstaff.itn.liu.se/~stegu/aadist/edtaa3func.c">edtaa3func.c</a> by Stefan Gustavson and improves the
+ original in terms of memory usage and execution time.</p>
 
 <p> The algorithms first traverse the image and uses gradient direction and the edge function
- from edtaa3 to find an approximated point on the contour of the input image. After this pass
+ from <code>edtaa3</code> to find an approximated point on the contour of the input image. After this pass
  the distance at the edge pixels are known, and the code proceeds to update the rest of the
  distance field using sweep-and-update until the distance field convergences (or max passes run).</p>
 
@@ -92,6 +100,9 @@
  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.</p>
+
+<hr/>
+</p>
 
 
 <h2><a href="#Functions">Functions</a></h2>

@@ -53,6 +53,47 @@
 <p>Miscellaneous useful image operations.</p>
 <p>
 
+
+<p> The <strong>Bytes</strong> type&mdash;specified below&mdash;may be any object that implements <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/ByteReader/policy.html">ByteReader</a>,
+ including strings.</p>
+
+<p> At the moment, all routines build upon either the <a href="https://developer.apple.com/reference/accelerate">Accelerate framework</a> or <a href="https://projectne10.github.io/Ne10/">Project Ne10</a>.</p>
+
+<hr/>
+
+<p> <strong>From <a href="https://raw.githubusercontent.com/projectNe10/Ne10/master/LICENSE">NE10's license:</a></strong></p>
+
+<p> Copyright 2012-15 ARM Limited and Contributors.
+ All rights reserved.</p>
+
+<p> Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:</p>
+
+<ul>
+    <li><p>Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.</p></li>
+    <li><p>Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in the
+    documentation and/or other materials provided with the distribution.</p></li>
+    <li><p>Neither the name of ARM Limited nor the
+    names of its contributors may be used to endorse or promote products
+    derived from this software without specific prior written permission.</p></li>
+</ul>
+
+<p> THIS SOFTWARE IS PROVIDED BY ARM LIMITED AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL ARM LIMITED AND CONTRIBUTORS BE LIABLE FOR ANY
+ DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
+
+<p> See: <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3-Clause</a> for template</p>
+
+<hr/>
 </p>
 
 
@@ -63,8 +104,8 @@
 	<td class="summary">D!!!</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#rotate">rotate (input, input_w, input_h, angle[, opts])</a></td>
-	<td class="summary">D!!!</td>
+	<td class="name" nowrap><a href="#rotate">rotate (data, w, h, angle[, opts])</a></td>
+	<td class="summary">Given some image data, supplies a rotated copy of it.</td>
 	</tr>
 </table>
 
@@ -134,36 +175,30 @@
 </dd>
     <dt>
     <a name = "rotate"></a>
-    <strong>rotate (input, input_w, input_h, angle[, opts])</strong>
+    <strong>rotate (data, w, h, angle[, opts])</strong>
     </dt>
     <dd>
-    D!!!
+    Given some image data, supplies a rotated copy of it. </p>
+
+<p> Unwritten pixels will be transparent.
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">input</span>
+        <li><span class="parameter">data</span>
             <span class="types"><span class="type">Bytes</span></span>
-
-
-
+         Image data, in RGBA form.
         </li>
-        <li><span class="parameter">input_w</span>
+        <li><span class="parameter">w</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Width of <em>data</em>...
         </li>
-        <li><span class="parameter">input_h</span>
+        <li><span class="parameter">h</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         ...and height.
         </li>
         <li><span class="parameter">angle</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         Rotation angle, in radians.
         </li>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
@@ -175,9 +210,20 @@
 
     <h3>Returns:</h3>
     <ol>
+        <li>
+           <span class="types"><span class="type">Bytes</span></span>
+        X</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        Width, after rotation...</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        ...and height.</li>
+    </ol>
+     <h3>Or</h3>
+    <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
-        X
+        <strong>nil</strong>, indicating an error.
     </ol>
 
 

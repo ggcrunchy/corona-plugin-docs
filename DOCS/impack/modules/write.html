@@ -315,8 +315,8 @@ ok = impack.write.tga(filename, w, h, comp, data)
         </li>
         <li><span class="parameter">frames</span>
             <span class="types"><a class="type" href="../modules/image.html#GifFrame">{image.GifFrame,...}</a></span>
-         GIF frames. If a given frame's <strong>image</strong> is insufficient,
- it will be padded with <code>0</code> bytes.
+         GIF frames, with image data in RGBA form. If a given frame's <strong>image</strong>
+ is insufficient, it will be padded with <code>0</code> bytes.
         </li>
         <li><span class="parameter">repeat</span>
             <span class="types"><span class="type">uint</span></span>
@@ -518,7 +518,7 @@ ok = impack.write.tga(filename, w, h, comp, data)
         </li>
         <li><span class="parameter">frames</span>
             <span class="types"><span class="type">{Bytes,...}</span></span>
-         MPEG frames. If a given frame is insufficient, it will be padded
+         MPEG frames, in RGBA form. If a given frame is insufficient, it will be padded
  with <code>0</code> bytes.
         </li>
         <li><span class="parameter">fps</span>
