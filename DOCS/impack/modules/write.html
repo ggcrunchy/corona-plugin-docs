@@ -200,7 +200,8 @@ ok = impack.write.tga(filename, w, h, comp, data)
          Name of file.
         </li>
         <li><span class="parameter">baseDir</span>
-         Directory to which the file will be added.
+         Directory to which the file will be added, as per
+ <a href="https://docs.coronalabs.com/api/library/system/pathForFile.html">system.pathForFile</a>.
          (<em>default</em> system.DocumentsDirectory)
         </li>
         <li><span class="parameter">w</span>
@@ -279,7 +280,8 @@ ok = impack.write.tga(filename, w, h, comp, data)
  an undecoded file. This can be reloaded via <a href="../modules/image.html#load_from_memory">image.load_from_memory</a>.</p>
 
 <p> If <em>opts.as_userdata</em> was true, the data is returned as a userdata that implements <strong>ByteReader</strong>,
- rather than being converted to a more friendly string. This might give respectable performance savings.</p>
+ rather than being converted to a more friendly string. Under some circumstances, this might be worth
+ doing for performance reasons.</p>
 
 <p> On failure, returns <strong>nil</strong>.
     </ol>
@@ -302,7 +304,8 @@ ok = impack.write.tga(filename, w, h, comp, data)
          Name of file.
         </li>
         <li><span class="parameter">baseDir</span>
-         Directory to which the file will be added.
+         Directory to which the file will be added, as per
+ <a href="https://docs.coronalabs.com/api/library/system/pathForFile.html">system.pathForFile</a>.
          (<em>default</em> system.DocumentsDirectory)
         </li>
         <li><span class="parameter">w</span>
@@ -410,7 +413,8 @@ ok = impack.write.tga(filename, w, h, comp, data)
          Name of file.
         </li>
         <li><span class="parameter">baseDir</span>
-         Directory to which the file will be added.
+         Directory to which the file will be added, as per
+ <a href="https://docs.coronalabs.com/api/library/system/pathForFile.html">system.pathForFile</a>.
          (<em>default</em> system.DocumentsDirectory)
         </li>
         <li><span class="parameter">w</span>
@@ -505,7 +509,8 @@ ok = impack.write.tga(filename, w, h, comp, data)
          Name of file.
         </li>
         <li><span class="parameter">baseDir</span>
-         Directory to which the file will be added.
+         Directory to which the file will be added, as per
+ <a href="https://docs.coronalabs.com/api/library/system/pathForFile.html">system.pathForFile</a>.
          (<em>default</em> system.DocumentsDirectory)
         </li>
         <li><span class="parameter">w</span>
@@ -602,7 +607,8 @@ ok = impack.write.tga(filename, w, h, comp, data)
          Name of file.
         </li>
         <li><span class="parameter">baseDir</span>
-         Directory to which the file will be added.
+         Directory to which the file will be added, as per
+ <a href="https://docs.coronalabs.com/api/library/system/pathForFile.html">system.pathForFile</a>.
          (<em>default</em> system.DocumentsDirectory)
         </li>
         <li><span class="parameter">w</span>
@@ -697,7 +703,8 @@ ok = impack.write.tga(filename, w, h, comp, data)
          Name of file.
         </li>
         <li><span class="parameter">baseDir</span>
-         Directory to which the file will be added.
+         Directory to which the file will be added, as per
+ <a href="https://docs.coronalabs.com/api/library/system/pathForFile.html">system.pathForFile</a>.
          (<em>default</em> system.DocumentsDirectory)
         </li>
         <li><span class="parameter">w</span>

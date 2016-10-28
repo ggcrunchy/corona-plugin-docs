@@ -59,6 +59,9 @@
 
 <p> Animated GIF support builds upon STB, using urraka's <a href="https://gist.githubusercontent.com/urraka/685d9a6340b26b830d49/raw/91eee495eeefb2d60abc73a1a9d83949fe6a4882/stb.c">xload</a>.</p>
 
+<p> The <strong>Bytes</strong> type&mdash;specified below&mdash;may be any object that implements <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/ByteReader/policy.html">ByteReader</a>,
+ including strings.</p>
+
 <hr/>
 
 <p> <strong>(The comments that follow were adapted from <a href="https://raw.githubusercontent.com/nothings/stb/master/stb_image.h">stb_image.h</a>.)</strong></p>
@@ -102,7 +105,7 @@
     <li>no 12-bit-per-channel JPEG</li>
     <li>no JPEGs with arithmetic coding</li>
     <li>no 1-bit BMP</li>
-    <li>GIF always returns comp=4</li>
+    <li>GIF always returns comp = 4</li>
 </ul>
 
 <p> Basic usage (see HDR discussion below for HDR usage):</p>
@@ -198,8 +201,8 @@ req_comp -- if non-zero, # of image components requested in result
  impack.image.hdr_to_ldr_scale(1.0)
 </code></pre>
 
-<p> (note, do not use <em>inverse</em> constants; stbi_image will invert them
- appropriately).</p>
+<p> (Note, do not use <em>inverse</em> constants; the appropriate inversion will be
+ applied internally.)</p>
 
 <p> Additionally, there is a new, parallel interface for loading files as
  (linear) floats to preserve the full dynamic range:</p>
@@ -215,10 +218,9 @@ req_comp -- if non-zero, # of image components requested in result
  impack.image.ldr_to_hdr_gamma(2.2)
 </code></pre>
 
-<p> Finally, given a filename (or an open file or memory block--see header
- file for details) containing image data, you can query for the "most
- appropriate" interface to use (that is, whether the image is HDR or
- not), using:</p>
+<p> Finally, given a filename or memory block containing image data, you
+ can query for the "most appropriate" interface to use (that is, whether
+ the image is HDR or not), using:</p>
 
 <pre><code> impack.image.is_hdr(filename)
 </code></pre>
@@ -243,51 +245,51 @@ req_comp -- if non-zero, # of image components requested in result
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#hdr_to_ldr_gamma">hdr_to_ldr_gamma (n)</a></td>
-	<td class="summary">D!!!</td>
+	<td class="name" nowrap><a href="#hdr_to_ldr_gamma">hdr_to_ldr_gamma (gamma)</a></td>
+	<td class="summary">Assign the (global) high &rarr; low-dynamic-range gamma mapping.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#hdr_to_ldr_scale">hdr_to_ldr_scale (n)</a></td>
-	<td class="summary">D!!!</td>
+	<td class="name" nowrap><a href="#hdr_to_ldr_scale">hdr_to_ldr_scale (scale)</a></td>
+	<td class="summary">Assign the (global) high &rarr; low-dynamic-range scale factor.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#info">info (filename[, baseDir=system.ResourceDirectory])</a></td>
-	<td class="summary">Get image dimensions and components without fully decoding.</td>
+	<td class="summary">Get image dimensions and component count without fully decoding.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#info_from_memory">info_from_memory (bytes)</a></td>
+	<td class="name" nowrap><a href="#info_from_memory">info_from_memory (image)</a></td>
 	<td class="summary">Memory-based variant of <a href="../modules/image.html#info">info</a>.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#is_hdr">is_hdr (filename[, baseDir=system.ResourceDirectory])</a></td>
-	<td class="summary">FFF!!!</td>
+	<td class="summary">Check whether a file contains an HDR image.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#is_hdr_from_memory">is_hdr_from_memory (bytes)</a></td>
+	<td class="name" nowrap><a href="#is_hdr_from_memory">is_hdr_from_memory (image)</a></td>
 	<td class="summary">Memory-based variant of <a href="../modules/image.html#is_hdr">is_hdr</a>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#ldr_to_hdr_gamma">ldr_to_hdr_gamma (n)</a></td>
-	<td class="summary">G!!!</td>
+	<td class="name" nowrap><a href="#ldr_to_hdr_gamma">ldr_to_hdr_gamma (gamma)</a></td>
+	<td class="summary">Assign the (global) low &rarr; high-dynamic-range gamma mapping.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#ldr_to_hdr_scale">ldr_to_hdr_scale (n)</a></td>
-	<td class="summary">G!!!</td>
+	<td class="name" nowrap><a href="#ldr_to_hdr_scale">ldr_to_hdr_scale (scale)</a></td>
+	<td class="summary">Assign the (global) low &rarr; high-dynamic-range scale factor.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#load">load (filename[, baseDir=system.ResourceDirectory[, opts]])</a></td>
-	<td class="summary">H!!!</td>
+	<td class="summary">Loads an image into one-byte-per-component form.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#load_from_memory">load_from_memory (bytes[, opts])</a></td>
+	<td class="name" nowrap><a href="#load_from_memory">load_from_memory (image[, opts])</a></td>
 	<td class="summary">Memory-based variant of <a href="../modules/image.html#load">load</a>.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#loadf">loadf (filename[, baseDir=system.ResourceDirectory[, opts]])</a></td>
-	<td class="summary">I!!!</td>
+	<td class="summary">Loads an image into floating-point form.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#loadf_from_memory">loadf_from_memory (bytes[, opts])</a></td>
+	<td class="name" nowrap><a href="#loadf_from_memory">loadf_from_memory (image[, opts])</a></td>
 	<td class="summary">Memory-based variant of <a href="../modules/image.html#loadf">loadf</a>.</td>
 	</tr>
 	<tr>
@@ -295,7 +297,7 @@ req_comp -- if non-zero, # of image components requested in result
 	<td class="summary">Given a GIF, loads its frames (image data, delay to next frame) into an array.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#xload_from_memory">xload_from_memory (bytes)</a></td>
+	<td class="name" nowrap><a href="#xload_from_memory">xload_from_memory (image)</a></td>
 	<td class="summary">Variant of <a href="../modules/image.html#xload">xload</a> that loads from memory.</td>
 	</tr>
 </table>
@@ -315,45 +317,49 @@ req_comp -- if non-zero, # of image components requested in result
     <dl class="function">
     <dt>
     <a name = "hdr_to_ldr_gamma"></a>
-    <strong>hdr_to_ldr_gamma (n)</strong>
+    <strong>hdr_to_ldr_gamma (gamma)</strong>
     </dt>
     <dd>
-    D!!!
+    Assign the (global) high &rarr; low-dynamic-range gamma mapping.
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">n</span>
+        <li><span class="parameter">gamma</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         Gamma mapping.
         </li>
     </ul>
 
 
 
+    <h3>See also:</h3>
+    <ul>
+         <a href="../modules/image.html#ldr_to_hdr_gamma">ldr_to_hdr_gamma</a>
+    </ul>
 
 
 </dd>
     <dt>
     <a name = "hdr_to_ldr_scale"></a>
-    <strong>hdr_to_ldr_scale (n)</strong>
+    <strong>hdr_to_ldr_scale (scale)</strong>
     </dt>
     <dd>
-    D!!!
+    Assign the (global) high &rarr; low-dynamic-range scale factor.
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">n</span>
+        <li><span class="parameter">scale</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         Scale factor.
         </li>
     </ul>
 
 
 
+    <h3>See also:</h3>
+    <ul>
+         <a href="../modules/image.html#ldr_to_hdr_scale">ldr_to_hdr_scale</a>
+    </ul>
 
 
 </dd>
@@ -362,20 +368,17 @@ req_comp -- if non-zero, # of image components requested in result
     <strong>info (filename[, baseDir=system.ResourceDirectory])</strong>
     </dt>
     <dd>
-    Get image dimensions and components without fully decoding.
+    Get image dimensions and component count without fully decoding.
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">filename</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-
-
+         Name of file to query.
         </li>
         <li><span class="parameter">baseDir</span>
-
-
-
+         Directory to search, as per
+ <a href="https://docs.coronalabs.com/api/library/system/pathForFile.html">system.pathForFile</a>.
          (<em>default</em> system.ResourceDirectory)
         </li>
     </ul>
@@ -383,17 +386,21 @@ req_comp -- if non-zero, # of image components requested in result
     <h3>Returns:</h3>
     <ol>
         <li>
-           <span class="types"><span class="type">boolean</span></span>
-        OK</li>
+        <strong>true</strong>, indicating success.</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        X</li>
+        Width of image data...</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        Y</li>
+        ...and height.</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        bpp</li>
+        Number of components per pixel.</li>
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+        <strong>false</strong>, indicating failure.
     </ol>
 
 
@@ -402,35 +409,37 @@ req_comp -- if non-zero, # of image components requested in result
 </dd>
     <dt>
     <a name = "info_from_memory"></a>
-    <strong>info_from_memory (bytes)</strong>
+    <strong>info_from_memory (image)</strong>
     </dt>
     <dd>
     Memory-based variant of <a href="../modules/image.html#info">info</a>.
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">bytes</span>
+        <li><span class="parameter">image</span>
             <span class="types"><span class="type">Bytes</span></span>
-
-
-
+         Undecoded image contents.
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
         <li>
-           <span class="types"><span class="type">boolean</span></span>
-        OK</li>
+        <strong>true</strong>, indicating success.</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        X</li>
+        Width of image data...</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        Y</li>
+        ...and height.</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        bpp</li>
+        Number of components per pixel.</li>
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+        <strong>false</strong>, indicating failure.
     </ol>
 
 
@@ -442,20 +451,17 @@ req_comp -- if non-zero, # of image components requested in result
     <strong>is_hdr (filename[, baseDir=system.ResourceDirectory])</strong>
     </dt>
     <dd>
-    FFF!!!
+    Check whether a file contains an HDR image.
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">filename</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-
-
+         Name of file to query.
         </li>
         <li><span class="parameter">baseDir</span>
-
-
-
+         Directory to search, as per
+ <a href="https://docs.coronalabs.com/api/library/system/pathForFile.html">system.pathForFile</a>.
          (<em>default</em> system.ResourceDirectory)
         </li>
     </ul>
@@ -464,7 +470,7 @@ req_comp -- if non-zero, # of image components requested in result
     <ol>
 
            <span class="types"><span class="type">boolean</span></span>
-        B
+        Image contents are HDR data?
     </ol>
 
 
@@ -473,18 +479,16 @@ req_comp -- if non-zero, # of image components requested in result
 </dd>
     <dt>
     <a name = "is_hdr_from_memory"></a>
-    <strong>is_hdr_from_memory (bytes)</strong>
+    <strong>is_hdr_from_memory (image)</strong>
     </dt>
     <dd>
     Memory-based variant of <a href="../modules/image.html#is_hdr">is_hdr</a>.
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">bytes</span>
+        <li><span class="parameter">image</span>
             <span class="types"><span class="type">Bytes</span></span>
-
-
-
+         Undecoded image contents.
         </li>
     </ul>
 
@@ -492,7 +496,7 @@ req_comp -- if non-zero, # of image components requested in result
     <ol>
 
            <span class="types"><span class="type">boolean</span></span>
-        B
+        Image contents are HDR data?
     </ol>
 
 
@@ -501,45 +505,49 @@ req_comp -- if non-zero, # of image components requested in result
 </dd>
     <dt>
     <a name = "ldr_to_hdr_gamma"></a>
-    <strong>ldr_to_hdr_gamma (n)</strong>
+    <strong>ldr_to_hdr_gamma (gamma)</strong>
     </dt>
     <dd>
-    G!!!
+    Assign the (global) low &rarr; high-dynamic-range gamma mapping.
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">n</span>
+        <li><span class="parameter">gamma</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         Gamma mapping.
         </li>
     </ul>
 
 
 
+    <h3>See also:</h3>
+    <ul>
+         <a href="../modules/image.html#hdr_to_ldr_gamma">hdr_to_ldr_gamma</a>
+    </ul>
 
 
 </dd>
     <dt>
     <a name = "ldr_to_hdr_scale"></a>
-    <strong>ldr_to_hdr_scale (n)</strong>
+    <strong>ldr_to_hdr_scale (scale)</strong>
     </dt>
     <dd>
-    G!!!
+    Assign the (global) low &rarr; high-dynamic-range scale factor.
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">n</span>
+        <li><span class="parameter">scale</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         Scale factor.
         </li>
     </ul>
 
 
 
+    <h3>See also:</h3>
+    <ul>
+         <a href="../modules/image.html#hdr_to_ldr_scale">hdr_to_ldr_scale</a>
+    </ul>
 
 
 </dd>
@@ -548,26 +556,31 @@ req_comp -- if non-zero, # of image components requested in result
     <strong>load (filename[, baseDir=system.ResourceDirectory[, opts]])</strong>
     </dt>
     <dd>
-    H!!!
+    Loads an image into one-byte-per-component form.  Refer to the summary above for further details.
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">filename</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-
-
+         Name of file to load.
         </li>
         <li><span class="parameter">baseDir</span>
-
-
-
+         Directory to search, as per
+ <a href="https://docs.coronalabs.com/api/library/system/pathForFile.html">system.pathForFile</a>.
          (<em>default</em> system.ResourceDirectory)
         </li>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
 
+<p> Load options, which include:</p>
 
+<ul>
+    <li><strong>as_userdata</strong> Affects how the image data is returned.</li>
+    <li><strong>req_comp</strong> When present (and non-0), it should be an integer between 1 and 4, the loaded data
+    will have as many components (adding or removing channels as needed).</li>
+    <li>(Support for <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/MemoryBlob/api.html">blobs</a>
+    is planned and would be exposed via <em>opts</em>.)</li>
+</ul>
 
         </li>
     </ul>
@@ -576,16 +589,20 @@ req_comp -- if non-zero, # of image components requested in result
     <ol>
         <li>
            <span class="types"><span class="type">Bytes</span></span>
-        DATA</li>
+         Image data.</p>
+
+<p> If <em>opts.as_userdata</em> was true, the data is returned as a userdata that implements <strong>ByteReader</strong>,
+ rather than being converted to a more friendly string. Under some circumstances, this might be worth
+ doing for performance reasons.</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        X</li>
+        Width of image data...</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        Y</li>
+        ...and height.</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        bpp</li>
+        Number of (actual, not requested) components per pixel.</li>
     </ol>
      <h3>Or</h3>
     <ol>
@@ -602,24 +619,20 @@ req_comp -- if non-zero, # of image components requested in result
 </dd>
     <dt>
     <a name = "load_from_memory"></a>
-    <strong>load_from_memory (bytes[, opts])</strong>
+    <strong>load_from_memory (image[, opts])</strong>
     </dt>
     <dd>
     Memory-based variant of <a href="../modules/image.html#load">load</a>.
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">bytes</span>
+        <li><span class="parameter">image</span>
             <span class="types"><span class="type">Bytes</span></span>
-
-
-
+         Undecoded image contents.
         </li>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-
-
-
+         As per <a href="../modules/image.html#load">load</a>
         </li>
     </ul>
 
@@ -627,16 +640,16 @@ req_comp -- if non-zero, # of image components requested in result
     <ol>
         <li>
            <span class="types"><span class="type">Bytes</span></span>
-        DATA</li>
+        Image data, as per <a href="../modules/image.html#load">load</a>.</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        X</li>
+        Width of image data...</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        Y</li>
+        ...and height.</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        bpp</li>
+        Number of (actual, not requested) components per pixel.</li>
     </ol>
      <h3>Or</h3>
     <ol>
@@ -656,27 +669,22 @@ req_comp -- if non-zero, # of image components requested in result
     <strong>loadf (filename[, baseDir=system.ResourceDirectory[, opts]])</strong>
     </dt>
     <dd>
-    I!!!
+    Loads an image into floating-point form.  Refer to the summary above for further details.
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">filename</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-
-
+         Name of file to load.
         </li>
         <li><span class="parameter">baseDir</span>
-
-
-
+         Directory to search, as per
+ <a href="https://docs.coronalabs.com/api/library/system/pathForFile.html">system.pathForFile</a>.
          (<em>default</em> system.ResourceDirectory)
         </li>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-
-
-
+         As per <a href="../modules/image.html#load">load</a>.
         </li>
     </ul>
 
@@ -684,16 +692,16 @@ req_comp -- if non-zero, # of image components requested in result
     <ol>
         <li>
            <span class="types"><span class="type">Bytes</span></span>
-        DATA</li>
+        Image data, as per <a href="../modules/image.html#load">load</a>.</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        X</li>
+        Width of image data...</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        Y</li>
+        ...and height.</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        bpp</li>
+        Number of (actual, not requested) components per pixel.</li>
     </ol>
      <h3>Or</h3>
     <ol>
@@ -710,24 +718,20 @@ req_comp -- if non-zero, # of image components requested in result
 </dd>
     <dt>
     <a name = "loadf_from_memory"></a>
-    <strong>loadf_from_memory (bytes[, opts])</strong>
+    <strong>loadf_from_memory (image[, opts])</strong>
     </dt>
     <dd>
     Memory-based variant of <a href="../modules/image.html#loadf">loadf</a>.
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">bytes</span>
+        <li><span class="parameter">image</span>
             <span class="types"><span class="type">Bytes</span></span>
-
-
-
+         Undecoded image contents
         </li>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-
-
-
+         As per <a href="../modules/image.html#loadf">loadf</a>.
         </li>
     </ul>
 
@@ -735,16 +739,16 @@ req_comp -- if non-zero, # of image components requested in result
     <ol>
         <li>
            <span class="types"><span class="type">Bytes</span></span>
-        DATA</li>
+        data Image data, as per <a href="../modules/image.html#loadf">loadf</a>.</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        X</li>
+        Width of image data...</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        Y</li>
+        ...and height.</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        bpp</li>
+        Number of (actual, not requested) components per pixel.</li>
     </ol>
      <h3>Or</h3>
     <ol>
@@ -825,18 +829,16 @@ req_comp -- if non-zero, # of image components requested in result
 </dd>
     <dt>
     <a name = "xload_from_memory"></a>
-    <strong>xload_from_memory (bytes)</strong>
+    <strong>xload_from_memory (image)</strong>
     </dt>
     <dd>
     Variant of <a href="../modules/image.html#xload">xload</a> that loads from memory.
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">bytes</span>
+        <li><span class="parameter">image</span>
             <span class="types"><span class="type">Bytes</span></span>
-
-
-
+         Undecoded image contents
         </li>
     </ul>
 
