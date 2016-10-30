@@ -139,11 +139,11 @@ ok = impack.write.tga(filename, w, h, comp, data)
 	<td class="summary">Variant of <a href="../modules/write.html#bmp">bmp</a> that saves the image as a stream of bytes.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#gif">gif (filename[, baseDir=system.DocumentsDirectory], w, h, frames[, repeat=0[, palette_depth=8]])</a></td>
+	<td class="name" nowrap><a href="#gif">gif (filename[, baseDir=system.DocumentsDirectory], w, h, frames[, opts])</a></td>
 	<td class="summary">Saves a series of images as a GIF.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#gif_to_memory">gif_to_memory (w, h, frames[, repeat=0[, palette_depth=8]])</a></td>
+	<td class="name" nowrap><a href="#gif_to_memory">gif_to_memory (w, h, frames[, opts])</a></td>
 	<td class="summary">Variant of <a href="../modules/write.html#gif">gif</a> that saves the images as a stream of bytes.</td>
 	</tr>
 	<tr>
@@ -155,7 +155,7 @@ ok = impack.write.tga(filename, w, h, comp, data)
 	<td class="summary">Variant of <a href="../modules/write.html#hdr">hdr</a> that saves the image as a stream of bytes.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#mpeg">mpeg (filename[, baseDir=system.DocumentsDirectory], w, h, frames[, fps=30])</a></td>
+	<td class="name" nowrap><a href="#mpeg">mpeg (filename[, baseDir=system.DocumentsDirectory], w, h, frames[, opts])</a></td>
 	<td class="summary">Saves a series of images as an MPEG.</td>
 	</tr>
 	<tr>
@@ -292,7 +292,7 @@ ok = impack.write.tga(filename, w, h, comp, data)
 </dd>
     <dt>
     <a name = "gif"></a>
-    <strong>gif (filename[, baseDir=system.DocumentsDirectory], w, h, frames[, repeat=0[, palette_depth=8]])</strong>
+    <strong>gif (filename[, baseDir=system.DocumentsDirectory], w, h, frames[, opts])</strong>
     </dt>
     <dd>
     Saves a series of images as a GIF.
@@ -318,18 +318,27 @@ ok = impack.write.tga(filename, w, h, comp, data)
         </li>
         <li><span class="parameter">frames</span>
             <span class="types"><a class="type" href="../modules/image.html#GifFrame">{image.GifFrame,...}</a></span>
-         GIF frames, with image data in RGBA form. If a given frame's <strong>image</strong>
- is insufficient, it will be padded with <code>0</code> bytes.
+         GIF frames, with image data in RGBA form.</p>
+
+<p> If a given frame's <strong>image</strong> is insufficient, it will be padded with <code>0</code> bytes. An absent <strong>delay</strong>
+ (or one with value 0) indicates that the frame has no delay.</p>
+
+<p> A <strong>has_local_palette</strong> field may also be added to a given frame. If true, the frame will have
+ its own palette and use that in lieu of the GIF-wide one.</p>
+
+<p> Alternatively, the array may contain <strong>Bytes</strong> entries. These are interpreted like frames with
+ said bytes as their <strong>image</strong> field, without delay or local palette.
         </li>
-        <li><span class="parameter">repeat</span>
-            <span class="types"><span class="type">uint</span></span>
-         <strong>TODO:</strong> Refactor as opts table...
-         (<em>default</em> 0)
-        </li>
-        <li><span class="parameter">palette_depth</span>
-            <span class="types"><span class="type">uint</span></span>
-         ...ditto.
-         (<em>default</em> 8)
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+<p> Save options, which include:</p>
+
+<ul>
+    <li><strong>repeat</strong>: Number of times the animation should repeat. By default, 0 (repeat forever).</li>
+    <li><strong>palette_depth</strong>: Palette depth <em>d</em>, from 1 to 8 (the default); the palette will have 2<sup>d</sup> - 1 colors.</li>
+</ul>
+
         </li>
     </ul>
 
@@ -353,7 +362,7 @@ ok = impack.write.tga(filename, w, h, comp, data)
 </dd>
     <dt>
     <a name = "gif_to_memory"></a>
-    <strong>gif_to_memory (w, h, frames[, repeat=0[, palette_depth=8]])</strong>
+    <strong>gif_to_memory (w, h, frames[, opts])</strong>
     </dt>
     <dd>
     Variant of <a href="../modules/write.html#gif">gif</a> that saves the images as a stream of bytes.
@@ -372,15 +381,9 @@ ok = impack.write.tga(filename, w, h, comp, data)
             <span class="types"><a class="type" href="../modules/image.html#GifFrame">{image.GifFrame,...}</a></span>
          As per <a href="../modules/write.html#gif">gif</a>.
         </li>
-        <li><span class="parameter">repeat</span>
-            <span class="types"><span class="type">uint</span></span>
-         <strong>TODO:</strong> Refactor as opts table...
-         (<em>default</em> 0)
-        </li>
-        <li><span class="parameter">palette_depth</span>
-            <span class="types"><span class="type">uint</span></span>
-         ...ditto.
-         (<em>default</em> 8)
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         As per <a href="../modules/write.html#gif">gif</a>.
         </li>
     </ul>
 
@@ -431,7 +434,7 @@ ok = impack.write.tga(filename, w, h, comp, data)
         </li>
         <li><span class="parameter">data</span>
             <span class="types"><span class="type">Bytes</span></span>
-         As per <a href="../modules/write.html#bmp">bmp</a>, with the caveat that the memory must comprise single-precision
+         As per <a href="../modules/write.html#bmp">bmp</a>, with the caveat that the memory consist of single-precision
  floats, rather than bytes, per component.
         </li>
         <li><span class="parameter">opts</span>
@@ -497,7 +500,7 @@ ok = impack.write.tga(filename, w, h, comp, data)
 </dd>
     <dt>
     <a name = "mpeg"></a>
-    <strong>mpeg (filename[, baseDir=system.DocumentsDirectory], w, h, frames[, fps=30])</strong>
+    <strong>mpeg (filename[, baseDir=system.DocumentsDirectory], w, h, frames[, opts])</strong>
     </dt>
     <dd>
     Saves a series of images as an MPEG.
@@ -526,10 +529,11 @@ ok = impack.write.tga(filename, w, h, comp, data)
          MPEG frames, in RGBA form. If a given frame is insufficient, it will be padded
  with <code>0</code> bytes.
         </li>
-        <li><span class="parameter">fps</span>
-            <span class="types"><span class="type">uint</span></span>
-         <strong>TODO:</strong> Refactor as options table.
-         (<em>default</em> 30)
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         Save options.</p>
+
+<p> Currently, only <strong>fps</strong> is available, which sets the video's frames-per-second rate (default 30).
         </li>
     </ul>
 
