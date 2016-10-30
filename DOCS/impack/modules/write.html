@@ -159,7 +159,7 @@ ok = impack.write.tga(filename, w, h, comp, data)
 	<td class="summary">Saves a series of images as an MPEG.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#mpeg_to_memory">mpeg_to_memory (w, h, frames[, fps=30])</a></td>
+	<td class="name" nowrap><a href="#mpeg_to_memory">mpeg_to_memory (w, h, frames[, opts])</a></td>
 	<td class="summary">Variant of <a href="../modules/write.html#mpeg">mpeg</a> that saves the images as a stream of bytes.</td>
 	</tr>
 	<tr>
@@ -557,7 +557,7 @@ ok = impack.write.tga(filename, w, h, comp, data)
 </dd>
     <dt>
     <a name = "mpeg_to_memory"></a>
-    <strong>mpeg_to_memory (w, h, frames[, fps=30])</strong>
+    <strong>mpeg_to_memory (w, h, frames[, opts])</strong>
     </dt>
     <dd>
     Variant of <a href="../modules/write.html#mpeg">mpeg</a> that saves the images as a stream of bytes.
@@ -576,10 +576,9 @@ ok = impack.write.tga(filename, w, h, comp, data)
             <span class="types"><span class="type">{Bytes,...}</span></span>
          As per <a href="../modules/write.html#mpeg">mpeg</a>.
         </li>
-        <li><span class="parameter">fps</span>
-            <span class="types"><span class="type">uint</span></span>
-         <strong>TODO:</strong> Refactor as options table.
-         (<em>default</em> 30)
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         As per <a href="../modules/write.html#mpeg">mpeg</a>.
         </li>
     </ul>
 

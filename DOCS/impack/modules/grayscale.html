@@ -60,6 +60,8 @@
 <p> The <strong>Bytes</strong> type&mdash;specified below&mdash;may be any object that implements <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/ByteReader/policy.html">ByteReader</a>,
  including strings.</p>
 
+<p> For all functions, isufficient input images will be padded with <code>0</code> bytes.</p>
+
 <hr/>
 
 <p> <strong>(The comments that follow were adapted from <a href="https://raw.githubusercontent.com/memononen/SDF/master/src/sdf.h">sdf.h</a>.)</strong></p>
@@ -80,8 +82,9 @@
 
 <p> <strong>Notice in sdf.h:</strong></p>
 
-<p> Copyright (C) 2014 Mikko Mononen (memon@inside.org)
- Copyright (C) 2009-2012 Stefan Gustavson (stefan.gustavson@gmail.com)</p>
+<p> Copyright (C) 2014 Mikko Mononen (memon@inside.org)</p>
+
+<p> Copyright (C) 2009-2012 Stefan Gustavson (stefan.gustavson@gmail.com)</p>
 
 <p> Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -108,20 +111,21 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#build_distance_field">build_distance_field (X, radius, w, h[, opts])</a></td>
-	<td class="summary">D!!!</td>
+	<td class="name" nowrap><a href="#build_distance_field">build_distance_field (input, radius, w, h[, opts])</a></td>
+	<td class="summary">Sweep-and-update Euclidean distance transform of an antialised image for contour textures.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#coverage_to_distance_field">coverage_to_distance_field (X, w, h[, opts])</a></td>
-	<td class="summary">D!!!</td>
+	<td class="name" nowrap><a href="#coverage_to_distance_field">coverage_to_distance_field (input, w, h[, opts])</a></td>
+	<td class="summary">This function converts the antialiased image where each pixel represents coverage (box-filter
+ sampling of the ideal, crisp edge) to a distance field with narrow band radius of <code>sqrt(2)</code>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#rgb_to_gray">rgb_to_gray (X, w, h[, opts])</a></td>
-	<td class="summary">D!!!</td>
+	<td class="name" nowrap><a href="#rgb_to_gray">rgb_to_gray (input, w, h[, opts])</a></td>
+	<td class="summary">Converts a (three-bytes-per-pixel) RGB image into a grayscale one.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#rgba_to_gray">rgba_to_gray (X, w, h[, opts])</a></td>
-	<td class="summary">D!!!</td>
+	<td class="name" nowrap><a href="#rgba_to_gray">rgba_to_gray (input, w, h[, opts])</a></td>
+	<td class="summary">Variant of <a href="../modules/grayscale.html#rgb_to_gray">rgb_to_gray</a> that also considers alpha.</td>
 	</tr>
 </table>
 <h2><a href="#Tables">Tables</a></h2>
@@ -140,41 +144,53 @@
     <dl class="function">
     <dt>
     <a name = "build_distance_field"></a>
-    <strong>build_distance_field (X, radius, w, h[, opts])</strong>
+    <strong>build_distance_field (input, radius, w, h[, opts])</strong>
     </dt>
     <dd>
-    D!!!
+    Sweep-and-update Euclidean distance transform of an antialised image for contour textures.
+ Based on <code>edtaa3func.c</code> by Stefan Gustavson, cf. the summary above.</p>
+
+<p> White (255) pixels are treated as object pixels, zero pixels are treated as background.
+ An attempt is made to treat antialiased edges correctly. The input image must have
+ pixels in the range [0, 255], and the antialiased image should be a box-filter
+ sampling of the ideal, crisp edge. If the antialias region is more than one pixel wide,
+ the result from this transform will be inaccurate.</p>
+
+<p> Pixels at image border are not calculated and are set to 0.</p>
+
+<p> The output distance field is encoded as bytes, where 0 = <em>radius</em> (outside) and 255 = -<em>radius</em> (inside).</p>
+
+<p> Input and output can be the same buffer. (Support for <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/MemoryBlob/api.html">blobs</a>
+ is planned and would be exposed via <em>opts</em>.)
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">X</span>
+        <li><span class="parameter">input</span>
             <span class="types"><span class="type">Bytes</span></span>
-
-
-
+         Input image, one byte per pixel.
         </li>
         <li><span class="parameter">radius</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         The radius of the distance field narrow band in pixels.
         </li>
         <li><span class="parameter">w</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Width of the image...
         </li>
         <li><span class="parameter">h</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         ...and height.
         </li>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
 
+<p> Build options, which include:</p>
 
+<ul>
+    <li><strong>in_stride</strong>: Bytes per row on input image (<em>w</em> by default)...</li>
+    <li><strong>out_stride</strong>: ...and on output image (again, default <em>w</em>).</li>
+    <li><strong>as_userdata</strong>: Affects how the image data is returned.</li>
+</ul>
 
         </li>
     </ul>
@@ -182,8 +198,14 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span></span>
-        Y
+           <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
+         Output of the distance transform, one byte per pixel.</p>
+
+<p> If <em>opts.as_userdata</em> was true, the data is returned as a userdata that implements <strong>ByteReader</strong>,
+ rather than being converted to a more friendly string. Under some circumstances, this might be worth
+ doing for performance reasons.</p>
+
+<p> On failure, returns <strong>nil</strong>.
     </ol>
 
 
@@ -192,44 +214,42 @@
 </dd>
     <dt>
     <a name = "coverage_to_distance_field"></a>
-    <strong>coverage_to_distance_field (X, w, h[, opts])</strong>
+    <strong>coverage_to_distance_field (input, w, h[, opts])</strong>
     </dt>
     <dd>
-    D!!!
+    This function converts the antialiased image where each pixel represents coverage (box-filter
+ sampling of the ideal, crisp edge) to a distance field with narrow band radius of <code>sqrt(2)</code>. </p>
+
+<p> This is the fastest way to turn antialised image to contour texture. This function is good
+ if you don't need the distance field for effects (e.g. fat outline or dropshadow).</p>
+
+<p> Input and output buffers must be different.
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">X</span>
+        <li><span class="parameter">input</span>
             <span class="types"><span class="type">Bytes</span></span>
-
-
-
+         Input image, one byte per pixel.
         </li>
         <li><span class="parameter">w</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Width of the image...
         </li>
         <li><span class="parameter">h</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         ...and height.
         </li>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-
-
-
+         As per <a href="../modules/grayscale.html#build_distance_field">build_distance_field</a>.
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span></span>
-        Y
+           <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
+        As per <a href="../modules/grayscale.html#build_distance_field">build_distance_field</a>.
     </ol>
 
 
@@ -238,44 +258,37 @@
 </dd>
     <dt>
     <a name = "rgb_to_gray"></a>
-    <strong>rgb_to_gray (X, w, h[, opts])</strong>
+    <strong>rgb_to_gray (input, w, h[, opts])</strong>
     </dt>
     <dd>
-    D!!!
+    Converts a (three-bytes-per-pixel) RGB image into a grayscale one.
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">X</span>
+        <li><span class="parameter">input</span>
             <span class="types"><span class="type">Bytes</span></span>
-
-
-
+         Input image, in RGB form.
         </li>
         <li><span class="parameter">w</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Width of image...
         </li>
         <li><span class="parameter">h</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         ...and height.
         </li>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-
-
-
+         As per <a href="../modules/grayscale.html#build_distance_field">build_distance_field</a>, but may also contain a <strong>gray_method</strong>
+ field, which can have as value any of the <a href="../modules/grayscale.html#GrayscaleScheme">GrayscaleScheme</a> choices, <strong>"average"</strong> being the default.
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span></span>
-        Y
+           <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
+        As per <a href="../modules/grayscale.html#build_distance_field">build_distance_field</a>.
     </ol>
 
 
@@ -284,36 +297,28 @@
 </dd>
     <dt>
     <a name = "rgba_to_gray"></a>
-    <strong>rgba_to_gray (X, w, h[, opts])</strong>
+    <strong>rgba_to_gray (input, w, h[, opts])</strong>
     </dt>
     <dd>
-    D!!!
+    Variant of <a href="../modules/grayscale.html#rgb_to_gray">rgb_to_gray</a> that also considers alpha.
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">X</span>
+        <li><span class="parameter">input</span>
             <span class="types"><span class="type">Bytes</span></span>
-
-
-
+         Input image, in RGBA form.
         </li>
         <li><span class="parameter">w</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Width of image...
         </li>
         <li><span class="parameter">h</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         ...and height.
         </li>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-
-
-
+         As per <a href="../modules/grayscale.html#rgb_to_gray">rgb_to_gray</a>.
         </li>
     </ul>
 
@@ -321,7 +326,7 @@
     <ol>
 
            <span class="types"><span class="type">Bytes</span></span>
-        Y
+        ?|Bytes|nil As per <a href="../modules/grayscale.html#rgb_to_gray">rgb_to_gray</a>.
     </ol>
 
 
@@ -336,7 +341,8 @@
     <strong>GrayscaleScheme</strong>
     </dt>
     <dd>
-    Various ways to compute grayscale from RGB.
+    Various ways to compute grayscale from RGB.  The "fields" are different strings that may be
+ assigned as <strong>gray_method</strong> for either <a href="../modules/grayscale.html#rgb_to_gray">rgb_to_gray</a> or <a href="../modules/grayscale.html#rgba_to_gray">rgba_to_gray</a>.
 
     <h3>Fields:</h3>
     <ul>

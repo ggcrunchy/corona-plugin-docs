@@ -104,8 +104,8 @@
 	<td class="summary">D!!!</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#rotate">rotate (data, w, h, angle[, opts])</a></td>
-	<td class="summary">Given some image data, supplies a rotated copy of it.</td>
+	<td class="name" nowrap><a href="#rotate">rotate (input, w, h, angle[, opts])</a></td>
+	<td class="summary">Given some image data, find the results of performing rotation, also as image data.</td>
 	</tr>
 </table>
 
@@ -126,21 +126,15 @@
     <ul>
         <li><span class="parameter">input</span>
             <span class="types"><span class="type">Bytes</span></span>
-
-
-
+         Input image, in RGBA form.
         </li>
         <li><span class="parameter">input_w</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Width of <em>input</em>...
         </li>
         <li><span class="parameter">input_h</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         ...and height.
         </li>
         <li><span class="parameter">kernel_w</span>
             <span class="types"><span class="type">uint</span></span>
@@ -157,7 +151,13 @@
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
 
+<p> Filter options, which include:</p>
 
+<ul>
+    <li><strong>in_stride</strong>: Bytes per row on input image (<em>w</em> * 4 by default)...</li>
+    <li><strong>out_stride</strong>: ...and on output image (again, defaults to <em>w</em> * 4).</li>
+    <li><strong>as_userdata</strong>: Affects how the image data is returned.</li>
+</ul>
 
         </li>
     </ul>
@@ -166,7 +166,13 @@
     <ol>
 
            <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
-        X
+         Output of the box filter, in RGBA form.</p>
+
+<p> If <em>opts.as_userdata</em> was true, the data is returned as a userdata that implements <strong>ByteReader</strong>,
+ rather than being converted to a more friendly string. Under some circumstances, this might be worth
+ doing for performance reasons.</p>
+
+<p> On failure, returns <strong>nil</strong>.
     </ol>
 
 
@@ -175,22 +181,22 @@
 </dd>
     <dt>
     <a name = "rotate"></a>
-    <strong>rotate (data, w, h, angle[, opts])</strong>
+    <strong>rotate (input, w, h, angle[, opts])</strong>
     </dt>
     <dd>
-    Given some image data, supplies a rotated copy of it. </p>
+    Given some image data, find the results of performing rotation, also as image data. </p>
 
-<p> Unwritten pixels will be transparent.
+<p> Any non-trivial rotation will leave gaps. Unwritten pixels will be transparent.
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">data</span>
+        <li><span class="parameter">input</span>
             <span class="types"><span class="type">Bytes</span></span>
-         Image data, in RGBA form.
+         Input image, in RGBA form.
         </li>
         <li><span class="parameter">w</span>
             <span class="types"><span class="type">uint</span></span>
-         Width of <em>data</em>...
+         Width of <em>input</em>...
         </li>
         <li><span class="parameter">h</span>
             <span class="types"><span class="type">uint</span></span>
@@ -202,9 +208,7 @@
         </li>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-
-
-
+         Rotate options, as per <a href="../modules/ops.html#box_filter">box_filter</a>.
         </li>
     </ul>
 
@@ -212,7 +216,7 @@
     <ol>
         <li>
            <span class="types"><span class="type">Bytes</span></span>
-        X</li>
+        On success, as per <a href="../modules/ops.html#box_filter">box_filter</a>.</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
         Width, after rotation...</li>
