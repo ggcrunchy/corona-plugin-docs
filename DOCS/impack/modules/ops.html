@@ -30,12 +30,13 @@
   <li><a href="../api.html">Index</a></li>
 </ul>
 
-<h2>Contents</h2>
-<ul>
-<li><a href="#Functions">Functions</a></li>
+
+
+<h2>Functions</h2>
+<ul class="nowrap">
+    <li><a href="#box_filter">box_filter (input, input_w, input_h, kernel_w, kernel_h[, opts])</a></li>
+    <li><a href="#rotate">rotate (input, w, h, angle[, opts])</a></li>
 </ul>
-
-
 <h2>Modules</h2>
 <ul class="$(kind=='Topics' and '' or 'nowrap'">
   <li><a href="../modules/grayscale.html">grayscale</a></li>
@@ -97,21 +98,6 @@
 </p>
 
 
-<h2><a href="#Functions">Functions</a></h2>
-<table class="function_list">
-	<tr>
-	<td class="name" nowrap><a href="#box_filter">box_filter (input, input_w, input_h, kernel_w, kernel_h[, opts])</a></td>
-	<td class="summary">D!!!</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#rotate">rotate (input, w, h, angle[, opts])</a></td>
-	<td class="summary">Given some image data, find the results of performing rotation, also as image data.</td>
-	</tr>
-</table>
-
-<br/>
-<br/>
-
 
     <h2><a name="Functions"></a>Functions</h2>
     <dl class="function">
@@ -120,7 +106,11 @@
     <strong>box_filter (input, input_w, input_h, kernel_w, kernel_h[, opts])</strong>
     </dt>
     <dd>
-    D!!!
+    Given some image data, find the results of applying a box filter to it. </p>
+
+<p> On iPhone and NEON-capable Android devices, this will use a <a href="https://projectne10.github.io/Ne10/doc/group__IMG__BOXFILTER.html#gac9ffee47cb54608ada3cf82a6c589924">NEON-optimized routine</a>
+ for kernel dimensions between 2 and 127, inclusive. (On Mac and tvOS, an <a href="https://developer.apple.com/reference/accelerate/1515923-vimageconvolve_argb8888">Accelerate framework routine</a>
+ is used: at the moment this will fail for even-sized kernel dimensions. A workaround is planned.)
 
     <h3>Parameters:</h3>
     <ul>
@@ -138,15 +128,11 @@
         </li>
         <li><span class="parameter">kernel_w</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Width of kernel, from 1 to <em>input_w</em>...
         </li>
         <li><span class="parameter">kernel_h</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         ...and height, from 1 to <em>input_h</em>.
         </li>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
@@ -184,7 +170,7 @@
     <strong>rotate (input, w, h, angle[, opts])</strong>
     </dt>
     <dd>
-    Given some image data, find the results of performing rotation, also as image data. </p>
+    Given some image data, find the results&mdash;also as image data&mdash;of performing rotation. </p>
 
 <p> Any non-trivial rotation will leave gaps. Unwritten pixels will be transparent.
 

@@ -30,13 +30,19 @@
   <li><a href="../api.html">Index</a></li>
 </ul>
 
-<h2>Contents</h2>
-<ul>
-<li><a href="#Functions">Functions</a></li>
-<li><a href="#Tables">Tables</a></li>
+
+
+<h2>Functions</h2>
+<ul class="nowrap">
+    <li><a href="#build_distance_field">build_distance_field (input, radius, w, h[, opts])</a></li>
+    <li><a href="#coverage_to_distance_field">coverage_to_distance_field (input, w, h[, opts])</a></li>
+    <li><a href="#rgb_to_gray">rgb_to_gray (input, w, h[, opts])</a></li>
+    <li><a href="#rgba_to_gray">rgba_to_gray (input, w, h[, opts])</a></li>
 </ul>
-
-
+<h2>Tables</h2>
+<ul class="nowrap">
+    <li><a href="#GrayscaleScheme">GrayscaleScheme</a></li>
+</ul>
 <h2>Modules</h2>
 <ul class="$(kind=='Topics' and '' or 'nowrap'">
   <li><strong>grayscale</strong></li>
@@ -80,6 +86,8 @@
 
 <p> The code is intended to be used to calculate distance fields for <a href="http://contourtextures.wikidot.com/">contour texturing</a>.</p>
 
+<hr/>
+
 <p> <strong>Notice in sdf.h:</strong></p>
 
 <p> Copyright (C) 2014 Mikko Mononen (memon@inside.org)</p>
@@ -107,37 +115,6 @@
 <hr/>
 </p>
 
-
-<h2><a href="#Functions">Functions</a></h2>
-<table class="function_list">
-	<tr>
-	<td class="name" nowrap><a href="#build_distance_field">build_distance_field (input, radius, w, h[, opts])</a></td>
-	<td class="summary">Sweep-and-update Euclidean distance transform of an antialised image for contour textures.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#coverage_to_distance_field">coverage_to_distance_field (input, w, h[, opts])</a></td>
-	<td class="summary">This function converts the antialiased image where each pixel represents coverage (box-filter
- sampling of the ideal, crisp edge) to a distance field with narrow band radius of <code>sqrt(2)</code>.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#rgb_to_gray">rgb_to_gray (input, w, h[, opts])</a></td>
-	<td class="summary">Converts a (three-bytes-per-pixel) RGB image into a grayscale one.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#rgba_to_gray">rgba_to_gray (input, w, h[, opts])</a></td>
-	<td class="summary">Variant of <a href="../modules/grayscale.html#rgb_to_gray">rgb_to_gray</a> that also considers alpha.</td>
-	</tr>
-</table>
-<h2><a href="#Tables">Tables</a></h2>
-<table class="function_list">
-	<tr>
-	<td class="name" nowrap><a href="#GrayscaleScheme">GrayscaleScheme</a></td>
-	<td class="summary">Various ways to compute grayscale from RGB.</td>
-	</tr>
-</table>
-
-<br/>
-<br/>
 
 
     <h2><a name="Functions"></a>Functions</h2>
