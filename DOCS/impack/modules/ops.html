@@ -30,19 +30,18 @@
   <li><a href="../api.html">Index</a></li>
 </ul>
 
-
-
-<h2>Functions</h2>
-<ul class="nowrap">
-    <li><a href="#box_filter">box_filter (input, input_w, input_h, kernel_w, kernel_h[, opts])</a></li>
-    <li><a href="#rotate">rotate (input, w, h, angle[, opts])</a></li>
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+<li><a href="#Tables">Tables</a></li>
 </ul>
+
+
 <h2>Modules</h2>
 <ul class="$(kind=='Topics' and '' or 'nowrap'">
   <li><a href="../modules/grayscale.html">grayscale</a></li>
   <li><a href="../modules/image.html">image</a></li>
   <li><strong>ops</strong></li>
-  <li><a href="../modules/resize.html">resize</a></li>
   <li><a href="../modules/write.html">write</a></li>
 </ul>
 
@@ -55,10 +54,106 @@
 <p>
 
 
+<p> Most image resize logic comes courtesy of Jorge L Rodriguez (@VinoBS), via Sean Barrett's <a href="https://github.com/nothings/stb">stb</a>.</p>
+
 <p> The <strong>Bytes</strong> type&mdash;specified below&mdash;may be any object that implements <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/ByteReader/policy.html">ByteReader</a>,
  including strings.</p>
 
-<p> At the moment, all routines build upon either the <a href="https://developer.apple.com/reference/accelerate">Accelerate framework</a> or <a href="https://projectne10.github.io/Ne10/">Project Ne10</a>.</p>
+<p> At the moment, several routines build upon either the <a href="https://developer.apple.com/reference/accelerate">Accelerate framework</a> or <a href="https://projectne10.github.io/Ne10/">Project Ne10</a>.</p>
+
+<hr/>
+
+<p> <strong>(The comments that follow were adapted from <a href="https://raw.githubusercontent.com/nothings/stb/master/stb_image_resize.h">stb_image_resize.h</a>.)</strong></p>
+
+<p> Written with emphasis on usability, portability, and efficiency. (No
+ SIMD or threads, so it's easily outperformed by libs that use those.)
+ Only scaling and translation is supported, no rotations or shears.
+ Easy API downsamples with Mitchell filter, upsamples with cubic interpolation.</p>
+
+<p> <strong>QUICKSTART</strong></p>
+<pre><code>  output_pixels = impack.resize.uint8(input_pixels, in_w, in_h,
+                           out_w, out_h, num_channels)
+  output_pixels = impack.resize.float(...)
+  output_pixels = impack.resize.uint8_srgb(input_pixels, in_w, in_h,
+                           out_w, out_h,
+                           num_channels, alpha_chan)
+  output_pixels = impack.resize.uint8_srgb_edgemode(
+                           input_pixels, in_w, in_h,
+                           out_w, out_h,
+                           num_channels, alpha_chan, "CLAMP")
+                                                     -- "WRAP"/"REFLECT"/"ZERO"
+</code></pre>
+
+<p> <strong>Additional documentation:</strong></p>
+
+<p> <strong>SRGB &amp; FLOATING POINT REPRESENTATION</strong>
+   The sRGB functions presume IEEE floating point.</p>
+
+<p> <strong>ALPHA CHANNEL</strong>
+   Most of the resizing functions provide the ability to control how
+   the alpha channel of an image is processed. The important things
+   to know about this:</p>
+
+<ol>
+    <li>The best mathematically-behaved version of alpha to use is
+    called "premultiplied alpha", in which the other color channels
+    have had the alpha value multiplied in. If you use premultiplied
+    alpha, linear filtering (such as image resampling done by this
+    library, or performed in texture units on GPUs) does the "right
+    thing". While premultiplied alpha is standard in the movie CGI
+    industry, it is still uncommon in the videogame / real-time world.</li>
+</ol>
+
+<p>   If you linearly filter non-premultiplied alpha, strange effects
+   occur. (For example, the average of 1% opaque bright green
+   and 99% opaque black produces 50% transparent dark green when
+   non-premultiplied, whereas premultiplied it produces 50%
+   transparent near-black. The former introduces green energy
+   that doesn't exist in the source image.)</p>
+
+<ol>
+    <li><p>Artists should not edit premultiplied-alpha images; artists
+    want non-premultiplied alpha images. Thus, art tools generally output
+    non-premultiplied alpha images.</p></li>
+    <li><p>You will get best results in most cases by converting images
+    to premultiplied alpha before processing them mathematically.</p></li>
+    <li><p>If you pass the flag <strong>"ALPHA_PREMULTIPLIED"</strong>, the
+    resizer does not do anything special for the alpha channel;
+    it is resampled identically to other channels. This produces
+    the correct results for premultiplied-alpha images, but produces
+    less-than-ideal results for non-premultiplied-alpha images.</p></li>
+    <li><p>If you do not pass the flag <strong>"ALPHA_PREMULTIPLIED"</strong>,
+    then the resizer weights the contribution of input pixels
+    based on their alpha values, or, equivalently, it multiplies
+    the alpha value into the color channels, resamples, then divides
+    by the resultant alpha value. Input pixels which have alpha = 0 do
+    not contribute at all to output pixels unless <em>all</em> of the input
+    pixels affecting that output pixel have alpha = 0, in which case
+    the result for that pixel is the same as it would be without
+    <strong>"ALPHA_PREMULTIPLIED"</strong>. However, this is only true for
+    input images in integer formats. For input images in float format,
+    input pixels with alpha = 0 have no effect, and output pixels
+    which have alpha = 0 will be 0 in all channels. (For float images,
+    you can manually achieve the same result by adding a tiny epsilon
+    value to the alpha channel of every image, and then subtracting
+    or clamping it at the end.)</p></li>
+    <li><p>You can separately control whether the alpha channel is
+    interpreted as linear or affected by the colorspace. By default
+    it is linear; you almost never want to apply the colorspace.
+    (For example, graphics hardware does not apply sRGB conversion
+    to the alpha channel.)</p></li>
+</ol>
+
+<p> <strong>ADDITIONAL CONTRIBUTORS</strong>
+   Sean Barrett: API design, optimizations</p>
+
+<hr/>
+
+<p> <strong>From stb's project page:</strong></p>
+
+<p> This software is dual-licensed to the public domain and under the following
+ license: you are granted a perpetual, irrevocable license to copy, modify,
+ publish, and distribute this file as you see fit.</p>
 
 <hr/>
 
@@ -98,6 +193,64 @@
 </p>
 
 
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#box_filter">box_filter (input, input_w, input_h, kernel_w, kernel_h[, opts])</a></td>
+	<td class="summary">Given some image data, find the results of applying a box filter to it.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#resize_custom">resize_custom (input, iw, ih, ow, oh, nchannels[, opts])</a></td>
+	<td class="summary">Generalized variant of <a href="../modules/ops.html#resize_rgb">resize_rgb</a> and <a href="../modules/ops.html#resize_rgba">resize_rgba</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#resize_region">resize_region (input, iw, ih, ow, oh, nchannels, s0, t0, s1, t1[, opts])</a></td>
+	<td class="summary">Variant of <a href="../modules/ops.html#resize_custom">resize_custom</a> that allows you to specify the image source tile using texture coordinates, i.e.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#resize_rgb">resize_rgb (input, iw, ih, ow, oh, nchannels[, opts])</a></td>
+	<td class="summary">Given some image data, find the results of performing a resize, using the default filter.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#resize_rgba">resize_rgba (input, iw, ih, ow, oh[, opts])</a></td>
+	<td class="summary">Given some image data, find the results of performing a resize, using bilinear filtering.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#resize_subpixel">resize_subpixel (input, iw, ih, ow, oh, xscale, yscale, xoff, yoff[, opts])</a></td>
+	<td class="summary">Variant of <a href="../modules/ops.html#resize_custom">resize_custom</a> that takes an explicit scale for subpixel correctness.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#rotate">rotate (input, w, h, angle[, opts])</a></td>
+	<td class="summary">Given some image data, find the results of performing rotation.</td>
+	</tr>
+</table>
+<h2><a href="#Tables">Tables</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#DataType">DataType</a></td>
+	<td class="summary">How to interpret bytes in the most general resize APIs.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#EdgeMode">EdgeMode</a></td>
+	<td class="summary">How to handle sampling outside the image.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Filter">Filter</a></td>
+	<td class="summary">How to filter pixels when changing sizes.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ColorSpace">ColorSpace</a></td>
+	<td class="summary">How to interpret colors.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ResizeFlags">ResizeFlags</a></td>
+	<td class="summary">Optional flags to apply to resize operation.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
 
     <h2><a name="Functions"></a>Functions</h2>
     <dl class="function">
@@ -108,9 +261,8 @@
     <dd>
     Given some image data, find the results of applying a box filter to it. </p>
 
-<p> On iPhone and NEON-capable Android devices, this will use a <a href="https://projectne10.github.io/Ne10/doc/group__IMG__BOXFILTER.html#gac9ffee47cb54608ada3cf82a6c589924">NEON-optimized routine</a>
- for kernel dimensions between 2 and 127, inclusive. (On Mac and tvOS, an <a href="https://developer.apple.com/reference/accelerate/1515923-vimageconvolve_argb8888">Accelerate framework routine</a>
- is used: at the moment this will fail for even-sized kernel dimensions. A workaround is planned.)
+<p> On iPhone and capable Android devices, this will use a <a href="https://projectne10.github.io/Ne10/doc/group__IMG__BOXFILTER.html#gac9ffee47cb54608ada3cf82a6c589924">NEON-optimized routine</a>
+ for kernel dimensions between 2 and 127, inclusive. Mac and tvOS use an <a href="https://developer.apple.com/reference/accelerate/1515923-vimageconvolve_argb8888">Accelerate framework routine</a>.
 
     <h3>Parameters:</h3>
     <ul>
@@ -128,11 +280,11 @@
         </li>
         <li><span class="parameter">kernel_w</span>
             <span class="types"><span class="type">uint</span></span>
-         Width of kernel, from 1 to <em>input_w</em>...
+         Width of kernel, from 1 to <em>input_w</em>... (The Accelerate technique will adjust this, if necessary.)
         </li>
         <li><span class="parameter">kernel_h</span>
             <span class="types"><span class="type">uint</span></span>
-         ...and height, from 1 to <em>input_h</em>.
+         ...and height, from 1 to <em>input_h</em>. (Ditto.)
         </li>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
@@ -140,7 +292,7 @@
 <p> Filter options, which include:</p>
 
 <ul>
-    <li><strong>in_stride</strong>: Bytes per row on input image (<em>w</em> * 4 by default)...</li>
+    <li><strong>in_stride</strong>: Bytes per row on input image (<em>w</em> * 4 by default, the minimum)...</li>
     <li><strong>out_stride</strong>: ...and on output image (again, defaults to <em>w</em> * 4).</li>
     <li><strong>as_userdata</strong>: Affects how the image data is returned.</li>
 </ul>
@@ -166,11 +318,311 @@
 
 </dd>
     <dt>
+    <a name = "resize_custom"></a>
+    <strong>resize_custom (input, iw, ih, ow, oh, nchannels[, opts])</strong>
+    </dt>
+    <dd>
+    Generalized variant of <a href="../modules/ops.html#resize_rgb">resize_rgb</a> and <a href="../modules/ops.html#resize_rgba">resize_rgba</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">input</span>
+            <span class="types"><span class="type">Bytes</span></span>
+         Input image, in <em>nchannels</em>-per-pixel form, according to <em>datatype</em>.
+        </li>
+        <li><span class="parameter">iw</span>
+            <span class="types"><span class="type">uint</span></span>
+         Input image width...
+        </li>
+        <li><span class="parameter">ih</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and height.
+        </li>
+        <li><span class="parameter">ow</span>
+            <span class="types"><span class="type">uint</span></span>
+         Output image width...
+        </li>
+        <li><span class="parameter">oh</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and height.
+        </li>
+        <li><span class="parameter">nchannels</span>
+            <span class="types"><span class="type">uint</span></span>
+         Number of color channels.
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+<p> Resize options. These include all the options from <a href="../modules/ops.html#box_filter">box_filter</a>, though the strides
+ default to <em>w</em> * <em>nchannels</em> * <strong>bytes_per_component</strong>(<em>datatype</em>).</p>
+
+<p> Additionally, the following are available:</p>
+
+<ul>
+    <li><strong>flags</strong>: May be a string or array of strings, consisting of entries from <a href="../modules/ops.html#ResizeFlags">ResizeFlags</a>. If unsure
+    what these mean, leaving them blank will probably do the right thing.</li>
+    <li><strong>has_alpha</strong>: If true, the image has an alpha channel. This may be an integer between 1 and <em>nchannels</em>, inclusive,
+    indicating which channel to treat as alpha. Otherwise, the index is assumed to be <em>nchannels</em>. (No alpha is the default.)</li>
+    <li><strong>datatype</strong>: May be one of the <a href="../modules/ops.html#DataType">DataType</a> entries (a string), indicating the component data type. Defaults to
+    <strong>"UINT8"</strong>.</li>
+    <li><strong>wrap</strong>: May be one of the <a href="../modules/ops.html#EdgeMode">EdgeMode</a> entries (a string), indicating the edge-sampling behavior. Defaults to
+    <strong>"CLAMP"</strong>.</li>
+    <li><strong>hwrap</strong>: If present, an <a href="../modules/ops.html#EdgeMode">EdgeMode</a> entry (that overrides <strong>wrap</strong>) describing horizontal behavior...</li>
+    <li><strong>vwrap</strong>: ...likewise, for vertical edge-sampling.</li>
+    <li><strong>filter</strong>:  May be one of the <a href="../modules/ops.html#Filter">Filter</a> entries (a string), indicating the color filtering behavior. Naturally,
+    <strong>"DEFAULT"</strong> is the default.</li>
+    <li><strong>hfilter</strong>: If present, a <a href="../modules/ops.html#Filter">Filter</a> entry (that overrides <strong>filter</strong>) describing horizontal behavior...</li>
+    <li><strong>vfilter</strong>: ...likewise, for vertical filtering.</li>
+    <li><strong>space</strong>: May be one of the <a href="../modules/ops.html#ColorSpace">ColorSpace</a> entries (a string), describing how colors are understood. By default,
+    <strong>"LINEAR"</strong>.</li>
+</ul>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
+        As per <a href="../modules/ops.html#box_filter">box_filter</a>. On success, output will match <em>input</em> in form.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "resize_region"></a>
+    <strong>resize_region (input, iw, ih, ow, oh, nchannels, s0, t0, s1, t1[, opts])</strong>
+    </dt>
+    <dd>
+    Variant of <a href="../modules/ops.html#resize_custom">resize_custom</a> that allows you to specify the image source tile using texture coordinates, i.e.
+ (<em>s0</em>, <em>t0</em>) and (<em>s1</em>, <em>t1</em>) are the top-left and bottom-right corner (uv addressing style: [0, 1] &times; [0, 1])
+ of a region of the input image to use.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">input</span>
+            <span class="types"><span class="type">Bytes</span></span>
+         As per <a href="../modules/ops.html#resize_custom">resize_custom</a>.
+        </li>
+        <li><span class="parameter">iw</span>
+            <span class="types"><span class="type">uint</span></span>
+         Input image width...
+        </li>
+        <li><span class="parameter">ih</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and height.
+        </li>
+        <li><span class="parameter">ow</span>
+            <span class="types"><span class="type">uint</span></span>
+         Output image width...
+        </li>
+        <li><span class="parameter">oh</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and height.
+        </li>
+        <li><span class="parameter">nchannels</span>
+            <span class="types"><span class="type">uint</span></span>
+         Number of color channels.
+        </li>
+        <li><span class="parameter">s0</span>
+            <span class="types"><span class="type">number</span></span>
+         Upper-left coordinate, u-component...
+        </li>
+        <li><span class="parameter">t0</span>
+            <span class="types"><span class="type">number</span></span>
+         ...and v-component.
+        </li>
+        <li><span class="parameter">s1</span>
+            <span class="types"><span class="type">number</span></span>
+         Bottom-right coordinate, u-component...
+        </li>
+        <li><span class="parameter">t1</span>
+            <span class="types"><span class="type">number</span></span>
+         ...and v-component.
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+          As per <a href="../modules/ops.html#resize_custom">resize_custom</a>.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
+        As per <a href="../modules/ops.html#box_filter">box_filter</a>. On success, output will match <em>input</em> in form.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "resize_rgb"></a>
+    <strong>resize_rgb (input, iw, ih, ow, oh, nchannels[, opts])</strong>
+    </dt>
+    <dd>
+    Given some image data, find the results of performing a resize, using the default filter.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">input</span>
+            <span class="types"><span class="type">Bytes</span></span>
+         Input image, in RGB form.
+        </li>
+        <li><span class="parameter">iw</span>
+            <span class="types"><span class="type">uint</span></span>
+         Input image width...
+        </li>
+        <li><span class="parameter">ih</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and height.
+        </li>
+        <li><span class="parameter">ow</span>
+            <span class="types"><span class="type">uint</span></span>
+         Output image width...
+        </li>
+        <li><span class="parameter">oh</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and height.
+        </li>
+        <li><span class="parameter">nchannels</span>
+            <span class="types"><span class="type">uint</span></span>
+         Number of color channels.
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         Resize options, as per <a href="../modules/ops.html#box_filter">box_filter</a> (although strides default to <em>w</em> * 3, instead).
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
+        As per <a href="../modules/ops.html#box_filter">box_filter</a>. On success, output will be in RGB form.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "resize_rgba"></a>
+    <strong>resize_rgba (input, iw, ih, ow, oh[, opts])</strong>
+    </dt>
+    <dd>
+    Given some image data, find the results of performing a resize, using bilinear filtering.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">input</span>
+            <span class="types"><span class="type">Bytes</span></span>
+         Input image, in RGBA form.
+        </li>
+        <li><span class="parameter">iw</span>
+            <span class="types"><span class="type">uint</span></span>
+         Input image width...
+        </li>
+        <li><span class="parameter">ih</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and height.
+        </li>
+        <li><span class="parameter">ow</span>
+            <span class="types"><span class="type">uint</span></span>
+         Output image width...
+        </li>
+        <li><span class="parameter">oh</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and height.
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         Resize options, as per <a href="../modules/ops.html#box_filter">box_filter</a>.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
+        As per <a href="../modules/ops.html#resize_rgb">resize_rgb</a>.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "resize_subpixel"></a>
+    <strong>resize_subpixel (input, iw, ih, ow, oh, xscale, yscale, xoff, yoff[, opts])</strong>
+    </dt>
+    <dd>
+    Variant of <a href="../modules/ops.html#resize_custom">resize_custom</a> that takes an explicit scale for subpixel correctness.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">input</span>
+            <span class="types"><span class="type">Bytes</span></span>
+         As per <a href="../modules/ops.html#resize_custom">resize_custom</a>.
+        </li>
+        <li><span class="parameter">iw</span>
+            <span class="types"><span class="type">uint</span></span>
+         Input image width...
+        </li>
+        <li><span class="parameter">ih</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and height.
+        </li>
+        <li><span class="parameter">ow</span>
+            <span class="types"><span class="type">uint</span></span>
+         Output image width...
+        </li>
+        <li><span class="parameter">oh</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and height.
+        </li>
+        <li><span class="parameter">xscale</span>
+            <span class="types"><span class="type">number</span></span>
+         Scale factor along x-axis... (For reference, <a href="../modules/ops.html#resize_region">resize_region</a> uses <code>(ow / iw) / (s1 - s0)</code>.)
+        </li>
+        <li><span class="parameter">yscale</span>
+            <span class="types"><span class="type">number</span></span>
+         ...and y-axis. (<code>(oh / ih) / (t1 - t0)</code>)
+        </li>
+        <li><span class="parameter">xoff</span>
+            <span class="types"><span class="type">number</span></span>
+         Offset along x-axis, to upper-left corner... (For reference, <a href="../modules/ops.html#resize_region">resize_region</a> uses <code>s0 * ow / (s1 - s0)</code>.)
+        </li>
+        <li><span class="parameter">yoff</span>
+            <span class="types"><span class="type">number</span></span>
+         ...and y-axis. (<code>t0 * oh / (t1 - t0)</code>)
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         As per <a href="../modules/ops.html#resize_custom">resize_custom</a>.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
+        As per <a href="../modules/ops.html#box_filter">box_filter</a>. On success, output will match <em>input</em> in form.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
     <a name = "rotate"></a>
     <strong>rotate (input, w, h, angle[, opts])</strong>
     </dt>
     <dd>
-    Given some image data, find the results&mdash;also as image data&mdash;of performing rotation. </p>
+    Given some image data, find the results of performing rotation. </p>
 
 <p> Any non-trivial rotation will leave gaps. Unwritten pixels will be transparent.
 
@@ -215,6 +667,146 @@
 
         <strong>nil</strong>, indicating an error.
     </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2><a name="Tables"></a>Tables</h2>
+    <dl class="function">
+    <dt>
+    <a name = "DataType"></a>
+    <strong>DataType</strong>
+    </dt>
+    <dd>
+    How to interpret bytes in the most general resize APIs.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">UINT8</span>
+         Components are 8-bit unsigned integers, i.e. 0 to 255 (typical for images)...
+        </li>
+        <li><span class="parameter">UINT16</span>
+         ...are 16-bit unsigned integers...
+        </li>
+        <li><span class="parameter">UINT32</span>
+         ...or are 32-bit unsigned integers.
+        </li>
+        <li><span class="parameter">FLOAT</span>
+         Components are single-precision (32-bit) floating point numbers.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "EdgeMode"></a>
+    <strong>EdgeMode</strong>
+    </dt>
+    <dd>
+    How to handle sampling outside the image.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">CLAMP</span>
+         Samples are clamped to the nearest edge value, e.g. position <code>0</code> snaps to <code>1</code> and
+ <em>n</em> + 1 to <em>n</em>.
+        </li>
+        <li><span class="parameter">REFLECT</span>
+         Samples reflect back across the image, e.g. position <em>n</em> + 3 maps to <em>n</em> - 3.
+        </li>
+        <li><span class="parameter">WRAP</span>
+         Samples wrap around to the other side of the image, e.g. position <em>n</em> + 1 maps to <code>1</code>.
+        </li>
+        <li><span class="parameter">ZERO</span>
+         Samples are read back as values of <code>0</code>.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Filter"></a>
+    <strong>Filter</strong>
+    </dt>
+    <dd>
+    How to filter pixels when changing sizes.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">DEFAULT</span>
+         Use the appropriate default filter for an operation, cf. the summary above.
+        </li>
+        <li><span class="parameter">BOX</span>
+         A trapezoid with one-pixel-wide ramps; same result as box for integer scale ratios.
+        </li>
+        <li><span class="parameter">TRIANGLE</span>
+         On upsampling, produces same results as bilinear texture filtering.
+        </li>
+        <li><span class="parameter">CUBICBSPLINE</span>
+         The cubic B-spline (aka Mitchell-Netrevali with <strong>B</strong> = 1, <strong>C</strong> = 0). Gaussian-esque.
+        </li>
+        <li><span class="parameter">CATMULLROM</span>
+         An interpolating cubic spline.
+        </li>
+        <li><span class="parameter">MITCHELL</span>
+         Mitchell-Netrevali filter with <strong>B</strong> = <strong>C</strong> = &#8531;.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ColorSpace"></a>
+    <strong>ColorSpace</strong>
+    </dt>
+    <dd>
+    How to interpret colors.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">LINEAR</span>
+         Colors map linearly from [0, 255] to [0, 1].
+        </li>
+        <li><span class="parameter">SRGB</span>
+         Colors follow an <a href="https://en.wikipedia.org/wiki/SRGB">sRGB</a> gamma ramp.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ResizeFlags"></a>
+    <strong>ResizeFlags</strong>
+    </dt>
+    <dd>
+    Optional flags to apply to resize operation.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">ALPHA_PREMULTIPLIED</span>
+         Set this flag if your texture has premultiplied alpha. Otherwise, alpha-weighted
+ resampling will be used (effectively premultiplying, resampling, then unpremultiplying).
+        </li>
+        <li><span class="parameter">ALPHA_USES_COLORSPACE</span>
+         The specified alpha channel should be handled as gamma-corrected value even
+ when doing sRGB operations.
+        </li>
+    </ul>
+
 
 
 
