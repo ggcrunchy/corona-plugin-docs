@@ -53,8 +53,7 @@
 <p> Sample code is available <a href="https://github.com/ggcrunchy/corona-plugin-docs/tree/master/MemoryBlob_sample">here</a>.</p>
 
 <p> Note that the <strong>MemoryBlob</strong> methods below apply to <em>any</em> blob, not only those created by this plugin. In
- particular, other plugins may create their own blobs via the <strong>BlobXS</strong> API: see <a href="https://github.com/ggcrunchy/corona_enterprise_utils">here</a>,
- in particular <strong>ByteUtils.h</strong> and <strong>Blob.cpp</strong>.</p>
+ particular, other plugins may create their own blobs via the <strong>BlobXS</strong> API: see <strong>utils/Blob.h / cpp</strong> <a href="https://github.com/ggcrunchy/corona_enterprise_utils">here</a>.</p>
 
 <p> Blobs implement the <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/ByteReader/policy.html">ByteReader protocol</a>.</p>
 
@@ -65,8 +64,16 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#GetVersion">GetVersion ()</a></td>
-	<td class="summary">Gets the blob version that will be associated with blobs created by <a href="api.html#New">New</a>.</td>
+	<td class="name" nowrap><a href="#ExistsInBlobStorage">ExistsInBlobStorage (hash)</a></td>
+	<td class="summary">Check whether an entry exists in shared blob storage.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#GetBlobDispatcher">GetBlobDispatcher ()</a></td>
+	<td class="summary">Gets a dispatcher used by blob-related events, in order to add / remove listeners.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#InitializeBlobStorage">InitializeBlobStorage ()</a></td>
+	<td class="summary">Initializes shared blob storage for <a href="api.html#MemoryBlob:Submit">MemoryBlob:Submit</a> and <a href="api.html#MemoryBlob:Sync">MemoryBlob:Sync</a>.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#IsBlob">IsBlob (object[, type])</a></td>
@@ -115,6 +122,14 @@
 	<td class="summary">Removes a range of bytes from the blob.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#MemoryBlob:Submit">MemoryBlob:Submit ()</a></td>
+	<td class="summary">Submit this blob's contents to shared blob storage.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MemoryBlob:Sync">MemoryBlob:Sync (hash)</a></td>
+	<td class="summary">Synchronizes this blob with an entry in shared blob storage, which then ceases to exist.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#MemoryBlob:Write">MemoryBlob:Write (pos, bytes)</a></td>
 	<td class="summary">Writes bytes to the blob, starting at position <em>pos</em>, overwriting the blob's contents.</td>
 	</tr>
@@ -127,23 +142,70 @@
     <h2><a name="Functions"></a>Functions</h2>
     <dl class="function">
     <dt>
-    <a name = "GetVersion"></a>
-    <strong>GetVersion ()</strong>
+    <a name = "ExistsInBlobStorage"></a>
+    <strong>ExistsInBlobStorage (hash)</strong>
     </dt>
     <dd>
-    Gets the blob version that will be associated with blobs created by <a href="api.html#New">New</a>.  Blobs "in the wild"
- might have been created with an older blob API; a program can handle such mixtures by comparing
- blobs' versions against this value.</p>
+    Check whether an entry exists in shared blob storage.
 
-<p> This plugin is intended to track the latest version.
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">hash</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Shared entry's lookup hash, cf. <a href="api.html#MemoryBlob:Submit">MemoryBlob:Submit</a>.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        The entry exists?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "GetBlobDispatcher"></a>
+    <strong>GetBlobDispatcher ()</strong>
+    </dt>
+    <dd>
+    Gets a dispatcher used by blob-related events, in order to add / remove listeners. </p>
+
+<p> Calling this outside <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/luaproc/api.html#is_main_state">Corona's main thread</a>
+ results in an error.
 
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">uint</span></span>
-        Version, &ge; 1.
+           <span class="types"><span class="type">EventDispatcher</span></span>
+        Dispatcher.
     </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="api.html#MemoryBlob:Submit">MemoryBlob:Submit</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "InitializeBlobStorage"></a>
+    <strong>InitializeBlobStorage ()</strong>
+    </dt>
+    <dd>
+    Initializes shared blob storage for <a href="api.html#MemoryBlob:Submit">MemoryBlob:Submit</a> and <a href="api.html#MemoryBlob:Sync">MemoryBlob:Sync</a>. </p>
+
+<p> Calling this outside <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/luaproc/api.html#is_main_state">Corona's main thread</a>
+ results in an error.</p>
+
+<p> Subsequent calls are no-ops.
+
+
 
 
 
@@ -198,8 +260,8 @@
     blob's memory will start at an address that is a multiple of this value, which is useful and / or
     needed e.g. for SIMD operations. By default, blobs use the Lua allocator's alignment.</li>
     <li><strong>resizable</strong>: If true, the blob can be resized (via the native API). Off by default.</li>
-    <li><strong>size</strong>: Blob size, in bytes. In the case of resizable blobs, this is the blob's initial size
-    (&ge; 0; if absent, 0); otherwise, this is mandatory and specifies the fixed size &gt; 0.</li>
+    <li><strong>size</strong>: Blob size, in bytes. For resizable blobs, this is the blob's initial size
+    (&ge; 0; if absent, 0); otherwise, it specifies the fixed size &gt; 0 and is mandatory.</li>
     <li><strong>type</strong>: A string that will be used as the blob userdata's metatable name; if absent, a default
     is used. Blobs themselves make no further use of this value; rather it is exposed as a convenience,
     e.g. so plugin authors can identify their own blobs via <a href="api.html#IsBlob">IsBlob</a>.</li>
@@ -331,7 +393,6 @@
 <ul>
     <li><strong>alignment</strong>: As per <a href="api.html#New">New</a>, an integer &ge; 0, where 0 indicates default alignment. </li>
     <li><strong>resizable</strong>: As per <a href="api.html#New">New</a>, a boolean indicating resizability.</li>
-    <li><strong>version</strong>: The API version used to create this blob, cf. <a href="api.html#GetVersion">GetVersion</a>.</li>
 </ul>
 
 
@@ -488,6 +549,89 @@
 
 </dd>
     <dt>
+    <a name = "MemoryBlob:Submit"></a>
+    <strong>MemoryBlob:Submit ()</strong>
+    </dt>
+    <dd>
+    Submit this blob's contents to shared blob storage.  This is a mechanism geared toward
+ memory sharing among <a href="https://ggcrunchy.github.io/corona-pluin-docs/DOCS/luaproc/api.html">Lua processes</a>,
+ which can even be done without copying when certain conditions are met (cf. <a href="api.html#MemoryBlob:Sync">MemoryBlob:Sync</a> for details,
+ as well as the comment about resizable blobs that follows).</p>
+
+<p> Essentially, a resizable blob is first created in shared storage, with the same alignment as this blob.</p>
+
+<p> If this blob is resizable, its contents are given to the shared entry directly. It will then be empty.</p>
+
+<p> Fixed-size blobs must copy their contents into the shared entry. The original data is left intact.</p>
+
+<p> The entry will persist until synchronization or some number of frames (&gt; 1) have elapsed. The latter is a check
+ against runaway growth, since stale entries would accumulate over time.</p>
+
+<p> Listeners for <strong>"stale_entry"</strong> will be sent a message when a long-lived entry is evicted from shared
+ storage. The message's <strong>hash</strong> field will contain the former entry's hash.</p>
+
+<p> This is a no-op for locked, resizable blobs, or if <a href="api.html#InitializeBlobStorage">InitializeBlobStorage</a> has not been called.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
+        On success, a hash for later use by <a href="api.html#MemoryBlob:Sync">MemoryBlob:Sync</a>. Otherwise, <strong>nil</strong>.
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="api.html#ExistsInBlobStorage">ExistsInBlobStorage</a></li>
+         <li><a href="api.html#GetBlobDispatcher">GetBlobDispatcher</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "MemoryBlob:Sync"></a>
+    <strong>MemoryBlob:Sync (hash)</strong>
+    </dt>
+    <dd>
+    Synchronizes this blob with an entry in shared blob storage, which then ceases to exist. </p>
+
+<p> For fixed-size blobs, this is essentially <code>self:Write(1, bytes)</code>, with <em>bytes</em> being the entry's contents.</p>
+
+<p> With resizable blobs, the same is true, but the blob's length is also trimmed to #<em>bytes</em>, if necessary.
+ When the blob and shared entry have a common alignment (cf. <a href="api.html#MemoryBlob:Submit">MemoryBlob:Submit</a>), the blob simply assumes
+ ownership of the latter's contents, forgoing a potentially expensive copy.</p>
+
+<p> This operation is designed for safe communication between <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/luaproc/api.html">Lua processes</a>.</p>
+
+<p> This is a no-op for locked blobs. The same is true if <em>hash</em> does not refer to a valid entry, or if
+ <a href="api.html#InitializeBlobStorage">InitializeBlobStorage</a> has not been called.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">hash</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Shared entry's lookup hash, cf. <a href="api.html#MemoryBlob:Submit">MemoryBlob:Submit</a>.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Synchronization succeeded?
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="api.html#ExistsInBlobStorage">ExistsInBlobStorage</a></li>
+         <li><a href="api.html#MemoryBlob:Write">MemoryBlob:Write</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
     <a name = "MemoryBlob:Write"></a>
     <strong>MemoryBlob:Write (pos, bytes)</strong>
     </dt>
@@ -503,7 +647,7 @@
     <ul>
         <li><span class="parameter">pos</span>
             <span class="types"><span class="type">int</span></span>
-         Write position, &isin; [1, #<em>self</em>]. (In the case of resizable blobs, #<em>self</em> + 1 is
+         Write position, between 1 and #<em>self</em>, inclusive. (In the case of resizable blobs, #<em>self</em> + 1 is
  also valid; the call is then effectively <a href="api.html#MemoryBlob:Append">MemoryBlob:Append</a>.) A negative index may also be
  provided, cf. <a href="api.html#MemoryBlob:GetBytes">MemoryBlob:GetBytes</a> for details.</p>
 

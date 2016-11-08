@@ -66,9 +66,6 @@
 <p> <strong>UNDER CONSIDERATION</strong>:</p>
 
 <ul>
-    <li>Have bytemaps themselves implement <strong>ByteReader</strong></li>
-    <li>Provide support for <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/MemoryBlob/api.html">MemoryBlob</a>s
-    as the underlying memory target</li>
     <li>An <strong>extrude</strong> option for <a href="api.html#Bytemap:SetBytes">Bytemap:SetBytes</a>, with image sheet padding in mind</li>
 </ul>
 </p>
@@ -79,6 +76,18 @@
 	<tr>
 	<td class="name" nowrap><a href="#newTexture">newTexture (config)</a></td>
 	<td class="summary">Creates a new <strong>Bytemap</strong>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Bytemap:BindBlob">Bytemap:BindBlob (blob)</a></td>
+	<td class="summary">Bind a <a href="file:///C:/Users/XS/Desktop/corona_plugins/MemoryBlob/docs/api.html">memory blob</a> to the bytemap.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MemoryBlob:Deallocate">MemoryBlob:Deallocate ()</a></td>
+	<td class="summary">Deallocates a bytemap's bytes, for instance when no further updates are needed after <strong>invalidate()</strong>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Bytemap:GetBlob">Bytemap:GetBlob ()</a></td>
+	<td class="summary">Gets the memory blob, if any, bound to the bytemap.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Bytemap:GetBytes">Bytemap:GetBytes ([opts])</a></td>
@@ -132,6 +141,99 @@
     </ol>
 
 
+
+
+</dd>
+    <dt>
+    <a name = "Bytemap:BindBlob"></a>
+    <strong>Bytemap:BindBlob (blob)</strong>
+    </dt>
+    <dd>
+    Bind a <a href="file:///C:/Users/XS/Desktop/corona_plugins/MemoryBlob/docs/api.html">memory blob</a> to the bytemap. </p>
+
+<p> The blob will be used as the memory source to submit texture data.</p>
+
+<p> When a blob is first bound, its normal memory is deallocated. If a blob is detached without binding a
+ new blob, the normal memory is reallocated, with format-appropriate default bytes.</p>
+
+<p> Typically, the bound blob's size should be at least <em>w</em> * <em>h</em> * <strong>bytes_per_pixel</strong>(<em>format</em>). Otherwise,
+ <a href="https://docs.coronalabs.com/api/type/TextureResourceExternal/invalidate.html">Bytemap:invalidate</a> and
+ <a href="api.html#Bytemap:GetBytes">Bytemap:GetBytes</a> must copy the contents to a temporary buffer (padding it with default bytes) and
+ work from that instead, defeating many of the benefits of using a blob.</p>
+
+<p> (<strong>N.B.</strong> At the moment there is a leaky abstraction here: on Windows, an RGB texture must be promoted to
+ RGBA internally when its width is not a multiple of 4. To comport with this in a sane way, the copy process
+ must also be performed here. This is a workaround until the (reported) issue is fixed.)</p>
+
+<p> A call to <a href="api.html#Bytemap:SetBytes">Bytemap:SetBytes</a> will detach the blob, though it will reallocate normal memory first and
+ render the blob contents into that. A corollary is that the bytemap regards the blob as read-only,
+ making locked blobs perfectly acceptable.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">blob</span>
+            <span class="types">optional <span class="type">MemoryBlob</span></span>
+         Any currently bound blob is detached. If present, <em>blob</em> is then bound.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">MemoryBlob</span> or <span class="type">nil</span></span>
+        Previously bound blob, or <strong>nil</strong> if none was bound.
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="api.html#Bytemap:GetBlob">Bytemap:GetBlob</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "MemoryBlob:Deallocate"></a>
+    <strong>MemoryBlob:Deallocate ()</strong>
+    </dt>
+    <dd>
+    Deallocates a bytemap's bytes, for instance when no further updates are needed after <strong>invalidate()</strong>. </p>
+
+<p> This is a convenience method that performs <code>self:BindBlob(dummy)</code>, where <em>dummy</em> is a (lazily created) zero-length,
+ fixed-size blob. See <a href="api.html#Bytemap:BindBlob">Bytemap:BindBlob</a> for details.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">MemoryBlob</span> or <span class="type">nil</span></span>
+        Previously bound blob, or <strong>nil</strong> if none was bound.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Bytemap:GetBlob"></a>
+    <strong>Bytemap:GetBlob ()</strong>
+    </dt>
+    <dd>
+    Gets the memory blob, if any, bound to the bytemap.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">MemoryBlob</span> or <span class="type">nil</span></span>
+        Blob, or <strong>nil</strong> if none is bound.
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="api.html#Bytemap:BindBlob">Bytemap:BindBlob</a>
+    </ul>
 
 
 </dd>
