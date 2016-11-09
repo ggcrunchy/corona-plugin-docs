@@ -45,9 +45,6 @@
 <h1>Module <code>bytemap</code></h1>
 <p>Byte-flavored memory bitmap, useful for loading image-style assets from byte streams (and <em>vice versa</em>),
  where components are integers ranging from 0 to 255.</p>
-<p>
-
-
 <p> While bytemaps <em>can</em> be used like Corona's <a href="https://docs.coronalabs.com/plugin/memoryBitmap/type/MemoryBitmap/index.html">memory bitmap</a>,
  the latter should be preferred for per-pixel operations. More typical bytemap usage will involve bulk operations,
  such as reading entire images from custom file formats or network downloads.</p>
@@ -62,13 +59,6 @@
 
 <p> The <strong>Bytes</strong> type&mdash;specified in a few of the bytemap methods&mdash;may be any object that implements <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/ByteReader/policy.html">ByteReader</a>,
  including strings.</p>
-
-<p> <strong>UNDER CONSIDERATION</strong>:</p>
-
-<ul>
-    <li>An <strong>extrude</strong> option for <a href="api.html#Bytemap:SetBytes">Bytemap:SetBytes</a>, with image sheet padding in mind</li>
-</ul>
-</p>
 
 
 <h2><a href="#Functions">Functions</a></h2>
@@ -187,7 +177,8 @@
 
     <h3>See also:</h3>
     <ul>
-         <a href="api.html#Bytemap:GetBlob">Bytemap:GetBlob</a>
+         <li><a href="api.html#Bytemap:Deallocate">Bytemap:Deallocate</a></li>
+         <li><a href="api.html#Bytemap:GetBlob">Bytemap:GetBlob</a></li>
     </ul>
 
 
@@ -311,7 +302,8 @@
     Sets a bytemap's bytes. </p>
 
 <p> The region details largely carry over from <a href="api.html#Bytemap:GetBytes">Bytemap:GetBytes</a>, although see the note about custom
- region coordinates below. No bytes change when the region is empty.</p>
+ region coordinates below. No bytes change when the region is empty, though blob detachment is done
+ regardless, cf. <a href="api.html#Bytemap:BindBlob">Bytemap:BindBlob</a>.</p>
 
 <p> If too few bytes are provided to service the requested region, it will be clipped against the last
  line containing pixels. (Color-keyed pixels are considered present for purposes of this analysis.)
@@ -330,11 +322,15 @@
 <ul>
     <li><strong>get_info</strong>: As per <a href="api.html#Bytemap:GetBytes">GetBytes</a>.</li>
     <li><strong>x1</strong>, <strong>y1</strong>, <strong>x2</strong>, <strong>y2</strong>: Custom region coordinates, cf. the summary. <em>bytes</em> is interpreted
-    as a (<em>x2</em> - <em>x1</em> + 1) &times; (<em>y2</em> - <em>y1</em> + 1)-sized rectangle. <strong>N.B.</strong> <em>bytes</em> sees the coordinates'
-    unclipped values (though sorted), whereas an info table will contain them in their final form.</li>
+    as a (<em>x2</em> - <em>x1</em> + 1) &times; (<em>y2</em> - <em>y1</em> + 1)-sized rectangle. <strong>N.B.</strong> These dimensions use the
+    raw values (though sorted), whereas an info table will describe the final clipped region.</li>
     <li><strong>colorkey</strong>: If provided, a <strong>Bytes</strong> value of one or more bytes (zero-padded if necessary to agree
     with <em>format</em>; excess bytes are dropped). Pixels in <em>bytes</em> that match <em>colorkey</em> are skipped, leaving
     the bytemap contents intact.</li>
+    <li><strong>extrude</strong>: If this is an integer &gt; 0, the pixels along each edge will be extruded so many rows /
+    columns, or until they run up against the side of the bytemap (therefore this option is only useful
+    together with custom regions). Extrusion is performed after bytes have been written, ignoring any
+    clipping done for insufficient bytes.</li>
     <li><strong>format</strong>: One of <strong>"mask"</strong>, <strong>"rgb"</strong>, <strong>"rgba"</strong>, <strong>"red"</strong>, <strong>"green"</strong>, <strong>"blue</strong>", <strong>"alpha</strong>",
     <strong>"grayscale"</strong>, describing the format of <em>bytes</em>.</li>
 </ul>
