@@ -115,9 +115,9 @@
  <br/>
  <code>-------------------------</code>
  <br/>
- <code>R3 G3 B2 A2 | R4 G4 B4 A4</code></p>
+ <code>R3 G3 B3 A3 | R4 G4 B4 A4</code></p>
 
-<p> In flat memory, this will have the pattern <code>R1 G1 B1 A1 R2 G2 B2 A2 R3 G3 B2 A2 R4 G4 B4 A4</code>.
+<p> In flat memory, this will have the pattern <code>R1 G1 B1 A1 R2 G2 B2 A2 R3 G3 B3 A3 R4 G4 B4 A4</code>.
 
     <h3>Parameters:</h3>
     <ul>
@@ -128,7 +128,7 @@
 
 <ul>
     <li><strong>format</strong>: Underlying <a href="https://docs.coronalabs.com/native/C/CoronaGraphics.html">data format</a>, which may be
-    <strong>"mask"</strong>, <strong>"rgb"</strong>, or <strong>"rgba"</strong>.
+    <strong>"mask"</strong>, <strong>"rgb"</strong>, or <strong>"rgba"</strong> (the default).
     <br/><br/>
     The bytemap will have a corresponding <em>bytes_per_pixel</em> of 1, 3, or 4, respectively.</li>
     <li><strong>width</strong>: Number of pixels wide...</li>
@@ -141,8 +141,8 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytemap</span></span>
-        The new bytemap.
+           <span class="types"><span class="type">Bytemap</span> or <span class="type">nil</span></span>
+        The new bytemap, or <strong>nil</strong> on error.
     </ol>
 
 
