@@ -44,6 +44,11 @@
 
 <h1>Module <code>memoryblob</code></h1>
 <p>Auxiliary library for creating memory blobs, for instance to recycle or share native resources.</p>
+<p>
+
+
+<p> Some concurrency primitives are provided, built upon <a href="https://github.com/efficient/libcuckoo">libcuckoo</a>.</p>
+
 <p> To use the plugin, add the following in <code>build.settings</code>:</p>
 
 <p> <pre><code class="language-lua">plugins = {
@@ -52,20 +57,62 @@
 
 <p> Sample code is available <a href="https://github.com/ggcrunchy/corona-plugin-docs/tree/master/MemoryBlob_sample">here</a>.</p>
 
-<p> Note that the <strong>MemoryBlob</strong> methods below apply to <em>any</em> blob, not only those created by this plugin. In
- particular, other plugins may create their own blobs via the <strong>BlobXS</strong> API: see <strong>utils/Blob.h / cpp</strong> <a href="https://github.com/ggcrunchy/corona_enterprise_utils">here</a>.</p>
+<p> Once this plugin has been loaded, native plugins may create and manage blobs via the <a href="https://raw.githubusercontent.com/ggcrunchy/corona_enterprise_utils/master/utils/Blob.h">BlobXS API</a>.</p>
 
 <p> Blobs implement the <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/ByteReader/policy.html">ByteReader protocol</a>.</p>
 
 <p> The <strong>Bytes</strong> type&mdash;specified in a few of the blob methods&mdash;may be any object that implements <strong>ByteReader</strong>,
  including strings.</p>
 
+<hr/>
+
+<p> <strong>From <a href="https://github.com/efficient/libcuckoo#licence">libcuckoo's license</a>:</strong></p>
+
+<p> Copyright (C) 2013, Carnegie Mellon University and Intel Corporation</p>
+
+<p> Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance
+ with the License. You may obtain a copy of the License at</p>
+
+<p>   <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a></p>
+
+<p> Unless required by applicable law or agreed to in writing, software distributed under the License is distributed
+ on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for
+ the specific language governing permissions and limitations under the License.</p>
+
+<hr/>
+
+<p> <strong>From the <a href="https://raw.githubusercontent.com/efficient/libcuckoo/master/cityhash-1.1.1/COPYING">license of CityHash</a>
+ (used by libcuckoo)</strong>:</p>
+
+<p> Copyright (c) 2011 Google, Inc.</p>
+
+<p> Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:</p>
+
+<p> The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.</p>
+
+<p> THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.</p>
+
+<hr/>
+</p>
+
 
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#ExistsInBlobStorage">ExistsInBlobStorage (hash)</a></td>
-	<td class="summary">Check whether an entry exists in shared blob storage.</td>
+	<td class="summary">Check whether an entry exists in blob storage.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#GetBlobDispatcher">GetBlobDispatcher ()</a></td>
@@ -73,7 +120,7 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#InitializeBlobStorage">InitializeBlobStorage ()</a></td>
-	<td class="summary">Initializes shared blob storage for <a href="api.html#MemoryBlob:Submit">MemoryBlob:Submit</a> and <a href="api.html#MemoryBlob:Sync">MemoryBlob:Sync</a>.</td>
+	<td class="summary">Initializes blob storage for <a href="api.html#MemoryBlob:Submit">MemoryBlob:Submit</a> and <a href="api.html#MemoryBlob:Sync">MemoryBlob:Sync</a>.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#IsBlob">IsBlob (object[, type])</a></td>
@@ -111,7 +158,7 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MemoryBlob:IsLocked">MemoryBlob:IsLocked ()</a></td>
-	<td class="summary">Indicates that the blob is locked for writing (via the native API).</td>
+	<td class="summary">Indicates whether writes to this blob are restricted (via the native API).</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MemoryBlob:__len">MemoryBlob:__len ()</a></td>
@@ -123,11 +170,11 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MemoryBlob:Submit">MemoryBlob:Submit ()</a></td>
-	<td class="summary">Submit this blob's contents to shared blob storage.</td>
+	<td class="summary">Submit this blob's contents to blob storage.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MemoryBlob:Sync">MemoryBlob:Sync (hash)</a></td>
-	<td class="summary">Synchronizes this blob with an entry in shared blob storage, which then ceases to exist.</td>
+	<td class="summary">Synchronizes this blob with an entry in blob storage, which then ceases to exist.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MemoryBlob:Write">MemoryBlob:Write (pos, bytes)</a></td>
@@ -146,13 +193,13 @@
     <strong>ExistsInBlobStorage (hash)</strong>
     </dt>
     <dd>
-    Check whether an entry exists in shared blob storage.
+    Check whether an entry exists in blob storage.
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">hash</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         Shared entry's lookup hash, cf. <a href="api.html#MemoryBlob:Submit">MemoryBlob:Submit</a>.
+         Stored entry's lookup hash, cf. <a href="api.html#MemoryBlob:Submit">MemoryBlob:Submit</a>.
         </li>
     </ul>
 
@@ -198,7 +245,7 @@
     <strong>InitializeBlobStorage ()</strong>
     </dt>
     <dd>
-    Initializes shared blob storage for <a href="api.html#MemoryBlob:Submit">MemoryBlob:Submit</a> and <a href="api.html#MemoryBlob:Sync">MemoryBlob:Sync</a>. </p>
+    Initializes blob storage for <a href="api.html#MemoryBlob:Submit">MemoryBlob:Submit</a> and <a href="api.html#MemoryBlob:Sync">MemoryBlob:Sync</a>. </p>
 
 <p> Calling this outside <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/luaproc/api.html#is_main_state">Corona's main thread</a>
  results in an error.</p>
@@ -465,13 +512,10 @@
     <strong>MemoryBlob:IsLocked ()</strong>
     </dt>
     <dd>
-    Indicates that the blob is locked for writing (via the native API). </p>
+    Indicates whether writes to this blob are restricted (via the native API). </p>
 
-<p> This is generally a clue that some code created the blob to use various features (<a href="api.html#MemoryBlob:Clone">MemoryBlob:Clone</a> or
- <a href="api.html#MemoryBlob:GetBytes">MemoryBlob:GetBytes</a>, for example), but wanted exclusive control over its contents.</p>
-
-<p> Well-behaved APIs that write to blobs will reject ones outside their control (some utilities on the
- native side provide assistance here), so this method can be used to filter them from Lua.
+<p> As described in various summaries, certain MemoryBlob methods will do nothing or fail, when
+ given a locked blob.
 
 
     <h3>Returns:</h3>
@@ -553,21 +597,21 @@
     <strong>MemoryBlob:Submit ()</strong>
     </dt>
     <dd>
-    Submit this blob's contents to shared blob storage.  This is a mechanism geared toward
+    Submit this blob's contents to blob storage.  This is a mechanism geared toward
  memory sharing among <a href="https://ggcrunchy.github.io/corona-pluin-docs/DOCS/luaproc/api.html">Lua processes</a>,
  which can even be done without copying when certain conditions are met (cf. <a href="api.html#MemoryBlob:Sync">MemoryBlob:Sync</a> for details,
  as well as the comment about resizable blobs that follows).</p>
 
-<p> Essentially, a resizable blob is first created in shared storage, with the same alignment as this blob.</p>
+<p> Essentially, a resizable blob is first created in blob storage, with the same alignment as this blob.</p>
 
-<p> If this blob is resizable, its contents are given to the shared entry directly. It will then be empty.</p>
+<p> If this blob is resizable, its contents are given to the stored entry directly. It will then be empty.</p>
 
-<p> Fixed-size blobs must copy their contents into the shared entry. The original data is left intact.</p>
+<p> Fixed-size blobs must instead copy their contents into the entry. The original data is left intact.</p>
 
 <p> The entry will persist until synchronization or some number of frames (&gt; 1) have elapsed. The latter is a check
  against runaway growth, since stale entries would accumulate over time.</p>
 
-<p> Listeners for <strong>"stale_entry"</strong> will be sent a message when a long-lived entry is evicted from shared
+<p> Listeners for <strong>"stale_entry"</strong> will be sent a message when a long-lived entry is evicted from blob
  storage. The message's <strong>hash</strong> field will contain the former entry's hash.</p>
 
 <p> This is a no-op for locked, resizable blobs, or if <a href="api.html#InitializeBlobStorage">InitializeBlobStorage</a> has not been called.
@@ -594,12 +638,12 @@
     <strong>MemoryBlob:Sync (hash)</strong>
     </dt>
     <dd>
-    Synchronizes this blob with an entry in shared blob storage, which then ceases to exist. </p>
+    Synchronizes this blob with an entry in blob storage, which then ceases to exist. </p>
 
 <p> For fixed-size blobs, this is essentially <code>self:Write(1, bytes)</code>, with <em>bytes</em> being the entry's contents.</p>
 
 <p> With resizable blobs, the same is true, but the blob's length is also trimmed to #<em>bytes</em>, if necessary.
- When the blob and shared entry have a common alignment (cf. <a href="api.html#MemoryBlob:Submit">MemoryBlob:Submit</a>), the blob simply assumes
+ When the blob and stored entry have a common alignment (cf. <a href="api.html#MemoryBlob:Submit">MemoryBlob:Submit</a>), the blob simply assumes
  ownership of the latter's contents, forgoing a potentially expensive copy.</p>
 
 <p> This operation is designed for safe communication between <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/luaproc/api.html">Lua processes</a>.</p>
@@ -611,7 +655,7 @@
     <ul>
         <li><span class="parameter">hash</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         Shared entry's lookup hash, cf. <a href="api.html#MemoryBlob:Submit">MemoryBlob:Submit</a>.
+         Stored entry's lookup hash, cf. <a href="api.html#MemoryBlob:Submit">MemoryBlob:Submit</a>.
         </li>
     </ul>
 
