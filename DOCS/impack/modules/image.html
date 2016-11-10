@@ -278,19 +278,19 @@ req_comp -- if non-zero, # of image components requested in result
 	<td class="summary">Assign the (global) low &rarr; high-dynamic-range scale factor.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#load">load (filename[, baseDir=system.ResourceDirectory[, opts]])</a></td>
+	<td class="name" nowrap><a href="#load">load (filename[, baseDir=system.ResourceDirectory], opts)</a></td>
 	<td class="summary">Loads an image into one-byte-per-component form.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#load_from_memory">load_from_memory (image[, opts])</a></td>
+	<td class="name" nowrap><a href="#load_from_memory">load_from_memory (image, opts)</a></td>
 	<td class="summary">Memory-based variant of <a href="../modules/image.html#load">load</a>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#loadf">loadf (filename[, baseDir=system.ResourceDirectory[, opts]])</a></td>
+	<td class="name" nowrap><a href="#loadf">loadf (filename[, baseDir=system.ResourceDirectory], opts)</a></td>
 	<td class="summary">Loads an image into floating-point form.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#loadf_from_memory">loadf_from_memory (image[, opts])</a></td>
+	<td class="name" nowrap><a href="#loadf_from_memory">loadf_from_memory (image, opts)</a></td>
 	<td class="summary">Memory-based variant of <a href="../modules/image.html#loadf">loadf</a>.</td>
 	</tr>
 	<tr>
@@ -554,7 +554,7 @@ req_comp -- if non-zero, # of image components requested in result
 </dd>
     <dt>
     <a name = "load"></a>
-    <strong>load (filename[, baseDir=system.ResourceDirectory[, opts]])</strong>
+    <strong>load (filename[, baseDir=system.ResourceDirectory], opts)</strong>
     </dt>
     <dd>
     Loads an image into one-byte-per-component form.  Refer to the summary above for further details.
@@ -571,7 +571,7 @@ req_comp -- if non-zero, # of image components requested in result
          (<em>default</em> system.ResourceDirectory)
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
 
 <p> Load options, which include:</p>
 
@@ -620,7 +620,7 @@ req_comp -- if non-zero, # of image components requested in result
 </dd>
     <dt>
     <a name = "load_from_memory"></a>
-    <strong>load_from_memory (image[, opts])</strong>
+    <strong>load_from_memory (image, opts)</strong>
     </dt>
     <dd>
     Memory-based variant of <a href="../modules/image.html#load">load</a>.
@@ -632,7 +632,7 @@ req_comp -- if non-zero, # of image components requested in result
          Undecoded image contents.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          As per <a href="../modules/image.html#load">load</a>
         </li>
     </ul>
@@ -667,7 +667,7 @@ req_comp -- if non-zero, # of image components requested in result
 </dd>
     <dt>
     <a name = "loadf"></a>
-    <strong>loadf (filename[, baseDir=system.ResourceDirectory[, opts]])</strong>
+    <strong>loadf (filename[, baseDir=system.ResourceDirectory], opts)</strong>
     </dt>
     <dd>
     Loads an image into floating-point form.  Refer to the summary above for further details.
@@ -684,7 +684,7 @@ req_comp -- if non-zero, # of image components requested in result
          (<em>default</em> system.ResourceDirectory)
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          As per <a href="../modules/image.html#load">load</a>.
         </li>
     </ul>
@@ -719,7 +719,7 @@ req_comp -- if non-zero, # of image components requested in result
 </dd>
     <dt>
     <a name = "loadf_from_memory"></a>
-    <strong>loadf_from_memory (image[, opts])</strong>
+    <strong>loadf_from_memory (image, opts)</strong>
     </dt>
     <dd>
     Memory-based variant of <a href="../modules/image.html#loadf">loadf</a>.
@@ -731,7 +731,7 @@ req_comp -- if non-zero, # of image components requested in result
          Undecoded image contents
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          As per <a href="../modules/image.html#loadf">loadf</a>.
         </li>
     </ul>

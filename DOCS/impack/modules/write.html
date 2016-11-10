@@ -136,51 +136,51 @@ ok = impack.write.tga(filename, w, h, comp, data)
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#bmp">bmp (filename[, baseDir=system.DocumentsDirectory], w, h, comp, data[, opts])</a></td>
+	<td class="name" nowrap><a href="#bmp">bmp (filename[, baseDir=system.DocumentsDirectory], w, h, comp, data, opts)</a></td>
 	<td class="summary">Save an image as a <strong>BMP</strong> file.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#bmp_to_memory">bmp_to_memory (w, h, comp, data[, opts])</a></td>
+	<td class="name" nowrap><a href="#bmp_to_memory">bmp_to_memory (w, h, comp, data, opts)</a></td>
 	<td class="summary">Variant of <a href="../modules/write.html#bmp">bmp</a> that saves the image as a stream of bytes.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#gif">gif (filename[, baseDir=system.DocumentsDirectory], w, h, frames[, opts])</a></td>
+	<td class="name" nowrap><a href="#gif">gif (filename[, baseDir=system.DocumentsDirectory], w, h, frames, opts)</a></td>
 	<td class="summary">Saves a series of images as a GIF.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#gif_to_memory">gif_to_memory (w, h, frames[, opts])</a></td>
+	<td class="name" nowrap><a href="#gif_to_memory">gif_to_memory (w, h, frames, opts)</a></td>
 	<td class="summary">Variant of <a href="../modules/write.html#gif">gif</a> that saves the images as a stream of bytes.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#hdr">hdr (filename[, baseDir=system.DocumentsDirectory], w, h, comp, data[, opts])</a></td>
+	<td class="name" nowrap><a href="#hdr">hdr (filename[, baseDir=system.DocumentsDirectory], w, h, comp, data, opts)</a></td>
 	<td class="summary">Saves an image as a Radiance RGBE HDR file.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#hdr_to_memory">hdr_to_memory (w, h, comp, data[, opts])</a></td>
+	<td class="name" nowrap><a href="#hdr_to_memory">hdr_to_memory (w, h, comp, data, opts)</a></td>
 	<td class="summary">Variant of <a href="../modules/write.html#hdr">hdr</a> that saves the image as a stream of bytes.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#mpeg">mpeg (filename[, baseDir=system.DocumentsDirectory], w, h, frames[, opts])</a></td>
+	<td class="name" nowrap><a href="#mpeg">mpeg (filename[, baseDir=system.DocumentsDirectory], w, h, frames, opts)</a></td>
 	<td class="summary">Saves a series of images as an MPEG.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#mpeg_to_memory">mpeg_to_memory (w, h, frames[, opts])</a></td>
+	<td class="name" nowrap><a href="#mpeg_to_memory">mpeg_to_memory (w, h, frames, opts)</a></td>
 	<td class="summary">Variant of <a href="../modules/write.html#mpeg">mpeg</a> that saves the images as a stream of bytes.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#png">png (filename[, baseDir=system.DocumentsDirectory], w, h, comp, data[, opts])</a></td>
+	<td class="name" nowrap><a href="#png">png (filename[, baseDir=system.DocumentsDirectory], w, h, comp, data, opts)</a></td>
 	<td class="summary">Saves an image as a PNG file.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#png_to_memory">png_to_memory (w, h, comp, data[, opts])</a></td>
+	<td class="name" nowrap><a href="#png_to_memory">png_to_memory (w, h, comp, data, opts)</a></td>
 	<td class="summary">Variant of <a href="../modules/write.html#png">png</a> that saves the image as a stream of bytes.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#tga">tga (filename[, baseDir=system.DocumentsDirectory], w, h, comp, data[, opts])</a></td>
+	<td class="name" nowrap><a href="#tga">tga (filename[, baseDir=system.DocumentsDirectory], w, h, comp, data, opts)</a></td>
 	<td class="summary">Saves an image as a Truevision TGA file.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#tga_to_memory">tga_to_memory (w, h, comp, data[, opts])</a></td>
+	<td class="name" nowrap><a href="#tga_to_memory">tga_to_memory (w, h, comp, data, opts)</a></td>
 	<td class="summary">Variant of <a href="../modules/write.html#tga">tga</a> that saves the image as a stream of bytes.</td>
 	</tr>
 </table>
@@ -193,7 +193,7 @@ ok = impack.write.tga(filename, w, h, comp, data)
     <dl class="function">
     <dt>
     <a name = "bmp"></a>
-    <strong>bmp (filename[, baseDir=system.DocumentsDirectory], w, h, comp, data[, opts])</strong>
+    <strong>bmp (filename[, baseDir=system.DocumentsDirectory], w, h, comp, data, opts)</strong>
     </dt>
     <dd>
     Save an image as a <strong>BMP</strong> file.
@@ -228,7 +228,7 @@ ok = impack.write.tga(filename, w, h, comp, data)
 <p> If <em>data</em> is insufficient, it will be padded with <code>0</code> bytes.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          Currently unused.
         </li>
     </ul>
@@ -246,7 +246,7 @@ ok = impack.write.tga(filename, w, h, comp, data)
 </dd>
     <dt>
     <a name = "bmp_to_memory"></a>
-    <strong>bmp_to_memory (w, h, comp, data[, opts])</strong>
+    <strong>bmp_to_memory (w, h, comp, data, opts)</strong>
     </dt>
     <dd>
     Variant of <a href="../modules/write.html#bmp">bmp</a> that saves the image as a stream of bytes.
@@ -270,7 +270,7 @@ ok = impack.write.tga(filename, w, h, comp, data)
          As per <a href="../modules/write.html#bmp">bmp</a>.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          Write options. Currently, only <strong>as_userdata</strong> is available, cf. the
  note for the return value. (Support for <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/MemoryBlob/api.html">blobs</a>
  is planned and would be exposed via <em>opts</em>.)
@@ -297,7 +297,7 @@ ok = impack.write.tga(filename, w, h, comp, data)
 </dd>
     <dt>
     <a name = "gif"></a>
-    <strong>gif (filename[, baseDir=system.DocumentsDirectory], w, h, frames[, opts])</strong>
+    <strong>gif (filename[, baseDir=system.DocumentsDirectory], w, h, frames, opts)</strong>
     </dt>
     <dd>
     Saves a series of images as a GIF.
@@ -335,7 +335,7 @@ ok = impack.write.tga(filename, w, h, comp, data)
  said bytes as their <strong>image</strong> field, without delay or local palette.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
 
 <p> Save options, which include:</p>
 
@@ -367,7 +367,7 @@ ok = impack.write.tga(filename, w, h, comp, data)
 </dd>
     <dt>
     <a name = "gif_to_memory"></a>
-    <strong>gif_to_memory (w, h, frames[, opts])</strong>
+    <strong>gif_to_memory (w, h, frames, opts)</strong>
     </dt>
     <dd>
     Variant of <a href="../modules/write.html#gif">gif</a> that saves the images as a stream of bytes.
@@ -387,7 +387,7 @@ ok = impack.write.tga(filename, w, h, comp, data)
          As per <a href="../modules/write.html#gif">gif</a>.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          As per <a href="../modules/write.html#gif">gif</a>.
         </li>
     </ul>
@@ -409,7 +409,7 @@ ok = impack.write.tga(filename, w, h, comp, data)
 </dd>
     <dt>
     <a name = "hdr"></a>
-    <strong>hdr (filename[, baseDir=system.DocumentsDirectory], w, h, comp, data[, opts])</strong>
+    <strong>hdr (filename[, baseDir=system.DocumentsDirectory], w, h, comp, data, opts)</strong>
     </dt>
     <dd>
     Saves an image as a Radiance RGBE HDR file.
@@ -443,7 +443,7 @@ ok = impack.write.tga(filename, w, h, comp, data)
  floats, rather than bytes, per component.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          Currently unused.
         </li>
     </ul>
@@ -461,7 +461,7 @@ ok = impack.write.tga(filename, w, h, comp, data)
 </dd>
     <dt>
     <a name = "hdr_to_memory"></a>
-    <strong>hdr_to_memory (w, h, comp, data[, opts])</strong>
+    <strong>hdr_to_memory (w, h, comp, data, opts)</strong>
     </dt>
     <dd>
     Variant of <a href="../modules/write.html#hdr">hdr</a> that saves the image as a stream of bytes. </p>
@@ -487,7 +487,7 @@ ok = impack.write.tga(filename, w, h, comp, data)
          As per <a href="../modules/write.html#hdr">hdr</a>.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          As per <a href="../modules/write.html#bmp_to_memory">bmp_to_memory</a>.
         </li>
     </ul>
@@ -505,7 +505,7 @@ ok = impack.write.tga(filename, w, h, comp, data)
 </dd>
     <dt>
     <a name = "mpeg"></a>
-    <strong>mpeg (filename[, baseDir=system.DocumentsDirectory], w, h, frames[, opts])</strong>
+    <strong>mpeg (filename[, baseDir=system.DocumentsDirectory], w, h, frames, opts)</strong>
     </dt>
     <dd>
     Saves a series of images as an MPEG.
@@ -535,7 +535,7 @@ ok = impack.write.tga(filename, w, h, comp, data)
  with <code>0</code> bytes.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          Save options.</p>
 
 <p> Currently, only <strong>fps</strong> is available, which sets the video's frames-per-second rate (default 30).
@@ -562,7 +562,7 @@ ok = impack.write.tga(filename, w, h, comp, data)
 </dd>
     <dt>
     <a name = "mpeg_to_memory"></a>
-    <strong>mpeg_to_memory (w, h, frames[, opts])</strong>
+    <strong>mpeg_to_memory (w, h, frames, opts)</strong>
     </dt>
     <dd>
     Variant of <a href="../modules/write.html#mpeg">mpeg</a> that saves the images as a stream of bytes.
@@ -582,7 +582,7 @@ ok = impack.write.tga(filename, w, h, comp, data)
          As per <a href="../modules/write.html#mpeg">mpeg</a>.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          As per <a href="../modules/write.html#mpeg">mpeg</a>.
         </li>
     </ul>
@@ -603,7 +603,7 @@ ok = impack.write.tga(filename, w, h, comp, data)
 </dd>
     <dt>
     <a name = "png"></a>
-    <strong>png (filename[, baseDir=system.DocumentsDirectory], w, h, comp, data[, opts])</strong>
+    <strong>png (filename[, baseDir=system.DocumentsDirectory], w, h, comp, data, opts)</strong>
     </dt>
     <dd>
     Saves an image as a PNG file.
@@ -636,7 +636,7 @@ ok = impack.write.tga(filename, w, h, comp, data)
          As per <a href="../modules/write.html#bmp">bmp</a>.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          Write options.</p>
 
 <p> Currently, only <strong>stride</strong> is available. If present (and non-0), this will be the stride in bytes, as
@@ -657,7 +657,7 @@ ok = impack.write.tga(filename, w, h, comp, data)
 </dd>
     <dt>
     <a name = "png_to_memory"></a>
-    <strong>png_to_memory (w, h, comp, data[, opts])</strong>
+    <strong>png_to_memory (w, h, comp, data, opts)</strong>
     </dt>
     <dd>
     Variant of <a href="../modules/write.html#png">png</a> that saves the image as a stream of bytes.
@@ -681,8 +681,8 @@ ok = impack.write.tga(filename, w, h, comp, data)
          As per <a href="../modules/write.html#png">png</a>.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         As per the combined choices in <a href="../modules/write.html#bmp_to_memory">bmp_to_memory</a> and {png}.
+            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         As per the combined choices in <a href="../modules/write.html#bmp_to_memory">bmp_to_memory</a> and <a href="../modules/write.html#png">png</a>.
         </li>
     </ul>
 
@@ -699,7 +699,7 @@ ok = impack.write.tga(filename, w, h, comp, data)
 </dd>
     <dt>
     <a name = "tga"></a>
-    <strong>tga (filename[, baseDir=system.DocumentsDirectory], w, h, comp, data[, opts])</strong>
+    <strong>tga (filename[, baseDir=system.DocumentsDirectory], w, h, comp, data, opts)</strong>
     </dt>
     <dd>
     Saves an image as a Truevision TGA file.
@@ -732,7 +732,7 @@ ok = impack.write.tga(filename, w, h, comp, data)
          As per <a href="../modules/write.html#bmp">bmp</a>.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          Currently unused.
         </li>
     </ul>
@@ -750,7 +750,7 @@ ok = impack.write.tga(filename, w, h, comp, data)
 </dd>
     <dt>
     <a name = "tga_to_memory"></a>
-    <strong>tga_to_memory (w, h, comp, data[, opts])</strong>
+    <strong>tga_to_memory (w, h, comp, data, opts)</strong>
     </dt>
     <dd>
     Variant of <a href="../modules/write.html#tga">tga</a> that saves the image as a stream of bytes.
@@ -774,7 +774,7 @@ ok = impack.write.tga(filename, w, h, comp, data)
          As per <a href="../modules/write.html#tga">tga</a>.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          As per <a href="../modules/write.html#bmp_to_memory">bmp_to_memory</a>.
         </li>
     </ul>

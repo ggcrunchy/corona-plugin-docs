@@ -162,7 +162,7 @@
 
 <hr/>
 
-<p> <strong>From <a href="https://raw.githubusercontent.com/projectNe10/Ne10/master/LICENSE">NE10's license:</a></strong></p>
+<p> <strong>From <a href="https://raw.githubusercontent.com/projectNe10/Ne10/master/LICENSE">NE10's license</a>:</strong></p>
 
 <p> Copyright 2012-15 ARM Limited and Contributors.
  All rights reserved.</p>
@@ -201,31 +201,31 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#box_filter">box_filter (input, input_w, input_h, kernel_w, kernel_h[, opts])</a></td>
+	<td class="name" nowrap><a href="#box_filter">box_filter (input, input_w, input_h, kernel_w, kernel_h, opts)</a></td>
 	<td class="summary">Given some image data, find the results of applying a box filter to it.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#resize_custom">resize_custom (input, iw, ih, ow, oh, nchannels[, opts])</a></td>
+	<td class="name" nowrap><a href="#resize_custom">resize_custom (input, iw, ih, ow, oh, nchannels, opts)</a></td>
 	<td class="summary">Generalized variant of <a href="../modules/ops.html#resize_rgb">resize_rgb</a> and <a href="../modules/ops.html#resize_rgba">resize_rgba</a>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#resize_region">resize_region (input, iw, ih, ow, oh, nchannels, s0, t0, s1, t1[, opts])</a></td>
+	<td class="name" nowrap><a href="#resize_region">resize_region (input, iw, ih, ow, oh, nchannels, s0, t0, s1, t1, opts)</a></td>
 	<td class="summary">Variant of <a href="../modules/ops.html#resize_custom">resize_custom</a> that allows you to specify the image source tile using texture coordinates, i.e.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#resize_rgb">resize_rgb (input, iw, ih, ow, oh, nchannels[, opts])</a></td>
+	<td class="name" nowrap><a href="#resize_rgb">resize_rgb (input, iw, ih, ow, oh, nchannels, opts)</a></td>
 	<td class="summary">Given some image data, find the results of performing a resize, using the default filter.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#resize_rgba">resize_rgba (input, iw, ih, ow, oh[, opts])</a></td>
+	<td class="name" nowrap><a href="#resize_rgba">resize_rgba (input, iw, ih, ow, oh, opts)</a></td>
 	<td class="summary">Given some image data, find the results of performing a resize, using bilinear filtering.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#resize_subpixel">resize_subpixel (input, iw, ih, ow, oh, nchannels, xscale, yscale, xoff, yoff[, opts])</a></td>
+	<td class="name" nowrap><a href="#resize_subpixel">resize_subpixel (input, iw, ih, ow, oh, nchannels, xscale, yscale, xoff, yoff, opts)</a></td>
 	<td class="summary">Variant of <a href="../modules/ops.html#resize_custom">resize_custom</a> that takes an explicit scale for subpixel correctness.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#rotate">rotate (input, w, h, angle[, opts])</a></td>
+	<td class="name" nowrap><a href="#rotate">rotate (input, w, h, angle, opts)</a></td>
 	<td class="summary">Given some image data, find the results of performing rotation.</td>
 	</tr>
 </table>
@@ -261,7 +261,7 @@
     <dl class="function">
     <dt>
     <a name = "box_filter"></a>
-    <strong>box_filter (input, input_w, input_h, kernel_w, kernel_h[, opts])</strong>
+    <strong>box_filter (input, input_w, input_h, kernel_w, kernel_h, opts)</strong>
     </dt>
     <dd>
     Given some image data, find the results of applying a box filter to it. </p>
@@ -292,7 +292,7 @@
          ...and height, from 1 to <em>input_h</em>. (Ditto.)
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
 
 <p> Filter options, which include:</p>
 
@@ -324,7 +324,7 @@
 </dd>
     <dt>
     <a name = "resize_custom"></a>
-    <strong>resize_custom (input, iw, ih, ow, oh, nchannels[, opts])</strong>
+    <strong>resize_custom (input, iw, ih, ow, oh, nchannels, opts)</strong>
     </dt>
     <dd>
     Generalized variant of <a href="../modules/ops.html#resize_rgb">resize_rgb</a> and <a href="../modules/ops.html#resize_rgba">resize_rgba</a>.
@@ -356,7 +356,7 @@
          Number of color channels.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
 
 <p> Resize options. These include all the options from <a href="../modules/ops.html#box_filter">box_filter</a>, though the strides
  default to <em>w</em> * <em>nchannels</em> * <strong>bytes_per_component</strong>(<em>datatype</em>).</p>
@@ -398,7 +398,7 @@
 </dd>
     <dt>
     <a name = "resize_region"></a>
-    <strong>resize_region (input, iw, ih, ow, oh, nchannels, s0, t0, s1, t1[, opts])</strong>
+    <strong>resize_region (input, iw, ih, ow, oh, nchannels, s0, t0, s1, t1, opts)</strong>
     </dt>
     <dd>
     Variant of <a href="../modules/ops.html#resize_custom">resize_custom</a> that allows you to specify the image source tile using texture coordinates, i.e.
@@ -448,7 +448,7 @@
          ...and v-component.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
           As per <a href="../modules/ops.html#resize_custom">resize_custom</a>.
         </li>
     </ul>
@@ -466,7 +466,7 @@
 </dd>
     <dt>
     <a name = "resize_rgb"></a>
-    <strong>resize_rgb (input, iw, ih, ow, oh, nchannels[, opts])</strong>
+    <strong>resize_rgb (input, iw, ih, ow, oh, nchannels, opts)</strong>
     </dt>
     <dd>
     Given some image data, find the results of performing a resize, using the default filter.
@@ -498,7 +498,7 @@
          Number of color channels.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          Resize options, as per <a href="../modules/ops.html#box_filter">box_filter</a> (although strides default to <em>w</em> * 3, instead).
         </li>
     </ul>
@@ -516,7 +516,7 @@
 </dd>
     <dt>
     <a name = "resize_rgba"></a>
-    <strong>resize_rgba (input, iw, ih, ow, oh[, opts])</strong>
+    <strong>resize_rgba (input, iw, ih, ow, oh, opts)</strong>
     </dt>
     <dd>
     Given some image data, find the results of performing a resize, using bilinear filtering.
@@ -544,7 +544,7 @@
          ...and height.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          Resize options, as per <a href="../modules/ops.html#box_filter">box_filter</a>.
         </li>
     </ul>
@@ -562,7 +562,7 @@
 </dd>
     <dt>
     <a name = "resize_subpixel"></a>
-    <strong>resize_subpixel (input, iw, ih, ow, oh, nchannels, xscale, yscale, xoff, yoff[, opts])</strong>
+    <strong>resize_subpixel (input, iw, ih, ow, oh, nchannels, xscale, yscale, xoff, yoff, opts)</strong>
     </dt>
     <dd>
     Variant of <a href="../modules/ops.html#resize_custom">resize_custom</a> that takes an explicit scale for subpixel correctness.
@@ -611,7 +611,7 @@
          ...and y-axis. (...and this to <code>t0 * oh / (t1 - t0)</code>.)
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          As per <a href="../modules/ops.html#resize_custom">resize_custom</a>.
         </li>
     </ul>
@@ -629,7 +629,7 @@
 </dd>
     <dt>
     <a name = "rotate"></a>
-    <strong>rotate (input, w, h, angle[, opts])</strong>
+    <strong>rotate (input, w, h, angle, opts)</strong>
     </dt>
     <dd>
     Given some image data, find the results of performing rotation. </p>
@@ -655,7 +655,7 @@
          Rotation angle, in radians.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          Rotate options, as per <a href="../modules/ops.html#box_filter">box_filter</a>.
         </li>
     </ul>
