@@ -57,7 +57,8 @@
 
 <p> Sample code is available <a href="https://github.com/ggcrunchy/corona-plugin-docs/tree/master/MemoryBlob_sample">here</a>.</p>
 
-<p> Once this plugin has been loaded, native plugins may create and manage blobs via the <a href="https://raw.githubusercontent.com/ggcrunchy/corona_enterprise_utils/master/utils/Blob.h">BlobXS API</a>.</p>
+<p> Once this plugin has been loaded, native plugins may create and manage blobs via the <a href="https://raw.githubusercontent.com/ggcrunchy/corona_enterprise_utils/master/utils/Blob.h">BlobXS API</a>.
+ Until then, any calls to the API will be suitable no-ops. (Documentation is lacking at the moment!)</p>
 
 <p> Blobs implement the <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/ByteReader/policy.html">ByteReader protocol</a>.</p>
 
@@ -112,49 +113,49 @@
 <table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#ExistsInBlobStorage">ExistsInBlobStorage (hash)</a></td>
-	<td class="summary">Check whether an entry exists in blob storage.</td>
+	<td class="summary">Check whether an entry exists in storage.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#GetBlobDispatcher">GetBlobDispatcher ()</a></td>
-	<td class="summary">Gets a dispatcher used by blob-related events, in order to add / remove listeners.</td>
+	<td class="summary">Get the dispatcher used by blob-related events, in order to add / remove listeners.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#InitializeBlobStorage">InitializeBlobStorage ()</a></td>
-	<td class="summary">Initializes blob storage for <a href="api.html#MemoryBlob:Submit">MemoryBlob:Submit</a> and <a href="api.html#MemoryBlob:Sync">MemoryBlob:Sync</a>.</td>
+	<td class="summary">Initialize storage for <a href="api.html#MemoryBlob:Submit">MemoryBlob:Submit</a> and <a href="api.html#MemoryBlob:Sync">MemoryBlob:Sync</a>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#IsBlob">IsBlob (object[, type])</a></td>
-	<td class="summary">Indicates whether an object (which need not originate from this plugin) is a <strong>MemoryBlob</strong>.</td>
+	<td class="name" nowrap><a href="#IsBlob">IsBlob (object, type)</a></td>
+	<td class="summary">Indicates whether an object is a <strong>MemoryBlob</strong>.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#New">New (opts)</a></td>
-	<td class="summary">Creates a new memory blob.</td>
+	<td class="summary">Create a new memory blob.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MemoryBlob:Append">MemoryBlob:Append (bytes)</a></td>
-	<td class="summary">Adds bytes to the end of the blob.</td>
+	<td class="summary">Add bytes to the end of the blob.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MemoryBlob:Clone">MemoryBlob:Clone ()</a></td>
-	<td class="summary">Creates a clone of the blob.</td>
+	<td class="summary">Create a clone of the blob.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MemoryBlob:GetBytes">MemoryBlob:GetBytes ([i1=1[, i2=#self]])</a></td>
-	<td class="summary">Dumps the blob's contents to a string of bytes.</td>
+	<td class="summary">Dump the blob's contents as a string of bytes.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#MemoryBlob:GetProperties">MemoryBlob:GetProperties ([out])</a></td>
+	<td class="name" nowrap><a href="#MemoryBlob:GetProperties">MemoryBlob:GetProperties (out)</a></td>
 	<td class="summary">
-<p>Populates a table with the following blob properties:</p>
+<p>Populate a table with the following blob properties:</p>
 
 <ul>
-    <li><strong>alignment</strong>: As per <a href="api.html#New">New</a>, an integer &ge; 0, where 0 indicates default alignment.</li>
+    <li><strong>alignment</strong>: As per <a href="api.html#New">New</a>, an integer &ge; 0, with 0 meaning default alignment.</li>
 </ul>
 </td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MemoryBlob:Insert">MemoryBlob:Insert (pos, bytes)</a></td>
-	<td class="summary">Inserts bytes into the blob, starting at position <em>pos</em>.</td>
+	<td class="summary">Insert bytes into the blob, starting at position <em>pos</em>.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MemoryBlob:IsLocked">MemoryBlob:IsLocked ()</a></td>
@@ -166,19 +167,19 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MemoryBlob:Remove">MemoryBlob:Remove ([i1=1[, i2=#self]])</a></td>
-	<td class="summary">Removes a range of bytes from the blob.</td>
+	<td class="summary">Remove a range of bytes from the blob.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MemoryBlob:Submit">MemoryBlob:Submit ()</a></td>
-	<td class="summary">Submit this blob's contents to blob storage.</td>
+	<td class="summary">Submit this blob's contents to storage.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MemoryBlob:Sync">MemoryBlob:Sync (hash)</a></td>
-	<td class="summary">Synchronizes this blob with an entry in blob storage, which then ceases to exist.</td>
+	<td class="summary">Synchronize this blob with an entry in storage, which then ceases to exist.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MemoryBlob:Write">MemoryBlob:Write (pos, bytes)</a></td>
-	<td class="summary">Writes bytes to the blob, starting at position <em>pos</em>, overwriting the blob's contents.</td>
+	<td class="summary">Write bytes to the blob, starting at position <em>pos</em>, overwriting the blob's contents.</td>
 	</tr>
 </table>
 
@@ -193,7 +194,7 @@
     <strong>ExistsInBlobStorage (hash)</strong>
     </dt>
     <dd>
-    Check whether an entry exists in blob storage.
+    Check whether an entry exists in storage.
 
     <h3>Parameters:</h3>
     <ul>
@@ -219,7 +220,7 @@
     <strong>GetBlobDispatcher ()</strong>
     </dt>
     <dd>
-    Gets a dispatcher used by blob-related events, in order to add / remove listeners. </p>
+    Get the dispatcher used by blob-related events, in order to add / remove listeners. </p>
 
 <p> Calling this outside <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/luaproc/api.html#is_main_state">Corona's main thread</a>
  results in an error.
@@ -245,7 +246,7 @@
     <strong>InitializeBlobStorage ()</strong>
     </dt>
     <dd>
-    Initializes blob storage for <a href="api.html#MemoryBlob:Submit">MemoryBlob:Submit</a> and <a href="api.html#MemoryBlob:Sync">MemoryBlob:Sync</a>. </p>
+    Initialize storage for <a href="api.html#MemoryBlob:Submit">MemoryBlob:Submit</a> and <a href="api.html#MemoryBlob:Sync">MemoryBlob:Sync</a>. </p>
 
 <p> Calling this outside <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/luaproc/api.html#is_main_state">Corona's main thread</a>
  results in an error.</p>
@@ -260,10 +261,10 @@
 </dd>
     <dt>
     <a name = "IsBlob"></a>
-    <strong>IsBlob (object[, type])</strong>
+    <strong>IsBlob (object, type)</strong>
     </dt>
     <dd>
-    Indicates whether an object (which need not originate from this plugin) is a <strong>MemoryBlob</strong>.
+    Indicates whether an object is a <strong>MemoryBlob</strong>.
 
     <h3>Parameters:</h3>
     <ul>
@@ -271,7 +272,7 @@
          Object to check.
         </li>
         <li><span class="parameter">type</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          If present, refine the query to only consider blobs of a given type, cf. <a href="api.html#New">New</a>.
         </li>
     </ul>
@@ -292,7 +293,9 @@
     <strong>New (opts)</strong>
     </dt>
     <dd>
-    Creates a new memory blob.
+    Create a new memory blob. </p>
+
+<p> No assumptions should be made about the original contents; whatever the allocator provides is left intact.
 
     <h3>Parameters:</h3>
     <ul>
@@ -305,16 +308,19 @@
 <ul>
     <li><strong>alignment</strong>: If specified, the memory alignment, which must be a multiple of 2, &ge; 4. The
     blob's memory will start at an address that is a multiple of this value, which is useful and / or
-    needed e.g. for SIMD operations. By default, blobs use the Lua allocator's alignment.</li>
-    <li><strong>resizable</strong>: If true, the blob can be resized (via the native API). Off by default.</li>
-    <li><strong>size</strong>: Blob size, in bytes. For resizable blobs, this is the blob's initial size
-    (&ge; 0; if absent, 0); otherwise, it specifies the fixed size &gt; 0 and is mandatory.</li>
-    <li><strong>type</strong>: A string that will be used as the blob userdata's metatable name; if absent, a default
-    is used. Blobs themselves make no further use of this value; rather it is exposed as a convenience,
-    e.g. so plugin authors can identify their own blobs via <a href="api.html#IsBlob">IsBlob</a>.</li>
+    needed e.g. for SIMD operations. By default, blobs use the Lua allocator's alignment.
+    <br/><br/>
+    Currently, the upper limit is 1024, one level beyond <a href="https://en.wikipedia.org/wiki/Advanced_Vector_Extensions#Advanced_Vector_Extensions_2">AVX2</a> support.</li>
+    <li><strong>resizable</strong>: If true, the blob can be resized. Off by default.</li>
+    <li><strong>size</strong>: Blob size in bytes, &ge; 0. For resizable blobs, this is the blob's initial size;
+    otherwise, it specifies the fixed size. If absent, 0.</li>
+    <li><strong>type</strong>: A string that will be used to name the blob userdata's metatable; if absent, uses a default.
+    <br/><br/>
+    Blobs themselves make no further use of this value; rather it is exposed as a convenience, e.g. so
+    plugin authors can identify their own blobs via <a href="api.html#IsBlob">IsBlob</a>.</li>
 </ul>
 
-<p> If <em>opts</em> is an integer (&gt; 0), it specifies the fixed size of the blob to create.</p>
+<p> If <em>opts</em> is an integer, it specifies the fixed size (&ge; 0) of the blob to create.</p>
 
 <p> For any other value of <em>opts</em>, a resizable blob will be created.
         </li>
@@ -336,7 +342,7 @@
     <strong>MemoryBlob:Append (bytes)</strong>
     </dt>
     <dd>
-    Adds bytes to the end of the blob. </p>
+    Add bytes to the end of the blob. </p>
 
 <p> This is a no-op for fixed-size and locked blobs.
 
@@ -368,11 +374,11 @@
     <strong>MemoryBlob:Clone ()</strong>
     </dt>
     <dd>
-    Creates a clone of the blob. </p>
+    Create a clone of the blob. </p>
 
 <p> The clone inherits the alignment, resizability, size, and type of the original blob.</p>
 
-<p> Initially, the clone will contain a copy of the parent's current bytes. The two blobs are independent,
+<p> Initially, the clone will contain a copy of the parent's current contents. The two blobs are independent,
  however; changes to one's contents are not reflected in the other.</p>
 
 <p> Clones begin unlocked.
@@ -394,7 +400,7 @@
     <strong>MemoryBlob:GetBytes ([i1=1[, i2=#self]])</strong>
     </dt>
     <dd>
-    Dumps the blob's contents to a string of bytes. </p>
+    Dump the blob's contents as a string of bytes. </p>
 
 <p> If either index refers to a position outside the blob, or <em>i1</em> &gt; <em>i2</em> (after normalizing any
  negative indices), an empty string is returned.
@@ -418,7 +424,7 @@
     <ol>
 
            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        Copy of current blob bytes.
+        Copy of current blob contents.
     </ol>
 
 
@@ -431,14 +437,14 @@
 </dd>
     <dt>
     <a name = "MemoryBlob:GetProperties"></a>
-    <strong>MemoryBlob:GetProperties ([out])</strong>
+    <strong>MemoryBlob:GetProperties (out)</strong>
     </dt>
     <dd>
 
-<p>Populates a table with the following blob properties:</p>
+<p>Populate a table with the following blob properties:</p>
 
 <ul>
-    <li><strong>alignment</strong>: As per <a href="api.html#New">New</a>, an integer &ge; 0, where 0 indicates default alignment. </li>
+    <li><strong>alignment</strong>: As per <a href="api.html#New">New</a>, an integer &ge; 0, with 0 meaning default alignment. </li>
     <li><strong>resizable</strong>: As per <a href="api.html#New">New</a>, a boolean indicating resizability.</li>
 </ul>
 
@@ -446,9 +452,8 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">out</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         If provided, this table is populated and returned; otherwise, a fresh table
- is created.
+            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         Table to populate and return. If absent, a fresh table is created.
         </li>
     </ul>
 
@@ -468,7 +473,7 @@
     <strong>MemoryBlob:Insert (pos, bytes)</strong>
     </dt>
     <dd>
-    Inserts bytes into the blob, starting at position <em>pos</em>. </p>
+    Insert bytes into the blob, starting at position <em>pos</em>. </p>
 
 <p> The current contents from <em>pos</em> onward are moved ahead #<em>bytes</em> positions to make room. In the case of
  fixed-size blobs, any bytes moved beyond the end of the blob are thrown away.</p>
@@ -479,9 +484,10 @@
     <ul>
         <li><span class="parameter">pos</span>
             <span class="types"><span class="type">int</span></span>
-         Insert position, &isin; [1, #<em>self</em>]. (In the case of resizable blobs, #<em>self</em> + 1 is
- also valid; the call is then effectively <a href="api.html#MemoryBlob:Append">MemoryBlob:Append</a>.) A negative index may also be
- provided, cf. <a href="api.html#MemoryBlob:GetBytes">MemoryBlob:GetBytes</a> for details.</p>
+         Insert position, between 1 and #<em>self</em>, inclusive. A negative index may also be provided,
+ cf. <a href="api.html#MemoryBlob:GetBytes">MemoryBlob:GetBytes</a> for details.</p>
+
+<p> Resizable blobs may also use position #<em>self</em> + 1, with behavior like <code>self:Append(bytes)</code>.</p>
 
 <p> No bytes are inserted when the position lies outside the legal range.
         </li>
@@ -501,6 +507,7 @@
 
     <h3>See also:</h3>
     <ul>
+         <li><a href="api.html#MemoryBlob:Append">MemoryBlob:Append</a></li>
          <li><a href="api.html#MemoryBlob:IsLocked">MemoryBlob:IsLocked</a></li>
          <li><a href="api.html#MemoryBlob:__len">MemoryBlob:__len</a></li>
     </ul>
@@ -514,8 +521,7 @@
     <dd>
     Indicates whether writes to this blob are restricted (via the native API). </p>
 
-<p> As described in various summaries, certain MemoryBlob methods will do nothing or fail, when
- given a locked blob.
+<p> Certain MemoryBlob methods will early-out when given a locked blob, cf. various summaries.
 
 
     <h3>Returns:</h3>
@@ -553,12 +559,12 @@
     <strong>MemoryBlob:Remove ([i1=1[, i2=#self]])</strong>
     </dt>
     <dd>
-    Removes a range of bytes from the blob. </p>
+    Remove a range of bytes from the blob. </p>
 
 <p> Any bytes beyond <em>i2</em> will be moved down to fill the vacated positions.</p>
 
-<p> Resizable blobs will be shrunk to match the new size. Since fixed-size blobs cannot do this,
- there will be some "extra" bytes after bytes are moved down; these will be left as-is.</p>
+<p> Naturally, resizable blobs will shrink. Since fixed-size blobs cannot do this, there will be <em>i2</em> -
+ <em>i1</em> + 1 "extra" bytes at the end, after elements move down; these will be left as-is.</p>
 
 <p> This is a no-op for locked blobs.
 
@@ -597,22 +603,22 @@
     <strong>MemoryBlob:Submit ()</strong>
     </dt>
     <dd>
-    Submit this blob's contents to blob storage.  This is a mechanism geared toward
+    Submit this blob's contents to storage.  This is a mechanism geared toward
  memory sharing among <a href="https://ggcrunchy.github.io/corona-pluin-docs/DOCS/luaproc/api.html">Lua processes</a>,
  which can even be done without copying when certain conditions are met (cf. <a href="api.html#MemoryBlob:Sync">MemoryBlob:Sync</a> for details,
- as well as the comment about resizable blobs that follows).</p>
+ as well as the comments about resizable blobs that follow).</p>
 
-<p> Essentially, a resizable blob is first created in blob storage, with the same alignment as this blob.</p>
+<p> Essentially, an empty resizable blob is first created in storage, with the same alignment as this blob.</p>
 
-<p> If this blob is resizable, its contents are given to the stored entry directly. It will then be empty.</p>
+<p> If this blob is resizable, the stored entry and it swap contents directly.</p>
 
-<p> Fixed-size blobs must instead copy their contents into the entry. The original data is left intact.</p>
+<p> Fixed-size blobs cannot do this, so something like <code>entry:Append(fixed_blob)</code> is done instead.</p>
 
 <p> The entry will persist until synchronization or some number of frames (&gt; 1) have elapsed. The latter is a check
- against runaway growth, since stale entries would accumulate over time.</p>
+ against runaway growth, since stale entries could accumulate over time.</p>
 
-<p> Listeners for <strong>"stale_entry"</strong> will be sent a message when a long-lived entry is evicted from blob
- storage. The message's <strong>hash</strong> field will contain the former entry's hash.</p>
+<p> Listeners for <strong>"stale_entry"</strong> will be sent a message when an entry times out. The message's <strong>hash</strong> field
+ will contain the former entry's hash.</p>
 
 <p> This is a no-op for locked, resizable blobs, or if <a href="api.html#InitializeBlobStorage">InitializeBlobStorage</a> has not been called.
 
@@ -629,6 +635,7 @@
     <ul>
          <li><a href="api.html#ExistsInBlobStorage">ExistsInBlobStorage</a></li>
          <li><a href="api.html#GetBlobDispatcher">GetBlobDispatcher</a></li>
+         <li><a href="api.html#MemoryBlob:IsLocked">MemoryBlob:IsLocked</a></li>
     </ul>
 
 
@@ -638,7 +645,7 @@
     <strong>MemoryBlob:Sync (hash)</strong>
     </dt>
     <dd>
-    Synchronizes this blob with an entry in blob storage, which then ceases to exist. </p>
+    Synchronize this blob with an entry in storage, which then ceases to exist. </p>
 
 <p> For fixed-size blobs, this is essentially <code>self:Write(1, bytes)</code>, with <em>bytes</em> being the entry's contents.</p>
 
@@ -670,6 +677,7 @@
     <h3>See also:</h3>
     <ul>
          <li><a href="api.html#ExistsInBlobStorage">ExistsInBlobStorage</a></li>
+         <li><a href="api.html#MemoryBlob:IsLocked">MemoryBlob:IsLocked</a></li>
          <li><a href="api.html#MemoryBlob:Write">MemoryBlob:Write</a></li>
     </ul>
 
@@ -680,7 +688,7 @@
     <strong>MemoryBlob:Write (pos, bytes)</strong>
     </dt>
     <dd>
-    Writes bytes to the blob, starting at position <em>pos</em>, overwriting the blob's contents. </p>
+    Write bytes to the blob, starting at position <em>pos</em>, overwriting the blob's contents. </p>
 
 <p> Resizable blobs will grow to accommodate these bytes, if necessary, whereas writes to fixed-size
  blobs will stop if they reach the end.</p>
@@ -691,9 +699,10 @@
     <ul>
         <li><span class="parameter">pos</span>
             <span class="types"><span class="type">int</span></span>
-         Write position, between 1 and #<em>self</em>, inclusive. (In the case of resizable blobs, #<em>self</em> + 1 is
- also valid; the call is then effectively <a href="api.html#MemoryBlob:Append">MemoryBlob:Append</a>.) A negative index may also be
- provided, cf. <a href="api.html#MemoryBlob:GetBytes">MemoryBlob:GetBytes</a> for details.</p>
+         Write position, between 1 and #<em>self</em>, inclusive.  A negative index may also be provided,
+ cf. <a href="api.html#MemoryBlob:GetBytes">MemoryBlob:GetBytes</a> for details.</p>
+
+<p> Resizable blobs may also use position #<em>self</em> + 1, with behavior like <code>self:Append(bytes)</code>.</p>
 
 <p> No bytes are written when the position lies outside the legal range.
         </li>
@@ -713,6 +722,7 @@
 
     <h3>See also:</h3>
     <ul>
+         <li><a href="api.html#MemoryBlob:Append">MemoryBlob:Append</a></li>
          <li><a href="api.html#MemoryBlob:IsLocked">MemoryBlob:IsLocked</a></li>
          <li><a href="api.html#MemoryBlob:__len">MemoryBlob:__len</a></li>
     </ul>
