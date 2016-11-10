@@ -45,12 +45,9 @@
 <h1>Module <code>bytemap</code></h1>
 <p>Byte-flavored memory bitmap, useful for loading image-style assets from byte streams (and <em>vice versa</em>),
  where components are integers ranging from 0 to 255.</p>
-<p>
-
-
 <p> While bytemaps <em>can</em> be used like Corona's <a href="https://docs.coronalabs.com/plugin/memoryBitmap/type/MemoryBitmap/index.html">memory bitmap</a>,
  the latter should be preferred for per-pixel operations. More typical bytemap usage will involve bulk operations,
- such as reading entire images from custom file formats or network downloads.</p>
+ such as reading entire images from memory or network downloads.</p>
 
 <p> To use the plugin, add the following in <code>build.settings</code>:</p>
 
@@ -63,30 +60,34 @@
 <p> The <strong>Bytes</strong> type&mdash;specified in a few of the bytemap methods&mdash;may be any object that implements <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/ByteReader/policy.html">ByteReader</a>,
  including strings.</p>
 
-<p> <strong>UNDER CONSIDERATION</strong>:</p>
-
-<ul>
-    <li>Have bytemaps themselves implement <strong>ByteReader</strong></li>
-    <li>Provide support for <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/MemoryBlob/api.html">MemoryBlob</a>s
-    as the underlying memory target</li>
-    <li>An <strong>extrude</strong> option for <a href="api.html#Bytemap:SetBytes">Bytemap:SetBytes</a>, with image sheet padding in mind</li>
-</ul>
-</p>
-
 
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#newTexture">newTexture (config)</a></td>
-	<td class="summary">Creates a new <strong>Bytemap</strong>.</td>
+	<td class="summary">Create a new <strong>Bytemap</strong>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Bytemap:GetBytes">Bytemap:GetBytes ([opts])</a></td>
-	<td class="summary">Gets a bytemap's bytes.</td>
+	<td class="name" nowrap><a href="#Bytemap:BindBlob">Bytemap:BindBlob (blob)</a></td>
+	<td class="summary">Bind a <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/MemoryBlob/api.html">memory blob</a> to the bytemap,
+ making it the data source.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Bytemap:SetBytes">Bytemap:SetBytes (bytes[, opts])</a></td>
-	<td class="summary">Sets a bytemap's bytes.</td>
+	<td class="name" nowrap><a href="#Bytemap:Deallocate">Bytemap:Deallocate ()</a></td>
+	<td class="summary">Deallocate a bytemap's memory, for instance when no further <a href="(https://docs.coronalabs.com/api/type/TextureResourceExternal/invalidate.html">invalidate()</a>s
+ are needed.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Bytemap:GetBlob">Bytemap:GetBlob ()</a></td>
+	<td class="summary">Get the memory blob, if any, bound to the bytemap.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Bytemap:GetBytes">Bytemap:GetBytes (opts)</a></td>
+	<td class="summary">Get a bytemap's bytes.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Bytemap:SetBytes">Bytemap:SetBytes (bytes, opts)</a></td>
+	<td class="summary">Set a bytemap's bytes.</td>
 	</tr>
 </table>
 
@@ -101,11 +102,22 @@
     <strong>newTexture (config)</strong>
     </dt>
     <dd>
-    Creates a new <strong>Bytemap</strong>. </p>
+    Create a new <strong>Bytemap</strong>. </p>
 
 <p> Bytemaps are <a href="https://docs.coronalabs.com/api/type/TextureResourceExternal/index.html">external textures</a> and
  thus integrate with Corona's display objects via their <code>filename</code> and <code>baseDir</code> properties, e.g. in <a href="https://docs.coronalabs.com/api/type/BitmapPaint/index.html">paints</a>,
- as arguments to <a href="https://docs.coronalabs.com/api/library/display/newImage.html">display.newImage</a>, etc.
+ as arguments to <a href="https://docs.coronalabs.com/api/library/display/newImage.html">display.newImage</a>, etc.</p>
+
+<p> Bytes are ordered linearly left-to-right, with rows going top-to-bottom. For instance, a 2 &times; 2, four-pixel
+ RGBA bytemap would be arranged thus:</p>
+
+<p> <code>R1 G1 B1 A1 | R2 G2 B2 A2</code>
+ <br/>
+ <code>-------------------------</code>
+ <br/>
+ <code>R3 G3 B3 A3 | R4 G4 B4 A4</code></p>
+
+<p> In flat memory, this will have the pattern <code>R1 G1 B1 A1 R2 G2 B2 A2 R3 G3 B3 A3 R4 G4 B4 A4</code>.
 
     <h3>Parameters:</h3>
     <ul>
@@ -115,10 +127,12 @@
 <p> Parameters used to initialize the bytemap:</p>
 
 <ul>
-    <li><strong>width</strong>: Number of "pixels" wide...</li>
-    <li><strong>height</strong>: ...and tall.</li>
     <li><strong>format</strong>: Underlying <a href="https://docs.coronalabs.com/native/C/CoronaGraphics.html">data format</a>, which may be
-    <strong>"mask"</strong>, <strong>"rgb"</strong>, or <strong>"rgba"</strong>.</li>
+    <strong>"mask"</strong>, <strong>"rgb"</strong>, or <strong>"rgba"</strong> (the default).
+    <br/><br/>
+    The bytemap will have a corresponding <em>bytes_per_pixel</em> of 1, 3, or 4, respectively.</li>
+    <li><strong>width</strong>: Number of pixels wide...</li>
+    <li><strong>height</strong>: ...and tall.</li>
 </ul>
 
         </li>
@@ -127,8 +141,8 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytemap</span></span>
-        The new bytemap.
+           <span class="types"><span class="type">Bytemap</span> or <span class="type">nil</span></span>
+        The new bytemap, or <strong>nil</strong> on error.
     </ol>
 
 
@@ -136,44 +150,144 @@
 
 </dd>
     <dt>
-    <a name = "Bytemap:GetBytes"></a>
-    <strong>Bytemap:GetBytes ([opts])</strong>
+    <a name = "Bytemap:BindBlob"></a>
+    <strong>Bytemap:BindBlob (blob)</strong>
     </dt>
     <dd>
-    Gets a bytemap's bytes. </p>
+    Bind a <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/MemoryBlob/api.html">memory blob</a> to the bytemap,
+ making it the data source. </p>
 
-<p> More specifically, gets the region from (<em>x1</em>, <em>y1</em>) in the upper-left to (<em>x2</em>, <em>y2</em>) in the
+<p> When a blob is first bound, the bytemap's normal memory is deallocated. If a blob is later detached without
+ being replaced, this memory is reallocated, with format-appropriate default bytes.</p>
+
+<p> While not necessary, the bound blob's size should be at least <em>w</em> * <em>h</em> * <em>bytes_per_pixel</em> (cf. <a href="api.html#newTexture">newTexture</a>).
+ Otherwise, <a href="https://docs.coronalabs.com/api/type/TextureResourceExternal/invalidate.html">Bytemap:invalidate</a>
+ and <a href="api.html#Bytemap:GetBytes">Bytemap:GetBytes</a> must copy the contents into a temporary buffer (padding it with default bytes) and
+ work from that instead, negating many of the blob's benefits.</p>
+
+<p> (<strong>N.B.</strong> At the moment there is also a leaky abstraction on Windows: an RGB texture must be promoted to
+ RGBA internally when its width is not a multiple of 4. To deal with this in a sane way, the copy process
+ must also be performed here. This is a workaround until the (reported) issue is fixed.)</p>
+
+<p> A call to <a href="api.html#Bytemap:SetBytes">Bytemap:SetBytes</a> will detach the blob, though it will reallocate normal memory first and
+ render the blob contents into that. A corollary is that bytemaps regard blobs as read-only, so that
+ <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/MemoryBlob/api.html#MemoryBlob:IsLocked">locked blobs</a>
+ may be bound without any problems.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">blob</span>
+            <span class="types">optional <span class="type">MemoryBlob</span></span>
+         Any currently bound blob is detached. If present, <em>blob</em> is then bound.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">MemoryBlob</span> or <span class="type">nil</span></span>
+        Previously bound blob, or <strong>nil</strong> if none was bound.
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="api.html#Bytemap:Deallocate">Bytemap:Deallocate</a></li>
+         <li><a href="api.html#Bytemap:GetBlob">Bytemap:GetBlob</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "Bytemap:Deallocate"></a>
+    <strong>Bytemap:Deallocate ()</strong>
+    </dt>
+    <dd>
+    Deallocate a bytemap's memory, for instance when no further <a href="(https://docs.coronalabs.com/api/type/TextureResourceExternal/invalidate.html">invalidate()</a>s
+ are needed. </p>
+
+<p> This is a convenience method that performs <code>self:BindBlob(dummy)</code>, where <em>dummy</em> is a (lazily created) zero-length,
+ fixed-size blob. See <a href="api.html#Bytemap:BindBlob">Bytemap:BindBlob</a> for details.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">MemoryBlob</span> or <span class="type">nil</span></span>
+        Previously bound blob, or <strong>nil</strong> if none was bound.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Bytemap:GetBlob"></a>
+    <strong>Bytemap:GetBlob ()</strong>
+    </dt>
+    <dd>
+    Get the memory blob, if any, bound to the bytemap.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">MemoryBlob</span> or <span class="type">nil</span></span>
+        Blob, or <strong>nil</strong> if none is bound.
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="api.html#Bytemap:BindBlob">Bytemap:BindBlob</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "Bytemap:GetBytes"></a>
+    <strong>Bytemap:GetBytes (opts)</strong>
+    </dt>
+    <dd>
+    Get a bytemap's bytes. </p>
+
+<p> More specifically, get the region from (<em>x1</em>, <em>y1</em>) in the upper-left to (<em>x2</em>, <em>y2</em>) in the
  lower-right. By default, these have values (1, 1) and (<em>width</em>, <em>height</em>) respectively (cf. <a href="api.html#newTexture">newTexture</a>),
  meaning the full bytemap.</p>
 
-<p> Coordinates will be clipped if necessary to stay within this full region. Furthermore, they are sorted so
- that <em>x1</em> &lt; <em>x2</em> and <em>y1</em> &lt; <em>y2</em>.</p>
-
-<p> If two related coordinates are outside in the same way&mdash;<em>x1</em> and <em>x2</em> both &lt; 1, for
- instance&mdash;the region is empty. In this case, a zero-length string is returned.
+<p> Coordinates outside the bytemap will be clipped to stay within bounds. When the whole region lies
+ outside&mdash;<em>x1</em> and <em>x2</em> are both &lt; 1, for instance&mdash;no bytes are available, so a
+ zero-length string is returned.
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         Options for getting bytes, which include:</p>
+            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+<p> Options for getting bytes, which include:</p>
 
 <ul>
+    <li><strong>format</strong>: Output format.
+    <br/><br/>
+    When absent, the requested pixels are returned as-is.
+    <br/><br/>
+    Otherwise, when this is <strong>"mask"</strong>, <strong>"rgb"</strong>, or <strong>"rgba"</strong>, they are converted to the named
+    format (cf. <a href="api.html#newTexture">newTexture</a>), lopping off or adding bytes as needed&mdash;in the latter case,
+    green and blue channels are padded with <code>0</code> bytes, alpha with <code>255</code>.
+    <br/><br/>
+    This may instead be one of <strong>"red"</strong>, <strong>"green"</strong>, <strong>"blue</strong>", or <strong>"alpha</strong>", in which case a
+    one-byte-per-pixel result is found by gathering the named component from each of the pixels. If
+    the channel is missing (e.g. the bytemap's format is <strong>"mask"</strong>, but <strong>"green"</strong> or <strong>"alpha"</strong>
+    was requested), a zero-length string is returned, indicating "no bytes".
+    <br/><br/>
+    (Since red is the first component, it follows that <strong>"red"</strong> and <strong>"mask"</strong> are synonyms.)</li>
+    <li><strong>x1</strong>, <strong>y1</strong>, <strong>x2</strong>, <strong>y2</strong>: Custom region coordinates, cf. the summary.
+    <br/><br/>
+    These are sorted to ensure <em>x1</em> &le; <em>x2</em> and <em>y1</em> &le; <em>y2</em>.</li>
     <li><strong>get_info</strong>: If true, a table is populated with some final results (described below). The value
     may be a table, in which case it will be the one used; otherwise, a new table is created.</li>
-    <li><strong>x1</strong>, <strong>y1</strong>, <strong>x2</strong>, <strong>y2</strong>: Custom region coordinates, cf. the summary.</li>
-    <li><strong>format</strong>: One of <strong>"mask"</strong>, <strong>"rgb"</strong>, <strong>"rgba"</strong>, <strong>"red"</strong>, <strong>"green"</strong>, <strong>"blue</strong>", <strong>"alpha</strong>",
-    describing the format of the final bytes.</li>
 </ul>
 
-<p> When absent, the bytemap's contents are returned as-is. Otherwise, with any of the first three choices,
- the result is converted, lopping off or adding padding bytes as needed (for blue and green channels,
- using <code>0</code> bytes; the alpha channel is padded with a <code>255</code> byte).</p>
-
-<p> The remaining options emit a result in one-byte-per-pixel form, containing the bytes from each pixel
- belonging to the named component. If the bytemap has no such channel (e.g. its format is <strong>"mask"</strong>,
- but <strong>"green"</strong> or <strong>"alpha"</strong> was requested), a zero-length string is returned. (<strong>"red"</strong> and <strong>"mask"</strong>
- are synonyms.)
         </li>
     </ul>
 
@@ -187,14 +301,15 @@
          If <strong>get_info</strong> was provided as an option, the info table.</p>
 
 <p> The final region coordinates will be added under the <strong>x1</strong>, <strong>y1</strong>, <strong>x2</strong>, and <strong>y2</strong> fields.
- In the case of empty regions these will be the original values (though sorted).</p>
+ In the case of out-of-bounds regions these will be the original values (though sorted).</p>
 
 <p> Additionally, a <strong>format</strong> field will be assigned one of <strong>"mask"</strong>, <strong>"rgb"</strong>, or <strong>"rgba"</strong>,
  describing the underlying format of the returned bytes. In particular, if anything other than
- <strong>"rgb"</strong> or <strong>"rgba"</strong> was specified as the <strong>format</strong> option, this will be <strong>"mask"</strong>.</p>
+ <strong>"rgb"</strong> or <strong>"rgba"</strong> was given as the output format option, this will be <strong>"mask"</strong>.</p>
 
-<p> For non-empty regions, the returned bytes are to be understood as a (<em>x2</em> - <em>x1</em> + 1) &times; (<em>y2</em> -
- <em>y1</em> + 1)-sized rectangle with bytes-per-pixel corresponding to <em>format</em>.</li>
+<p> For within-bounds regions, the returned bytes are to be understood as a (<em>x2</em> - <em>x1</em> + 1) &times;
+ (<em>y2</em> - <em>y1</em> + 1)-sized rectangle with <em>bytes_per_pixel</em> (cf. <a href="api.html#newTexture">newTexture</a>) corresponding to
+ the output format.</li>
     </ol>
 
 
@@ -203,47 +318,60 @@
 </dd>
     <dt>
     <a name = "Bytemap:SetBytes"></a>
-    <strong>Bytemap:SetBytes (bytes[, opts])</strong>
+    <strong>Bytemap:SetBytes (bytes, opts)</strong>
     </dt>
     <dd>
-    Sets a bytemap's bytes. </p>
+    Set a bytemap's bytes. </p>
 
-<p> The region details largely carry over from <a href="api.html#Bytemap:GetBytes">Bytemap:GetBytes</a>, although see the note about custom
- region coordinates below. No bytes change when the region is empty.</p>
+<p> The region details largely carry over from <a href="api.html#Bytemap:GetBytes">Bytemap:GetBytes</a>, although see the note for <em>bytes</em>
+ below. No bytes are written when the region is out-of-bounds.</p>
 
-<p> If too few bytes are provided to service the requested region, it will be clipped against the last
- line containing pixels. (Color-keyed pixels are considered present for purposes of this analysis.)
- Furthermore, any incomplete final pixel is discarded.
+<p> If too few bytes are provided, the requested region will be clipped against the last line containing
+ pixels. (Color-keyed pixels are considered present for purposes of this analysis.) As many pixels
+ as possible will be written in the final line. Furthermore, any incomplete final pixel is discarded.</p>
+
+<p> Regardless of whether bytes are written, any blob is detached, cf. <a href="api.html#Bytemap:BindBlob">Bytemap:BindBlob</a>.
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">bytes</span>
             <span class="types"><span class="type">Bytes</span></span>
-         Bytes to assign.
+         Bytes to assign, interpreted as a (<em>x2</em> - <em>x1</em> + 1) &times; (<em>y2</em> - <em>y1</em> + 1)-sized rectangle.</p>
+
+<p> <strong>N.B.</strong> These are the pre-clipping values of the region coordinates (though sorted).
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         Options for setting bytes, which include:</p>
+            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+<p> Options for setting bytes, which include:</p>
 
 <ul>
+    <li><strong>format</strong>: Format of <em>bytes</em>.
+    <br/><br/>
+    If absent, the bytemap's format is used.
+    <br/><br/>
+    Otherwise, when this is <strong>"mask"</strong>, <strong>"rgb"</strong>, or <strong>"rgba"</strong>, discrepancies are handled as follows:
+    if <em>bytes</em> has more components than the bytemap (cf. <a href="api.html#newTexture">newTexture</a>), the extra bytes are not written;
+    with fewer, the additional channels in the bytemap are left alone.
+    <br/><br/>
+    This may instead be one of <strong>"red"</strong>, <strong>"green"</strong>, <strong>"blue</strong>", or <strong>"alpha</strong>", in which case <em>bytes</em>
+    is interpreted as having one byte per pixel. Each byte is written to the named channel in the corresponding
+    pixel (this is a no-op if the bytemap has no such channel, cf. the similar note for <a href="api.html#Bytemap:GetBytes">Bytemap:GetBytes</a>).
+    <br/><br/>
+    Lastly, the format may be <strong>"grayscale"</strong>. Again, <em>bytes</em> is understood to have one per byte per pixel,
+    but now a byte is sent to each non-alpha channel of its target pixel.</li>
+    <li><strong>x1</strong>, <strong>y1</strong>, <strong>x2</strong>, <strong>y2</strong>: Custom region coordinates, cf. the summary.</li>
+    <li><strong>colorkey</strong>: If this is a <strong>Bytes</strong> value of one or more bytes, pixels from <em>bytes</em> will be compared
+    against it. Those that match are skipped, leaving the bytemap contents intact.
+    <br/><br/>
+    If necessary, <code>0</code> bytes are added to agree with <em>bytes</em>'s format, or excess bytes are dropped.</li>
+    <li><strong>extrude</strong>: If this is an integer &gt; 0, the pixels along each edge will be extruded so many rows or
+    columns. Extrusion in a given direction stops if it reaches the side of the bytemap.
+    <br/><br/>
+    Extrusion is performed after writing bytes, ignoring any clipping done for insufficient bytes.</li>
     <li><strong>get_info</strong>: As per <a href="api.html#Bytemap:GetBytes">GetBytes</a>.</li>
-    <li><strong>x1</strong>, <strong>y1</strong>, <strong>x2</strong>, <strong>y2</strong>: Custom region coordinates, cf. the summary. <em>bytes</em> is interpreted
-    as a (<em>x2</em> - <em>x1</em> + 1) &times; (<em>y2</em> - <em>y1</em> + 1)-sized rectangle. <strong>N.B.</strong> <em>bytes</em> sees the coordinates'
-    unclipped values (though sorted), whereas an info table will contain them in their final form.</li>
-    <li><strong>colorkey</strong>: If provided, a <strong>Bytes</strong> value of one or more bytes (zero-padded if necessary to agree
-    with <em>format</em>; excess bytes are dropped). Pixels in <em>bytes</em> that match <em>colorkey</em> are skipped, leaving
-    the bytemap contents intact.</li>
-    <li><strong>format</strong>: One of <strong>"mask"</strong>, <strong>"rgb"</strong>, <strong>"rgba"</strong>, <strong>"red"</strong>, <strong>"green"</strong>, <strong>"blue</strong>", <strong>"alpha</strong>",
-    <strong>"grayscale"</strong>, describing the format of <em>bytes</em>.</li>
 </ul>
 
-<p> If absent, the bytemap's format is used. Otherwise, with any of the first three choices, discrepancies
- are handled as follows: if <em>bytes</em> has more components than the bytemap, the extra bytes are not written;
- with fewer, the additional channels in the bytemap are left alone.</p>
-
-<p> The remaining options assume <em>bytes</em> to be in one-byte-per-pixel form. In the case of <strong>"grayscale"</strong>, the
- byte is copied to each non-alpha channel of the bytemap's pixel. Otherwise, the byte is written to the named
- channel in that pixel (this is a no-op if the bytemap has no such channel, cf. the similar note for <a href="api.html#Bytemap:GetBytes">Bytemap:GetBytes</a>).
         </li>
     </ul>
 
