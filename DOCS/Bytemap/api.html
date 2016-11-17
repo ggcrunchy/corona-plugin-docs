@@ -65,7 +65,7 @@
 <table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#newTexture">newTexture (config)</a></td>
-	<td class="summary">Create a new <strong>Bytemap</strong>.</td>
+	<td class="summary">Create a new <strong>Bytemap</strong>, a two-dimensional memory-structuring mechanism.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Bytemap:BindBlob">Bytemap:BindBlob (blob)</a></td>
@@ -102,29 +102,35 @@
     <strong>newTexture (config)</strong>
     </dt>
     <dd>
-    Create a new <strong>Bytemap</strong>. </p>
+    Create a new <strong>Bytemap</strong>, a two-dimensional memory-structuring mechanism. </p>
 
-<p> Bytemaps are <a href="https://docs.coronalabs.com/api/type/TextureResourceExternal/index.html">external textures</a> and
+<p> Normally, bytemaps are <a href="https://docs.coronalabs.com/api/type/TextureResourceExternal/index.html">external textures</a> and
  thus integrate with Corona's display objects via their <code>filename</code> and <code>baseDir</code> properties, e.g. in <a href="https://docs.coronalabs.com/api/type/BitmapPaint/index.html">paints</a>,
  as arguments to <a href="https://docs.coronalabs.com/api/library/display/newImage.html">display.newImage</a>, etc.</p>
 
 <p> Bytes are ordered linearly left-to-right, with rows going top-to-bottom. For instance, a 2 &times; 2, four-pixel
  RGBA bytemap would be arranged thus:</p>
 
-<p> <code>R1 G1 B1 A1 | R2 G2 B2 A2</code>
- <br/>
- <code>-------------------------</code>
- <br/>
- <code>R3 G3 B3 A3 | R4 G4 B4 A4</code></p>
+<pre><code>R1 G1 B1 A1 | R2 G2 B2 A2
+-------------------------
+R3 G3 B3 A3 | R4 G4 B4 A4
+</code></pre>
 
-<p> In flat memory, this will have the pattern <code>R1 G1 B1 A1 R2 G2 B2 A2 R3 G3 B3 A3 R4 G4 B4 A4</code>.
+<p> In flat memory, this will have the pattern</p>
+
+<pre><code>R1 G1 B1 A1 R2 G2 B2 A2 R3 G3 B3 A3 R4 G4 B4 A4
+</code></pre>
+
+<p> Bytemaps created <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/luaproc/api.html">outside Corona's own process</a> lose
+ the connection with the display hierarchy: <a href="https://docs.coronalabs.com/api/type/TextureResourceExternal/invalidate.html">invalidate</a>
+ and <a href="https://docs.coronalabs.com/api/type/TextureResource/releaseSelf.html">releaseSelf</a> become no-ops, whereas <code>filename</code> and
+ <code>baseDir</code> will throw errors if accessed.
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">config</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-
-<p> Parameters used to initialize the bytemap:</p>
+         Parameters used to initialize the bytemap:</p>
 
 <ul>
     <li><strong>format</strong>: Underlying <a href="https://docs.coronalabs.com/native/C/CoronaGraphics.html">data format</a>, which may be
@@ -135,6 +141,7 @@
     <li><strong>height</strong>: ...and tall.</li>
 </ul>
 
+<p> Bytemaps have (read-only) properties with the same names that supply these values.
         </li>
     </ul>
 
