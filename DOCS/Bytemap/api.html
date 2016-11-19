@@ -69,17 +69,21 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Bytemap:BindBlob">Bytemap:BindBlob (blob)</a></td>
-	<td class="summary">Bind a <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/MemoryBlob/api.html">memory blob</a> to the bytemap,
+	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</p>
+
+<p> Bind a <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/MemoryBlob/api.html">memory blob</a> to the bytemap,
  making it the data source.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Bytemap:Deallocate">Bytemap:Deallocate ()</a></td>
-	<td class="summary">Deallocate a bytemap's memory, for instance when no further <a href="(https://docs.coronalabs.com/api/type/TextureResourceExternal/invalidate.html">invalidate()</a>s
+	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</p>
+
+<p> Deallocate a bytemap's memory, for instance when no further <a href="(https://docs.coronalabs.com/api/type/TextureResourceExternal/invalidate.html">invalidate()</a>s
  are needed.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Bytemap:GetBlob">Bytemap:GetBlob ()</a></td>
-	<td class="summary">Get the memory blob, if any, bound to the bytemap.</td>
+	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Bytemap:GetBytes">Bytemap:GetBytes (opts)</a></td>
@@ -124,7 +128,9 @@ R3 G3 B3 A3 | R4 G4 B4 A4
 <p> Bytemaps created <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/luaproc/api.html">outside Corona's own process</a> lose
  the connection with the display hierarchy: <a href="https://docs.coronalabs.com/api/type/TextureResourceExternal/invalidate.html">invalidate</a>
  and <a href="https://docs.coronalabs.com/api/type/TextureResource/releaseSelf.html">releaseSelf</a> become no-ops, whereas <code>filename</code> and
- <code>baseDir</code> will throw errors if accessed.
+ <code>baseDir</code> will throw errors if accessed.</p>
+
+<p> (<strong>NON-EXTERNAL BYTEMAPS ARE EXPERIMENTAL</strong>)
 
     <h3>Parameters:</h3>
     <ul>
@@ -161,7 +167,9 @@ R3 G3 B3 A3 | R4 G4 B4 A4
     <strong>Bytemap:BindBlob (blob)</strong>
     </dt>
     <dd>
-    Bind a <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/MemoryBlob/api.html">memory blob</a> to the bytemap,
+    (<strong>WORK IN PROGRESS</strong>)</p>
+
+<p> Bind a <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/MemoryBlob/api.html">memory blob</a> to the bytemap,
  making it the data source. </p>
 
 <p> When a blob is first bound, the bytemap's normal memory is deallocated. If a blob is later detached without
@@ -172,8 +180,8 @@ R3 G3 B3 A3 | R4 G4 B4 A4
  and <a href="api.html#Bytemap:GetBytes">Bytemap:GetBytes</a> must copy the contents into a temporary buffer (padding it with default bytes) and
  work from that instead, negating many of the blob's benefits.</p>
 
-<p> (<strong>N.B.</strong> At the moment there is also a leaky abstraction on Windows: an RGB texture must be promoted to
- RGBA internally when its width is not a multiple of 4. To deal with this in a sane way, the copy process
+<p> (<strong>N.B.</strong> At the moment there is also a leaky abstraction on Windows: an external RGB texture must be promoted
+ to RGBA internally when its width is not a multiple of 4. To deal with this in a sane way, the copy process
  must also be performed here. This is a workaround until the (reported) issue is fixed.)</p>
 
 <p> A call to <a href="api.html#Bytemap:SetBytes">Bytemap:SetBytes</a> will detach the blob, though it will reallocate normal memory first and
@@ -210,7 +218,9 @@ R3 G3 B3 A3 | R4 G4 B4 A4
     <strong>Bytemap:Deallocate ()</strong>
     </dt>
     <dd>
-    Deallocate a bytemap's memory, for instance when no further <a href="(https://docs.coronalabs.com/api/type/TextureResourceExternal/invalidate.html">invalidate()</a>s
+    (<strong>WORK IN PROGRESS</strong>)</p>
+
+<p> Deallocate a bytemap's memory, for instance when no further <a href="(https://docs.coronalabs.com/api/type/TextureResourceExternal/invalidate.html">invalidate()</a>s
  are needed. </p>
 
 <p> This is a convenience method that performs <code>self:BindBlob(dummy)</code>, where <em>dummy</em> is a (lazily created) zero-length,
@@ -233,7 +243,7 @@ R3 G3 B3 A3 | R4 G4 B4 A4
     <strong>Bytemap:GetBlob ()</strong>
     </dt>
     <dd>
-    Get the memory blob, if any, bound to the bytemap.
+    (<strong>WORK IN PROGRESS</strong>)  Get the memory blob, if any, bound to the bytemap.
 
 
     <h3>Returns:</h3>
@@ -375,7 +385,9 @@ R3 G3 B3 A3 | R4 G4 B4 A4
     <li><strong>extrude</strong>: If this is an integer &gt; 0, the pixels along each edge will be extruded so many rows or
     columns. Extrusion in a given direction stops if it reaches the side of the bytemap.
     <br/><br/>
-    Extrusion is performed after writing bytes, ignoring any clipping done for insufficient bytes.</li>
+    Extrusion is performed after writing bytes, ignoring any clipping done for insufficient bytes.
+    <br/><br/>
+    (<strong>EXTRUSION IS EXPERIMENTAL</strong>)</li>
     <li><strong>get_info</strong>: As per <a href="api.html#Bytemap:GetBytes">GetBytes</a>.</li>
 </ul>
 

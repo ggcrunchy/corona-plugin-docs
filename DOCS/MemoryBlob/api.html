@@ -112,16 +112,12 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#ExistsInBlobStorage">ExistsInBlobStorage (hash)</a></td>
-	<td class="summary">Check whether an entry exists in storage.</td>
+	<td class="name" nowrap><a href="#ExistsInStorage">ExistsInStorage (hash)</a></td>
+	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#GetBlobDispatcher">GetBlobDispatcher ()</a></td>
 	<td class="summary">Get the dispatcher used by blob-related events, in order to add / remove listeners.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#InitializeBlobStorage">InitializeBlobStorage ()</a></td>
-	<td class="summary">Initialize storage for <a href="api.html#MemoryBlob:Submit">MemoryBlob:Submit</a> and <a href="api.html#MemoryBlob:Sync">MemoryBlob:Sync</a>.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#IsBlob">IsBlob (object, type)</a></td>
@@ -171,11 +167,15 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MemoryBlob:Submit">MemoryBlob:Submit ()</a></td>
-	<td class="summary">Submit this blob's contents to storage.</td>
+	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</p>
+
+<p> Submit this blob's contents to storage.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MemoryBlob:Sync">MemoryBlob:Sync (hash)</a></td>
-	<td class="summary">Synchronize this blob with an entry in storage, which then ceases to exist.</td>
+	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</p>
+
+<p> Synchronize this blob with an entry in storage, which then ceases to exist.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MemoryBlob:Write">MemoryBlob:Write (pos, bytes)</a></td>
@@ -190,11 +190,11 @@
     <h2><a name="Functions"></a>Functions</h2>
     <dl class="function">
     <dt>
-    <a name = "ExistsInBlobStorage"></a>
-    <strong>ExistsInBlobStorage (hash)</strong>
+    <a name = "ExistsInStorage"></a>
+    <strong>ExistsInStorage (hash)</strong>
     </dt>
     <dd>
-    Check whether an entry exists in storage.
+    (<strong>WORK IN PROGRESS</strong>)  Check whether an entry exists in storage.
 
     <h3>Parameters:</h3>
     <ul>
@@ -238,24 +238,6 @@
     <ul>
          <a href="api.html#MemoryBlob:Submit">MemoryBlob:Submit</a>
     </ul>
-
-
-</dd>
-    <dt>
-    <a name = "InitializeBlobStorage"></a>
-    <strong>InitializeBlobStorage ()</strong>
-    </dt>
-    <dd>
-    Initialize storage for <a href="api.html#MemoryBlob:Submit">MemoryBlob:Submit</a> and <a href="api.html#MemoryBlob:Sync">MemoryBlob:Sync</a>. </p>
-
-<p> Calling this outside <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/luaproc/api.html#is_main_state">Corona's main thread</a>
- results in an error.</p>
-
-<p> Subsequent calls are no-ops.
-
-
-
-
 
 
 </dd>
@@ -603,7 +585,9 @@
     <strong>MemoryBlob:Submit ()</strong>
     </dt>
     <dd>
-    Submit this blob's contents to storage.  This is a mechanism geared toward
+    (<strong>WORK IN PROGRESS</strong>)</p>
+
+<p> Submit this blob's contents to storage.  This is a mechanism geared toward
  memory sharing among <a href="https://ggcrunchy.github.io/corona-pluin-docs/DOCS/luaproc/api.html">Lua processes</a>,
  which can even be done without copying when certain conditions are met (cf. <a href="api.html#MemoryBlob:Sync">MemoryBlob:Sync</a> for details,
  as well as the comments about resizable blobs that follow).</p>
@@ -620,7 +604,7 @@
 <p> Listeners for <strong>"stale_entry"</strong> will be sent a message when an entry times out. The message's <strong>hash</strong> field
  will contain the former entry's hash.</p>
 
-<p> This is a no-op for locked, resizable blobs, or if <a href="api.html#InitializeBlobStorage">InitializeBlobStorage</a> has not been called.
+<p> This is a no-op for locked, resizable blobs.
 
 
     <h3>Returns:</h3>
@@ -633,8 +617,9 @@
 
     <h3>See also:</h3>
     <ul>
-         <li><a href="api.html#ExistsInBlobStorage">ExistsInBlobStorage</a></li>
+         <li><a href="api.html#ExistsInStorage">ExistsInStorage</a></li>
          <li><a href="api.html#GetBlobDispatcher">GetBlobDispatcher</a></li>
+         <li><a href="api.html#MemoryBlob:Append">MemoryBlob:Append</a></li>
          <li><a href="api.html#MemoryBlob:IsLocked">MemoryBlob:IsLocked</a></li>
     </ul>
 
@@ -645,7 +630,9 @@
     <strong>MemoryBlob:Sync (hash)</strong>
     </dt>
     <dd>
-    Synchronize this blob with an entry in storage, which then ceases to exist. </p>
+    (<strong>WORK IN PROGRESS</strong>)</p>
+
+<p> Synchronize this blob with an entry in storage, which then ceases to exist. </p>
 
 <p> For fixed-size blobs, this is essentially <code>self:Write(1, bytes)</code>, with <em>bytes</em> being the entry's contents.</p>
 
@@ -655,8 +642,7 @@
 
 <p> This operation is designed for safe communication between <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/luaproc/api.html">Lua processes</a>.</p>
 
-<p> This is a no-op for locked blobs. The same is true if <em>hash</em> does not refer to a valid entry, or if
- <a href="api.html#InitializeBlobStorage">InitializeBlobStorage</a> has not been called.
+<p> This is a no-op for locked blobs, or if <em>hash</em> does not refer to a valid entry.
 
     <h3>Parameters:</h3>
     <ul>
@@ -676,7 +662,7 @@
 
     <h3>See also:</h3>
     <ul>
-         <li><a href="api.html#ExistsInBlobStorage">ExistsInBlobStorage</a></li>
+         <li><a href="api.html#ExistsInStorage">ExistsInStorage</a></li>
          <li><a href="api.html#MemoryBlob:IsLocked">MemoryBlob:IsLocked</a></li>
          <li><a href="api.html#MemoryBlob:Write">MemoryBlob:Write</a></li>
     </ul>
