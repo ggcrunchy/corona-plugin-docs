@@ -47,7 +47,7 @@
 <p>
 
 
-<p> Some additional features have been added, among them support for shared variables and events. The latter
+<p> Some additional (currently experimental) features have been added, among them support for shared variables and events. The latter
  are built atop <a href="https://github.com/efficient/libcuckoo">libcuckoo</a> and <a href="https://github.com/neosmart/pevents">pevents</a> respectively.</p>
 
 <p> To use the plugin, add the following in <code>build.settings</code>:</p>
@@ -190,10 +190,6 @@
 	<td class="summary">Variant of <strong>newproc</strong> that accepts a function.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#add_to_number">add_to_number (name, inc)</a></td>
-	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</td>
-	</tr>
-	<tr>
 	<td class="name" nowrap><a href="#alert">alert (message, payload)</a></td>
 	<td class="summary">Dispatch an alert event (in the main state), e.g.</td>
 	</tr>
@@ -207,11 +203,9 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#destroy_event">destroy_event (name)</a></td>
-	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#erase_boolean">erase_boolean (name)</a></td>
-	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</td>
+	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</p>
+
+<p> Destroy an event, if present.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#estimate_concurrency">estimate_concurrency ()</a></td>
@@ -224,11 +218,11 @@
 	<td class="summary">Gets the dispatcher used by <a href="api.html#alert">alert</a>, in order to add / remove listeners.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#get_boolean">get_boolean (Name)</a></td>
+	<td class="name" nowrap><a href="#get_integer">get_integer (name)</a></td>
 	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#get_number">get_number (Name)</a></td>
+	<td class="name" nowrap><a href="#get_number">get_number (name)</a></td>
 	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</td>
 	</tr>
 	<tr>
@@ -272,11 +266,11 @@
 	<td class="summary">Variant of <a href="api.html#send">send</a> that allows unmatched sends from Corona's thread.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#set_boolean">set_boolean (name, value)</a></td>
+	<td class="name" nowrap><a href="#set_event">set_event (name)</a></td>
 	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#set_event">set_event (name)</a></td>
+	<td class="name" nowrap><a href="#set_integer">set_integer (name, Value)</a></td>
 	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</td>
 	</tr>
 	<tr>
@@ -292,6 +286,18 @@
 	<td class="summary">Causes the current process to sleep.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#update_integer">update_integer (name, op, change)</a></td>
+	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</p>
+
+<p> Updates a shared integer, if present.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#update_number">update_number (name, op, change)</a></td>
+	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</p>
+
+<p> Updates a shared number, if present.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#wait">wait ()</a></td>
 	<td class="summary">Waits until all Lua processes have finished, then continues program execution.</td>
 	</tr>
@@ -300,19 +306,11 @@
 	<td class="summary">Indicates whether Lua wants to close, either from trying to exit the app or Corona simulator, or on account of relaunching the Corona simulator.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#wait_for_all_events">wait_for_all_events (...)</a></td>
+	<td class="name" nowrap><a href="#wait_for_all_events">wait_for_all_events (events, wait)</a></td>
 	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#wait_for_all_events">wait_for_all_events (wait, ...)</a></td>
-	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#wait_for_any_events">wait_for_any_events (...)</a></td>
-	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#wait_for_any_events">wait_for_any_events (wait, ...)</a></td>
+	<td class="name" nowrap><a href="#wait_for_any_events">wait_for_any_events (events, wait)</a></td>
 	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</td>
 	</tr>
 	<tr>
@@ -351,7 +349,24 @@
 
 <p> Thus, libraries meant to allow use in multiple processes should provide explicit guarantees and / or guidelines. This might come
  in various forms. For instance, a library that keeps no state at all is fine. Other possibilities include keeping state in
- thread-specific data, or in individually instantiated "world" objects.
+ thread-specific data, or in individually instantiated "world" objects.</p>
+
+<p> (<strong>THE FOLLOWING IS EXPERIMENTAL</strong>)</p>
+
+<p> If a process errors out, the manager will check whether it had global named <strong>LUAPROC_ERROR</strong>. If one exists and is a table,
+ its <strong>cleanup</strong> and <strong>report_method</strong> members are queried.</p>
+
+<p> When <strong>cleanup</strong> contains a function, a call like <code>local result = pcall(cleanup, error)</code> is performed, where <em>error</em> is the
+ error object&mdash;typically a string&mdash;left behind by the process. This provides a means to restore consistency if the
+ process was sharing resources. When <em>result</em> is a string, it replaces <em>error</em>.</p>
+
+<p> The final error is handled according to <strong>report_method</strong>. By default, it gets printed to the console.</p>
+
+<p> With the <strong>"alert"</strong> method, something like <code>luaproc.alert("crash_report", tostring(error))</code> is performed, allowing the
+ main state to deal with the error. Example use cases might include sending a <strong>"fatal"</strong> message telling the application
+ to quit, or encoding the final state as the error and attempting the resume or restart the operation down the road.</p>
+
+<p> When the method is <strong>"ignore"</strong>, the error is silent.
 
     <h3>Parameters:</h3>
     <ul>
@@ -375,6 +390,10 @@
     </ol>
 
 
+    <h3>See also:</h3>
+    <ul>
+         <a href="api.html#alert">alert</a>
+    </ul>
 
 
 </dd>
@@ -414,36 +433,6 @@ end)
         <strong>nil</strong>, indicating an error.</li>
         <li>
         Error message, of type <strong>string</strong>.</li>
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "add_to_number"></a>
-    <strong>add_to_number (name, inc)</strong>
-    </dt>
-    <dd>
-    (<strong>WORK IN PROGRESS</strong>)  Adds to a shared number, if present.
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">name</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         Name of number, cf. <a href="api.html#set_number">set_number</a>.
-        </li>
-        <li><span class="parameter">inc</span>
-            <span class="types"><span class="type">number</span></span>
-         Amount to add to shared value.
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">number</span> or <span class="type">nil</span></span>
-        If the number existed, its new value. Otherwise, <strong>nil</strong>.
     </ol>
 
 
@@ -551,7 +540,11 @@ end)
     <strong>destroy_event (name)</strong>
     </dt>
     <dd>
-    (<strong>WORK IN PROGRESS</strong>)  Destroy an event, if present.
+    (<strong>WORK IN PROGRESS</strong>)</p>
+
+<p> Destroy an event, if present. </p>
+
+<p> This must not be called while waiting for the event.
 
     <h3>Parameters:</h3>
     <ul>
@@ -569,29 +562,11 @@ end)
     </ol>
 
 
-
-
-</dd>
-    <dt>
-    <a name = "erase_boolean"></a>
-    <strong>erase_boolean (name)</strong>
-    </dt>
-    <dd>
-    (<strong>WORK IN PROGRESS</strong>)  Remove a shared boolean, if it exists.
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">name</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         Name of boolean.
-        </li>
-    </ul>
-
-
-
     <h3>See also:</h3>
     <ul>
-         <a href="api.html#set_boolean">set_boolean</a>
+         <li><a href="api.html#wait_for_all_events">wait_for_all_events</a></li>
+         <li><a href="api.html#wait_for_any_events">wait_for_any_events</a></li>
+         <li><a href="api.html#wait_for_event">wait_for_event</a></li>
     </ul>
 
 
@@ -610,7 +585,7 @@ end)
     <ol>
 
            <span class="types"><span class="type">uint</span></span>
-        Number of hardware cores, or 0 if unable to estimate.
+        Estimated number of hardware cores, or 0 if unable to guess.
     </ol>
 
 
@@ -639,48 +614,48 @@ end)
 
 </dd>
     <dt>
-    <a name = "get_boolean"></a>
-    <strong>get_boolean (Name)</strong>
+    <a name = "get_integer"></a>
+    <strong>get_integer (name)</strong>
     </dt>
     <dd>
-    (<strong>WORK IN PROGRESS</strong>)  Gets a shared boolean, if present.
+    (<strong>WORK IN PROGRESS</strong>)  Gets a shared integer, if present.
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">Name</span>
+        <li><span class="parameter">name</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         of boolean.
+         Name of integer.
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">boolean</span> or <span class="type">nil</span></span>
-        Value of boolean, or <strong>nil</strong> if absent.
+           <span class="types"><span class="type">int</span> or <span class="type">nil</span></span>
+        Value of integer, or <strong>nil</strong> if absent.
     </ol>
 
 
     <h3>See also:</h3>
     <ul>
-         <li><a href="api.html#erase_boolean">erase_boolean</a></li>
-         <li><a href="api.html#set_boolean">set_boolean</a></li>
+         <li><a href="api.html#set_integer">set_integer</a></li>
+         <li><a href="api.html#update_integer">update_integer</a></li>
     </ul>
 
 
 </dd>
     <dt>
     <a name = "get_number"></a>
-    <strong>get_number (Name)</strong>
+    <strong>get_number (name)</strong>
     </dt>
     <dd>
     (<strong>WORK IN PROGRESS</strong>)  Gets a shared number, if present.
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">Name</span>
+        <li><span class="parameter">name</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         of number.
+         Name of number.
         </li>
     </ul>
 
@@ -694,8 +669,8 @@ end)
 
     <h3>See also:</h3>
     <ul>
-         <li><a href="api.html#add_to_number">add_to_number</a></li>
          <li><a href="api.html#set_number">set_number</a></li>
+         <li><a href="api.html#update_number">update_number</a></li>
     </ul>
 
 
@@ -716,6 +691,10 @@ end)
     </ol>
 
 
+    <h3>See also:</h3>
+    <ul>
+         <a href="api.html#setnumworkers">setnumworkers</a>
+    </ul>
 
 
 </dd>
@@ -960,36 +939,6 @@ end)
 
 </dd>
     <dt>
-    <a name = "set_boolean"></a>
-    <strong>set_boolean (name, value)</strong>
-    </dt>
-    <dd>
-    (<strong>WORK IN PROGRESS</strong>)  Assign a value to a shared boolean.
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">name</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         Name of boolean.
-        </li>
-        <li><span class="parameter">value</span>
-            <span class="types"><span class="type">bool</span></span>
-         Value to assign: <strong>false</strong> and <strong>nil</strong> become <strong>false</strong>, anything else <strong>true</strong>.</p>
-
-<p> This generality means a separate function, <a href="api.html#erase_boolean">erase_boolean</a>, is required to remove booleans.
-        </li>
-    </ul>
-
-
-
-    <h3>See also:</h3>
-    <ul>
-         <a href="api.html#get_boolean">get_boolean</a>
-    </ul>
-
-
-</dd>
-    <dt>
     <a name = "set_event"></a>
     <strong>set_event (name)</strong>
     </dt>
@@ -1020,6 +969,35 @@ end)
 
 </dd>
     <dt>
+    <a name = "set_integer"></a>
+    <strong>set_integer (name, Value)</strong>
+    </dt>
+    <dd>
+    (<strong>WORK IN PROGRESS</strong>)  Assign a value to a shared integer.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Name of integer.
+        </li>
+        <li><span class="parameter">Value</span>
+            <span class="types"><span class="type">int</span> or <span class="type">nil</span></span>
+         to assign, or <strong>nil</strong> to remove the integer.
+        </li>
+    </ul>
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="api.html#get_integer">get_integer</a></li>
+         <li><a href="api.html#update_integer">update_integer</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
     <a name = "set_number"></a>
     <strong>set_number (name, Value)</strong>
     </dt>
@@ -1042,8 +1020,8 @@ end)
 
     <h3>See also:</h3>
     <ul>
-         <li><a href="api.html#add_to_number">add_to_number</a></li>
          <li><a href="api.html#get_number">get_number</a></li>
+         <li><a href="api.html#update_number">update_number</a></li>
     </ul>
 
 
@@ -1071,7 +1049,8 @@ end)
 
     <h3>See also:</h3>
     <ul>
-         <a href="api.html#estimate_concurrency">estimate_concurrency</a>
+         <li><a href="api.html#estimate_concurrency">estimate_concurrency</a></li>
+         <li><a href="api.html#getnumworkers">getnumworkers</a></li>
     </ul>
 
 
@@ -1088,13 +1067,104 @@ end)
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">ms</span>
-            <span class="types"><span class="type">uint</span></span>
-         Milliseconds to sleep, &ge; 0.
+            <span class="types">optional <span class="type">uint</span></span>
+         Milliseconds to sleep, &ge; 0. If absent, the process yields, giving other processes a chance to run.
         </li>
     </ul>
 
 
 
+
+
+</dd>
+    <dt>
+    <a name = "update_integer"></a>
+    <strong>update_integer (name, op, change)</strong>
+    </dt>
+    <dd>
+    (<strong>WORK IN PROGRESS</strong>)</p>
+
+<p> Updates a shared integer, if present. </p>
+
+<p> Concurrent updates have no specific order, but are atomic.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Name of integer, cf. <a href="api.html#set_integer">set_integer</a>.
+        </li>
+        <li><span class="parameter">op</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Binary update operation, which may be one of:</p>
+
+<ul>
+    <li><strong>"add"</strong>, <strong>"sub"</strong>, i.e. arithmetic add, subtract</li>
+    <li><strong>"and"</strong>, <strong>"or"</strong>, <strong>"xor"</strong>, i.e. bitwise and, inclusive or, exclusive or</li>
+</ul>
+
+<p> The new value will be <code>old op change</code>, e.g. <code>new = old + 7</code> for <em>op</em> of <strong>"add"</strong> and <em>change</em> of <code>7</code>.
+        </li>
+        <li><span class="parameter">change</span>
+            <span class="types"><span class="type">int</span></span>
+         Value used to update the shared integer, according to <em>op</em>.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span> or <span class="type">nil</span></span>
+        If the number existed and was given a valid operation, its new value. Otherwise, <strong>nil</strong>.
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="api.html#get_integer">get_integer</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "update_number"></a>
+    <strong>update_number (name, op, change)</strong>
+    </dt>
+    <dd>
+    (<strong>WORK IN PROGRESS</strong>)</p>
+
+<p> Updates a shared number, if present. </p>
+
+<p> Concurrent updates have no specific order, but are atomic.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Name of number, cf. <a href="api.html#set_number">set_number</a>.
+        </li>
+        <li><span class="parameter">op</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Binary update operation, which may be <strong>"add"</strong> or <strong>"sub"</strong>, cf. <a href="api.html#update_integer">update_integer</a>.
+        </li>
+        <li><span class="parameter">change</span>
+            <span class="types"><span class="type">int</span></span>
+         Value used to update the shared integer, according to <em>op</em>.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span> or <span class="type">nil</span></span>
+        If the number existed and was given a valid operation, its new value. Otherwise, <strong>nil</strong>.
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="api.html#get_number">get_number</a>
+    </ul>
 
 
 </dd>
@@ -1138,51 +1208,20 @@ end)
 </dd>
     <dt>
     <a name = "wait_for_all_events"></a>
-    <strong>wait_for_all_events (...)</strong>
+    <strong>wait_for_all_events (events, wait)</strong>
     </dt>
     <dd>
     (<strong>WORK IN PROGRESS</strong>)  Wait until all events in a group are set.
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">...</span>
+        <li><span class="parameter">events</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">{string,...}</a></span>
          One or more names of events, cf. <a href="api.html#create_event">create_event</a>.
         </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-        <li>
-        <strong>true</strong>, indicating success.</li>
-        <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        Name of an event. (TODO: weird, verify this)</li>
-    </ol>
-     <h3>Or</h3>
-    <ol>
-
-        <strong>false</strong>, meaning failure.
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "wait_for_all_events"></a>
-    <strong>wait_for_all_events (wait, ...)</strong>
-    </dt>
-    <dd>
-    (<strong>WORK IN PROGRESS</strong>)  Wait until all events in a group are set, with a time limit.
-
-    <h3>Parameters:</h3>
-    <ul>
         <li><span class="parameter">wait</span>
-            <span class="types"><span class="type">uint</span></span>
-         Milliseconds to wait. May be 0. (TODO: has a meaning, check)
-        </li>
-        <li><span class="parameter">...</span>
-         One or more names of events, cf. <a href="api.html#create_event">create_event</a>.
+            <span class="types">optional <span class="type">uint</span></span>
+         Milliseconds to wait, &ge; 0. When absent, the wait will never time out.
         </li>
     </ul>
 
@@ -1192,7 +1231,7 @@ end)
         <strong>true</strong>, indicating success.</li>
         <li>
            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        Name of an event. (TODO: weird, verify this)</li>
+        First name in <em>events</em>.</li>
     </ol>
      <h3>Or</h3>
     <ol>
@@ -1211,51 +1250,20 @@ end)
 </dd>
     <dt>
     <a name = "wait_for_any_events"></a>
-    <strong>wait_for_any_events (...)</strong>
+    <strong>wait_for_any_events (events, wait)</strong>
     </dt>
     <dd>
-    (<strong>WORK IN PROGRESS</strong>)  Wait until one or more event in a group is set.
+    (<strong>WORK IN PROGRESS</strong>)  Wait until at least one event in a group is set.
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">...</span>
+        <li><span class="parameter">events</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">{string,...}</a></span>
          One or more names of events, cf. <a href="api.html#create_event">create_event</a>.
         </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-        <li>
-        <strong>true</strong>, indicating success.</li>
-        <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        Name of an event. (TODO: verify this; more meaningful, but what if more than one?)</li>
-    </ol>
-     <h3>Or</h3>
-    <ol>
-
-        <strong>false</strong>, meaning failure.
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "wait_for_any_events"></a>
-    <strong>wait_for_any_events (wait, ...)</strong>
-    </dt>
-    <dd>
-    (<strong>WORK IN PROGRESS</strong>)  Wait until one or more events in a group is set, with a time limit.
-
-    <h3>Parameters:</h3>
-    <ul>
         <li><span class="parameter">wait</span>
-            <span class="types"><span class="type">uint</span></span>
-         Milliseconds to wait. May be 0. (TODO: has a meaning, check)
-        </li>
-        <li><span class="parameter">...</span>
-         One or more names of events, cf. <a href="api.html#create_event">create_event</a>.
+            <span class="types">optional <span class="type">uint</span></span>
+         Milliseconds to wait, &ge; 0. When absent, the wait will never time out.
         </li>
     </ul>
 
@@ -1265,7 +1273,7 @@ end)
         <strong>true</strong>, indicating success.</li>
         <li>
            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        Name of an event. (TODO: ditto)</li>
+        Name of set event from <em>events</em> with lowest index.</li>
     </ol>
      <h3>Or</h3>
     <ol>
@@ -1297,7 +1305,7 @@ end)
         </li>
         <li><span class="parameter">wait</span>
             <span class="types">optional <span class="type">uint</span></span>
-         Milliseconds to wait. May be 0. (etc.) If absent, no time limit is imposed.
+         Milliseconds to wait, &ge; 0. When absent, the wait will never time out.
         </li>
     </ul>
 
