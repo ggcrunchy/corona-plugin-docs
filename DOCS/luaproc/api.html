@@ -47,7 +47,7 @@
 <p>
 
 
-<p> Some additional (currently experimental) features have been added, among them support for shared variables and events. The latter
+<p> Some additional (upcoming) features have been added, among them support for shared variables and events. The latter
  are built atop <a href="https://github.com/efficient/libcuckoo">libcuckoo</a> and <a href="https://github.com/neosmart/pevents">pevents</a> respectively.</p>
 
 <p> To use the plugin, add the following in <code>build.settings</code>:</p>
@@ -57,6 +57,9 @@
  }</code></pre></p>
 
 <p> Sample code is available <a href="https://github.com/ggcrunchy/corona-plugin-docs/blob/master/luaproc.lua">here</a>.</p>
+
+<p> Functions and sections that begin with (<strong>WIP</strong>) describe work in progress. These are features that have not made it into
+ <em>luaproc</em>'s public build, but give a reasonable idea of what to expect.</p>
 
 <hr/>
 
@@ -183,7 +186,7 @@
 <table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#newproc">newproc (lua_code)</a></td>
-	<td class="summary">Creates a new Lua process to run the specified string of Lua code.</td>
+	<td class="summary">Create a new Lua process to run the specified string of Lua code.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#newproc">newproc (f)</a></td>
@@ -195,39 +198,35 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#create_event">create_event (name[, manual_reset=false[, initial_value=false]])</a></td>
-	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</td>
+	<td class="summary">(<strong>WIP</strong>) Create a new event for process scheduling.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#delchannel">delchannel (channel_name)</a></td>
-	<td class="summary">Destroys a channel identified by string name.</td>
+	<td class="summary">Destroy a channel identified by string name.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#destroy_event">destroy_event (name)</a></td>
-	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</p>
-
-<p> Destroy an event, if present.</td>
+	<td class="summary">(<strong>WIP</strong>) Destroy an event, if present.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#estimate_concurrency">estimate_concurrency ()</a></td>
-	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</p>
-
-<p> Get an estimate of available hardware concurrency, e.g.</td>
+	<td class="summary">(<strong>WIP</strong>) Get an estimate of available hardware concurrency, e.g.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#get_alert_dispatcher">get_alert_dispatcher ()</a></td>
-	<td class="summary">Gets the dispatcher used by <a href="api.html#alert">alert</a>, in order to add / remove listeners.</td>
+	<td class="summary">Get the dispatcher used by <a href="api.html#alert">alert</a>, in order to add / remove listeners.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#get_integer">get_integer (name)</a></td>
-	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</td>
+	<td class="summary">(<strong>WIP</strong>) Get a shared integer, if present.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#get_number">get_number (name)</a></td>
-	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</td>
+	<td class="summary">(<strong>WIP</strong>) Get a shared number, if present.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#getnumworkers">getnumworkers ()</a></td>
-	<td class="summary">Returns the number of active workers (pthreads).</td>
+	<td class="summary">Return the number of active workers (pthreads).</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#is_main_state">is_main_state ()</a></td>
@@ -243,7 +242,7 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#receive">receive (channel_name[, asynchronous=false])</a></td>
-	<td class="summary">Receives a message (tuple of boolean, <strong>nil</strong>, number or string values) from a channel.</td>
+	<td class="summary">Receive a message (tuple of boolean, <strong>nil</strong>, number or string values) from a channel.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#receive_allow_from_main">receive_allow_from_main ()</a></td>
@@ -251,15 +250,15 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#recycle">recycle (maxrecycle)</a></td>
-	<td class="summary">Sets the maximum number of Lua processes to recycle.</td>
+	<td class="summary">Set the maximum number of Lua processes to recycle.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#reset_event">reset_event (name)</a></td>
-	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</td>
+	<td class="summary">(<strong>WIP</strong>) Reset an event.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#send">send (channel_name, ...)</a></td>
-	<td class="summary">Sends a message (tuple of boolean, <strong>nil</strong>, number or string values) to a channel.</td>
+	<td class="summary">Send a message (tuple of boolean, <strong>nil</strong>, number or string values) to a channel.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#send_allow_from_main">send_allow_from_main ()</a></td>
@@ -267,39 +266,35 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#set_event">set_event (name)</a></td>
-	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</td>
+	<td class="summary">(<strong>WIP</strong>) Set an event.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#set_integer">set_integer (name, Value)</a></td>
-	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</td>
+	<td class="name" nowrap><a href="#set_integer">set_integer (name, value)</a></td>
+	<td class="summary">(<strong>WIP</strong>) Assign a value to a shared integer.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#set_number">set_number (name, Value)</a></td>
-	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</td>
+	<td class="name" nowrap><a href="#set_number">set_number (name, value)</a></td>
+	<td class="summary">(<strong>WIP</strong>) Assign a value to a shared number.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#setnumworkers">setnumworkers (number_of_workers)</a></td>
-	<td class="summary">Sets the number of active workers (pthreads) to n (default = 1, minimum = 1).</td>
+	<td class="summary">Set the number of active workers (pthreads) to n (default = 1, minimum = 1).</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#sleep">sleep (ms)</a></td>
-	<td class="summary">Causes the current process to sleep.</td>
+	<td class="summary">Put the current process to sleep.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#update_integer">update_integer (name, op, change)</a></td>
-	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</p>
-
-<p> Updates a shared integer, if present.</td>
+	<td class="summary">(<strong>WIP</strong>) Update a shared integer, if present.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#update_number">update_number (name, op, change)</a></td>
-	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</p>
-
-<p> Updates a shared number, if present.</td>
+	<td class="summary">(<strong>WIP</strong>) Update a shared number, if present.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#wait">wait ()</a></td>
-	<td class="summary">Waits until all Lua processes have finished, then continues program execution.</td>
+	<td class="summary">Wait until all Lua processes have finished, then continues program execution.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#wants_to_close">wants_to_close ()</a></td>
@@ -307,15 +302,15 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#wait_for_all_events">wait_for_all_events (events, wait)</a></td>
-	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</td>
+	<td class="summary">(<strong>WIP</strong>) Wait until all events in a group are set.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#wait_for_any_events">wait_for_any_events (events, wait)</a></td>
-	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</td>
+	<td class="summary">(<strong>WIP</strong>) Wait until at least one event in a group is set.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#wait_for_event">wait_for_event (name, wait)</a></td>
-	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</td>
+	<td class="summary">(<strong>WIP</strong>) Wait until an event is set.</td>
 	</tr>
 </table>
 
@@ -330,7 +325,7 @@
     <strong>newproc (lua_code)</strong>
     </dt>
     <dd>
-    Creates a new Lua process to run the specified string of Lua code.  Returns <strong>true</strong> if successful or <strong>nil</strong> and an error
+    Create a new Lua process to run the specified string of Lua code.  Returns <strong>true</strong> if successful or <strong>nil</strong> and an error
  message if failed. The only libraries loaded in new Lua processes are <em>luaproc</em> itself (available as the global <strong>luaproc</strong>) and
  the standard Lua base and <a href="https://docs.coronalabs.com/api/library/package/index.html">package</a> libraries.</p>
 
@@ -351,7 +346,7 @@
  in various forms. For instance, a library that keeps no state at all is fine. Other possibilities include keeping state in
  thread-specific data, or in individually instantiated "world" objects.</p>
 
-<p> (<strong>THE FOLLOWING IS EXPERIMENTAL</strong>)</p>
+<p> (<strong>WIP</strong>)</p>
 
 <p> If a process errors out, the manager will check whether it had global named <strong>LUAPROC_ERROR</strong>. If one exists and is a table,
  its <strong>cleanup</strong> and <strong>report_method</strong> members are queried.</p>
@@ -477,7 +472,7 @@ end)
     <strong>create_event (name[, manual_reset=false[, initial_value=false]])</strong>
     </dt>
     <dd>
-    (<strong>WORK IN PROGRESS</strong>)  Create a new event for process scheduling.
+    (<strong>WIP</strong>) Create a new event for process scheduling.
 
     <h3>Parameters:</h3>
     <ul>
@@ -523,7 +518,7 @@ end)
     <strong>delchannel (channel_name)</strong>
     </dt>
     <dd>
-    Destroys a channel identified by string name.  Returns <strong>true</strong> if successful or <strong>nil</strong> and an error message if failed.</p>
+    Destroy a channel identified by string name.  Returns <strong>true</strong> if successful or <strong>nil</strong> and an error message if failed.</p>
 
 <p> Lua processes waiting to send or receive messages on destroyed channels have their execution resumed and receive an error
  message indicating the channel was destroyed.
@@ -546,9 +541,7 @@ end)
     <strong>destroy_event (name)</strong>
     </dt>
     <dd>
-    (<strong>WORK IN PROGRESS</strong>)</p>
-
-<p> Destroy an event, if present. </p>
+    (<strong>WIP</strong>) Destroy an event, if present. </p>
 
 <p> This must not be called while waiting for the event.
 
@@ -582,9 +575,7 @@ end)
     <strong>estimate_concurrency ()</strong>
     </dt>
     <dd>
-    (<strong>WORK IN PROGRESS</strong>)</p>
-
-<p> Get an estimate of available hardware concurrency, e.g.  for <a href="api.html#setnumworkers">setnumworkers</a>.
+    (<strong>WIP</strong>) Get an estimate of available hardware concurrency, e.g.  for <a href="api.html#setnumworkers">setnumworkers</a>.
 
 
     <h3>Returns:</h3>
@@ -603,7 +594,7 @@ end)
     <strong>get_alert_dispatcher ()</strong>
     </dt>
     <dd>
-    Gets the dispatcher used by <a href="api.html#alert">alert</a>, in order to add / remove listeners. </p>
+    Get the dispatcher used by <a href="api.html#alert">alert</a>, in order to add / remove listeners. </p>
 
 <p> Calling this outside the main state results in an error.
 
@@ -624,7 +615,7 @@ end)
     <strong>get_integer (name)</strong>
     </dt>
     <dd>
-    (<strong>WORK IN PROGRESS</strong>)  Gets a shared integer, if present.
+    (<strong>WIP</strong>) Get a shared integer, if present.
 
     <h3>Parameters:</h3>
     <ul>
@@ -655,7 +646,7 @@ end)
     <strong>get_number (name)</strong>
     </dt>
     <dd>
-    (<strong>WORK IN PROGRESS</strong>)  Gets a shared number, if present.
+    (<strong>WIP</strong>) Get a shared number, if present.
 
     <h3>Parameters:</h3>
     <ul>
@@ -686,7 +677,7 @@ end)
     <strong>getnumworkers ()</strong>
     </dt>
     <dd>
-    Returns the number of active workers (pthreads).
+    Return the number of active workers (pthreads).
 
 
     <h3>Returns:</h3>
@@ -779,7 +770,7 @@ end)
     <strong>receive (channel_name[, asynchronous=false])</strong>
     </dt>
     <dd>
-    Receives a message (tuple of boolean, <strong>nil</strong>, number or string values) from a channel.  Returns received values if successful or
+    Receive a message (tuple of boolean, <strong>nil</strong>, number or string values) from a channel.  Returns received values if successful or
  <strong>nil</strong> and an error message if failed. Suspends execution of the calling Lua process if there is no matching receive and the async
  (boolean) flag is not set. The async flag, by default, is not set.</p>
 
@@ -834,7 +825,7 @@ end)
     <strong>recycle (maxrecycle)</strong>
     </dt>
     <dd>
-    Sets the maximum number of Lua processes to recycle.  Returns <strong>true</strong> if successful or <strong>nil</strong> and an error message if failed.
+    Set the maximum number of Lua processes to recycle.  Returns <strong>true</strong> if successful or <strong>nil</strong> and an error message if failed.
  The default number is zero, i.e., no Lua processes are recycled.
 
     <h3>Parameters:</h3>
@@ -867,7 +858,7 @@ end)
     <strong>reset_event (name)</strong>
     </dt>
     <dd>
-    (<strong>WORK IN PROGRESS</strong>)  Reset an event.
+    (<strong>WIP</strong>) Reset an event.
 
     <h3>Parameters:</h3>
     <ul>
@@ -897,7 +888,7 @@ end)
     <strong>send (channel_name, ...)</strong>
     </dt>
     <dd>
-    Sends a message (tuple of boolean, <strong>nil</strong>, number or string values) to a channel.  Returns <strong>true</strong> if successful or <strong>nil</strong> and
+    Send a message (tuple of boolean, <strong>nil</strong>, number or string values) to a channel.  Returns <strong>true</strong> if successful or <strong>nil</strong> and
  an error message if failed. Suspends execution of the calling Lua process if there is no matching receive.</p>
 
 <p> Calling this from Corona's thread results in an error if the channel is not already waiting for the results. This is usually desired,
@@ -949,7 +940,7 @@ end)
     <strong>set_event (name)</strong>
     </dt>
     <dd>
-    (<strong>WORK IN PROGRESS</strong>)  Set an event.
+    (<strong>WIP</strong>) Set an event.
 
     <h3>Parameters:</h3>
     <ul>
@@ -976,10 +967,10 @@ end)
 </dd>
     <dt>
     <a name = "set_integer"></a>
-    <strong>set_integer (name, Value)</strong>
+    <strong>set_integer (name, value)</strong>
     </dt>
     <dd>
-    (<strong>WORK IN PROGRESS</strong>)  Assign a value to a shared integer.
+    (<strong>WIP</strong>) Assign a value to a shared integer.
 
     <h3>Parameters:</h3>
     <ul>
@@ -987,9 +978,9 @@ end)
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          Name of integer.
         </li>
-        <li><span class="parameter">Value</span>
+        <li><span class="parameter">value</span>
             <span class="types"><span class="type">int</span> or <span class="type">nil</span></span>
-         to assign, or <strong>nil</strong> to remove the integer.
+         Value to assign, or <strong>nil</strong> to remove the integer.
         </li>
     </ul>
 
@@ -1005,10 +996,10 @@ end)
 </dd>
     <dt>
     <a name = "set_number"></a>
-    <strong>set_number (name, Value)</strong>
+    <strong>set_number (name, value)</strong>
     </dt>
     <dd>
-    (<strong>WORK IN PROGRESS</strong>)  Assign a value to a shared number.
+    (<strong>WIP</strong>) Assign a value to a shared number.
 
     <h3>Parameters:</h3>
     <ul>
@@ -1016,9 +1007,9 @@ end)
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          Name of number.
         </li>
-        <li><span class="parameter">Value</span>
+        <li><span class="parameter">value</span>
             <span class="types"><span class="type">number</span> or <span class="type">nil</span></span>
-         to assign, or <strong>nil</strong> to remove the number.
+         Value to assign, or <strong>nil</strong> to remove the number.
         </li>
     </ul>
 
@@ -1037,7 +1028,7 @@ end)
     <strong>setnumworkers (number_of_workers)</strong>
     </dt>
     <dd>
-    Sets the number of active workers (pthreads) to n (default = 1, minimum = 1). </p>
+    Set the number of active workers (pthreads) to n (default = 1, minimum = 1). </p>
 
 <p> Creates and destroys workers as needed, depending on the current number of active workers.</p>
 
@@ -1066,7 +1057,7 @@ end)
     <strong>sleep (ms)</strong>
     </dt>
     <dd>
-    Causes the current process to sleep. </p>
+    Put the current process to sleep. </p>
 
 <p> Calling this from the main state results in an error.
 
@@ -1074,7 +1065,9 @@ end)
     <ul>
         <li><span class="parameter">ms</span>
             <span class="types">optional <span class="type">uint</span></span>
-         Milliseconds to sleep, &ge; 0. If absent, the process yields, giving other processes a chance to run.
+         Milliseconds to sleep (approximately), &ge; 0.</p>
+
+<p> If absent or 0, the process yields, giving other processes a chance to use any spare time.
         </li>
     </ul>
 
@@ -1088,9 +1081,7 @@ end)
     <strong>update_integer (name, op, change)</strong>
     </dt>
     <dd>
-    (<strong>WORK IN PROGRESS</strong>)</p>
-
-<p> Updates a shared integer, if present. </p>
+    (<strong>WIP</strong>) Update a shared integer, if present. </p>
 
 <p> Concurrent updates have no specific order, but are atomic.
 
@@ -1137,9 +1128,7 @@ end)
     <strong>update_number (name, op, change)</strong>
     </dt>
     <dd>
-    (<strong>WORK IN PROGRESS</strong>)</p>
-
-<p> Updates a shared number, if present. </p>
+    (<strong>WIP</strong>) Update a shared number, if present. </p>
 
 <p> Concurrent updates have no specific order, but are atomic.
 
@@ -1179,7 +1168,7 @@ end)
     <strong>wait ()</strong>
     </dt>
     <dd>
-    Waits until all Lua processes have finished, then continues program execution. </p>
+    Wait until all Lua processes have finished, then continues program execution. </p>
 
 <p> It only makes sense to call this function from the main Lua script, i.e. from Corona's thread. Moreover, this function is
  implicitly called when the main Lua script finishes executing, e.g. on a simulator reset or when the app is about to exit.
@@ -1217,7 +1206,7 @@ end)
     <strong>wait_for_all_events (events, wait)</strong>
     </dt>
     <dd>
-    (<strong>WORK IN PROGRESS</strong>)  Wait until all events in a group are set.
+    (<strong>WIP</strong>) Wait until all events in a group are set.
 
     <h3>Parameters:</h3>
     <ul>
@@ -1259,7 +1248,7 @@ end)
     <strong>wait_for_any_events (events, wait)</strong>
     </dt>
     <dd>
-    (<strong>WORK IN PROGRESS</strong>)  Wait until at least one event in a group is set.
+    (<strong>WIP</strong>) Wait until at least one event in a group is set.
 
     <h3>Parameters:</h3>
     <ul>
@@ -1301,7 +1290,7 @@ end)
     <strong>wait_for_event (name, wait)</strong>
     </dt>
     <dd>
-    (<strong>WORK IN PROGRESS</strong>)  Wait until an event is set.
+    (<strong>WIP</strong>) Wait until an event is set.
 
     <h3>Parameters:</h3>
     <ul>
