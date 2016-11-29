@@ -344,8 +344,8 @@
  and <strong>pathForFile()</strong>.</p>
 
 <p> Note that processes are unique Lua states, so Lua modules loaded in multiple processes, or in one process as well as Corona's own
- thread, will have different contents. Special care must be taken in the case of dynamically loaded libraries, since these may keep
- some of their state outside Lua.</p>
+ thread, will have different contents. Special care must be taken in the case of dynamically loaded native libraries, since these
+ may keep some of their state outside Lua.</p>
 
 <p> Thus, libraries meant to allow use in multiple processes should provide explicit guarantees and / or guidelines. This might come
  in various forms. For instance, a library that keeps no state at all is fine. Other possibilities include keeping state in
@@ -477,7 +477,7 @@ end)
     <strong>create_event (name[, manual_reset=false[, initial_value=false]])</strong>
     </dt>
     <dd>
-    (<strong>WORK IN PROGRESS</strong>)  Create a new event.
+    (<strong>WORK IN PROGRESS</strong>)  Create a new event for process scheduling.
 
     <h3>Parameters:</h3>
     <ul>
@@ -487,12 +487,15 @@ end)
         </li>
         <li><span class="parameter">manual_reset</span>
             <span class="types"><span class="type">bool</span></span>
-         X!
+         Normally, waiting events are reset if and when the operation completes.</p>
+
+<p> Events created with this flag are left as is, requiring explicit use of <a href="api.html#reset_event">reset_event</a>.
          (<em>default</em> false)
         </li>
         <li><span class="parameter">initial_value</span>
             <span class="types"><span class="type">bool</span></span>
-         Y!
+         If true, the event begins in the set state, as if <a href="api.html#set_event">set_event</a> had been
+ called. Otherwise, the event begins as unset.
          (<em>default</em> false)
         </li>
     </ul>
@@ -507,7 +510,10 @@ end)
 
     <h3>See also:</h3>
     <ul>
-         <a href="api.html#destroy_event">destroy_event</a>
+         <li><a href="api.html#destroy_event">destroy_event</a></li>
+         <li><a href="api.html#wait_for_all_events">wait_for_all_events</a></li>
+         <li><a href="api.html#wait_for_any_events">wait_for_any_events</a></li>
+         <li><a href="api.html#wait_for_event">wait_for_event</a></li>
     </ul>
 
 
