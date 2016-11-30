@@ -218,11 +218,11 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#get_integer">get_integer (name)</a></td>
-	<td class="summary">(<strong>WIP</strong>) Get a shared integer, if present.</td>
+	<td class="summary">(<strong>WIP</strong>) Get a shared integer atomically, if present.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#get_number">get_number (name)</a></td>
-	<td class="summary">(<strong>WIP</strong>) Get a shared number, if present.</td>
+	<td class="summary">(<strong>WIP</strong>) Get a shared number atomically, if present.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#getnumworkers">getnumworkers ()</a></td>
@@ -270,11 +270,11 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#set_integer">set_integer (name, value)</a></td>
-	<td class="summary">(<strong>WIP</strong>) Assign a value to a shared integer.</td>
+	<td class="summary">(<strong>WIP</strong>) Assign a value atomically to a shared integer.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#set_number">set_number (name, value)</a></td>
-	<td class="summary">(<strong>WIP</strong>) Assign a value to a shared number.</td>
+	<td class="summary">(<strong>WIP</strong>) Assign a value atomically to a shared number.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#setnumworkers">setnumworkers (number_of_workers)</a></td>
@@ -285,11 +285,11 @@
 	<td class="summary">Put the current process to sleep.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#update_integer">update_integer (name, op, change)</a></td>
+	<td class="name" nowrap><a href="#update_integer">update_integer (name, op, delta)</a></td>
 	<td class="summary">(<strong>WIP</strong>) Update a shared integer, if present.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#update_number">update_number (name, op, change)</a></td>
+	<td class="name" nowrap><a href="#update_number">update_number (name, op, delta)</a></td>
 	<td class="summary">(<strong>WIP</strong>) Update a shared number, if present.</td>
 	</tr>
 	<tr>
@@ -615,7 +615,7 @@ end)
     <strong>get_integer (name)</strong>
     </dt>
     <dd>
-    (<strong>WIP</strong>) Get a shared integer, if present.
+    (<strong>WIP</strong>) Get a shared integer atomically, if present.
 
     <h3>Parameters:</h3>
     <ul>
@@ -646,7 +646,7 @@ end)
     <strong>get_number (name)</strong>
     </dt>
     <dd>
-    (<strong>WIP</strong>) Get a shared number, if present.
+    (<strong>WIP</strong>) Get a shared number atomically, if present.
 
     <h3>Parameters:</h3>
     <ul>
@@ -826,7 +826,7 @@ end)
     </dt>
     <dd>
     Set the maximum number of Lua processes to recycle.  Returns <strong>true</strong> if successful or <strong>nil</strong> and an error message if failed.
- The default number is zero, i.e., no Lua processes are recycled.
+ The default number is zero, i.e. no Lua processes are recycled.
 
     <h3>Parameters:</h3>
     <ul>
@@ -970,7 +970,7 @@ end)
     <strong>set_integer (name, value)</strong>
     </dt>
     <dd>
-    (<strong>WIP</strong>) Assign a value to a shared integer.
+    (<strong>WIP</strong>) Assign a value atomically to a shared integer.
 
     <h3>Parameters:</h3>
     <ul>
@@ -999,7 +999,7 @@ end)
     <strong>set_number (name, value)</strong>
     </dt>
     <dd>
-    (<strong>WIP</strong>) Assign a value to a shared number.
+    (<strong>WIP</strong>) Assign a value atomically to a shared number.
 
     <h3>Parameters:</h3>
     <ul>
@@ -1078,12 +1078,16 @@ end)
 </dd>
     <dt>
     <a name = "update_integer"></a>
-    <strong>update_integer (name, op, change)</strong>
+    <strong>update_integer (name, op, delta)</strong>
     </dt>
     <dd>
     (<strong>WIP</strong>) Update a shared integer, if present. </p>
 
-<p> Concurrent updates have no specific order, but are atomic.
+<p> Concurrent updates are atomic (cf. the summary for <em>op</em>, below), but have no specific order.</p>
+
+<p> Calls to <a href="api.html#set_integer">set_integer</a>, while still atomic, should generally be avoided while doing updates on the same
+ integer, since there are no guarantees about order. Typically, assignment should be used to set an initial
+ value, then followed by a batch of updates.
 
     <h3>Parameters:</h3>
     <ul>
@@ -1100,11 +1104,17 @@ end)
     <li><strong>"and"</strong>, <strong>"or"</strong>, <strong>"xor"</strong>, i.e. bitwise and, inclusive or, exclusive or</li>
 </ul>
 
-<p> The new value will be <code>old op change</code>, e.g. <code>new = old + 7</code> for <em>op</em> of <strong>"add"</strong> and <em>change</em> of <code>7</code>.
+<p> The new value will be <code>old op delta</code>, e.g. <code>new = old + 7</code> for <em>op</em> of <strong>"add"</strong> and <em>delta</em> of <code>7</code>.</p>
+
+<p> Atomicity means w.l.o.g. that when two calls to <a href="api.html#update_integer">update_integer</a> happen at the same time, the <em>old</em> value
+ of one will be the <em>new</em> of the other.</p>
+
+<p> If instead both processes saw the same value of <em>old</em>, there would be a <a href="https://en.wikipedia.org/wiki/Race_condition">"race"</a>
+ to assign the result, with one of the updates getting lost (or worse).
         </li>
-        <li><span class="parameter">change</span>
+        <li><span class="parameter">delta</span>
             <span class="types"><span class="type">int</span></span>
-         Value used to update the shared integer, according to <em>op</em>.
+         Value combined with the shared integer to update it, according to <em>op</em>.
         </li>
     </ul>
 
@@ -1125,12 +1135,12 @@ end)
 </dd>
     <dt>
     <a name = "update_number"></a>
-    <strong>update_number (name, op, change)</strong>
+    <strong>update_number (name, op, delta)</strong>
     </dt>
     <dd>
     (<strong>WIP</strong>) Update a shared number, if present. </p>
 
-<p> Concurrent updates have no specific order, but are atomic.
+<p> The additional details from <a href="api.html#update_integer">update_integer</a> apply here as well.
 
     <h3>Parameters:</h3>
     <ul>
@@ -1142,9 +1152,9 @@ end)
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          Binary update operation, which may be <strong>"add"</strong> or <strong>"sub"</strong>, cf. <a href="api.html#update_integer">update_integer</a>.
         </li>
-        <li><span class="parameter">change</span>
-            <span class="types"><span class="type">int</span></span>
-         Value used to update the shared integer, according to <em>op</em>.
+        <li><span class="parameter">delta</span>
+            <span class="types"><span class="type">number</span></span>
+         Value combined with the shared number to update it, according to <em>op</em>.
         </li>
     </ul>
 
@@ -1231,7 +1241,7 @@ end)
      <h3>Or</h3>
     <ol>
 
-        <strong>"timeout"</strong>, if <em>wait</em> lapsed before all events were set.
+        <strong>"timeout"</strong>, if <em>wait</em> elapsed before all events were set.
     </ol>
      <h3>Or</h3>
     <ol>
@@ -1273,7 +1283,7 @@ end)
      <h3>Or</h3>
     <ol>
 
-        <strong>"timeout"</strong>, if <em>wait</em> lapsed before any event was set.
+        <strong>"timeout"</strong>, if <em>wait</em> elapsed before any event was set.
     </ol>
      <h3>Or</h3>
     <ol>
