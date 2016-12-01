@@ -342,24 +342,27 @@
  thread, will have different contents. Special care must be taken in the case of dynamically loaded native libraries, since these
  may keep some of their state outside Lua.</p>
 
-<p> Thus, libraries meant to allow use in multiple processes should provide explicit guarantees and / or guidelines. This might come
- in various forms. For instance, a library that keeps no state at all is fine. Other possibilities include keeping state in
- thread-specific data, or in individually instantiated "world" objects.</p>
+<p> Thus, libraries meant to allow use in multiple processes should provide explicit guarantees and / or guidelines. For instance, a
+ library that keeps no state at all is fine. Using thread-specific data is also viable.</p>
 
-<p> (<strong>WIP</strong>)</p>
+<p> (<strong>WIP, in probation</strong>)</p>
 
 <p> If a process errors out, the manager will check whether it had global named <strong>LUAPROC_ERROR</strong>. If one exists and is a table,
  its <strong>cleanup</strong> and <strong>report_method</strong> members are queried.</p>
 
-<p> When <strong>cleanup</strong> contains a function, a call like <code>local result = pcall(cleanup, error)</code> is performed, where <em>error</em> is the
- error object&mdash;typically a string&mdash;left behind by the process. This provides a means to restore consistency if the
- process was sharing resources. When <em>result</em> is a string, it replaces <em>error</em>.</p>
+<p> When <strong>cleanup</strong> contains a function, it is called as <code>local result = pcall(cleanup, error)</code>, with <em>error</em> being the
+ object&mdash;typically a string&mdash;left behind by the crash. This provides a means to restore consistency if the
+ process was using non-trivial resources such as events. When <em>result</em> is non-<strong>nil</strong>, it replaces <em>error</em>.</p>
 
 <p> The final error is handled according to <strong>report_method</strong>. By default, it gets printed to the console.</p>
 
 <p> With the <strong>"alert"</strong> method, something like <code>luaproc.alert("crash_report", tostring(error))</code> is performed, allowing the
- main state to deal with the error. Example use cases might include sending a <strong>"fatal"</strong> message telling the application
- to quit, or encoding the final state as the error and attempting the resume or restart the operation down the road.</p>
+ application to respond to the error. Example use cases include:</p>
+
+<ul>
+    <li>Sending a message such as <strong>"fatal"</strong>, if it was a non-recoverable error.</li>
+    <li>Encoding the final process state into the error, then later attempt to resume or restart the operation.</li>
+</ul>
 
 <p> When the method is <strong>"ignore"</strong>, the error is silent.
 
@@ -1100,8 +1103,8 @@ end)
          Binary update operation, which may be one of:</p>
 
 <ul>
-    <li><strong>"add"</strong>, <strong>"sub"</strong>, i.e. arithmetic add, subtract</li>
-    <li><strong>"and"</strong>, <strong>"or"</strong>, <strong>"xor"</strong>, i.e. bitwise and, inclusive or, exclusive or</li>
+    <li><strong>"add"</strong>, <strong>"sub"</strong>, i.e. arithmetic add, subtract.</li>
+    <li><strong>"and"</strong>, <strong>"or"</strong>, <strong>"xor"</strong>, i.e. bitwise and, inclusive-or, exclusive-or.</li>
 </ul>
 
 <p> The new value will be <code>old op delta</code>, e.g. <code>new = old + 7</code> for <em>op</em> of <strong>"add"</strong> and <em>delta</em> of <code>7</code>.</p>
