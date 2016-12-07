@@ -250,7 +250,7 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#is_waiting">is_waiting ()</a></td>
-	<td class="summary">Check whether <em>luaproc</em> is waiting for processes to finish, either after a call to <a href="api.html#wait">wait</a> or while closing.</td>
+	<td class="summary">Check whether <em>luaproc</em> is waiting for processes to finish, either after a call to <a href="api.html#wait">wait</a> or when closing down.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#newchannel">newchannel (channel_name)</a></td>
@@ -333,9 +333,9 @@
     <strong>newproc (lua_code)</strong>
     </dt>
     <dd>
-    Create a new Lua process to run the specified string of Lua code.  Returns <strong>true</strong> if successful or <strong>nil</strong> and an error
- message if failed. The only libraries loaded in new Lua processes are <em>luaproc</em> itself (available as the global <strong>luaproc</strong>) and
- the standard Lua base and <a href="https://docs.coronalabs.com/api/library/package/index.html">package</a> libraries.</p>
+    Create a new Lua process to run the specified string of Lua code.  The only libraries loaded initially are <em>luaproc</em>
+ itself (available as the global <strong>luaproc</strong>) and the standard Lua base and
+ <a href="https://docs.coronalabs.com/api/library/package/index.html">package</a> libraries.</p>
 
 <p> The remaining standard Lua libraries (<strong>io</strong>, <strong>os</strong>, <strong>table</strong>, <strong>string</strong>, <strong>math</strong>, <strong>debug</strong>, and <strong>coroutine</strong>) are
  pre-registered and can be loaded with a call to the standard Lua function
@@ -346,7 +346,7 @@
  under the same names: <strong>CachesDirectory</strong>, <strong>DocumentsDirectory</strong>, <strong>ResourceDirectory</strong>, <strong>TemporaryDirectory</strong>, <strong>getTimer()</strong>,
  and <strong>pathForFile()</strong>.</p>
 
-<p> The following modules may also be required:</p>
+<p> Finally, the following modules may also be required:</p>
 
 <ul>
     <li><strong>crypto</strong>, <strong>easing</strong>, <strong>json</strong>, <strong>lfs</strong>, <strong>lpeg</strong>, <strong>ltn12</strong>, <strong>mime</strong>, <strong>re</strong>, <strong>socket</strong>, <strong>sqlite3</strong></li>
@@ -357,7 +357,8 @@
  may keep some of their state outside Lua.</p>
 
 <p> Thus, libraries meant to allow use in multiple processes should provide explicit guarantees and / or guidelines. For instance, a
- library that keeps no state at all is fine. Using thread-specific data is also viable.</p>
+ library that keeps no state at all is fine, as is one that only allocates memory via <a href="http://www.lua.org/manual/5.1/manual.html#lua_newuserdata">lua_newuserdata</a>.
+ Another approach would be to use <a href="http://pubs.opengroup.org/onlinepubs/009695399/functions/pthread_key_create.html">thread-specific data</a>.</p>
 
 <p> (<strong>WIP, in probation</strong>)</p>
 
@@ -595,7 +596,7 @@ end)
     <strong>delchannel (channel_name)</strong>
     </dt>
     <dd>
-    Destroy a channel identified by string name.  Returns <strong>true</strong> if successful or <strong>nil</strong> and an error message if failed.</p>
+    Destroy a channel identified by string name. </p>
 
 <p> Lua processes waiting to send or receive messages on destroyed channels have their execution resumed and receive an error
  message indicating the channel was destroyed.
@@ -608,6 +609,18 @@ end)
         </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+        <strong>true</strong>, indicating success.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, indicating an error.</li>
+        <li>
+        Error message, of type <strong>string</strong>.</li>
+    </ol>
 
 
 
@@ -840,7 +853,7 @@ end)
     <strong>is_waiting ()</strong>
     </dt>
     <dd>
-    Check whether <em>luaproc</em> is waiting for processes to finish, either after a call to <a href="api.html#wait">wait</a> or while closing.
+    Check whether <em>luaproc</em> is waiting for processes to finish, either after a call to <a href="api.html#wait">wait</a> or when closing down.
 
 
     <h3>Returns:</h3>
@@ -851,6 +864,10 @@ end)
     </ol>
 
 
+    <h3>See also:</h3>
+    <ul>
+         <a href="api.html#wants_to_close">wants_to_close</a>
+    </ul>
 
 
 </dd>
@@ -859,7 +876,7 @@ end)
     <strong>newchannel (channel_name)</strong>
     </dt>
     <dd>
-    Creates a new channel identified by string name.  Returns <strong>true</strong> if successful or <strong>nil</strong> and an error message if failed.
+    Creates a new channel identified by string name.
 
     <h3>Parameters:</h3>
     <ul>
@@ -891,9 +908,8 @@ end)
     <strong>receive (channel_name[, asynchronous=false])</strong>
     </dt>
     <dd>
-    Receive a message (tuple of boolean, <strong>nil</strong>, number or string values) from a channel.  Returns received values if successful or
- <strong>nil</strong> and an error message if failed. Suspends execution of the calling Lua process if there is no matching receive and the async
- (boolean) flag is not set. The async flag, by default, is not set.</p>
+    Receive a message (tuple of boolean, <strong>nil</strong>, number or string values) from a channel.  Suspends execution of the calling Lua
+ process if there is no matching receive and the async (boolean) flag is not set. The async flag, by default, is not set.</p>
 
 <p> Calling this synchronously from Corona's thread results in an error unless a corresponding send has already fired. As with <a href="api.html#send">send</a>,
  this is usually desired, to avoid Corona blocking; <a href="api.html#receive_allow_from_main">receive_allow_from_main</a> is provided to circumvent this protection.
@@ -914,7 +930,7 @@ end)
     <h3>Returns:</h3>
     <ol>
 
-        Values passed by <a href="api.html#send">send</a>.
+        Value(s) passed by <a href="api.html#send">send</a>.
     </ol>
      <h3>Or</h3>
     <ol>
@@ -946,8 +962,7 @@ end)
     <strong>recycle (maxrecycle)</strong>
     </dt>
     <dd>
-    Set the maximum number of Lua processes to recycle.  Returns <strong>true</strong> if successful or <strong>nil</strong> and an error message if failed.
- The default number is zero, i.e. no Lua processes are recycled.
+    Set the maximum number of Lua processes to recycle.  The default number is zero, i.e. no Lua processes are recycled.
 
     <h3>Parameters:</h3>
     <ul>
@@ -1009,8 +1024,8 @@ end)
     <strong>send (channel_name, ...)</strong>
     </dt>
     <dd>
-    Send a message (tuple of boolean, <strong>nil</strong>, number or string values) to a channel.  Returns <strong>true</strong> if successful or <strong>nil</strong> and
- an error message if failed. Suspends execution of the calling Lua process if there is no matching receive.</p>
+    Send a message (tuple of boolean, <strong>nil</strong>, number or string values) to a channel.  Suspends execution of the calling Lua process
+ if there is no matching receive.</p>
 
 <p> Calling this from Corona's thread results in an error if the channel is not already waiting for the results. This is usually desired,
  as Corona would be likely to block; <a href="api.html#send_allow_from_main">send_allow_from_main</a> is provided in case the more dangerous behavior is necessary.
@@ -1146,11 +1161,7 @@ end)
     <dd>
     (<strong>WIP</strong>) Update a shared integer, if present. </p>
 
-<p> Concurrent updates are atomic (cf. the summary for <em>op</em>, below), but have no specific order.</p>
-
-<p> The <strong>"assign"</strong> <em>op</em>, while still atomic, should generally be avoided while doing updates on the same
- integer, since there are no guarantees about order. Typically, assignment should be used to set an initial
- value, then followed by a batch of updates.
+<p> Concurrent updates are atomic (cf. the summary for <em>op</em>, below), but have no specific order.
 
     <h3>Parameters:</h3>
     <ul>
@@ -1171,8 +1182,8 @@ end)
 <p> The new value will be <code>old op delta</code>, e.g. <code>new = old + 7</code> for <em>op</em> of <strong>"add"</strong> and <em>delta</em> of <code>7</code>.</p>
 
 <p> Atomicity means w.l.o.g. that when two processes are calling <a href="api.html#update_integer">update_integer</a> on the same integer at the
- same time, one of them will "win": effecitvely, one will go first and assign its result to <em>new</em>, followed
- by the other using that result as its <em>old</em>.</p>
+ same time, one of them will "win": effectively, one goes first and assigns its result to <em>new</em>, followed
+ by the other using said result as its <em>old</em>.</p>
 
 <p> If both processes saw the same <em>old</em>, there would be a <a href="https://en.wikipedia.org/wiki/Race_condition">"race"</a>
  to set <em>new</em>, with unpredictable results.
@@ -1251,6 +1262,10 @@ end)
 
 
 
+    <h3>See also:</h3>
+    <ul>
+         <a href="api.html#is_waiting">is_waiting</a>
+    </ul>
 
 
 </dd>
