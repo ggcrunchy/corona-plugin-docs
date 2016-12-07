@@ -209,20 +209,20 @@
 	<td class="summary">(<strong>WIP</strong>) Create a shared number variable.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#destroy_integer">destroy_integer (Name)</a></td>
-	<td class="summary">(<strong>WIP</strong>) Destroy a shared integer variable, if it exists.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#destroy_number">destroy_number (Name)</a></td>
-	<td class="summary">(<strong>WIP</strong>) Destroy a shared number variable, if it exists.</td>
-	</tr>
-	<tr>
 	<td class="name" nowrap><a href="#delchannel">delchannel (channel_name)</a></td>
 	<td class="summary">Destroy a channel identified by string name.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#destroy_event">destroy_event (name)</a></td>
 	<td class="summary">(<strong>WIP</strong>) Destroy an event, if present.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#destroy_integer">destroy_integer (Name)</a></td>
+	<td class="summary">(<strong>WIP</strong>) Destroy a shared integer variable, if it exists.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#destroy_number">destroy_number (Name)</a></td>
+	<td class="summary">(<strong>WIP</strong>) Destroy a shared number variable, if it exists.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#estimate_concurrency">estimate_concurrency ()</a></td>
@@ -585,50 +585,6 @@ end)
 
 </dd>
     <dt>
-    <a name = "destroy_integer"></a>
-    <strong>destroy_integer (Name)</strong>
-    </dt>
-    <dd>
-    (<strong>WIP</strong>) Destroy a shared integer variable, if it exists. </p>
-
-<p> While not encouraged, this may be safely mixed with <a href="api.html#update_integer">update_integer</a> operations on the variable.
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">Name</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         of number, cf. <a href="api.html#create_integer">create_integer</a>.
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "destroy_number"></a>
-    <strong>destroy_number (Name)</strong>
-    </dt>
-    <dd>
-    (<strong>WIP</strong>) Destroy a shared number variable, if it exists. </p>
-
-<p> While not encouraged, this may be safely mixed with <a href="api.html#update_number">update_number</a> operations on the variable.
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">Name</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         of number, cf. <a href="api.html#create_number">create_number</a>.
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
     <a name = "delchannel"></a>
     <strong>delchannel (channel_name)</strong>
     </dt>
@@ -682,6 +638,50 @@ end)
          <li><a href="api.html#wait_for_any_events">wait_for_any_events</a></li>
          <li><a href="api.html#wait_for_event">wait_for_event</a></li>
     </ul>
+
+
+</dd>
+    <dt>
+    <a name = "destroy_integer"></a>
+    <strong>destroy_integer (Name)</strong>
+    </dt>
+    <dd>
+    (<strong>WIP</strong>) Destroy a shared integer variable, if it exists. </p>
+
+<p> While not encouraged, this may be safely mixed with <a href="api.html#update_integer">update_integer</a> operations on the variable.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">Name</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         of number, cf. <a href="api.html#create_integer">create_integer</a>.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "destroy_number"></a>
+    <strong>destroy_number (Name)</strong>
+    </dt>
+    <dd>
+    (<strong>WIP</strong>) Destroy a shared number variable, if it exists. </p>
+
+<p> While not encouraged, this may be safely mixed with <a href="api.html#update_number">update_number</a> operations on the variable.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">Name</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         of number, cf. <a href="api.html#create_number">create_number</a>.
+        </li>
+    </ul>
+
+
+
 
 
 </dd>
