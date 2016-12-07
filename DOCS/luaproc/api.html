@@ -346,6 +346,12 @@
  under the same names: <strong>CachesDirectory</strong>, <strong>DocumentsDirectory</strong>, <strong>ResourceDirectory</strong>, <strong>TemporaryDirectory</strong>, <strong>getTimer()</strong>,
  and <strong>pathForFile()</strong>.</p>
 
+<p> The following modules may also be required:</p>
+
+<ul>
+    <li><strong>crypto</strong>, <strong>easing</strong>, <strong>json</strong>, <strong>lfs</strong>, <strong>lpeg</strong>, <strong>ltn12</strong>, <strong>mime</strong>, <strong>re</strong>, <strong>socket</strong>, <strong>sqlite3</strong></li>
+</ul>
+
 <p> Note that processes are unique Lua states, so Lua modules loaded in multiple processes, or in one process as well as Corona's own
  thread, will have different contents. Special care must be taken in the case of dynamically loaded native libraries, since these
  may keep some of their state outside Lua.</p>
