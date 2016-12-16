@@ -65,6 +65,9 @@
 <p> The <strong>Bytes</strong> type&mdash;specified in a few of the blob methods&mdash;may be any object that implements <strong>ByteReader</strong>,
  including strings.</p>
 
+<p> Functions and sections that begin with (<strong>WIP</strong>) describe work in progress. These features are not considered stable,
+ but give a reasonable idea of what to expect.</p>
+
 <hr/>
 
 <p> <strong>From <a href="https://github.com/efficient/libcuckoo#licence">libcuckoo's license</a>:</strong></p>
@@ -112,8 +115,8 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#ExistsInStorage">ExistsInStorage (hash)</a></td>
-	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</td>
+	<td class="name" nowrap><a href="#ExistsInStorage">ExistsInStorage (id)</a></td>
+	<td class="summary">(<strong>WIP</strong>) Check whether an entry exists in storage.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#GetBlobDispatcher">GetBlobDispatcher ()</a></td>
@@ -167,15 +170,11 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MemoryBlob:Submit">MemoryBlob:Submit ()</a></td>
-	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</p>
-
-<p> Submit this blob's contents to storage.</td>
+	<td class="summary">(<strong>WIP</strong>) Submit this blob's contents to storage.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#MemoryBlob:Sync">MemoryBlob:Sync (hash)</a></td>
-	<td class="summary">(<strong>WORK IN PROGRESS</strong>)</p>
-
-<p> Synchronize this blob with an entry in storage, which then ceases to exist.</td>
+	<td class="name" nowrap><a href="#MemoryBlob:Sync">MemoryBlob:Sync (id)</a></td>
+	<td class="summary">(<strong>WIP</strong>) Synchronize this blob with an entry in storage, which then ceases to exist.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MemoryBlob:Write">MemoryBlob:Write (pos, bytes)</a></td>
@@ -191,16 +190,16 @@
     <dl class="function">
     <dt>
     <a name = "ExistsInStorage"></a>
-    <strong>ExistsInStorage (hash)</strong>
+    <strong>ExistsInStorage (id)</strong>
     </dt>
     <dd>
-    (<strong>WORK IN PROGRESS</strong>)  Check whether an entry exists in storage.
+    (<strong>WIP</strong>) Check whether an entry exists in storage.
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">hash</span>
+        <li><span class="parameter">id</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         Stored entry's lookup hash, cf. <a href="api.html#MemoryBlob:Submit">MemoryBlob:Submit</a>.
+         Stored entry's lookup ID, cf. <a href="api.html#MemoryBlob:Submit">MemoryBlob:Submit</a>.
         </li>
     </ul>
 
@@ -585,24 +584,20 @@
     <strong>MemoryBlob:Submit ()</strong>
     </dt>
     <dd>
-    (<strong>WORK IN PROGRESS</strong>)</p>
-
-<p> Submit this blob's contents to storage.  This is a mechanism geared toward
- memory sharing among <a href="https://ggcrunchy.github.io/corona-pluin-docs/DOCS/luaproc/api.html">Lua processes</a>,
+    (<strong>WIP</strong>) Submit this blob's contents to storage.  This is a mechanism geared toward
+ sharing memory among <a href="https://ggcrunchy.github.io/corona-pluin-docs/DOCS/luaproc/api.html">Lua processes</a>,
  which can even be done without copying when certain conditions are met (cf. <a href="api.html#MemoryBlob:Sync">MemoryBlob:Sync</a> for details,
  as well as the comments about resizable blobs that follow).</p>
 
-<p> Essentially, an empty resizable blob is first created in storage, with the same alignment as this blob.</p>
+<p> Essentially, an empty resizable blob with the same alignment is first created in storage.</p>
 
-<p> If this blob is resizable, the stored entry and it swap contents directly.</p>
+<p> If the original blob is resizable, its contents are swapped directly into the stored entry.</p>
 
 <p> Fixed-size blobs cannot do this, so something like <code>entry:Append(fixed_blob)</code> is done instead.</p>
 
-<p> The entry will persist until synchronization or some number of frames (&gt; 1) have elapsed. The latter is a check
- against runaway growth, since stale entries could accumulate over time.</p>
-
-<p> Listeners for <strong>"stale_entry"</strong> will be sent a message when an entry times out. The message's <strong>hash</strong> field
- will contain the former entry's hash.</p>
+<p> To keep memory under control, any blobs in storage left unsynchronized will be evicted after a few frames have
+ gone by (on average, 5). Listeners for <strong>"stale_entry"</strong> will be sent a message each time this happens (cf.
+ <a href="api.html#GetBlobDispatcher">GetBlobDispatcher</a>), with an <strong>id</strong> field containing the former entry's ID.</p>
 
 <p> This is a no-op for locked, resizable blobs.
 
@@ -611,14 +606,13 @@
     <ol>
 
            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
-        On success, a hash for later use by <a href="api.html#MemoryBlob:Sync">MemoryBlob:Sync</a>. Otherwise, <strong>nil</strong>.
+        On success, an ID for later use by <a href="api.html#MemoryBlob:Sync">MemoryBlob:Sync</a>. Otherwise, <strong>nil</strong>.
     </ol>
 
 
     <h3>See also:</h3>
     <ul>
          <li><a href="api.html#ExistsInStorage">ExistsInStorage</a></li>
-         <li><a href="api.html#GetBlobDispatcher">GetBlobDispatcher</a></li>
          <li><a href="api.html#MemoryBlob:Append">MemoryBlob:Append</a></li>
          <li><a href="api.html#MemoryBlob:IsLocked">MemoryBlob:IsLocked</a></li>
     </ul>
@@ -627,12 +621,10 @@
 </dd>
     <dt>
     <a name = "MemoryBlob:Sync"></a>
-    <strong>MemoryBlob:Sync (hash)</strong>
+    <strong>MemoryBlob:Sync (id)</strong>
     </dt>
     <dd>
-    (<strong>WORK IN PROGRESS</strong>)</p>
-
-<p> Synchronize this blob with an entry in storage, which then ceases to exist. </p>
+    (<strong>WIP</strong>) Synchronize this blob with an entry in storage, which then ceases to exist. </p>
 
 <p> For fixed-size blobs, this is essentially <code>self:Write(1, bytes)</code>, with <em>bytes</em> being the entry's contents.</p>
 
@@ -642,13 +634,13 @@
 
 <p> This operation is designed for safe communication between <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/luaproc/api.html">Lua processes</a>.</p>
 
-<p> This is a no-op for locked blobs, or if <em>hash</em> does not refer to a valid entry.
+<p> This is a no-op for locked blobs, or if <em>id</em> does not refer to a valid entry.
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">hash</span>
+        <li><span class="parameter">id</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         Stored entry's lookup hash, cf. <a href="api.html#MemoryBlob:Submit">MemoryBlob:Submit</a>.
+         Stored entry's lookup ID, cf. <a href="api.html#MemoryBlob:Submit">MemoryBlob:Submit</a>.
         </li>
     </ul>
 
