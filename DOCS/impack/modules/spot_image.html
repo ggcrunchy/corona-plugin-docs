@@ -58,6 +58,8 @@
 <p> Spot images implement the <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/ByteReader/policy.html">ByteReader protocol</a>. By
  default they send RGBA image data, but the raw floating-point data may be used instead, cf. <a href="../modules/spot_image.html#SpotImage:set_reader_mode">SpotImage:set_reader_mode</a>.</p>
 
+<p> The <strong>Bytes</strong> type&mdash;specified below&mdash;may be any object that implements said protocol, including strings.</p>
+
 <p> <strong>NOTE</strong> Spot image support is still in the experimental stage.</p>
 
 <hr/>
@@ -71,6 +73,8 @@
     <li>Spot loads WEBP, JPG, progressive JPG, PNG, TGA, DDS DXT1/2/3/4/5, BMP, PSD, GIF, PVR2/3 (ETC1/PVRTC), KTX (ETC1/PVRTC), PKM (ETC1), HDR, PIC, PNM (PPM/PGM), CRN, PUG, FLIF, CCZ, EXR and vectorial SVG files.</li>
     <li>Spot saves WEBP, JPG, PNG, TGA, BMP, DDS, PVR3 (PVRTC), KTX (ETC1), PKM (ETC1), CCZ and PUG files.</li>
 </ul>
+
+<p> (<strong>N.B.</strong> ETC and FLIF are disabled on iOS until some issues are resolved.)</p>
 
 <p> <strong>Licenses</strong></p>
 
@@ -112,15 +116,15 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#SpotImage:blank">SpotImage:blank ()</a></td>
-	<td class="summary">Create a clone of this image with a blank filter applied.</td>
+	<td class="summary">Create a new image with this image's pixels run through a blank filter.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#SpotImage:bleed">SpotImage:bleed ()</a></td>
-	<td class="summary">Create a clone of this image with a bleed filter applied.</td>
+	<td class="summary">Create a new image with this image's pixels run through a bleed filter.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#SpotImage:checkered">SpotImage:checkered ()</a></td>
-	<td class="summary">Create a clone of this image with a checker filter applied.</td>
+	<td class="summary">Create a new image with this image's pixels run through a checker filter.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#SpotImage:clamp">SpotImage:clamp ()</a></td>
@@ -144,63 +148,63 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#SpotImage:encode">SpotImage:encode (format, opts)</a></td>
-	<td class="summary">r</td>
+	<td class="summary">Save this image out to memory, in the requested format.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#SpotImage:flip_h">SpotImage:flip_h ()</a></td>
-	<td class="summary">r</td>
+	<td class="summary">Create a new image with all this image's pixels' rows flipped.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#SpotImage:flip_w">SpotImage:flip_w ()</a></td>
-	<td class="summary">r</td>
+	<td class="summary">Create a new image with all this image's pixels' columns flipped.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#SpotImage:get">SpotImage:get (x)</a></td>
-	<td class="summary">r</td>
+	<td class="summary">Get a color from the first row of this image.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#SpotImage:get">SpotImage:get (x, y)</a></td>
-	<td class="summary">r</td>
+	<td class="summary">Get a color from this image.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#SpotImage:get">SpotImage:get (x, y, z)</a></td>
-	<td class="summary">r</td>
+	<td class="summary">Get a color from this image, allowing for depth.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#SpotImage:getf">SpotImage:getf (x)</a></td>
-	<td class="summary">r</td>
+	<td class="summary">Get a color from the first row of this image, using normalized coordinates.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#SpotImage:getf">SpotImage:getf (x, y)</a></td>
-	<td class="summary">r</td>
+	<td class="summary">Get a color from this image, using normalized coordinates.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#SpotImage:getf">SpotImage:getf (x, y, z)</a></td>
-	<td class="summary">r</td>
+	<td class="summary">Get a color from this image, using normalized coordinates and allowing for depth.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#SpotImage:glow">SpotImage:glow ()</a></td>
-	<td class="summary">Create a clone of this image with a glow filter applied.</td>
+	<td class="summary">Create a new image with this image's pixels run through a glow filter.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#SpotImage:load">SpotImage:load (filename)</a></td>
-	<td class="summary">LAO</td>
+	<td class="summary">Populate this image from an image file.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#SpotImage:load_from_memory">SpotImage:load_from_memory (bytes)</a></td>
-	<td class="summary">LAO</td>
+	<td class="summary">Populate this image from an in-memory image.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#SpotImage:load_hdr">SpotImage:load_hdr (filename)</a></td>
-	<td class="summary">LAO</td>
+	<td class="summary">Populate this image from an HDR image file.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#SpotImage:load_hdr_from_memory">SpotImage:load_hdr_from_memory (bytes)</a></td>
-	<td class="summary">LAO</td>
+	<td class="summary">Populate this image from an in-memory HDR image.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#SpotImage:loaded">SpotImage:loaded ()</a></td>
-	<td class="summary">D</td>
+	<td class="summary">Did the most recent load operation succeed?</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#SpotImage:__mul">SpotImage:__mul ()</a></td>
@@ -211,8 +215,8 @@
 	<td class="summary">Modify this image by multiplying each pixel by a color.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#SpotImage:paste">SpotImage:paste ()</a></td>
-	<td class="summary">PASTE</td>
+	<td class="name" nowrap><a href="#SpotImage:paste">SpotImage:paste (x, y, image)</a></td>
+	<td class="summary">Paste an image (or part of one, if too large) into this image at an offset.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#SpotImage:rgba">SpotImage:rgba ()</a></td>
@@ -220,39 +224,39 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#SpotImage:rotate_left">SpotImage:rotate_left ()</a></td>
-	<td class="summary">R</td>
+	<td class="summary">Create a new image with this image's contents rotated left 90&deg;.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#SpotImage:rotate_right">SpotImage:rotate_right ()</a></td>
-	<td class="summary">r</td>
+	<td class="summary">Create a new image with this image's contents rotated right 90&deg;.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#SpotImage:save">SpotImage:save (filename, opts)</a></td>
-	<td class="summary">r</td>
+	<td class="summary">Save this image to a file.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#SpotImage:set">SpotImage:set (x, color)</a></td>
-	<td class="summary">r</td>
+	<td class="summary">Set a color in the first row of this image.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#SpotImage:set">SpotImage:set (x, y, color)</a></td>
-	<td class="summary">r</td>
+	<td class="summary">Set a color in this image.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#SpotImage:set">SpotImage:set (x, y, z, color)</a></td>
-	<td class="summary">r</td>
+	<td class="summary">Set a color in this image, allowing for depth.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#SpotImage:setf">SpotImage:setf (x, color)</a></td>
-	<td class="summary">r</td>
+	<td class="summary">Set a color in the first row of this image, using normalized coordinates.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#SpotImage:setf">SpotImage:setf (x, y, color)</a></td>
-	<td class="summary">r</td>
+	<td class="summary">Set a color in this image, using normalized coordinates.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#SpotImage:setf">SpotImage:setf (x, y, z, color)</a></td>
-	<td class="summary">r</td>
+	<td class="summary">Set a color in this image, using normalized coordinates and allowing for depth.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#SpotImage:set_reader_mode">SpotImage:set_reader_mode (mode)</a></td>
@@ -343,7 +347,7 @@
     <strong>SpotImage:blank ()</strong>
     </dt>
     <dd>
-    Create a clone of this image with a blank filter applied.
+    Create a new image with this image's pixels run through a blank filter.
 
 
     <h3>Returns:</h3>
@@ -370,7 +374,7 @@
     <strong>SpotImage:bleed ()</strong>
     </dt>
     <dd>
-    Create a clone of this image with a bleed filter applied.
+    Create a new image with this image's pixels run through a bleed filter.
 
 
     <h3>Returns:</h3>
@@ -397,7 +401,7 @@
     <strong>SpotImage:checkered ()</strong>
     </dt>
     <dd>
-    Create a clone of this image with a checker filter applied.
+    Create a new image with this image's pixels run through a checker filter.
 
 
     <h3>Returns:</h3>
@@ -507,7 +511,7 @@
         </li>
         <li><span class="parameter">r</span>
             <span class="types"><span class="type">uint</span></span>
-         ...and right-hand edge, &ge; <em>l</em>, &le; the width.
+         ...and right-hand edge, between <em>l</em> and the width, inclusive.
         </li>
         <li><span class="parameter">t</span>
             <span class="types"><span class="type">uint</span></span>
@@ -515,7 +519,7 @@
         </li>
         <li><span class="parameter">b</span>
             <span class="types"><span class="type">uint</span></span>
-         ...and bottom edge, &ge; <em>t</em>, &le; the height.
+         ...and bottom edge, between <em>t</em> and the height, inclusive.
         </li>
     </ul>
 
@@ -599,17 +603,27 @@
     <strong>SpotImage:encode (format, opts)</strong>
     </dt>
     <dd>
-    r
+    Save this image out to memory, in the requested format.
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">format</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         "PNG", "JPG", "PUG", "WEBP", "KTX", "PVR", "CCZ", "PKM"
+         One of <strong>"PNG"</strong>, <strong>"JPG"</strong>, <strong>"PUG"</strong>, <strong>"WEBP"</strong>, <strong>"KTX"</strong>, <strong>"PVR"</strong>, <strong>"CCZ"</strong>, or <strong>"PKM"</strong>,
+ corresponding to the encoding format.
         </li>
         <li><span class="parameter">opts</span>
             <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         quality, stride
+
+<p> Encoding options, which include:</p>
+
+<ul>
+    <li><strong>channels</strong>: Number of channels in the output, an integer from 1 to 4 (by default, 4). At the moment, this only
+    applies to the PNG format.</li>
+    <li><strong>quality</strong>: A value between 1 and 100 (by default, 90) that describes the requested encoding quality. This is
+    available to all formats except PNG.</li>
+</ul>
+
         </li>
     </ul>
 
@@ -617,7 +631,7 @@
     <ol>
 
            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        B!
+        On success, the encoded image.
     </ol>
      <h3>Or</h3>
     <ol>
@@ -637,7 +651,7 @@
     <strong>SpotImage:flip_h ()</strong>
     </dt>
     <dd>
-    r
+    Create a new image with all this image's pixels' rows flipped.
 
 
     <h3>Returns:</h3>
@@ -664,7 +678,7 @@
     <strong>SpotImage:flip_w ()</strong>
     </dt>
     <dd>
-    r
+    Create a new image with all this image's pixels' columns flipped.
 
 
     <h3>Returns:</h3>
@@ -691,15 +705,13 @@
     <strong>SpotImage:get (x)</strong>
     </dt>
     <dd>
-    r
+    Get a color from the first row of this image.
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">x</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Horizontal offset, from 1 to the width.
         </li>
     </ul>
 
@@ -707,7 +719,7 @@
     <ol>
 
            <span class="types"><span class="type">SpotColor</span></span>
-        c
+        On success, a copy of the color.
     </ol>
      <h3>Or</h3>
     <ol>
@@ -727,21 +739,17 @@
     <strong>SpotImage:get (x, y)</strong>
     </dt>
     <dd>
-    r
+    Get a color from this image.
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">x</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Horizontal offset, from 1 to the width...
         </li>
         <li><span class="parameter">y</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         ...and vertical offset, from 1 to the height.
         </li>
     </ul>
 
@@ -749,7 +757,7 @@
     <ol>
 
            <span class="types"><span class="type">SpotColor</span></span>
-        c
+        On success, a copy of the color.
     </ol>
      <h3>Or</h3>
     <ol>
@@ -769,27 +777,21 @@
     <strong>SpotImage:get (x, y, z)</strong>
     </dt>
     <dd>
-    r
+    Get a color from this image, allowing for depth.
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">x</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Horizontal offset, from 1 to the width...
         </li>
         <li><span class="parameter">y</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         ...vertical offset, from 1 to the height...
         </li>
         <li><span class="parameter">z</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         ...and depth-wise offset, from 1 to the depth.
         </li>
     </ul>
 
@@ -797,7 +799,7 @@
     <ol>
 
            <span class="types"><span class="type">SpotColor</span></span>
-        c
+        On success, a copy of the color.
     </ol>
      <h3>Or</h3>
     <ol>
@@ -817,15 +819,13 @@
     <strong>SpotImage:getf (x)</strong>
     </dt>
     <dd>
-    r
+    Get a color from the first row of this image, using normalized coordinates.
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">x</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         Horizontal offset, in [0, 1].
         </li>
     </ul>
 
@@ -833,7 +833,7 @@
     <ol>
 
            <span class="types"><span class="type">SpotColor</span></span>
-        c
+        On success, a copy of the color.
     </ol>
      <h3>Or</h3>
     <ol>
@@ -853,21 +853,17 @@
     <strong>SpotImage:getf (x, y)</strong>
     </dt>
     <dd>
-    r
+    Get a color from this image, using normalized coordinates.
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">x</span>
-            <span class="types"><span class="type">number</span></span>
-
-
-
+            <span class="types"><span class="type">uint</span></span>
+         Horizontal offset, in [0, 1]...
         </li>
         <li><span class="parameter">y</span>
-            <span class="types"><span class="type">number</span></span>
-
-
-
+            <span class="types"><span class="type">uint</span></span>
+         ...and vertical offset, ditto.
         </li>
     </ul>
 
@@ -875,7 +871,7 @@
     <ol>
 
            <span class="types"><span class="type">SpotColor</span></span>
-        c
+        On success, a copy of the color.
     </ol>
      <h3>Or</h3>
     <ol>
@@ -895,27 +891,21 @@
     <strong>SpotImage:getf (x, y, z)</strong>
     </dt>
     <dd>
-    r
+    Get a color from this image, using normalized coordinates and allowing for depth.
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">x</span>
-            <span class="types"><span class="type">number</span></span>
-
-
-
+            <span class="types"><span class="type">uint</span></span>
+         Horizontal offset, in [0, 1]...
         </li>
         <li><span class="parameter">y</span>
-            <span class="types"><span class="type">number</span></span>
-
-
-
+            <span class="types"><span class="type">uint</span></span>
+         ...and vertical offset, ditto...
         </li>
         <li><span class="parameter">z</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         ...and depth-wise offset, ditto.
         </li>
     </ul>
 
@@ -923,7 +913,7 @@
     <ol>
 
            <span class="types"><span class="type">SpotColor</span></span>
-        c
+        On success, a copy of the color.
     </ol>
      <h3>Or</h3>
     <ol>
@@ -943,7 +933,7 @@
     <strong>SpotImage:glow ()</strong>
     </dt>
     <dd>
-    Create a clone of this image with a glow filter applied.
+    Create a new image with this image's pixels run through a glow filter.
 
 
     <h3>Returns:</h3>
@@ -970,15 +960,13 @@
     <strong>SpotImage:load (filename)</strong>
     </dt>
     <dd>
-    LAO
+    Populate this image from an image file.
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">filename</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-
-
+         Name of file.
         </li>
     </ul>
 
@@ -1005,15 +993,13 @@
     <strong>SpotImage:load_from_memory (bytes)</strong>
     </dt>
     <dd>
-    LAO
+    Populate this image from an in-memory image.
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">bytes</span>
             <span class="types"><span class="type">Bytes</span></span>
-
-
-
+         Undecoded image contents.
         </li>
     </ul>
 
@@ -1040,15 +1026,13 @@
     <strong>SpotImage:load_hdr (filename)</strong>
     </dt>
     <dd>
-    LAO
+    Populate this image from an HDR image file.
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">filename</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-
-
+         Name of file.
         </li>
     </ul>
 
@@ -1075,15 +1059,13 @@
     <strong>SpotImage:load_hdr_from_memory (bytes)</strong>
     </dt>
     <dd>
-    LAO
+    Populate this image from an in-memory HDR image.
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">bytes</span>
             <span class="types"><span class="type">Bytes</span></span>
-
-
-
+         Undecoded image contents.
         </li>
     </ul>
 
@@ -1110,14 +1092,14 @@
     <strong>SpotImage:loaded ()</strong>
     </dt>
     <dd>
-    D
+    Did the most recent load operation succeed?
 
 
     <h3>Returns:</h3>
     <ol>
 
            <span class="types"><span class="type">boolean</span></span>
-        X
+        Load was successful?
     </ol>
 
 
@@ -1182,11 +1164,26 @@
 </dd>
     <dt>
     <a name = "SpotImage:paste"></a>
-    <strong>SpotImage:paste ()</strong>
+    <strong>SpotImage:paste (x, y, image)</strong>
     </dt>
     <dd>
-    PASTE
+    Paste an image (or part of one, if too large) into this image at an offset.
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">uint</span></span>
+         Horizontal offset , &ge; 1...
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and vertical offset, &ge; 1.
+        </li>
+        <li><span class="parameter">image</span>
+            <span class="types"><span class="type">SpotImage</span></span>
+         Image to add.
+        </li>
+    </ul>
 
     <h3>Returns:</h3>
     <ol>
@@ -1239,7 +1236,7 @@
     <strong>SpotImage:rotate_left ()</strong>
     </dt>
     <dd>
-    R
+    Create a new image with this image's contents rotated left 90&deg;.
 
 
     <h3>Returns:</h3>
@@ -1266,7 +1263,7 @@
     <strong>SpotImage:rotate_right ()</strong>
     </dt>
     <dd>
-    r
+    Create a new image with this image's contents rotated right 90&deg;.
 
 
     <h3>Returns:</h3>
@@ -1293,19 +1290,22 @@
     <strong>SpotImage:save (filename, opts)</strong>
     </dt>
     <dd>
-    r
+    Save this image to a file.
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">filename</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-
-
+         Name of file.
         </li>
         <li><span class="parameter">opts</span>
             <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         format = ("BMP", "DDS", "TGA", "PNG", "JPG", "PUG", "WEBP", "KTX", "PVR", "CCZ", "PKM"), quality, stride
+         Save options.</p>
+
+<p> In addition to the choices available in <a href="../modules/spot_image.html#SpotImage:encode">SpotImage:encode</a>, a <strong>format</strong> may be provided with any of
+ <strong>"BMP"</strong>, <strong>"DDS"</strong>, <strong>"TGA"</strong>, <strong>"PNG"</strong>, <strong>"JPG"</strong>, <strong>"PUG"</strong>, <strong>"WEBP"</strong>, <strong>"KTX"</strong>, <strong>"PVR"</strong>,
+ <strong>"CCZ"</strong>, or <strong>"PKM"</strong>, to explicitly save in the given format (by default, the method expects one of
+ these as <em>filename</em>'s extension).
         </li>
     </ul>
 
@@ -1333,21 +1333,17 @@
     <strong>SpotImage:set (x, color)</strong>
     </dt>
     <dd>
-    r
+    Set a color in the first row of this image.
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">x</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Horizontal offset, from 1 to the width.
         </li>
         <li><span class="parameter">color</span>
             <span class="types"><span class="type">SpotColor</span></span>
-
-
-
+         Color to assign.
         </li>
     </ul>
 
@@ -1374,27 +1370,21 @@
     <strong>SpotImage:set (x, y, color)</strong>
     </dt>
     <dd>
-    r
+    Set a color in this image.
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">x</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Horizontal offset, from 1 to the width...
         </li>
         <li><span class="parameter">y</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         ...and vertical offset, from 1 to the height.
         </li>
         <li><span class="parameter">color</span>
             <span class="types"><span class="type">SpotColor</span></span>
-
-
-
+         Color to assign.
         </li>
     </ul>
 
@@ -1421,33 +1411,25 @@
     <strong>SpotImage:set (x, y, z, color)</strong>
     </dt>
     <dd>
-    r
+    Set a color in this image, allowing for depth.
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">x</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Horizontal offset, from 1 to the width...
         </li>
         <li><span class="parameter">y</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         ...vertical offset, from 1 to the height.
         </li>
         <li><span class="parameter">z</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         ...and depth-wise offset, from 1 to the depth.
         </li>
         <li><span class="parameter">color</span>
             <span class="types"><span class="type">SpotColor</span></span>
-
-
-
+         Color to assign.
         </li>
     </ul>
 
@@ -1474,21 +1456,17 @@
     <strong>SpotImage:setf (x, color)</strong>
     </dt>
     <dd>
-    r
+    Set a color in the first row of this image, using normalized coordinates.
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">x</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         Horizontal offset, in [0, 1].
         </li>
         <li><span class="parameter">color</span>
             <span class="types"><span class="type">SpotColor</span></span>
-
-
-
+         Color to assign.
         </li>
     </ul>
 
@@ -1515,27 +1493,21 @@
     <strong>SpotImage:setf (x, y, color)</strong>
     </dt>
     <dd>
-    r
+    Set a color in this image, using normalized coordinates.
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">x</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         Horizontal offset, in [0, 1]...
         </li>
         <li><span class="parameter">y</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         ...and vertical offset, ditto.
         </li>
         <li><span class="parameter">color</span>
             <span class="types"><span class="type">SpotColor</span></span>
-
-
-
+         Color to assign.
         </li>
     </ul>
 
@@ -1562,33 +1534,25 @@
     <strong>SpotImage:setf (x, y, z, color)</strong>
     </dt>
     <dd>
-    r
+    Set a color in this image, using normalized coordinates and allowing for depth.
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">x</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         Horizontal offset, in [0, 1]...
         </li>
         <li><span class="parameter">y</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         ...and vertical offset, ditto.
         </li>
         <li><span class="parameter">z</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         ...and depth-wise offset, ditto.
         </li>
         <li><span class="parameter">color</span>
             <span class="types"><span class="type">SpotColor</span></span>
-
-
-
+         Color to assign.
         </li>
     </ul>
 

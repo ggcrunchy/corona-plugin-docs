@@ -209,7 +209,7 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#floats_to_unorm8s">floats_to_unorm8s (input, w, h, opts)</a></td>
-	<td class="summary">!!!!!</td>
+	<td class="summary">Converts an image from to floating-point to normalized unsigned 8-bit form, i.e.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#resize_custom">resize_custom (input, iw, ih, ow, oh, nchannels, opts)</a></td>
@@ -237,7 +237,7 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#unorm8s_to_floats">unorm8s_to_floats (input, w, h, opts)</a></td>
-	<td class="summary">!!!!!</td>
+	<td class="summary">Converts an image from normalized unsigned 8-bit to floating-point form, i.e.</td>
 	</tr>
 </table>
 <h2><a href="#Tables">Tables</a></h2>
@@ -319,14 +319,20 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
-         Output of the box filter, in RGBA form.</p>
+           <span class="types"><span class="type">Bytes</span></span>
+         On success, output of the box filter, in RGBA form.</p>
 
 <p> If <em>opts.as_userdata</em> was true, the data is returned as a userdata that implements <strong>ByteReader</strong>,
  rather than being converted to a more friendly string. Under some circumstances, this might be worth
- doing for performance reasons.</p>
-
-<p> On failure, returns <strong>nil</strong>.
+ doing for performance reasons.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, indicating an error.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
     </ol>
 
 
@@ -338,42 +344,50 @@
     <strong>floats_to_unorm8s (input, w, h, opts)</strong>
     </dt>
     <dd>
-    !!!!!
+    Converts an image from to floating-point to normalized unsigned 8-bit form, i.e.  floats in [0, 1] are
+ remapped to [0, 255].
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">input</span>
             <span class="types"><span class="type">Bytes</span></span>
-
-
-
+         Input image, in floating-point form.
         </li>
         <li><span class="parameter">w</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Width of <em>input</em>...
         </li>
         <li><span class="parameter">h</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         ...and height.
         </li>
         <li><span class="parameter">opts</span>
             <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         bpp=4
+         Conversion options. At the moment, the only option is <strong>channels</strong>, describing the
+ number of channels per pixel (by default 4, in keeping with RGBA).
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
-        X
+           <span class="types"><span class="type">Bytes</span></span>
+        On success, the converted result, in normalized unsigned 8-bit form.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, indicating an error.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
     </ol>
 
 
+    <h3>See also:</h3>
+    <ul>
+         <a href="../modules/ops.html#unorm8s_to_floats">unorm8s_to_floats</a>
+    </ul>
 
 
 </dd>
@@ -443,8 +457,16 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
-        As per <a href="../modules/ops.html#box_filter">box_filter</a>. On success, output will match <em>input</em> in form.
+           <span class="types"><span class="type">Bytes</span></span>
+        On success, as per <a href="../modules/ops.html#box_filter">box_filter</a>; will match <em>input</em> in form.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, indicating an error.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
     </ol>
 
 
@@ -511,8 +533,16 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
-        As per <a href="../modules/ops.html#box_filter">box_filter</a>. On success, output will match <em>input</em> in form.
+           <span class="types"><span class="type">Bytes</span></span>
+        On success, as per <a href="../modules/ops.html#box_filter">box_filter</a>; will match <em>input</em> in form.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, indicating an error.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
     </ol>
 
 
@@ -561,8 +591,16 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
-        As per <a href="../modules/ops.html#box_filter">box_filter</a>. On success, output will be in RGB form.
+           <span class="types"><span class="type">Bytes</span></span>
+        On success, as per <a href="../modules/ops.html#box_filter">box_filter</a>; output will be in RGB form.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, indicating an error.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
     </ol>
 
 
@@ -607,8 +645,16 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
-        As per <a href="../modules/ops.html#resize_rgb">resize_rgb</a>.
+           <span class="types"><span class="type">Bytes</span></span>
+        On success, as per <a href="../modules/ops.html#box_filter">box_filter</a>; output will be in RGBA form.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, indicating an error.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
     </ol>
 
 
@@ -674,8 +720,16 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
-        As per <a href="../modules/ops.html#box_filter">box_filter</a>. On success, output will match <em>input</em> in form.
+           <span class="types"><span class="type">Bytes</span></span>
+        On success, as per <a href="../modules/ops.html#box_filter">box_filter</a>; will match <em>input</em> in form.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, indicating an error.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
     </ol>
 
 
@@ -729,8 +783,11 @@
     </ol>
      <h3>Or</h3>
     <ol>
-
-        <strong>nil</strong>, indicating an error.
+        <li>
+        <strong>nil</strong>, indicating an error.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
     </ol>
 
 
@@ -742,42 +799,50 @@
     <strong>unorm8s_to_floats (input, w, h, opts)</strong>
     </dt>
     <dd>
-    !!!!!
+    Converts an image from normalized unsigned 8-bit to floating-point form, i.e.  unsigned bytes in
+ [0, 255] are remapped to [0, 1].
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">input</span>
             <span class="types"><span class="type">Bytes</span></span>
-
-
-
+         Input image, in RGBA form (or according to <em>channels</em>).
         </li>
         <li><span class="parameter">w</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Width of <em>input</em>...
         </li>
         <li><span class="parameter">h</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         ...and height.
         </li>
         <li><span class="parameter">opts</span>
             <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         bpp=4
+         Conversion options. At the moment, the only option is <strong>channels</strong>, describing the
+ number of channels per pixel (by default 4, in keeping with RGBA).
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
-        X
+           <span class="types"><span class="type">Bytes</span></span>
+        On success, the converted result, in floating-point form.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, indicating an error.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
     </ol>
 
 
+    <h3>See also:</h3>
+    <ul>
+         <a href="../modules/ops.html#floats_to_unorm8s">floats_to_unorm8s</a>
+    </ul>
 
 
 </dd>
