@@ -42,6 +42,8 @@
   <li><a href="../modules/grayscale.html">grayscale</a></li>
   <li><strong>image</strong></li>
   <li><a href="../modules/ops.html">ops</a></li>
+  <li><a href="../modules/spot_color.html">spot_color</a></li>
+  <li><a href="../modules/spot_image.html">spot_image</a></li>
   <li><a href="../modules/write.html">write</a></li>
 </ul>
 
@@ -60,6 +62,8 @@
 
 <p> The <strong>Bytes</strong> type&mdash;specified below&mdash;may be any object that implements <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/ByteReader/policy.html">ByteReader</a>,
  including strings.</p>
+
+<p> Functions that begin with (<strong>WIP</strong>) describe work in progress. These features are not considered stable, but give a reasonable idea of what to expect.</p>
 
 <hr/>
 
@@ -292,6 +296,22 @@ req_comp -- if non-zero, # of image components requested in result
 	<tr>
 	<td class="name" nowrap><a href="#loadf_from_memory">loadf_from_memory (image, opts)</a></td>
 	<td class="summary">Memory-based variant of <a href="../modules/image.html#loadf">loadf</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#load_image_object">load_image_object (name)</a></td>
+	<td class="summary">(<strong>WIP</strong>) Loads a Spot image from a file.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#load_image_object_from_memory">load_image_object_from_memory (image)</a></td>
+	<td class="summary">(<strong>WIP</strong>) Loads a Spot image from memory.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#new_color_hsla">new_color_hsla (..., s, l, a)</a></td>
+	<td class="summary">(<strong>WIP</strong>) Create a new Spot color in HSLA form.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#new_image_object">new_image_object (w, h, d, filler)</a></td>
+	<td class="summary">(<strong>WIP</strong>) Create a new Spot image in RGBA form.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#xload">xload (filename[, baseDir=system.ResourceDirectory])</a></td>
@@ -728,7 +748,7 @@ req_comp -- if non-zero, # of image components requested in result
     <ul>
         <li><span class="parameter">image</span>
             <span class="types"><span class="type">Bytes</span></span>
-         Undecoded image contents
+         Undecoded image contents.
         </li>
         <li><span class="parameter">opts</span>
             <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
@@ -758,6 +778,136 @@ req_comp -- if non-zero, # of image components requested in result
         <li>
            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "load_image_object"></a>
+    <strong>load_image_object (name)</strong>
+    </dt>
+    <dd>
+    (<strong>WIP</strong>) Loads a Spot image from a file.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Name of file to load.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotImage</span></span>
+        New Spot image, cf. <a href="../modules/spot_image.html#">spot_image</a>.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "load_image_object_from_memory"></a>
+    <strong>load_image_object_from_memory (image)</strong>
+    </dt>
+    <dd>
+    (<strong>WIP</strong>) Loads a Spot image from memory.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">image</span>
+            <span class="types"><span class="type">Bytes</span></span>
+         Undecoded image contents.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotImage</span></span>
+        New Spot image, cf. <a href="../modules/spot_image.html#">spot_image</a>.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "new_color_hsla"></a>
+    <strong>new_color_hsla (..., s, l, a)</strong>
+    </dt>
+    <dd>
+    (<strong>WIP</strong>) Create a new Spot color in HSLA form.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">...</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">s</span>
+            <span class="types"><span class="type">number</span></span>
+         ...saturation component, ditto...
+        </li>
+        <li><span class="parameter">l</span>
+            <span class="types"><span class="type">number</span></span>
+         ...lightness, ditto...
+        </li>
+        <li><span class="parameter">a</span>
+            <span class="types"><span class="type">number</span></span>
+         ...and alpha, ditto.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotColor</span></span>
+        New Spot color, cf. <a href="../modules/spot_color.html#">spot_color</a>.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "new_image_object"></a>
+    <strong>new_image_object (w, h, d, filler)</strong>
+    </dt>
+    <dd>
+    (<strong>WIP</strong>) Create a new Spot image in RGBA form.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">w</span>
+            <span class="types"><span class="type">uint</span></span>
+         Image width...
+        </li>
+        <li><span class="parameter">h</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...height...
+        </li>
+        <li><span class="parameter">d</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and depth.
+        </li>
+        <li><span class="parameter">filler</span>
+            <span class="types">optional <span class="type">SpotColor</span></span>
+         Optional initial fill color.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotImage</span></span>
+        New Spot image, cf. <a href="../modules/spot_image.html#">spot_image</a>.
     </ol>
 
 

@@ -1,0 +1,497 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Documentation</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>impack</h1>
+
+<ul>
+  <li><a href="../api.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../modules/grayscale.html">grayscale</a></li>
+  <li><a href="../modules/image.html">image</a></li>
+  <li><a href="../modules/ops.html">ops</a></li>
+  <li><strong>spot_color</strong></li>
+  <li><a href="../modules/spot_image.html">spot_image</a></li>
+  <li><a href="../modules/write.html">write</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>spot_color</code></h1>
+<p>Wrapper over <a href="https://github.com/r-lyeh/spot">Spot</a>'s color class.</p>
+<p>
+
+
+<p> A color's values may be read or written through its <strong>h</strong>, <strong>s</strong>, <strong>l</strong>, and <strong>a</strong> properties.</p>
+
+<p> <strong>NOTE</strong> Spot color support is still in the experimental stage.</p>
+
+<hr/>
+</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#SpotColor:__add">SpotColor:__add ()</a></td>
+	<td class="summary">Metamethod.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotColor:add_mutate">SpotColor:add_mutate (color)</a></td>
+	<td class="summary">Modify this color by adding another color to it.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotColor:clamp">SpotColor:clamp ()</a></td>
+	<td class="summary">Create a new color with this color's components, clamped to [0, 1].</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotColor:clone">SpotColor:clone ()</a></td>
+	<td class="summary">Create a clone of this color.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotColor:__div">SpotColor:__div ()</a></td>
+	<td class="summary">Metamethod.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotColor:div_mutate">SpotColor:div_mutate (color)</a></td>
+	<td class="summary">Modify this color by dividing it by another color.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotColor:__mul">SpotColor:__mul ()</a></td>
+	<td class="summary">Metamethod.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotColor:mul_mutate">SpotColor:mul_mutate (color)</a></td>
+	<td class="summary">Modify this color by multiplying it by another color.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotColor:premultiply">SpotColor:premultiply ()</a></td>
+	<td class="summary">Create a new color with alpha premultiplied through this color's components.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotColor:__sub">SpotColor:__sub ()</a></td>
+	<td class="summary">Metamethod.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotColor:sub_mutate">SpotColor:sub_mutate (color)</a></td>
+	<td class="summary">Modify this color by subtracting another color from it.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotColor:to_rgba">SpotColor:to_rgba ()</a></td>
+	<td class="summary">Create a new color with this color's components converted to RGBA values.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotColor:unpremultiply">SpotColor:unpremultiply ()</a></td>
+	<td class="summary">Create a new color with alpha unpremultiplied from this color's components.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "SpotColor:__add"></a>
+    <strong>SpotColor:__add ()</strong>
+    </dt>
+    <dd>
+    Metamethod. </p>
+
+<p> The right-hand argument may be a <strong>SpotColor</strong> or a number (implicitly, a color with four equal values).</p>
+
+<p> Any errors are propagated.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotColor</span></span>
+        The sum of the two colors.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotColor:add_mutate"></a>
+    <strong>SpotColor:add_mutate (color)</strong>
+    </dt>
+    <dd>
+    Modify this color by adding another color to it.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">color</span>
+            <span class="types"><span class="type">SpotColor</span></span>
+         Color to add.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <strong>true</strong>, indicating success.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>false</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotColor:clamp"></a>
+    <strong>SpotColor:clamp ()</strong>
+    </dt>
+    <dd>
+    Create a new color with this color's components, clamped to [0, 1].
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotColor</span></span>
+        New color.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotColor:clone"></a>
+    <strong>SpotColor:clone ()</strong>
+    </dt>
+    <dd>
+    Create a clone of this color.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotColor</span></span>
+        New color.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotColor:__div"></a>
+    <strong>SpotColor:__div ()</strong>
+    </dt>
+    <dd>
+    Metamethod. </p>
+
+<p> The right-hand argument may be a <strong>SpotColor</strong> or a number (implicitly, a color with four equal values).</p>
+
+<p> Any errors are propagated.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotColor</span></span>
+        The quotient of the two colors.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotColor:div_mutate"></a>
+    <strong>SpotColor:div_mutate (color)</strong>
+    </dt>
+    <dd>
+    Modify this color by dividing it by another color.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">color</span>
+            <span class="types"><span class="type">SpotColor</span></span>
+         Color to divide by.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <strong>true</strong>, indicating success.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>false</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotColor:__mul"></a>
+    <strong>SpotColor:__mul ()</strong>
+    </dt>
+    <dd>
+    Metamethod. </p>
+
+<p> The right-hand argument may be a <strong>SpotColor</strong> or a number (implicitly, a color with four equal values).</p>
+
+<p> Any errors are propagated.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotColor</span></span>
+        The product of the two colors.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotColor:mul_mutate"></a>
+    <strong>SpotColor:mul_mutate (color)</strong>
+    </dt>
+    <dd>
+    Modify this color by multiplying it by another color.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">color</span>
+            <span class="types"><span class="type">SpotColor</span></span>
+         Color to multiply by.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <strong>true</strong>, indicating success.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>false</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotColor:premultiply"></a>
+    <strong>SpotColor:premultiply ()</strong>
+    </dt>
+    <dd>
+    Create a new color with alpha premultiplied through this color's components.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotColor</span></span>
+        New color.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotColor:__sub"></a>
+    <strong>SpotColor:__sub ()</strong>
+    </dt>
+    <dd>
+    Metamethod. </p>
+
+<p> The right-hand argument may be a <strong>SpotColor</strong> or a number (implicitly, a color with four equal values).</p>
+
+<p> Any errors are propagated.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotColor</span></span>
+        The difference of the two colors.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotColor:sub_mutate"></a>
+    <strong>SpotColor:sub_mutate (color)</strong>
+    </dt>
+    <dd>
+    Modify this color by subtracting another color from it.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">color</span>
+            <span class="types"><span class="type">SpotColor</span></span>
+         Color to subtract.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <strong>true</strong>, indicating success.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>false</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotColor:to_rgba"></a>
+    <strong>SpotColor:to_rgba ()</strong>
+    </dt>
+    <dd>
+    Create a new color with this color's components converted to RGBA values.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotColor</span></span>
+        New color.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotColor:unpremultiply"></a>
+    <strong>SpotColor:unpremultiply ()</strong>
+    </dt>
+    <dd>
+    Create a new color with alpha unpremultiplied from this color's components.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotColor</span></span>
+        New color.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

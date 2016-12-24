@@ -1,0 +1,1759 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Documentation</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>impack</h1>
+
+<ul>
+  <li><a href="../api.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../modules/grayscale.html">grayscale</a></li>
+  <li><a href="../modules/image.html">image</a></li>
+  <li><a href="../modules/ops.html">ops</a></li>
+  <li><a href="../modules/spot_color.html">spot_color</a></li>
+  <li><strong>spot_image</strong></li>
+  <li><a href="../modules/write.html">write</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>spot_image</code></h1>
+<p>Wrapper over <a href="https://github.com/r-lyeh/spot">Spot</a>'s image class.</p>
+<p>
+
+
+<p> Spot images implement the <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/ByteReader/policy.html">ByteReader protocol</a>. By
+ default they send RGBA image data, but the raw floating-point data may be used instead, cf. <a href="../modules/spot_image.html#SpotImage:set_reader_mode">SpotImage:set_reader_mode</a>.</p>
+
+<p> <strong>NOTE</strong> Spot image support is still in the experimental stage.</p>
+
+<hr/>
+
+<p> <strong>(The comments that follow were adapted from Spot's README.)</strong></p>
+
+<ul>
+    <li>Spot is a compact and embeddable pixel / image library.</li>
+    <li>Spot supports both RGBA / HSLA pixel types.</li>
+    <li>Spot provides both pixel and image algebra for pixel / image manipulation.</li>
+    <li>Spot loads WEBP, JPG, progressive JPG, PNG, TGA, DDS DXT1/2/3/4/5, BMP, PSD, GIF, PVR2/3 (ETC1/PVRTC), KTX (ETC1/PVRTC), PKM (ETC1), HDR, PIC, PNM (PPM/PGM), CRN, PUG, FLIF, CCZ, EXR and vectorial SVG files.</li>
+    <li>Spot saves WEBP, JPG, PNG, TGA, BMP, DDS, PVR3 (PVRTC), KTX (ETC1), PKM (ETC1), CCZ and PUG files.</li>
+</ul>
+
+<p> <strong>Licenses</strong></p>
+
+<ul>
+    <li><a href="https://github.com/r-lyeh/spot">spot</a> (ZLIB license).</li>
+    <li><a href="redist/deps/crn2dds">crn2dds</a> by r-lyeh, SpartanJ and Evan Parker (Public Domain).</li>
+    <li><a href="https://code.google.com/p/crunch/">crnlib</a>, by Rich Geldreich (ZLIB license).</li>
+    <li><a href="http://www.lonesock.net/soil.html">DDS writer</a> by Jonathan Dummer (Public Domain).</li>
+    <li><a href="redist/deps/soil2/etc1_utils.h">etc1utils</a> by Google Inc (Apache 2.0 license).</li>
+    <li><a href="https://bitbucket.org/wolfpld/etcpak/wiki/Home">etcpak</a> by Bartosz Taudul (BSD-3 license).</li>
+    <li><a href="https://github.com/flif-hub/flif">flif</a> by Jon Sneyers and Pieter Wuille (Apache 2.0 license).</li>
+    <li><a href="https://code.google.com/p/jpeg-compressor/">jpge</a> by Rich Geldreich (Public Domain).</li>
+    <li><a href="https://code.google.com/p/webp/">libwebp</a> by Google Inc (BSD license).</li>
+    <li><a href="http://lodev.org/lodepng/">lodepng</a> by Lode Vandevenne (ZLIB license).</li>
+    <li><a href="https://github.com/memononen/nanosvg/">nanosvg</a> by Mikko Mononen (ZLIB license).</li>
+    <li><a href="https://github.com/fgenesis/pngrim">pngrim</a> alpha bleeding algorithm by F-Genesis (Public Domain).</li>
+    <li><a href="https://github.com/r-lyeh/pug">pug</a> (Public Domain).</li>
+    <li><a href="https://bitbucket.org/jthlim/pvrtccompressor/">pvrtccompressor</a> by Jeffrey Lim (BSD-3 license).</li>
+    <li><a href="https://code.google.com/p/rg-etc1/">rg_etc1</a> by Rich Geldreich (ZLIB license).</li>
+    <li><a href="https://bitbucket.org/SpartanJ/soil2/">soil2</a> by Martin Lucas Golini and Jonathan Dummer (Public Domain).</li>
+    <li><a href="http://github.com/nothings/stb">stb_image</a> by Sean Barrett (Public Domain).</li>
+    <li><a href="https://github.com/syoyo/tinyexr">tinyexr</a> by Syoyo Fujita (BSD3 license).</li>
+    <li><a href="https://github.com/r-lyeh/unifont">unifont</a> (ZLIB license).</li>
+</ul>
+
+<hr/>
+</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:__add">SpotImage:__add ()</a></td>
+	<td class="summary">Metamethod.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:add_mutate">SpotImage:add_mutate (color)</a></td>
+	<td class="summary">Modify this image by adding a color to each pixel.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:blank">SpotImage:blank ()</a></td>
+	<td class="summary">Create a clone of this image with a blank filter applied.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:bleed">SpotImage:bleed ()</a></td>
+	<td class="summary">Create a clone of this image with a bleed filter applied.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:checkered">SpotImage:checkered ()</a></td>
+	<td class="summary">Create a clone of this image with a checker filter applied.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:clamp">SpotImage:clamp ()</a></td>
+	<td class="summary">Create a new image with all pixels' color components clamped to [0, 1].</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:copy">SpotImage:copy (x, y, w, h)</a></td>
+	<td class="summary">Copy a region of this image, given an offset and optional size.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:crop">SpotImage:crop (l, r, t, b)</a></td>
+	<td class="summary">Copy a region of this image, given the edge offsets.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:__div">SpotImage:__div ()</a></td>
+	<td class="summary">Metamethod.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:div_mutate">SpotImage:div_mutate (color)</a></td>
+	<td class="summary">Modify this image by dividing each pixel by a color.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:encode">SpotImage:encode (format, opts)</a></td>
+	<td class="summary">r</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:flip_h">SpotImage:flip_h ()</a></td>
+	<td class="summary">r</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:flip_w">SpotImage:flip_w ()</a></td>
+	<td class="summary">r</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:get">SpotImage:get (x)</a></td>
+	<td class="summary">r</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:get">SpotImage:get (x, y)</a></td>
+	<td class="summary">r</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:get">SpotImage:get (x, y, z)</a></td>
+	<td class="summary">r</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:getf">SpotImage:getf (x)</a></td>
+	<td class="summary">r</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:getf">SpotImage:getf (x, y)</a></td>
+	<td class="summary">r</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:getf">SpotImage:getf (x, y, z)</a></td>
+	<td class="summary">r</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:glow">SpotImage:glow ()</a></td>
+	<td class="summary">Create a clone of this image with a glow filter applied.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:load">SpotImage:load (filename)</a></td>
+	<td class="summary">LAO</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:load_from_memory">SpotImage:load_from_memory (bytes)</a></td>
+	<td class="summary">LAO</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:load_hdr">SpotImage:load_hdr (filename)</a></td>
+	<td class="summary">LAO</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:load_hdr_from_memory">SpotImage:load_hdr_from_memory (bytes)</a></td>
+	<td class="summary">LAO</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:loaded">SpotImage:loaded ()</a></td>
+	<td class="summary">D</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:__mul">SpotImage:__mul ()</a></td>
+	<td class="summary">Metamethod.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:mul_mutate">SpotImage:mul_mutate (color)</a></td>
+	<td class="summary">Modify this image by multiplying each pixel by a color.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:paste">SpotImage:paste ()</a></td>
+	<td class="summary">PASTE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:rgba">SpotImage:rgba ()</a></td>
+	<td class="summary">Get the image contents in RGBA byte form.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:rotate_left">SpotImage:rotate_left ()</a></td>
+	<td class="summary">R</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:rotate_right">SpotImage:rotate_right ()</a></td>
+	<td class="summary">r</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:save">SpotImage:save (filename, opts)</a></td>
+	<td class="summary">r</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:set">SpotImage:set (x, color)</a></td>
+	<td class="summary">r</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:set">SpotImage:set (x, y, color)</a></td>
+	<td class="summary">r</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:set">SpotImage:set (x, y, z, color)</a></td>
+	<td class="summary">r</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:setf">SpotImage:setf (x, color)</a></td>
+	<td class="summary">r</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:setf">SpotImage:setf (x, y, color)</a></td>
+	<td class="summary">r</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:setf">SpotImage:setf (x, y, z, color)</a></td>
+	<td class="summary">r</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:set_reader_mode">SpotImage:set_reader_mode (mode)</a></td>
+	<td class="summary">Set the mode used when bytes are read from the image, cf.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:__sub">SpotImage:__sub ()</a></td>
+	<td class="summary">Metamethod.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:sub_mutate">SpotImage:sub_mutate (color)</a></td>
+	<td class="summary">Modify this image by subtracting a color from each pixel.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:to_hsla">SpotImage:to_hsla ()</a></td>
+	<td class="summary">Create a clone of this image with components in HSLA form.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SpotImage:to_rbga">SpotImage:to_rbga ()</a></td>
+	<td class="summary">Create a clone of this image with components in RGBA form.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "SpotImage:__add"></a>
+    <strong>SpotImage:__add ()</strong>
+    </dt>
+    <dd>
+    Metamethod. </p>
+
+<p> The right-hand argument must be a <strong>SpotColor</strong>, and is added to each pixel.</p>
+
+<p> Any errors are propagated.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotImage</span></span>
+        The post-addition image.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:add_mutate"></a>
+    <strong>SpotImage:add_mutate (color)</strong>
+    </dt>
+    <dd>
+    Modify this image by adding a color to each pixel.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">color</span>
+            <span class="types"><span class="type">SpotColor</span></span>
+         Color to add.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <strong>true</strong>, indicating success.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>false</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:blank"></a>
+    <strong>SpotImage:blank ()</strong>
+    </dt>
+    <dd>
+    Create a clone of this image with a blank filter applied.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotImage</span></span>
+        New image.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:bleed"></a>
+    <strong>SpotImage:bleed ()</strong>
+    </dt>
+    <dd>
+    Create a clone of this image with a bleed filter applied.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotImage</span></span>
+        New image.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:checkered"></a>
+    <strong>SpotImage:checkered ()</strong>
+    </dt>
+    <dd>
+    Create a clone of this image with a checker filter applied.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotImage</span></span>
+        New image.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:clamp"></a>
+    <strong>SpotImage:clamp ()</strong>
+    </dt>
+    <dd>
+    Create a new image with all pixels' color components clamped to [0, 1].
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotImage</span></span>
+        New image.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:copy"></a>
+    <strong>SpotImage:copy (x, y, w, h)</strong>
+    </dt>
+    <dd>
+    Copy a region of this image, given an offset and optional size.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">uint</span></span>
+         Horizontal offset of region, &ge; 1...
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and vertical offset, &ge; 1.
+        </li>
+        <li><span class="parameter">w</span>
+            <span class="types">optional <span class="type">uint</span></span>
+         Width of new image... (If absent, the rest of the width, given <em>x</em>.)
+        </li>
+        <li><span class="parameter">h</span>
+            <span class="types">optional <span class="type">uint</span></span>
+         ...and height. (If absent, the rest of the height, given <em>y</em>.)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotImage</span></span>
+        New image.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:crop"></a>
+    <strong>SpotImage:crop (l, r, t, b)</strong>
+    </dt>
+    <dd>
+    Copy a region of this image, given the edge offsets.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">l</span>
+            <span class="types"><span class="type">uint</span></span>
+         Left-hand edge, &ge; 1...
+        </li>
+        <li><span class="parameter">r</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and right-hand edge, &ge; <em>l</em>, &le; the width.
+        </li>
+        <li><span class="parameter">t</span>
+            <span class="types"><span class="type">uint</span></span>
+         Top edge, &ge; 1...
+        </li>
+        <li><span class="parameter">b</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and bottom edge, &ge; <em>t</em>, &le; the height.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotImage</span></span>
+        New image.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:__div"></a>
+    <strong>SpotImage:__div ()</strong>
+    </dt>
+    <dd>
+    Metamethod. </p>
+
+<p> The right-hand argument must be a <strong>SpotColor</strong>, and each pixel is divided by it.</p>
+
+<p> Any errors are propagated.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotImage</span></span>
+        The post-division image.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:div_mutate"></a>
+    <strong>SpotImage:div_mutate (color)</strong>
+    </dt>
+    <dd>
+    Modify this image by dividing each pixel by a color.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">color</span>
+            <span class="types"><span class="type">SpotImage</span></span>
+         Color to divide by.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <strong>true</strong>, indicating success.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>false</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error mesage.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:encode"></a>
+    <strong>SpotImage:encode (format, opts)</strong>
+    </dt>
+    <dd>
+    r
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">format</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         "PNG", "JPG", "PUG", "WEBP", "KTX", "PVR", "CCZ", "PKM"
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         quality, stride
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        B!
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:flip_h"></a>
+    <strong>SpotImage:flip_h ()</strong>
+    </dt>
+    <dd>
+    r
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotImage</span></span>
+        New image.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:flip_w"></a>
+    <strong>SpotImage:flip_w ()</strong>
+    </dt>
+    <dd>
+    r
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotImage</span></span>
+        New image.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:get"></a>
+    <strong>SpotImage:get (x)</strong>
+    </dt>
+    <dd>
+    r
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotColor</span></span>
+        c
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:get"></a>
+    <strong>SpotImage:get (x, y)</strong>
+    </dt>
+    <dd>
+    r
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotColor</span></span>
+        c
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:get"></a>
+    <strong>SpotImage:get (x, y, z)</strong>
+    </dt>
+    <dd>
+    r
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">z</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotColor</span></span>
+        c
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:getf"></a>
+    <strong>SpotImage:getf (x)</strong>
+    </dt>
+    <dd>
+    r
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotColor</span></span>
+        c
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:getf"></a>
+    <strong>SpotImage:getf (x, y)</strong>
+    </dt>
+    <dd>
+    r
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotColor</span></span>
+        c
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:getf"></a>
+    <strong>SpotImage:getf (x, y, z)</strong>
+    </dt>
+    <dd>
+    r
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">z</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotColor</span></span>
+        c
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:glow"></a>
+    <strong>SpotImage:glow ()</strong>
+    </dt>
+    <dd>
+    Create a clone of this image with a glow filter applied.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotImage</span></span>
+        New image.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:load"></a>
+    <strong>SpotImage:load (filename)</strong>
+    </dt>
+    <dd>
+    LAO
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">filename</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <strong>true</strong>, indicating success.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>false</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:load_from_memory"></a>
+    <strong>SpotImage:load_from_memory (bytes)</strong>
+    </dt>
+    <dd>
+    LAO
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">bytes</span>
+            <span class="types"><span class="type">Bytes</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <strong>true</strong>, indicating success.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>false</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:load_hdr"></a>
+    <strong>SpotImage:load_hdr (filename)</strong>
+    </dt>
+    <dd>
+    LAO
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">filename</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <strong>true</strong>, indicating success.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>false</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:load_hdr_from_memory"></a>
+    <strong>SpotImage:load_hdr_from_memory (bytes)</strong>
+    </dt>
+    <dd>
+    LAO
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">bytes</span>
+            <span class="types"><span class="type">Bytes</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <strong>true</strong>, indicating success.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>false</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:loaded"></a>
+    <strong>SpotImage:loaded ()</strong>
+    </dt>
+    <dd>
+    D
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        X
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:__mul"></a>
+    <strong>SpotImage:__mul ()</strong>
+    </dt>
+    <dd>
+    Metamethod. </p>
+
+<p> The right-hand argument must be a <strong>SpotColor</strong>, and each pixel is multiplied by it.</p>
+
+<p> Any errors are propagated.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotImage</span></span>
+        The post-multiplication image.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:mul_mutate"></a>
+    <strong>SpotImage:mul_mutate (color)</strong>
+    </dt>
+    <dd>
+    Modify this image by multiplying each pixel by a color.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">color</span>
+            <span class="types"><span class="type">SpotColor</span></span>
+         Color to multiply by.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <strong>true</strong>, indicating success.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>false</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error mesage.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:paste"></a>
+    <strong>SpotImage:paste ()</strong>
+    </dt>
+    <dd>
+    PASTE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotImage</span></span>
+        New image.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:rgba"></a>
+    <strong>SpotImage:rgba ()</strong>
+    </dt>
+    <dd>
+    Get the image contents in RGBA byte form.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        The image as bytes.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:rotate_left"></a>
+    <strong>SpotImage:rotate_left ()</strong>
+    </dt>
+    <dd>
+    R
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotImage</span></span>
+        New image.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:rotate_right"></a>
+    <strong>SpotImage:rotate_right ()</strong>
+    </dt>
+    <dd>
+    r
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotImage</span></span>
+        New image.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:save"></a>
+    <strong>SpotImage:save (filename, opts)</strong>
+    </dt>
+    <dd>
+    r
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">filename</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         format = ("BMP", "DDS", "TGA", "PNG", "JPG", "PUG", "WEBP", "KTX", "PVR", "CCZ", "PKM"), quality, stride
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">**true**,</span></span>
+        indicating success.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>false</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:set"></a>
+    <strong>SpotImage:set (x, color)</strong>
+    </dt>
+    <dd>
+    r
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">color</span>
+            <span class="types"><span class="type">SpotColor</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <strong>true</strong>, indicating success.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>false</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:set"></a>
+    <strong>SpotImage:set (x, y, color)</strong>
+    </dt>
+    <dd>
+    r
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">color</span>
+            <span class="types"><span class="type">SpotColor</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <strong>true</strong>, indicating success.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>false</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:set"></a>
+    <strong>SpotImage:set (x, y, z, color)</strong>
+    </dt>
+    <dd>
+    r
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">z</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">color</span>
+            <span class="types"><span class="type">SpotColor</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <strong>true</strong>, indicating success.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>false</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:setf"></a>
+    <strong>SpotImage:setf (x, color)</strong>
+    </dt>
+    <dd>
+    r
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">color</span>
+            <span class="types"><span class="type">SpotColor</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <strong>true</strong>, indicating success.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>false</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:setf"></a>
+    <strong>SpotImage:setf (x, y, color)</strong>
+    </dt>
+    <dd>
+    r
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">color</span>
+            <span class="types"><span class="type">SpotColor</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <strong>true</strong>, indicating success.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>false</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:setf"></a>
+    <strong>SpotImage:setf (x, y, z, color)</strong>
+    </dt>
+    <dd>
+    r
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">z</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">color</span>
+            <span class="types"><span class="type">SpotColor</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <strong>true</strong>, indicating success.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>false</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:set_reader_mode"></a>
+    <strong>SpotImage:set_reader_mode (mode)</strong>
+    </dt>
+    <dd>
+    Set the mode used when bytes are read from the image, cf.  the summary above.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">mode</span>
+         If this is <strong>"raw"</strong>, the image will expose its bytes directly, in floating-point form.</p>
+
+<p> Otherwise, something like <code>result = image:rgba()</code> is performed, with <em>result</em> used instead. This is
+ the default behavior.
+        </li>
+    </ul>
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../modules/spot_image.html#SpotImage:rgba">SpotImage:rgba</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:__sub"></a>
+    <strong>SpotImage:__sub ()</strong>
+    </dt>
+    <dd>
+    Metamethod. </p>
+
+<p> The right-hand argument must be a <strong>SpotColor</strong>, and is subtracted from each pixel.</p>
+
+<p> Any errors are propagated.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotImage</span></span>
+        The post-subtraction image.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:sub_mutate"></a>
+    <strong>SpotImage:sub_mutate (color)</strong>
+    </dt>
+    <dd>
+    Modify this image by subtracting a color from each pixel.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">color</span>
+            <span class="types"><span class="type">SpotColor</span></span>
+         Color to subtract.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <strong>true</strong>, indicating success.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>false</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error mesage.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:to_hsla"></a>
+    <strong>SpotImage:to_hsla ()</strong>
+    </dt>
+    <dd>
+    Create a clone of this image with components in HSLA form.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotImage</span></span>
+        New image.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:to_rbga"></a>
+    <strong>SpotImage:to_rbga ()</strong>
+    </dt>
+    <dd>
+    Create a clone of this image with components in RGBA form.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotImage</span></span>
+        New image.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
