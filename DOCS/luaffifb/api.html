@@ -40,16 +40,16 @@
 
 <h1>Module <code>luaffifb</code></h1>
 <p>Corona binding for <a href="https://github.com/facebook/luaffifb">luaffifb</a>, a library for calling
- C function and manipulating C types from Lua.</p>
-<p> It is designed to be interface compatible with
+ C functions and manipulating C types from Lua.</p>
+<p> It is designed to be interface-compatible with
  the FFI library in LuaJIT (see <a href="http://luajit.org/ext_ffi.html">here</a>). It can parse C function
  declarations and struct definitions that have been directly copied out of C header files and
  into Lua source as a string.</p>
 
-<p> This is a fork of <a href="https://github.com/jmckaskill/luaffi">luaffi</a></p>
+<p> This is a fork of <a href="https://github.com/jmckaskill/luaffi">luaffi</a>.</p>
 
 <h2> Documentation</h2>
-<p> This library is designed to be source compatible with LuaJIT's FFI extension. The documentation <a href="http://luajit.org/ext_ffi.html">here</a>
+<p> This library is designed to be source-compatible with LuaJIT's FFI extension. The documentation <a href="http://luajit.org/ext_ffi.html">here</a>
  describes the API and semantics.</p>
 
 <h2> Pointer Comparison</h2>
@@ -66,7 +66,7 @@
     This is unfixable with the current metamethod semantics.</p></li>
     <li><p>Constant expressions can't handle non integer intermediate values (eg
     offsetof won't work because it manipulates pointers)</p></li>
-    <li><p>Not all metamethods work (eg char* + number). This is due to
+    <li><p>Not all metamethods work (e.g. char* + number). This is due to
     the way metamethods are looked up with mixed types in Lua 5.1. If you need
     this use boxed numbers (uint64_t and uintptr_t).</p></li>
     <li><p>All bitfields are treated as unsigned (does anyone even use signed
@@ -75,8 +75,11 @@
 
 <h2> Corona-specific changes</h2>
 
-<p> <a href="https://docs.coronalabs.com/api/library/global/tonumber.html">tonumber</a> and <a href="https://docs.coronalabs.com/api/library/global/type.html">type</a>
- are left intact. For the FFI-aware behavior, stick to <strong>ffi.number</strong> and <strong>ffi.type</strong>.</p>
+<ul>
+    <li><a href="https://docs.coronalabs.com/api/library/global/tonumber.html">tonumber</a> and <a href="https://docs.coronalabs.com/api/library/global/type.html">type</a>
+    are left intact. For the FFI-aware behavior, stick to <code>ffi.number</code> and <code>ffi.type</code>.</li>
+    <li>To play nice with plugins, library loaders of the <code>luaopen_*</code> kind are rejected by <code>ffi.cdef</code>.</li>
+</ul>
 
 <h2> How it works</h2>
 <p> Types are represented by a struct ctype structure and an associated user value
