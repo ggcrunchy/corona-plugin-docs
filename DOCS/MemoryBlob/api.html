@@ -47,7 +47,9 @@
 <p>
 
 
-<p> Some concurrency primitives are provided, built upon <a href="https://github.com/efficient/libcuckoo">libcuckoo</a>.</p>
+<p> Some concurrency primitives are provided, built upon <a href="https://github.com/efficient/libcuckoo">libcuckoo</a>.
+ (At the moment, Corona uses libstdc++ on iOS, which makes libcuckoo support too difficult. A basic
+ mutex / map combination is used instead, but alternatives are under investigation.)</p>
 
 <p> To use the plugin, add the following in <code>build.settings</code>:</p>
 

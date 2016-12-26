@@ -299,19 +299,23 @@ req_comp -- if non-zero, # of image components requested in result
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#load_image_object">load_image_object (name)</a></td>
-	<td class="summary">(<strong>WIP</strong>) Loads a Spot image from a file.</td>
+	<td class="summary">(<strong>WIP</strong>) Load a Spot image from a file.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#load_image_object_from_memory">load_image_object_from_memory (image)</a></td>
-	<td class="summary">(<strong>WIP</strong>) Loads a Spot image from memory.</td>
+	<td class="summary">(<strong>WIP</strong>) Load a Spot image from memory.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#new_color_hsla">new_color_hsla (..., s, l, a)</a></td>
+	<td class="name" nowrap><a href="#new_color_hsla">new_color_hsla ([h=0[, s=0[, l=0[, a=1]]]])</a></td>
 	<td class="summary">(<strong>WIP</strong>) Create a new Spot color in HSLA form.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#new_color_rgba">new_color_rgba ([r=0[, g=0[, b=0[, a=0]]]])</a></td>
+	<td class="summary">(<strong>WIP</strong>) Create a new Spot color in RGBA form.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#new_image_object">new_image_object (w, h, d, filler)</a></td>
-	<td class="summary">(<strong>WIP</strong>) Create a new Spot image in RGBA form.</td>
+	<td class="summary">(<strong>WIP</strong>) Create a new empty Spot image.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#xload">xload (filename[, baseDir=system.ResourceDirectory])</a></td>
@@ -789,7 +793,7 @@ req_comp -- if non-zero, # of image components requested in result
     <strong>load_image_object (name)</strong>
     </dt>
     <dd>
-    (<strong>WIP</strong>) Loads a Spot image from a file.
+    (<strong>WIP</strong>) Load a Spot image from a file.
 
     <h3>Parameters:</h3>
     <ul>
@@ -803,7 +807,15 @@ req_comp -- if non-zero, # of image components requested in result
     <ol>
 
            <span class="types"><span class="type">SpotImage</span></span>
-        New Spot image, cf. <a href="../modules/spot_image.html#">spot_image</a>.
+        On success, the new Spot image, cf. <a href="../modules/spot_image.html#">spot_image</a>.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, indicating an error.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
     </ol>
 
 
@@ -815,7 +827,7 @@ req_comp -- if non-zero, # of image components requested in result
     <strong>load_image_object_from_memory (image)</strong>
     </dt>
     <dd>
-    (<strong>WIP</strong>) Loads a Spot image from memory.
+    (<strong>WIP</strong>) Load a Spot image from memory.
 
     <h3>Parameters:</h3>
     <ul>
@@ -829,7 +841,15 @@ req_comp -- if non-zero, # of image components requested in result
     <ol>
 
            <span class="types"><span class="type">SpotImage</span></span>
-        New Spot image, cf. <a href="../modules/spot_image.html#">spot_image</a>.
+        On success, the new Spot image, cf. <a href="../modules/spot_image.html#">spot_image</a>.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, indicating an error.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
     </ol>
 
 
@@ -838,30 +858,32 @@ req_comp -- if non-zero, # of image components requested in result
 </dd>
     <dt>
     <a name = "new_color_hsla"></a>
-    <strong>new_color_hsla (..., s, l, a)</strong>
+    <strong>new_color_hsla ([h=0[, s=0[, l=0[, a=1]]]])</strong>
     </dt>
     <dd>
     (<strong>WIP</strong>) Create a new Spot color in HSLA form.
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">...</span>
+        <li><span class="parameter">h</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         Hue component, typically between 0 and, inclusive...
+         (<em>default</em> 0)
         </li>
         <li><span class="parameter">s</span>
             <span class="types"><span class="type">number</span></span>
          ...saturation component, ditto...
+         (<em>default</em> 0)
         </li>
         <li><span class="parameter">l</span>
             <span class="types"><span class="type">number</span></span>
          ...lightness, ditto...
+         (<em>default</em> 0)
         </li>
         <li><span class="parameter">a</span>
             <span class="types"><span class="type">number</span></span>
          ...and alpha, ditto.
+         (<em>default</em> 1)
         </li>
     </ul>
 
@@ -869,7 +891,65 @@ req_comp -- if non-zero, # of image components requested in result
     <ol>
 
            <span class="types"><span class="type">SpotColor</span></span>
-        New Spot color, cf. <a href="../modules/spot_color.html#">spot_color</a>.
+        On success, the new Spot color, cf. <a href="../modules/spot_color.html#">spot_color</a>.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, indicating an error.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "new_color_rgba"></a>
+    <strong>new_color_rgba ([r=0[, g=0[, b=0[, a=0]]]])</strong>
+    </dt>
+    <dd>
+    (<strong>WIP</strong>) Create a new Spot color in RGBA form.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">r</span>
+            <span class="types"><span class="type">number</span></span>
+         Red component, between 0 and 255, inclusive...
+         (<em>default</em> 0)
+        </li>
+        <li><span class="parameter">g</span>
+            <span class="types"><span class="type">number</span></span>
+         ...green component, ditto...
+         (<em>default</em> 0)
+        </li>
+        <li><span class="parameter">b</span>
+            <span class="types"><span class="type">number</span></span>
+         ...blue, ditto...
+         (<em>default</em> 0)
+        </li>
+        <li><span class="parameter">a</span>
+            <span class="types"><span class="type">number</span></span>
+         ...and alpha, ditto.
+         (<em>default</em> 0)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SpotColor</span></span>
+        On success, the new Spot color, cf. <a href="../modules/spot_color.html#">spot_color</a>.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, indicating an error.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
     </ol>
 
 
@@ -881,7 +961,7 @@ req_comp -- if non-zero, # of image components requested in result
     <strong>new_image_object (w, h, d, filler)</strong>
     </dt>
     <dd>
-    (<strong>WIP</strong>) Create a new Spot image in RGBA form.
+    (<strong>WIP</strong>) Create a new empty Spot image.
 
     <h3>Parameters:</h3>
     <ul>
@@ -907,7 +987,15 @@ req_comp -- if non-zero, # of image components requested in result
     <ol>
 
            <span class="types"><span class="type">SpotImage</span></span>
-        New Spot image, cf. <a href="../modules/spot_image.html#">spot_image</a>.
+        On success, the new Spot image, cf. <a href="../modules/spot_image.html#">spot_image</a>.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, indicating an error.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
     </ol>
 
 

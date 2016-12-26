@@ -201,14 +201,20 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
-         Output of the distance transform, one byte per pixel.</p>
+           <span class="types"><span class="type">Bytes</span></span>
+         On success, the output of the distance transform, one byte per pixel.</p>
 
 <p> If <em>opts.as_userdata</em> was true, the data is returned as a userdata that implements <strong>ByteReader</strong>,
  rather than being converted to a more friendly string. Under some circumstances, this might be worth
- doing for performance reasons.</p>
-
-<p> On failure, returns <strong>nil</strong>.
+ doing for performance reasons.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, indicating an error.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
     </ol>
 
 
@@ -251,8 +257,16 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
+           <span class="types"><span class="type">Bytes</span></span>
         As per <a href="../modules/grayscale.html#build_distance_field">build_distance_field</a>.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, indicating an error.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
     </ol>
 
 
@@ -290,8 +304,16 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
+           <span class="types"><span class="type">Bytes</span></span>
         As per <a href="../modules/grayscale.html#build_distance_field">build_distance_field</a>.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, indicating an error.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
     </ol>
 
 
@@ -328,8 +350,16 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
+           <span class="types"><span class="type">Bytes</span></span>
         As per <a href="../modules/grayscale.html#rgb_to_gray">rgb_to_gray</a>.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, indicating an error.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
     </ol>
 
 

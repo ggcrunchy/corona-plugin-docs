@@ -238,8 +238,15 @@ ok = impack.write.tga(filename, w, h, comp, data)
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">boolean</span></span>
-        Save was successful?
+        <strong>true</strong>, indicating success.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>false</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
     </ol>
 
 
@@ -282,15 +289,21 @@ ok = impack.write.tga(filename, w, h, comp, data)
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
-         Data encoded as a <strong>BMP</strong>, byte-compatible with the contents of
+           <span class="types"><span class="type">Bytes</span></span>
+         On success, data encoded as a <strong>BMP</strong>, byte-compatible with the contents of
  an undecoded file. This can be reloaded via <a href="../modules/image.html#load_from_memory">image.load_from_memory</a>.</p>
 
 <p> If <em>opts.as_userdata</em> was true, the data is returned as a userdata that implements <strong>ByteReader</strong>,
  rather than being converted to a more friendly string. Under some circumstances, this might be worth
- doing for performance reasons.</p>
-
-<p> On failure, returns <strong>nil</strong>.
+ doing for performance reasons.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
     </ol>
 
 
@@ -357,7 +370,7 @@ ok = impack.write.tga(filename, w, h, comp, data)
      <h3>Or</h3>
     <ol>
         <li>
-        <strong>false</strong>, indicating failure.</li>
+        <strong>false</strong>, meaning failure.</li>
         <li>
            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
@@ -397,12 +410,18 @@ ok = impack.write.tga(filename, w, h, comp, data)
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
-         Data encoded as a <strong>GIF</strong>, byte-compatible with the contents of
+           <span class="types"><span class="type">Bytes</span></span>
+         On success, data encoded as a <strong>GIF</strong>, byte-compatible with the contents of
  an undecoded file. This can be reloaded via <a href="../modules/image.html#xload_from_memory">image.xload_from_memory</a>. (At the moment,
- this is always a string.)</p>
-
-<p> On failure, return <strong>nil</strong>.
+ this is always a string.)
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
     </ol>
 
 
@@ -453,8 +472,15 @@ ok = impack.write.tga(filename, w, h, comp, data)
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">boolean</span></span>
-        Save was successful?
+        <strong>true</strong>, indicating success.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>false</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
     </ol>
 
 
@@ -497,8 +523,16 @@ ok = impack.write.tga(filename, w, h, comp, data)
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
-        As per <a href="../modules/write.html#bmp_to_memory">bmp_to_memory</a>, but in <strong>HDR</strong> form.
+           <span class="types"><span class="type">Bytes</span></span>
+        On success, as per <a href="../modules/write.html#bmp_to_memory">bmp_to_memory</a>, but in <strong>HDR</strong> form.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
     </ol>
 
 
@@ -552,7 +586,7 @@ ok = impack.write.tga(filename, w, h, comp, data)
      <h3>Or</h3>
     <ol>
         <li>
-        <strong>false</strong>, indicating failure.</li>
+        <strong>false</strong>, meaning failure.</li>
         <li>
            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
@@ -592,11 +626,17 @@ ok = impack.write.tga(filename, w, h, comp, data)
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
-         Data encoded as an <strong>MPEG</strong>, byte-compatible with the contents of
- an undecoded file. (At the moment, this is always a string.)</p>
-
-<p> On failure, return <strong>nil</strong>.
+           <span class="types"><span class="type">Bytes</span></span>
+        On success, data encoded as an <strong>MPEG</strong>, byte-compatible with the contents of
+ an undecoded file. (At the moment, this is always a string.)
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
     </ol>
 
 
@@ -649,8 +689,15 @@ ok = impack.write.tga(filename, w, h, comp, data)
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">boolean</span></span>
-        Save was successful?
+        <strong>true</strong>, indicating success.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>false</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
     </ol>
 
 
@@ -691,8 +738,16 @@ ok = impack.write.tga(filename, w, h, comp, data)
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
-        As per <a href="../modules/write.html#bmp_to_memory">bmp_to_memory</a>, but in <strong>PNG</strong> form.
+           <span class="types"><span class="type">Bytes</span></span>
+        On success, as per <a href="../modules/write.html#bmp_to_memory">bmp_to_memory</a>, but in <strong>PNG</strong> form.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
     </ol>
 
 
@@ -742,8 +797,15 @@ ok = impack.write.tga(filename, w, h, comp, data)
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">boolean</span></span>
-        Save was successful?
+        <strong>true</strong>, indicating success.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>false</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
     </ol>
 
 
@@ -784,8 +846,16 @@ ok = impack.write.tga(filename, w, h, comp, data)
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
-        As per <a href="../modules/write.html#bmp_to_memory">bmp_to_memory</a>, but in <strong>TGA</strong> form.
+           <span class="types"><span class="type">Bytes</span></span>
+        On success, as per <a href="../modules/write.html#bmp_to_memory">bmp_to_memory</a>, but in <strong>TGA</strong> form.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Error message.</li>
     </ol>
 
 
