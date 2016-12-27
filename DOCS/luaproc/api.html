@@ -49,7 +49,7 @@
 
 <p> Some additional (upcoming) features have been added, among them support for shared variables and events. The latter
  are built atop <a href="https://github.com/efficient/libcuckoo">libcuckoo</a> and <a href="https://github.com/neosmart/pevents">pevents</a> respectively.
- (Corona uses libstdc++ on iOS, making libcuckoo difficult if not impossible to support. In its place, unordered maps are used
+ (Corona uses an older libstdc++ on iOS, making libcuckoo difficult if not impossible to support. In its place, unordered maps are used
  together with libdispatch, though alternatives are under investigation.)</p>
 
 <p> To use the plugin, add the following in <code>build.settings</code>:</p>
@@ -364,7 +364,7 @@
 
 <p> (<strong>WIP, in probation</strong>)</p>
 
-<p> If a process errors out, the manager will check whether it had global named <strong>LUAPROC_ERROR</strong>. If one exists and is a table,
+<p> If a process errors out, the manager will check whether it had a global named <strong>LUAPROC_ERROR</strong>. If one exists and is a table,
  its <strong>cleanup</strong> and <strong>report_method</strong> members are queried.</p>
 
 <p> When <strong>cleanup</strong> contains a function, it is called as <code>local result = pcall(cleanup, error)</code>, with <em>error</em> being the
