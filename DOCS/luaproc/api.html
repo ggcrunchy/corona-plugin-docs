@@ -49,8 +49,8 @@
 
 <p> Some additional (upcoming) features have been added, among them support for shared variables and events. The latter
  are built atop <a href="https://github.com/efficient/libcuckoo">libcuckoo</a> and <a href="https://github.com/neosmart/pevents">pevents</a> respectively.
- (At the moment, Corona uses libstdc++ on iOS, which makes libcuckoo support too difficult. A basic mutex / map combination is used
- instead, but alternatives are under investigation.)</p>
+ (Corona uses libstdc++ on iOS, making libcuckoo difficult if not impossible to support. In its place, unordered maps are used
+ together with libdispatch, though alternatives are under investigation.)</p>
 
 <p> To use the plugin, add the following in <code>build.settings</code>:</p>
 
