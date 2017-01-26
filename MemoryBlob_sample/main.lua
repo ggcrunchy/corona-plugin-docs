@@ -62,9 +62,6 @@ local page = widget.newScrollView{
 
 local print = Print(page, 8)
 
-print("Blob version:", memory_blob.GetVersion())
-print("")
-
 -- Make some blobs.
 local aligned = memory_blob.New{ alignment = 4, size = 13 }
 local fixed = memory_blob.New(25)
