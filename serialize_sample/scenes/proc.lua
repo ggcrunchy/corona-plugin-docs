@@ -59,6 +59,21 @@ function Scene:create (event)
 			end
 
 			message.text = "Contents of table: " .. content
+
+			if has_doubled then
+				timer.performWithDelay(1500, function()
+					lproc.newproc[[
+						local marshal = require("plugin.serialize").marshal
+						local what = 3 -- demonstrate capture
+
+						luaproc.alert("alerts", marshal.encode{
+							get_contents = function()
+								return "WHAT?" .. what
+							end
+						})
+					]]
+				end)
+			end
 		end
 	end)
 
