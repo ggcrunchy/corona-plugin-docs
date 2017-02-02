@@ -41,6 +41,9 @@ function Scene:create (event)
 	local cx, cy = display.contentCenterX, display.contentCenterY
 	local message = display.newText(self.view, "Capturing serialized table", cx, cy, native.systemFont, 19)
 
+	-- Register serialize's loader with luaproc.
+	lproc.preload("luaproc_serialize", serialize.Reloader)
+
 	-- Respond to alerts from another process.
 	local has_doubled = false
 
@@ -59,21 +62,6 @@ function Scene:create (event)
 			end
 
 			message.text = "Contents of table: " .. content
-
-			if has_doubled then
-				timer.performWithDelay(1500, function()
-					lproc.newproc[[
-						local marshal = require("plugin.serialize").marshal
-						local what = 3 -- demonstrate capture
-
-						luaproc.alert("alerts", marshal.encode{
-							get_contents = function()
-								return "WHAT?" .. what
-							end
-						})
-					]]
-				end)
-			end
 		end
 	end)
 
@@ -82,7 +70,7 @@ function Scene:create (event)
 	local bytes = marshal.encode{ t = 37, a = 16, d = 4 }
 
 	lproc.newproc(function()
-		local marshal = require("plugin.serialize").marshal
+		local marshal = require("luaproc_serialize").marshal
 		local string = require("string")
 
 		luaproc.sleep(2500)

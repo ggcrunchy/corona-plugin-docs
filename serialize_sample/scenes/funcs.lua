@@ -70,7 +70,8 @@ function Scene:create ()
 	}
 
 	self.view:insert(page)
-local pp=print
+
+	local old_print = print
 	local print = Print(page, 8)
 
 	-----------------------------
@@ -420,23 +421,12 @@ local pp=print
 	assert(type(t) == 'table')
 	assert(t.__index == t)
 
-	local function Protect (func) -- Protect function encoding / decoding
-		local ok, err = pcall(func)
-
-		if not ok then
-			print("Error marshaling closure:")
-			print(err)
-		end
-	end
-
-	Protect(function()
-		local up = 69
-		local s = marshal.encode({ answer = 42, funky = function() return up end })
-		local t = marshal.decode(s)
-		assert(t.answer == 42)
-		assert(type(t.funky) == "function")
-		assert(t.funky() == up)
-	end)
+	local up = 69
+	local s = marshal.encode({ answer = 42, funky = function() return up end })
+	local t = marshal.decode(s)
+	assert(t.answer == 42)
+	assert(type(t.funky) == "function")
+	assert(t.funky() == up)
 
 	local t = { answer = 42 }
 	local c = { "cycle" }
@@ -449,26 +439,27 @@ local pp=print
 	assert(u.here == u.here.this)
 	assert(u.here[1] == "cycle")
 
-	Protect(function()
-		local o = { x = 11, y = 22 }
-		local seen_hook
-		setmetatable(o, {
-			__persist = function(o)
-				local x = o.x
-				local y = o.y
-				seen_hook = true
-				local mt = getmetatable(o)
-				local print = print
-				return function()
-					local o = { }
-					o.x = x
-					o.y = y
-					print("constant table: 'print'")
-					return setmetatable(o, mt)
-				end
+	local o = { x = 11, y = 22 }
+	local seen_hook
+	setmetatable(o, {
+		__persist = function(o)
+			local x = o.x
+			local y = o.y
+			seen_hook = true
+			local mt = getmetatable(o)
+			local print = print
+			return function()
+				local o = { }
+				o.x = x
+				o.y = y
+				print("constant table: 'print'")
+				return setmetatable(o, mt)
 			end
-		})
+		end
+	})
 
+	do
+		print = old_print -- since it was overridden for the scroll view
 		local s = marshal.encode(o, { print })
 		assert(seen_hook)
 		local p = marshal.decode(s, { print })
@@ -477,7 +468,7 @@ local pp=print
 		assert(p.y == o.y)
 		assert(getmetatable(p))
 		assert(type(getmetatable(p).__persist) == "function")
-	end)
+	end
 
 	local o = { 42 }
 	local a = { o, o, o }
@@ -487,49 +478,30 @@ local pp=print
 	assert(t[1] == t[2])
 	assert(t[2] == t[3])
 
-	Protect(function()
-		local u = { 42 }
-		local f = function() return u end
-		local a = { f, f, u, f }
-		local s = marshal.encode(a)
-		local t = marshal.decode(s)
-		assert(type(t[1]) == "function")
-		assert(t[1] == t[2])
-		assert(t[2] == t[4])
-		assert(type(t[1]()) == "table")
-		assert(type(t[3]) == "table")
-		assert(t[1]() == t[3])
-	end)
-
-	Protect(function()
-		local u = function() return 42 end
-		local f = function() return u end
-		local a = { f, f, f, u }
-		local s = marshal.encode(a)
-		local t = marshal.decode(s)
-		assert(type(t[1]) == "function")
-		assert(t[1] == t[2])
-		assert(t[2] == t[3])
-		assert(type(t[1]()) == "function")
-		assert(type(t[4]) == "function")
-		assert(t[1]() == t[4])
-	end)
-
-	-- Demonstrate that the above cases come from debug stripping, but are not an inherent limit
-	local k = 43
-	local code = ([[
-		local v = %s
-
-		return function()
-			return v
-		end
-	]]):format(k)
-	local func = loadstring(code)()
-	local s = marshal.encode(func)
+	local u = { 42 }
+	local f = function() return u end
+	local a = { f, f, u, f }
+	local s = marshal.encode(a)
 	local t = marshal.decode(s)
-	assert(type(t) == "function")
-	assert(t() == k)
-	
+	assert(type(t[1]) == "function")
+	assert(t[1] == t[2])
+	assert(t[2] == t[4])
+	assert(type(t[1]()) == "table")
+	assert(type(t[3]) == "table")
+	assert(t[1]() == t[3])
+
+	local u = function() return 42 end
+	local f = function() return u end
+	local a = { f, f, f, u }
+	local s = marshal.encode(a)
+	local t = marshal.decode(s)
+	assert(type(t[1]) == "function")
+	assert(t[1] == t[2])
+	assert(t[2] == t[3])
+	assert(type(t[1]()) == "function")
+	assert(type(t[4]) == "function")
+	assert(t[1]() == t[4])
+
 	local u = newproxy()
 	debug.setmetatable(u, {
 		__persist = function()
@@ -556,15 +528,13 @@ local pp=print
 
 	local t1 = marshal.clone({ })
 
-	Protect(function()
-		local answer = 42
-		local f1 = function()
-			return "answer: "..answer
-		end
-		local s1 = marshal.encode(f1)
-		local f2 = marshal.decode(s1)
-		assert(f2() == 'answer: 42')
-	end)
+	local answer = 42
+	local f1 = function()
+		return "answer: "..answer
+	end
+	local s1 = marshal.encode(f1)
+	local f2 = marshal.decode(s1)
+	assert(f2() == 'answer: 42')
 
 	assert(marshal.decode(marshal.encode()) == nil)
 	assert(marshal.decode(marshal.encode(nil)) == nil)
