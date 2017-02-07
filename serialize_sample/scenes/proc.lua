@@ -42,7 +42,7 @@ function Scene:create (event)
 	local message = display.newText(self.view, "Capturing serialized table", cx, cy, native.systemFont, 19)
 
 	-- Register serialize's loader with luaproc.
-	lproc.preload("luaproc_serialize", serialize.Reloader)
+	lproc.preload("serialize", serialize.Reloader)
 
 	-- Respond to alerts from another process.
 	local has_doubled = false
@@ -70,7 +70,7 @@ function Scene:create (event)
 	local bytes = marshal.encode{ t = 37, a = 16, d = 4 }
 
 	lproc.newproc(function()
-		local marshal = require("luaproc_serialize").marshal
+		local marshal = require("serialize").marshal
 		local string = require("string")
 
 		luaproc.sleep(2500)
