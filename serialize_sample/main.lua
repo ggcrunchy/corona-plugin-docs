@@ -34,7 +34,11 @@ local composer = require("composer")
 local widget = require("widget")
 
 -- Give our widgets some theming.
-widget.setTheme("widget_theme_android_holo_dark")
+if system.getInfo("platform") ~= "tvos" then
+	widget.setTheme("widget_theme_android_holo_dark")
+else
+	widget.setTheme("widget_theme_ios7")
+end
 
 -- Switch to a given scene
 local function ChooseScene (name)

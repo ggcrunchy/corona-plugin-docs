@@ -7,12 +7,10 @@ settings =
 		-- supported = { "landscapeLeft", "landscapeRight", "portrait", "portraitUpsideDown", },
 	},
 	plugins = {
-	--[[
-        ["plugin.serialize"] = {
-            publisherId = "com.xibalbastudios",
-        },
-		["plugin.luaproc"] = { publisherId = "com.xibalbastudios" }
-	]]
+		["plugin.bit"] = { publisherId = "com.coronalabs" },
+        ["plugin.serialize"] = { publisherId = "com.xibalbastudios" },
+	--	["plugin.luaproc"] = { publisherId = "com.xibalbastudios" }
+
 		-- ^^^ Enable this (after getting the plugin, of course) if you want the
 		-- 'Proc' scene in the sample
 	},
@@ -21,7 +19,6 @@ settings =
 		plist =
 		{
 			-- UIApplicationExitsOnSuspend = true, -- default is false
-			CFBundleIconFile = "Icon.png",
 			CFBundleIconFiles =
 			{
 				"Icon.png", 
