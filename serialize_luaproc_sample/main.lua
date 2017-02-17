@@ -32,7 +32,7 @@ local marshal = serialize.marshal
 
 -- Prepare a message to tell us what's going on.
 local cx, cy = display.contentCenterX, display.contentCenterY
-local message = display.newText(self.view, "Capturing serialized table", cx, cy, native.systemFont, 19)
+local message = display.newText("Capturing serialized table", cx, cy, native.systemFont, 19)
 
 -- Register serialize's entry point with luaproc.
 lproc.preload("serialize", serialize.Reloader)
