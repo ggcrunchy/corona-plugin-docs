@@ -287,8 +287,10 @@ function Scene:create ()
 	assert(a == -2 and b == 10 and c == -10 and d == 250)
 
 
+    local extra = lib.size("l") - 4 -- on 64-bit machines, has 4 extra bytes
+
 	a, b, c, d = lib.unpack(">lBxxH", lib.pack(">lBxxH", -20, 10, 250))
-	assert(a == -20 and b == 10 and c == 250 and d == 10)
+	assert(a == -20 and b == 10 and c == 250 and d == 10 + extra)
 
 	a,b,c,d,e = lib.unpack(">fdfH",
 	'000'..lib.pack(">fdfH", 3.5, -24e-5, 200.5, 30000),
