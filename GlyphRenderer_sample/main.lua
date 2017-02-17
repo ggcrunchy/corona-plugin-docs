@@ -37,7 +37,23 @@ local bytemap = require("plugin.Bytemap")
 
 local c, s = ("a"):byte(), 20
 
-function copyFile( srcName, srcPath, dstName, dstPath, overwrite )
+local function doesFileExist (name, path)
+	local full_path = system.pathForFile(name, path)
+
+	if full_path then
+		local file = io.open(full_path)
+
+		if file then
+			file:close()
+
+			return true
+		end
+	end
+
+	return false
+end
+
+local function copyFile( srcName, srcPath, dstName, dstPath, overwrite )
 
     local results = false
 
@@ -48,7 +64,7 @@ function copyFile( srcName, srcPath, dstName, dstPath, overwrite )
 
     -- Check to see if destination file already exists
     if not ( overwrite ) then
-        if ( fileLib.doesFileExist( dstName, dstPath ) ) then
+        if ( doesFileExist( dstName, dstPath ) ) then
             return 1  -- 1 = File already exists (don't overwrite)
         end
     end
@@ -87,15 +103,9 @@ function copyFile( srcName, srcPath, dstName, dstPath, overwrite )
     return results
 end
 
-local f
+copyFile("8-BIT WONDER-FONT.TXT", nil, "8-BIT WONDER.TTF", system.DocumentsDirectory, true)
 
-if system.getInfo("platformName") == "android" then
-   copyFile("8-BIT WONDER.txt", nil, "8-BIT WONDER.TTF", system.DocumentsDirectory, true)
-
-   f = io.open(system.pathForFile("8-BIT WONDER.txt", system.DocumentsDirectory), "rb")
-else
-   f = io.open(system.pathForFile("8-BIT WONDER.txt"), "rb") -- font (extension stripped for Android)
-end
+local f = io.open(system.pathForFile("8-BIT WONDER.TTF", system.DocumentsDirectory), "rb")
 
 local function Print (bitmap, w, h)
     local index, text = 1, " .:ioVM@"
