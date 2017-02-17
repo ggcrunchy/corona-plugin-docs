@@ -10,16 +10,14 @@ settings =
         ["plugin.GlyphRenderer"] = {
             publisherId = "com.xibalbastudios",
         },
-		-- ["plugin.Bytemap"] = { publisherId = "com.xibalbastudios" }
-		-- ^^^ Enable this (after getting the plugin, of course) if you want visual
-		-- examples (likely)
+		["plugin.Bytemap"] = { publisherId = "com.xibalbastudios" }
+		-- available at: https://marketplace.coronalabs.com/plugin/byte-map
 	},
 	iphone =
 	{
 		plist =
 		{
 			-- UIApplicationExitsOnSuspend = true, -- default is false
-			CFBundleIconFile = "Icon.png",
 			CFBundleIconFiles =
 			{
 				"Icon.png", 

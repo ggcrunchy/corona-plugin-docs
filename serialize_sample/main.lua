@@ -23,9 +23,6 @@
 -- [ MIT license: http://www.opensource.org/licenses/mit-license.php ]
 --
 
--- Plugins --
-local lp_ok = pcall(require, "plugin.luaproc")
-
 -- Corona globals --
 local display = display
 
@@ -47,19 +44,15 @@ local function ChooseScene (name)
 	end
 end
 
---
-local buttons = {
-	{ label = "Quirky", onPress = ChooseScene("scenes.quirky"), selected = true },
-	{ label = "CBOR", onPress = ChooseScene("scenes.cbor") },
-	{ label = "Functions", onPress = ChooseScene("scenes.funcs") }
-}
-
-if lp_ok then
-	buttons[#buttons + 1] = { label = "Proc", onPress = ChooseScene("scenes.proc") }
-end
-
 -- Add tabs to switch among views
-local tab_bar = widget.newTabBar{ buttons = buttons, width = display.viewableContentWidth }
+local tab_bar = widget.newTabBar{
+	buttons = {
+		{ label = "Quirky", onPress = ChooseScene("scenes.quirky"), selected = true },
+		{ label = "CBOR", onPress = ChooseScene("scenes.cbor") },
+		{ label = "Functions", onPress = ChooseScene("scenes.funcs") }
+	},
+	width = display.viewableContentWidth
+}
 
 tab_bar.x = display.contentCenterX
 tab_bar.y = (display.contentHeight + display.viewableContentHeight) / 2 - 20

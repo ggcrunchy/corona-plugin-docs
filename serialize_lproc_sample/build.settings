@@ -7,8 +7,8 @@ settings =
 		-- supported = { "landscapeLeft", "landscapeRight", "portrait", "portraitUpsideDown", },
 	},
 	plugins = {
-		["plugin.bit"] = { publisherId = "com.coronalabs" },
-        ["plugin.serialize"] = { publisherId = "com.xibalbastudios" }
+        ["plugin.serialize"] = { publisherId = "com.xibalbastudios" },
+		["plugin.luaproc"] = { publisherId = "com.xibalbastudios" }
 	},
 	iphone =
 	{
