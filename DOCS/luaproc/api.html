@@ -58,7 +58,8 @@
    ["plugin.luaproc"] = { publisherId = "com.xibalbastudios" }
  }</code></pre></p>
 
-<p> Sample code is available <a href="https://github.com/ggcrunchy/corona-plugin-docs/blob/master/luaproc.lua">here</a>.</p>
+<p> Sample code is available <a href="https://github.com/ggcrunchy/corona-plugin-docs/blob/master/luaproc.lua">here</a> and
+ <a href="https://github.com/ggcrunchy/corona-plugin-docs/tree/master/serialize_luaproc_sample">here</a>.</p>
 
 <p> Functions and sections that begin with (<strong>WIP</strong>) describe work in progress. These are features that have not made it into
  <em>luaproc</em>'s public build, but give a reasonable idea of what to expect.</p>
@@ -259,6 +260,10 @@
 	<td class="summary">Creates a new channel identified by string name.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#preload">preload (name, loader)</a></td>
+	<td class="summary">(<strong>WIP</strong>) DOCME!</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#receive">receive (channel_name[, asynchronous=false])</a></td>
 	<td class="summary">Receive a message (tuple of boolean, <strong>nil</strong>, number or string values) from a channel.</td>
 	</tr>
@@ -297,6 +302,10 @@
 	<tr>
 	<td class="name" nowrap><a href="#update_integer">update_integer (name, op, delta)</a></td>
 	<td class="summary">(<strong>WIP</strong>) Update a shared integer, if present.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#update_integer_cas">update_integer_cas (name, op, expected, delta)</a></td>
+	<td class="summary">(<strong>WIP</strong>) DOCME!</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#update_number">update_number (name, op, delta)</a></td>
@@ -341,12 +350,13 @@
 
 <p> The remaining standard Lua libraries (<strong>io</strong>, <strong>os</strong>, <strong>table</strong>, <strong>string</strong>, <strong>math</strong>, <strong>debug</strong>, and <strong>coroutine</strong>) are
  pre-registered and can be loaded with a call to the standard Lua function
- <a href="https://docs.coronalabs.com/api/library/package/require.html">require</a>. (The sample suggests some steps for bringing in other
- modules.)</p>
+ <a href="https://docs.coronalabs.com/api/library/package/require.html">require</a>.</p>
 
 <p> In addition, <strong>system</strong> can be <strong>require()</strong>'d in a similar way. This contains approximations of the following Corona built-ins,
  under the same names: <strong>CachesDirectory</strong>, <strong>DocumentsDirectory</strong>, <strong>ResourceDirectory</strong>, <strong>TemporaryDirectory</strong>, <strong>getTimer()</strong>,
  and <strong>pathForFile()</strong>.</p>
+
+<p> A <a href="api.html#preload">preload</a> facility is available to load custom plugins in processes.</p>
 
 <p> Finally, the following modules may also be required:</p>
 
@@ -417,17 +427,20 @@
     <strong>newproc (f)</strong>
     </dt>
     <dd>
-    Variant of <strong>newproc</strong> that accepts a function. </p>
 
-<p> Boolean, <strong>nil</strong>, number, and string upvalues will be copied over to this function (at this point, they are their own values).
- Upvalues of any other type will result in an error. Be aware that this will make innocuous snippets such as</p>
+<p>Variant of <strong>newproc</strong> that accepts a function. </p>
+
+<p> Boolean, <strong>nil</strong>, number, and string upvalues will be copied over to this function (at this point, they take
+ on a life of their own, despite remaining within lexical scope). Upvalues of any other type will result in an
+ error, with two exceptions: the global table will map to its counterpart in the new process, as will the
+ luaproc module itself. The latter is designed to allow this usage:</p>
 <pre><code>local luaproc = require("plugin.luaproc")
 luaproc.newchannel("channel")
 luaproc.newproc(function()
-  luaproc.send("channel", "ERROR!") -- error: tries to capture luaproc as upvalue
+  luaproc.send("channel", "MESSAGE!") -- would error out with a typical table, but okay
 end)
 </code></pre>
-<p> error out.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -906,6 +919,34 @@ end)
 
 </dd>
     <dt>
+    <a name = "preload"></a>
+    <strong>preload (name, loader)</strong>
+    </dt>
+    <dd>
+    (<strong>WIP</strong>) DOCME!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">loader</span>
+            <span class="types">optional <span class="type">function</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
     <a name = "receive"></a>
     <strong>receive (channel_name[, asynchronous=false])</strong>
     </dt>
@@ -1139,7 +1180,9 @@ end)
     <dd>
     Put the current process to sleep. </p>
 
-<p> Calling this from the main state results in an error.
+<p> Calling this from the main state results in an error.</p>
+
+<p> <strong>N.B.</strong> At the moment, this does not respect Corona's suspend and resume logic.
 
     <h3>Parameters:</h3>
     <ul>
@@ -1206,8 +1249,54 @@ end)
 
     <h3>See also:</h3>
     <ul>
-         <a href="api.html#get_integer">get_integer</a>
+         <li><a href="api.html#get_integer">get_integer</a></li>
+         <li><a href="api.html#update_integer_cas">update_integer_cas</a></li>
     </ul>
+
+
+</dd>
+    <dt>
+    <a name = "update_integer_cas"></a>
+    <strong>update_integer_cas (name, op, expected, delta)</strong>
+    </dt>
+    <dd>
+    (<strong>WIP</strong>) DOCME!
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Name of integer, cf. <a href="api.html#update_integer">update_integer</a>.
+        </li>
+        <li><span class="parameter">op</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         As per <a href="api.html#update_integer">update_integer</a>.
+        </li>
+        <li><span class="parameter">expected</span>
+            <span class="types"><span class="type">int</span></span>
+         Expected value of integer.
+        </li>
+        <li><span class="parameter">delta</span>
+            <span class="types"><span class="type">int</span></span>
+         As per <a href="api.html#update_integer">update_integer</a>.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <strong>true</strong>, indicating success: the integer existed, was given a valid operation, and had value <em>expected</em>.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>false</strong>, meaning failure.</li>
+        <li>
+           <span class="types"><span class="type">int</span> or <span class="type">nil</span></span>
+        Actual value of integer when the operation was attempted (if absent, <strong>nil</strong>).</li>
+    </ol>
+
+
 
 
 </dd>
@@ -1308,7 +1397,9 @@ end)
         </li>
         <li><span class="parameter">wait</span>
             <span class="types">optional <span class="type">uint</span></span>
-         Milliseconds to wait, &ge; 0. When absent, the wait will never time out.
+         Milliseconds to wait, &ge; 0. When absent, the wait will never time out.</p>
+
+<p> <strong>N.B.</strong> At the moment, this does not respect Corona's suspend and resume logic.
         </li>
     </ul>
 
@@ -1350,7 +1441,9 @@ end)
         </li>
         <li><span class="parameter">wait</span>
             <span class="types">optional <span class="type">uint</span></span>
-         Milliseconds to wait, &ge; 0. When absent, the wait will never time out.
+         Milliseconds to wait, &ge; 0. When absent, the wait will never time out.</p>
+
+<p> <strong>N.B.</strong> At the moment, this does not respect Corona's suspend and resume logic.
         </li>
     </ul>
 
@@ -1392,7 +1485,9 @@ end)
         </li>
         <li><span class="parameter">wait</span>
             <span class="types">optional <span class="type">uint</span></span>
-         Milliseconds to wait, &ge; 0. When absent, the wait will never time out.
+         Milliseconds to wait, &ge; 0. When absent, the wait will never time out.</p>
+
+<p> <strong>N.B.</strong> At the moment, this does not respect Corona's suspend and resume logic.
         </li>
     </ul>
 
