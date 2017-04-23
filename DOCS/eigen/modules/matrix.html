@@ -1,0 +1,4071 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Documentation</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Eigen</h1>
+
+<ul>
+  <li><a href="../api.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../modules/boolmatrix.html">boolmatrix</a></li>
+  <li><a href="../modules/eigen.html">eigen</a></li>
+  <li><strong>matrix</strong></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>matrix</code></h1>
+<p>Wrapper over Eigen's matrices.</p>
+<p>
+
+</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:__add">Matrix:__add ()</a></td>
+	<td class="summary">Metamethod
+ May be matrix / scalar combo</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:adjoint">Matrix:adjoint ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:adjointInPlace">Matrix:adjointInPlace ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:allFinite">Matrix:allFinite ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:arg">Matrix:arg ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:acos">Matrix:acos ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:asin">Matrix:asin ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:assign">Matrix:assign (Y)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:atan">Matrix:atan ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:binaryExpr">Matrix:binaryExpr (func)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:block">Matrix:block (a, b, c, d)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:blockAssign">Matrix:blockAssign (rhs, a, b, c, d)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:blueNorm">Matrix:blueNorm ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:bottomLeftCorner">Matrix:bottomLeftCorner (nrows, ncols)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:bottomLeftCornerAssign">Matrix:bottomLeftCornerAssign (rhs, nrows, ncols)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:bottomRightCorner">Matrix:bottomRightCorner (nrows, ncols)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:bottomRightCornerAssign">Matrix:bottomRightCornerAssign (rhs, nrows, ncols)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:bottomRows">Matrix:bottomRows (nrows)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:bottomRowsAssign">Matrix:bottomRowsAssign (rhs, nrows)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:__call">Matrix:__call (row, col)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:coeffAssign">Matrix:coeffAssign (x, row, col)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:col">Matrix:col (_col_)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:conjugate">Matrix:conjugate ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:conservativeResize">Matrix:conservativeResize (_nrows_, _ncols_)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:conservativeResizeLike">Matrix:conservativeResizeLike (other)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:__div">Matrix:__div ()</a></td>
+	<td class="summary">Metamethod
+ RHS may be matrix / scalar combo</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:cast">Matrix:cast (type)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:ceil">Matrix:ceil ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:cols">Matrix:cols ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:colStride">Matrix:colStride ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:cos">Matrix:cos ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:cosh">Matrix:cosh ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:cube">Matrix:cube ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:cwiseAbs">Matrix:cwiseAbs ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:cwiseAbs2">Matrix:cwiseAbs2 ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:cwiseEqual">Matrix:cwiseEqual (m)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:cwiseGreaterThan">Matrix:cwiseGreaterThan (m)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:cwiseGreaterThanOrEqual">Matrix:cwiseGreaterThanOrEqual (m)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:cwiseInverse">Matrix:cwiseInverse ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:cwiseLessThan">Matrix:cwiseLessThan (m)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:cwiseLessThanOrEqual">Matrix:cwiseLessThanOrEqual (m)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:cwiseMax">Matrix:cwiseMax (m)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:cwiseMin">Matrix:cwiseMin (m)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:cwiseNotEqual">Matrix:cwiseNotEqual (m)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:cwiseProduct">Matrix:cwiseProduct (M)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:cwiseQuotient">Matrix:cwiseQuotient (M)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:cwiseSign">Matrix:cwiseSign ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:cwiseSqrt">Matrix:cwiseSqrt ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:determinant">Matrix:determinant ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:data">Matrix:data ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:diagonalSize">Matrix:diagonalSize ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:dot">Matrix:dot (other)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:exp">Matrix:exp ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:fill">Matrix:fill (s)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:floor">Matrix:floor ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:hasNaN">Matrix:hasNaN ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:hypotNorm">Matrix:hypotNorm ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:innerSize">Matrix:innerSize ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:innerStride">Matrix:innerStride ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:inverse">Matrix:inverse ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:isApprox">Matrix:isApprox (A, prec)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:isConstant">Matrix:isConstant (S, prec)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:isDiagonal">Matrix:isDiagonal (prec)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:isFinite">Matrix:isFinite (prec)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:isIdentity">Matrix:isIdentity (prec)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:isInf">Matrix:isInf (prec)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:isLowerTriangular">Matrix:isLowerTriangular (prec)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:isMuchSmallerThan">Matrix:isMuchSmallerThan (prec)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:isNaN">Matrix:isNaN (prec)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:isOnes">Matrix:isOnes (prec)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:isUnitary">Matrix:isUnitary (prec)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:isUpperTriangular">Matrix:isUpperTriangular (prec)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:isZero">Matrix:isZero (prec)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:ldlt_solve">Matrix:ldlt_solve (b)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:leftCols">Matrix:leftCols (ncols)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:leftColsAssign">Matrix:leftColsAssign (rhs, ncols)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:__len">Matrix:__len ()</a></td>
+	<td class="summary">Metamethod.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:llt_solve">Matrix:llt_solve (b)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:log">Matrix:log ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:log10">Matrix:log10 ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:lp1Norm">Matrix:lp1Norm ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:lpInfNorm">Matrix:lpInfNorm ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:lu_solve">Matrix:lu_solve (b)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:maxCoeff">Matrix:maxCoeff (choice)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:mean">Matrix:mean (choice)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:middleCols">Matrix:middleCols (c1, c2)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:middleColsAssign">Matrix:middleColsAssign (rhs, c1, c2)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:middleRows">Matrix:middleRows (r1, r2)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:middleRowsAssign">Matrix:middleRowsAssign (rhs, r1, r2)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:minCoeff">Matrix:minCoeff (choice)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:__mul">Matrix:__mul ()</a></td>
+	<td class="summary">Metamethod
+ May be matrix / scalar combo</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:norm">Matrix:norm ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:operatorNorm">Matrix:operatorNorm ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:outerSize">Matrix:outerSize ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:outerStride">Matrix:outerStride ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:qr_solve">Matrix:qr_solve (b)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:__pow">Matrix:__pow ()</a></td>
+	<td class="summary">Metamethod
+ May be matrix / scalar combo</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:redux">Matrix:redux (func, how)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:prod">Matrix:prod (choice)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:replicate">Matrix:replicate (_vcount_, _hcount_, choice)</a></td>
+	<td class="summary">DOCMEMORE
+ (TODO: broken, should probably replace <em>hcount</em> by choice when available</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:resize">Matrix:resize (_nrows_, _ncols_)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:resizeLike">Matrix:resizeLike (other)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:reverse">Matrix:reverse ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:reverseInPlace">Matrix:reverseInPlace ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:rightCols">Matrix:rightCols (ncols)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:rightColsAssign">Matrix:rightColsAssign (rhs, ncols)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:round">Matrix:round ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:row">Matrix:row (_row_)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:rows">Matrix:rows ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:rowStride">Matrix:rowStride ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:setConstant">Matrix:setConstant (s)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:setIdentity">Matrix:setIdentity ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:setOnes">Matrix:setOnes ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:setRandom">Matrix:setRandom ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:setZero">Matrix:setZero ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:sin">Matrix:sin ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:sinh">Matrix:sinh ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:size">Matrix:size ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:square">Matrix:square ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:squaredNorm">Matrix:squaredNorm ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:__sub">Matrix:__sub ()</a></td>
+	<td class="summary">Metamethod
+ May be matrix / scalar combo</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:sum">Matrix:sum (choice)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:swap">Matrix:swap (RHS)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:svd_solve">Matrix:svd_solve (b)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:tan">Matrix:tan ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:tanh">Matrix:tanh ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:topLeftCorner">Matrix:topLeftCorner (nrows, ncols)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:topLeftCornerAssign">Matrix:topLeftCornerAssign (rhs, nrows, ncols)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:topRightCorner">Matrix:topRightCorner (nrows, ncols)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:topRightCornerAssign">Matrix:topRightCornerAssign (rhs, nrows, ncols)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:topRows">Matrix:topRows (nrows)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:topRowsAssign">Matrix:topRowsAssign (rhs, nrows)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:__tostring">Matrix:__tostring ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:trace">Matrix:trace ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:transpose">Matrix:transpose ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:transposeInPlace">Matrix:transposeInPlace ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:unaryExpr">Matrix:unaryExpr (func)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:__unm">Matrix:__unm ()</a></td>
+	<td class="summary">Metamethod</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:value">Matrix:value ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:visit">Matrix:visit (init, rest)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "Matrix:__add"></a>
+    <strong>Matrix:__add ()</strong>
+    </dt>
+    <dd>
+    Metamethod
+ May be matrix / scalar combo
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:adjoint"></a>
+    <strong>Matrix:adjoint ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        A
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:adjointInPlace"></a>
+    <strong>Matrix:adjointInPlace ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:allFinite"></a>
+    <strong>Matrix:allFinite ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        B
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:arg"></a>
+    <strong>Matrix:arg ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:acos"></a>
+    <strong>Matrix:acos ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:asin"></a>
+    <strong>Matrix:asin ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:assign"></a>
+    <strong>Matrix:assign (Y)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">Y</span>
+            <span class="types"><span class="type">Matrix</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:atan"></a>
+    <strong>Matrix:atan ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:binaryExpr"></a>
+    <strong>Matrix:binaryExpr (func)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">func</span>
+            <span class="types"><span class="type">callable</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:block"></a>
+    <strong>Matrix:block (a, b, c, d)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">b</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">c</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">d</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:blockAssign"></a>
+    <strong>Matrix:blockAssign (rhs, a, b, c, d)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">rhs</span>
+            <span class="types"><span class="type">Matrix</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">a</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">b</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">c</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">d</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:blueNorm"></a>
+    <strong>Matrix:blueNorm ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        n
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:bottomLeftCorner"></a>
+    <strong>Matrix:bottomLeftCorner (nrows, ncols)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:bottomLeftCornerAssign"></a>
+    <strong>Matrix:bottomLeftCornerAssign (rhs, nrows, ncols)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">rhs</span>
+            <span class="types"><span class="type">Matrix</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:bottomRightCorner"></a>
+    <strong>Matrix:bottomRightCorner (nrows, ncols)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:bottomRightCornerAssign"></a>
+    <strong>Matrix:bottomRightCornerAssign (rhs, nrows, ncols)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">rhs</span>
+            <span class="types"><span class="type">Matrix</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:bottomRows"></a>
+    <strong>Matrix:bottomRows (nrows)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:bottomRowsAssign"></a>
+    <strong>Matrix:bottomRowsAssign (rhs, nrows)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">rhs</span>
+            <span class="types"><span class="type">Matrix</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:__call"></a>
+    <strong>Matrix:__call (row, col)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">row</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">col</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Scalar</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:coeffAssign"></a>
+    <strong>Matrix:coeffAssign (x, row, col)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">Scalar</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">row</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">col</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:col"></a>
+    <strong>Matrix:col (_col_)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">_col_</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:conjugate"></a>
+    <strong>Matrix:conjugate ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:conservativeResize"></a>
+    <strong>Matrix:conservativeResize (_nrows_, _ncols_)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">_nrows_</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">_ncols_</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:conservativeResizeLike"></a>
+    <strong>Matrix:conservativeResizeLike (other)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">other</span>
+            <span class="types"><span class="type">Matrix</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:__div"></a>
+    <strong>Matrix:__div ()</strong>
+    </dt>
+    <dd>
+    Metamethod
+ RHS may be matrix / scalar combo
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:cast"></a>
+    <strong>Matrix:cast (type)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">type</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:ceil"></a>
+    <strong>Matrix:ceil ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:cols"></a>
+    <strong>Matrix:cols ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        C
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:colStride"></a>
+    <strong>Matrix:colStride ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        C
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:cos"></a>
+    <strong>Matrix:cos ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:cosh"></a>
+    <strong>Matrix:cosh ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:cube"></a>
+    <strong>Matrix:cube ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:cwiseAbs"></a>
+    <strong>Matrix:cwiseAbs ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:cwiseAbs2"></a>
+    <strong>Matrix:cwiseAbs2 ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:cwiseEqual"></a>
+    <strong>Matrix:cwiseEqual (m)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">m</span>
+            <span class="types"><span class="type">Matrix</span> or <span class="type">Scalar</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">BoolMatrix</span></span>
+        B
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:cwiseGreaterThan"></a>
+    <strong>Matrix:cwiseGreaterThan (m)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">m</span>
+            <span class="types"><span class="type">Matrix</span> or <span class="type">Scalar</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">BoolMatrix</span></span>
+        B
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:cwiseGreaterThanOrEqual"></a>
+    <strong>Matrix:cwiseGreaterThanOrEqual (m)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">m</span>
+            <span class="types"><span class="type">Matrix</span> or <span class="type">Scalar</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">BoolMatrix</span></span>
+        B
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:cwiseInverse"></a>
+    <strong>Matrix:cwiseInverse ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:cwiseLessThan"></a>
+    <strong>Matrix:cwiseLessThan (m)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">m</span>
+            <span class="types"><span class="type">Matrix</span> or <span class="type">Scalar</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">BoolMatrix</span></span>
+        B
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:cwiseLessThanOrEqual"></a>
+    <strong>Matrix:cwiseLessThanOrEqual (m)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">m</span>
+            <span class="types"><span class="type">Matrix</span> or <span class="type">Scalar</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">BoolMatrix</span></span>
+        B
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:cwiseMax"></a>
+    <strong>Matrix:cwiseMax (m)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">m</span>
+            <span class="types"><span class="type">Matrix</span> or <span class="type">Scalar</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:cwiseMin"></a>
+    <strong>Matrix:cwiseMin (m)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">m</span>
+            <span class="types"><span class="type">Matrix</span> or <span class="type">Scalar</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:cwiseNotEqual"></a>
+    <strong>Matrix:cwiseNotEqual (m)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">m</span>
+            <span class="types"><span class="type">Matrix</span> or <span class="type">Scalar</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">BoolMatrix</span></span>
+        B
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:cwiseProduct"></a>
+    <strong>Matrix:cwiseProduct (M)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">M</span>
+            <span class="types"><span class="type">Matrix</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:cwiseQuotient"></a>
+    <strong>Matrix:cwiseQuotient (M)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">M</span>
+            <span class="types"><span class="type">Matrix</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:cwiseSign"></a>
+    <strong>Matrix:cwiseSign ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:cwiseSqrt"></a>
+    <strong>Matrix:cwiseSqrt ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:determinant"></a>
+    <strong>Matrix:determinant ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:data"></a>
+    <strong>Matrix:data ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">userdata</span></span>
+        D
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:diagonalSize"></a>
+    <strong>Matrix:diagonalSize ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        C
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:dot"></a>
+    <strong>Matrix:dot (other)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">other</span>
+            <span class="types"><span class="type">Matrix</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Scalar</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:exp"></a>
+    <strong>Matrix:exp ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:fill"></a>
+    <strong>Matrix:fill (s)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+            <span class="types"><span class="type">Scalar</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:floor"></a>
+    <strong>Matrix:floor ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:hasNaN"></a>
+    <strong>Matrix:hasNaN ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        B
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:hypotNorm"></a>
+    <strong>Matrix:hypotNorm ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        n
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:innerSize"></a>
+    <strong>Matrix:innerSize ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        C
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:innerStride"></a>
+    <strong>Matrix:innerStride ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        C
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:inverse"></a>
+    <strong>Matrix:inverse ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:isApprox"></a>
+    <strong>Matrix:isApprox (A, prec)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">A</span>
+            <span class="types"><span class="type">Matrix</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">prec</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        B
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:isConstant"></a>
+    <strong>Matrix:isConstant (S, prec)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">S</span>
+            <span class="types"><span class="type">Scalar</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">prec</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        B
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:isDiagonal"></a>
+    <strong>Matrix:isDiagonal (prec)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">prec</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        B
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:isFinite"></a>
+    <strong>Matrix:isFinite (prec)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">prec</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        B
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:isIdentity"></a>
+    <strong>Matrix:isIdentity (prec)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">prec</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        B
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:isInf"></a>
+    <strong>Matrix:isInf (prec)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">prec</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        B
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:isLowerTriangular"></a>
+    <strong>Matrix:isLowerTriangular (prec)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">prec</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        B
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:isMuchSmallerThan"></a>
+    <strong>Matrix:isMuchSmallerThan (prec)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">prec</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        B
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:isNaN"></a>
+    <strong>Matrix:isNaN (prec)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">prec</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        B
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:isOnes"></a>
+    <strong>Matrix:isOnes (prec)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">prec</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        B
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:isUnitary"></a>
+    <strong>Matrix:isUnitary (prec)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">prec</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        B
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:isUpperTriangular"></a>
+    <strong>Matrix:isUpperTriangular (prec)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">prec</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        B
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:isZero"></a>
+    <strong>Matrix:isZero (prec)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">prec</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        B
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:ldlt_solve"></a>
+    <strong>Matrix:ldlt_solve (b)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">b</span>
+            <span class="types"><span class="type">Matrix</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:leftCols"></a>
+    <strong>Matrix:leftCols (ncols)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:leftColsAssign"></a>
+    <strong>Matrix:leftColsAssign (rhs, ncols)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">rhs</span>
+            <span class="types"><span class="type">Matrix</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:__len"></a>
+    <strong>Matrix:__len ()</strong>
+    </dt>
+    <dd>
+    Metamethod. </p>
+
+<p> Synonym for <a href="../modules/matrix.html#Matrix:size">Matrix:size</a>.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        Number of elements.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:llt_solve"></a>
+    <strong>Matrix:llt_solve (b)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">b</span>
+            <span class="types"><span class="type">Matrix</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:log"></a>
+    <strong>Matrix:log ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:log10"></a>
+    <strong>Matrix:log10 ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:lp1Norm"></a>
+    <strong>Matrix:lp1Norm ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        n
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:lpInfNorm"></a>
+    <strong>Matrix:lpInfNorm ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        n
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:lu_solve"></a>
+    <strong>Matrix:lu_solve (b)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">b</span>
+            <span class="types"><span class="type">Matrix</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:maxCoeff"></a>
+    <strong>Matrix:maxCoeff (choice)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">choice</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         (colwise, rowwise)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Scalar</span></span>
+        S
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        M (col, row)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:mean"></a>
+    <strong>Matrix:mean (choice)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">choice</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         (colwise, rowwise)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Scalar</span></span>
+        S
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        M (col, row)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:middleCols"></a>
+    <strong>Matrix:middleCols (c1, c2)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">c1</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">c2</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:middleColsAssign"></a>
+    <strong>Matrix:middleColsAssign (rhs, c1, c2)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">rhs</span>
+            <span class="types"><span class="type">Matrix</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">c1</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">c2</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:middleRows"></a>
+    <strong>Matrix:middleRows (r1, r2)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">r1</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">r2</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:middleRowsAssign"></a>
+    <strong>Matrix:middleRowsAssign (rhs, r1, r2)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">rhs</span>
+            <span class="types"><span class="type">Matrix</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">r1</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">r2</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:minCoeff"></a>
+    <strong>Matrix:minCoeff (choice)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">choice</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         (colwise, rowwise)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Scalar</span></span>
+        S
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        M (col, row)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:__mul"></a>
+    <strong>Matrix:__mul ()</strong>
+    </dt>
+    <dd>
+    Metamethod
+ May be matrix / scalar combo
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:norm"></a>
+    <strong>Matrix:norm ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        n
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:operatorNorm"></a>
+    <strong>Matrix:operatorNorm ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        n
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:outerSize"></a>
+    <strong>Matrix:outerSize ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        C
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:outerStride"></a>
+    <strong>Matrix:outerStride ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        C
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:qr_solve"></a>
+    <strong>Matrix:qr_solve (b)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">b</span>
+            <span class="types"><span class="type">Matrix</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:__pow"></a>
+    <strong>Matrix:__pow ()</strong>
+    </dt>
+    <dd>
+    Metamethod
+ May be matrix / scalar combo
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:redux"></a>
+    <strong>Matrix:redux (func, how)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">func</span>
+            <span class="types"><span class="type">callable</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">how</span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        x
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+        Scalar y
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:prod"></a>
+    <strong>Matrix:prod (choice)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">choice</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         (colwise, rowwise)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Scalar</span></span>
+        S
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        M (col, row)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:replicate"></a>
+    <strong>Matrix:replicate (_vcount_, _hcount_, choice)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+ (TODO: broken, should probably replace <em>hcount</em> by choice when available
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">_vcount_</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">_hcount_</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">choice</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         (colwise, rowwise)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        R
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:resize"></a>
+    <strong>Matrix:resize (_nrows_, _ncols_)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">_nrows_</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">_ncols_</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:resizeLike"></a>
+    <strong>Matrix:resizeLike (other)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">other</span>
+            <span class="types"><span class="type">Matrix</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:reverse"></a>
+    <strong>Matrix:reverse ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        A
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:reverseInPlace"></a>
+    <strong>Matrix:reverseInPlace ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:rightCols"></a>
+    <strong>Matrix:rightCols (ncols)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:rightColsAssign"></a>
+    <strong>Matrix:rightColsAssign (rhs, ncols)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">rhs</span>
+            <span class="types"><span class="type">Matrix</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:round"></a>
+    <strong>Matrix:round ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:row"></a>
+    <strong>Matrix:row (_row_)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">_row_</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:rows"></a>
+    <strong>Matrix:rows ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        R
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:rowStride"></a>
+    <strong>Matrix:rowStride ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        C
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:setConstant"></a>
+    <strong>Matrix:setConstant (s)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+            <span class="types"><span class="type">Scalar</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:setIdentity"></a>
+    <strong>Matrix:setIdentity ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:setOnes"></a>
+    <strong>Matrix:setOnes ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:setRandom"></a>
+    <strong>Matrix:setRandom ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:setZero"></a>
+    <strong>Matrix:setZero ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:sin"></a>
+    <strong>Matrix:sin ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:sinh"></a>
+    <strong>Matrix:sinh ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:size"></a>
+    <strong>Matrix:size ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        C
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:square"></a>
+    <strong>Matrix:square ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:squaredNorm"></a>
+    <strong>Matrix:squaredNorm ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        n
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:__sub"></a>
+    <strong>Matrix:__sub ()</strong>
+    </dt>
+    <dd>
+    Metamethod
+ May be matrix / scalar combo
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:sum"></a>
+    <strong>Matrix:sum (choice)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">choice</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         (colwise, rowwise)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Scalar</span></span>
+        S
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        M (col, row)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:swap"></a>
+    <strong>Matrix:swap (RHS)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">RHS</span>
+            <span class="types"><span class="type">Matrix</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:svd_solve"></a>
+    <strong>Matrix:svd_solve (b)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">b</span>
+            <span class="types"><span class="type">Matrix</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:tan"></a>
+    <strong>Matrix:tan ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:tanh"></a>
+    <strong>Matrix:tanh ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:topLeftCorner"></a>
+    <strong>Matrix:topLeftCorner (nrows, ncols)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:topLeftCornerAssign"></a>
+    <strong>Matrix:topLeftCornerAssign (rhs, nrows, ncols)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">rhs</span>
+            <span class="types"><span class="type">Matrix</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:topRightCorner"></a>
+    <strong>Matrix:topRightCorner (nrows, ncols)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:topRightCornerAssign"></a>
+    <strong>Matrix:topRightCornerAssign (rhs, nrows, ncols)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">rhs</span>
+            <span class="types"><span class="type">Matrix</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:topRows"></a>
+    <strong>Matrix:topRows (nrows)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:topRowsAssign"></a>
+    <strong>Matrix:topRowsAssign (rhs, nrows)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">rhs</span>
+            <span class="types"><span class="type">Matrix</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:__tostring"></a>
+    <strong>Matrix:__tostring ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:trace"></a>
+    <strong>Matrix:trace ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Scalar</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:transpose"></a>
+    <strong>Matrix:transpose ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        A
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:transposeInPlace"></a>
+    <strong>Matrix:transposeInPlace ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:unaryExpr"></a>
+    <strong>Matrix:unaryExpr (func)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">func</span>
+            <span class="types"><span class="type">callable</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:__unm"></a>
+    <strong>Matrix:__unm ()</strong>
+    </dt>
+    <dd>
+    Metamethod
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:value"></a>
+    <strong>Matrix:value ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Scalar</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:visit"></a>
+    <strong>Matrix:visit (init, rest)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">init</span>
+            <span class="types"><span class="type">callable</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">rest</span>
+            <span class="types"><span class="type">callable</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

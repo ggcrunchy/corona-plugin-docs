@@ -1,0 +1,406 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Documentation</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Eigen</h1>
+
+<ul>
+  <li><a href="../api.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../modules/boolmatrix.html">boolmatrix</a></li>
+  <li><strong>eigen</strong></li>
+  <li><a href="../modules/matrix.html">matrix</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>eigen</code></h1>
+<p>The Eigen plugin is divided into five namespaces, according to the underlying data type:
+ <strong>int</strong> (signed integers), <strong>float</strong> (single-precision float), <strong>double</strong> (double-precision
+ float), <strong>cfloat</strong> (single-precision complex number), and <strong>cdouble</strong> (double-precision
+ complex number).</p>
+<p> Each namespace has the assortment of functions listed below (including many matrix factories),
+ but the Matrix involved will be made up of whatever type belongs to the given namespace.</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#Constant">Constant (nrows[, ncols=nrows])</a></td>
+	<td class="summary">DOCMEMORE: Make a constant matrix</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Identity">Identity (nrows[, ncols=nrows])</a></td>
+	<td class="summary">DOCMEMORE: Make an identity matrix</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#LinSpaced">LinSpaced ()</a></td>
+	<td class="summary">DOCMEMORE: Make a linear-spaced vector (NYI)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Constant">Constant (nrows[, ncols=nrows])</a></td>
+	<td class="summary">DOCMEMORE: Make a matrix</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Ones">Ones (nrows[, ncols=nrows])</a></td>
+	<td class="summary">DOCMEMORE: Make an all-ones matrix</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Random">Random (nrows[, ncols=nrows])</a></td>
+	<td class="summary">DOCMEMORE: Make a random matrix</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#RowVector">RowVector (size)</a></td>
+	<td class="summary">DOCMEMORE: Make a row vector</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Vector">Vector (size)</a></td>
+	<td class="summary">DOCMEMORE: Make a (column) vector</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#WithCache">WithCache (func, ...)</a></td>
+	<td class="summary">DOCMEMORE: Call functions in a caching context, so matrices may be recycled
+ TODO: With some work this could be hoisted out of the namespaces into <a href="../modules/eigen.html#">eigen</a>  itself</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Zero">Zero (nrows[, ncols=nrows])</a></td>
+	<td class="summary">DOCMEMORE: Make an all-zeroes matrix</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "Constant"></a>
+    <strong>Constant (nrows[, ncols=nrows])</strong>
+    </dt>
+    <dd>
+    DOCMEMORE: Make a constant matrix
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+         X
+        </li>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+         Y
+         (<em>default</em> nrows)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        C
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Identity"></a>
+    <strong>Identity (nrows[, ncols=nrows])</strong>
+    </dt>
+    <dd>
+    DOCMEMORE: Make an identity matrix
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+         X
+        </li>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+         Y
+         (<em>default</em> nrows)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        I
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "LinSpaced"></a>
+    <strong>LinSpaced ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE: Make a linear-spaced vector (NYI)
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        V
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Constant"></a>
+    <strong>Constant (nrows[, ncols=nrows])</strong>
+    </dt>
+    <dd>
+    DOCMEMORE: Make a matrix
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+         X
+        </li>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+         Y
+         (<em>default</em> nrows)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        M
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Ones"></a>
+    <strong>Ones (nrows[, ncols=nrows])</strong>
+    </dt>
+    <dd>
+    DOCMEMORE: Make an all-ones matrix
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+         X
+        </li>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+         Y
+         (<em>default</em> nrows)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        O
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Random"></a>
+    <strong>Random (nrows[, ncols=nrows])</strong>
+    </dt>
+    <dd>
+    DOCMEMORE: Make a random matrix
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+         X
+        </li>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+         Y
+         (<em>default</em> nrows)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        R
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "RowVector"></a>
+    <strong>RowVector (size)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE: Make a row vector
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">size</span>
+            <span class="types"><span class="type">uint</span></span>
+         X
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        RV
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Vector"></a>
+    <strong>Vector (size)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE: Make a (column) vector
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">size</span>
+            <span class="types"><span class="type">uint</span></span>
+         X
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        V
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "WithCache"></a>
+    <strong>WithCache (func, ...)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE: Call functions in a caching context, so matrices may be recycled
+ TODO: With some work this could be hoisted out of the namespaces into <a href="../modules/eigen.html#">eigen</a>  itself
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">func</span>
+            <span class="types"><span class="type">callable</span></span>
+         Body of function
+        </li>
+        <li><span class="parameter">...</span>
+         X Arguments
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        ... Values to retain
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Zero"></a>
+    <strong>Zero (nrows[, ncols=nrows])</strong>
+    </dt>
+    <dd>
+    DOCMEMORE: Make an all-zeroes matrix
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+         X
+        </li>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+         Y
+         (<em>default</em> nrows)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        Z
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

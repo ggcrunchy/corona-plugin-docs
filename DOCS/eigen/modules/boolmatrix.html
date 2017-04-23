@@ -1,0 +1,364 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Documentation</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Eigen</h1>
+
+<ul>
+  <li><a href="../api.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><strong>boolmatrix</strong></li>
+  <li><a href="../modules/eigen.html">eigen</a></li>
+  <li><a href="../modules/matrix.html">matrix</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>boolmatrix</code></h1>
+<p>A data type returned by various matrix predicate operations.</p>
+<p>
+
+</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#BoolMatrix:all">BoolMatrix:all (how)</a></td>
+	<td class="summary">Are all entries true?</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#BoolMatrix:any">BoolMatrix:any (how)</a></td>
+	<td class="summary">Are any entries true?</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#BoolMatrix:__call">BoolMatrix:__call (_row_, _col_)</a></td>
+	<td class="summary">Metamethod.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#BoolMatrix:cols">BoolMatrix:cols ()</a></td>
+	<td class="summary">Getter.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#BoolMatrix:count">BoolMatrix:count ()</a></td>
+	<td class="summary">Getter.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#BoolMatrix:__eq">BoolMatrix:__eq ()</a></td>
+	<td class="summary">Metamethod.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#BoolMatrix:rows">BoolMatrix:rows ()</a></td>
+	<td class="summary">Getter.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#BoolMatrix:select">BoolMatrix:select (then, else)</a></td>
+	<td class="summary">Given two matrices, or a matrix-scalar pair (where the scalar is interpreted as a
+ constant matrix matching its partner in shape), goes through this matrix's coefficents,
+ building up a new output matrix.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#BoolMatrix:size">BoolMatrix:size ()</a></td>
+	<td class="summary">Getter.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#BoolMatrix:__tostring">BoolMatrix:__tostring ()</a></td>
+	<td class="summary">Metamethod.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "BoolMatrix:all"></a>
+    <strong>BoolMatrix:all (how)</strong>
+    </dt>
+    <dd>
+    Are all entries true?
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">how</span>
+         (TODO: <strong>"colwise"</strong>, <strong>"rowwise"</strong>, or nothing)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">BoolMatrix</span></span>
+        A column or row vector with results for column or row (q.v. <em>how</em>).
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Were all entries true?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "BoolMatrix:any"></a>
+    <strong>BoolMatrix:any (how)</strong>
+    </dt>
+    <dd>
+    Are any entries true?
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">how</span>
+         As per <a href="../modules/boolmatrix.html#BoolMatrix:all">BoolMatrix:all</a>.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">BoolMatrix</span></span>
+        Ditto.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Was any entry true?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "BoolMatrix:__call"></a>
+    <strong>BoolMatrix:__call (_row_, _col_)</strong>
+    </dt>
+    <dd>
+    Metamethod. </p>
+
+<p> Fetch the coefficient at the given row and column (or offset for vectors).
+ TODO: should make 1-based?
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">_row_</span>
+            <span class="types"><span class="type">uint</span></span>
+         Matrix row (or offset, in a vector).
+        </li>
+        <li><span class="parameter">_col_</span>
+            <span class="types"><span class="type">uint</span></span>
+         Matrix column (must be present unless this is a vector).
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Coefficient.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "BoolMatrix:cols"></a>
+    <strong>BoolMatrix:cols ()</strong>
+    </dt>
+    <dd>
+    Getter.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        Number of columns.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "BoolMatrix:count"></a>
+    <strong>BoolMatrix:count ()</strong>
+    </dt>
+    <dd>
+    Getter.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        Number of <strong>true</strong> coefficients. (TODO: should support "colwise", "rowwise")
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "BoolMatrix:__eq"></a>
+    <strong>BoolMatrix:__eq ()</strong>
+    </dt>
+    <dd>
+    Metamethod. </p>
+
+<p> Compares two BoolMatrix instances.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Are the two matrices equal?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "BoolMatrix:rows"></a>
+    <strong>BoolMatrix:rows ()</strong>
+    </dt>
+    <dd>
+    Getter.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        Number of rows.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "BoolMatrix:select"></a>
+    <strong>BoolMatrix:select (then, else)</strong>
+    </dt>
+    <dd>
+    Given two matrices, or a matrix-scalar pair (where the scalar is interpreted as a
+ constant matrix matching its partner in shape), goes through this matrix's coefficents,
+ building up a new output matrix.  Any <strong>true</strong> coefficient results in the corresponding
+ entry coming from <em>then</em>, otherwise from <em>else</em>.
+ TODO: If both matrices, then and else must have same shape?
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">then</span>
+            <span class="types"><span class="type">Matrix</span> or <span class="type">Scalar</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">else</span>
+            <span class="types"><span class="type">Matrix</span> or <span class="type">Scalar</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        R
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "BoolMatrix:size"></a>
+    <strong>BoolMatrix:size ()</strong>
+    </dt>
+    <dd>
+    Getter.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        Number of elements (rows &times; columns).
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "BoolMatrix:__tostring"></a>
+    <strong>BoolMatrix:__tostring ()</strong>
+    </dt>
+    <dd>
+    Metamethod. </p>
+
+<p> Calls to <a href="http://www.lua.org/manual/5.1/manual.html#pdf-tostring">tostring</a>  (and thus to <a href="http://www.lua.org/manual/5.1/manual.html#pdf-print">print</a> ) will pretty-print this matrix.
+
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
