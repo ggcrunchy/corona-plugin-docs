@@ -1,0 +1,596 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Documentation</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Eigen</h1>
+
+<ul>
+  <li><a href="../api.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../modules/bdcsvd.html">bdcsvd</a></li>
+  <li><a href="../modules/block.html">block</a></li>
+  <li><a href="../modules/boolmatrix.html">boolmatrix</a></li>
+  <li><a href="../modules/choleskybase.html">choleskybase</a></li>
+  <li><a href="../modules/colpivhouseholderqr.html">colpivhouseholderqr</a></li>
+  <li><a href="../modules/commonwriteops.html">commonwriteops</a></li>
+  <li><a href="../modules/completeorthogonaldecomposition.html">completeorthogonaldecomposition</a></li>
+  <li><a href="../modules/complexeigensolver.html">complexeigensolver</a></li>
+  <li><a href="../modules/complexschur.html">complexschur</a></li>
+  <li><a href="../modules/diagonal.html">diagonal</a></li>
+  <li><a href="../modules/eigen.html">eigen</a></li>
+  <li><a href="../modules/eigensolver.html">eigensolver</a></li>
+  <li><strong>eigentype</strong></li>
+  <li><a href="../modules/fullpivhouseholderqr.html">fullpivhouseholderqr</a></li>
+  <li><a href="../modules/fullpivlu.html">fullpivlu</a></li>
+  <li><a href="../modules/generalizedeigensolver.html">generalizedeigensolver</a></li>
+  <li><a href="../modules/generalizedselfadjointeigensolver.html">generalizedselfadjointeigensolver</a></li>
+  <li><a href="../modules/hessenbergdecomposition.html">hessenbergdecomposition</a></li>
+  <li><a href="../modules/householderqr.html">householderqr</a></li>
+  <li><a href="../modules/jacobisvd.html">jacobisvd</a></li>
+  <li><a href="../modules/ldlt.html">ldlt</a></li>
+  <li><a href="../modules/llt.html">llt</a></li>
+  <li><a href="../modules/map.html">map</a></li>
+  <li><a href="../modules/matrix.html">matrix</a></li>
+  <li><a href="../modules/numericalwriteops.html">numericalwriteops</a></li>
+  <li><a href="../modules/partialpivlu.html">partialpivlu</a></li>
+  <li><a href="../modules/qrbase.html">qrbase</a></li>
+  <li><a href="../modules/qrextensions.html">qrextensions</a></li>
+  <li><a href="../modules/realqz.html">realqz</a></li>
+  <li><a href="../modules/realschur.html">realschur</a></li>
+  <li><a href="../modules/selfadjointeigensolver.html">selfadjointeigensolver</a></li>
+  <li><a href="../modules/selfadjointview.html">selfadjointview</a></li>
+  <li><a href="../modules/transpose.html">transpose</a></li>
+  <li><a href="../modules/triangularview.html">triangularview</a></li>
+  <li><a href="../modules/tridiagonalization.html">tridiagonalization</a></li>
+  <li><a href="../modules/vectorblock.html">vectorblock</a></li>
+  <li><a href="../modules/xprops.html">xprops</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>eigentype</code></h1>
+<p>The Eigen plugin is divided into five namespaces, according to the underlying data type:
+ <strong>int</strong> (signed integers), <strong>float</strong> (single-precision float), <strong>double</strong> (double-precision
+ float), <strong>cfloat</strong> (single-precision complex number), and <strong>cdouble</strong> (double-precision
+ complex number).</p>
+<p> Each namespace has the assortment of functions listed below (including many matrix factories),
+ but the Matrix involved will be made up of whatever type belongs to the given namespace.</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#Constant">Constant (nrows[, ncols=nrows])</a></td>
+	<td class="summary">DOCMEMORE: Make a constant matrix</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Identity">Identity (nrows[, ncols=nrows])</a></td>
+	<td class="summary">DOCMEMORE: Make an identity matrix</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#LinSpaced">LinSpaced ()</a></td>
+	<td class="summary">DOCMEMORE: Make a linear-spaced vector</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#LinSpacedRow">LinSpacedRow ()</a></td>
+	<td class="summary">DOCMEMORE: Make a linear-spaced row vector</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MatrixFromMemory">MatrixFromMemory (memory, nrows[, ncols=nrows])</a></td>
+	<td class="summary">DOCMEMORE: Map memory as a matrix</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MatrixFromMemoryWithInnerStride">MatrixFromMemoryWithInnerStride (memory, nrows[, ncols=nrows], stride)</a></td>
+	<td class="summary">DOCMEMORE: Map memory as a matrix, with inner stride</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MatrixFromMemoryWithOuterStride">MatrixFromMemoryWithOuterStride (memory, nrows[, ncols=nrows], stride)</a></td>
+	<td class="summary">DOCMEMORE: Map memory as a matrix, with outer stride</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#NewMatrix">NewMatrix (nrows[, ncols=nrows])</a></td>
+	<td class="summary">DOCMEMORE: Make a matrix</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Ones">Ones (nrows[, ncols=nrows])</a></td>
+	<td class="summary">DOCMEMORE: Make an all-ones matrix</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Random">Random (nrows[, ncols=nrows])</a></td>
+	<td class="summary">DOCMEMORE: Make a random matrix</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#RandomPermutation">RandomPermutation (n)</a></td>
+	<td class="summary">DOCMEMORE: Make a random permutation matrix</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#RowVector">RowVector (size)</a></td>
+	<td class="summary">DOCMEMORE: Make a row vector</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Vector">Vector (size)</a></td>
+	<td class="summary">DOCMEMORE: Make a (column) vector</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Zero">Zero (nrows[, ncols=nrows])</a></td>
+	<td class="summary">DOCMEMORE: Make an all-zeroes matrix</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "Constant"></a>
+    <strong>Constant (nrows[, ncols=nrows])</strong>
+    </dt>
+    <dd>
+    DOCMEMORE: Make a constant matrix
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+         X
+        </li>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+         Y
+         (<em>default</em> nrows)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        C
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Identity"></a>
+    <strong>Identity (nrows[, ncols=nrows])</strong>
+    </dt>
+    <dd>
+    DOCMEMORE: Make an identity matrix
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+         X
+        </li>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+         Y
+         (<em>default</em> nrows)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        I
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "LinSpaced"></a>
+    <strong>LinSpaced ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE: Make a linear-spaced vector
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        V
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "LinSpacedRow"></a>
+    <strong>LinSpacedRow ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE: Make a linear-spaced row vector
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        V
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MatrixFromMemory"></a>
+    <strong>MatrixFromMemory (memory, nrows[, ncols=nrows])</strong>
+    </dt>
+    <dd>
+    DOCMEMORE: Map memory as a matrix
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">memory</span>
+            <span class="types"><span class="type">MemoryBlob</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+         X
+        </li>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+         Y
+         (<em>default</em> nrows)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Map</span></span>
+        M
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MatrixFromMemoryWithInnerStride"></a>
+    <strong>MatrixFromMemoryWithInnerStride (memory, nrows[, ncols=nrows], stride)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE: Map memory as a matrix, with inner stride
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">memory</span>
+            <span class="types"><span class="type">MemoryBlob</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+         X
+        </li>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+         Y
+         (<em>default</em> nrows)
+        </li>
+        <li><span class="parameter">stride</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Map</span></span>
+        M
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MatrixFromMemoryWithOuterStride"></a>
+    <strong>MatrixFromMemoryWithOuterStride (memory, nrows[, ncols=nrows], stride)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE: Map memory as a matrix, with outer stride
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">memory</span>
+            <span class="types"><span class="type">MemoryBlob</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+         X
+        </li>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+         Y
+         (<em>default</em> nrows)
+        </li>
+        <li><span class="parameter">stride</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Map</span></span>
+        M
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "NewMatrix"></a>
+    <strong>NewMatrix (nrows[, ncols=nrows])</strong>
+    </dt>
+    <dd>
+    DOCMEMORE: Make a matrix
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+         X
+        </li>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+         Y
+         (<em>default</em> nrows)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        M
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Ones"></a>
+    <strong>Ones (nrows[, ncols=nrows])</strong>
+    </dt>
+    <dd>
+    DOCMEMORE: Make an all-ones matrix
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+         X
+        </li>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+         Y
+         (<em>default</em> nrows)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        O
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Random"></a>
+    <strong>Random (nrows[, ncols=nrows])</strong>
+    </dt>
+    <dd>
+    DOCMEMORE: Make a random matrix
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+         X
+        </li>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+         Y
+         (<em>default</em> nrows)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        R
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "RandomPermutation"></a>
+    <strong>RandomPermutation (n)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE: Make a random permutation matrix
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        R
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "RowVector"></a>
+    <strong>RowVector (size)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE: Make a row vector
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">size</span>
+            <span class="types"><span class="type">uint</span></span>
+         X
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        RV
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Vector"></a>
+    <strong>Vector (size)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE: Make a (column) vector
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">size</span>
+            <span class="types"><span class="type">uint</span></span>
+         X
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        V
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Zero"></a>
+    <strong>Zero (nrows[, ncols=nrows])</strong>
+    </dt>
+    <dd>
+    DOCMEMORE: Make an all-zeroes matrix
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+         X
+        </li>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+         Y
+         (<em>default</em> nrows)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        Z
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

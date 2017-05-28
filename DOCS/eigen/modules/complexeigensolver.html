@@ -45,10 +45,10 @@
   <li><a href="../modules/colpivhouseholderqr.html">colpivhouseholderqr</a></li>
   <li><a href="../modules/commonwriteops.html">commonwriteops</a></li>
   <li><a href="../modules/completeorthogonaldecomposition.html">completeorthogonaldecomposition</a></li>
-  <li><a href="../modules/complexeigensolver.html">complexeigensolver</a></li>
+  <li><strong>complexeigensolver</strong></li>
   <li><a href="../modules/complexschur.html">complexschur</a></li>
   <li><a href="../modules/diagonal.html">diagonal</a></li>
-  <li><strong>eigen</strong></li>
+  <li><a href="../modules/eigen.html">eigen</a></li>
   <li><a href="../modules/eigensolver.html">eigensolver</a></li>
   <li><a href="../modules/eigentype.html">eigentype</a></li>
   <li><a href="../modules/fullpivhouseholderqr.html">fullpivhouseholderqr</a></li>
@@ -81,16 +81,34 @@
 
 <div id="content">
 
-<h1>Module <code>eigen</code></h1>
-<p>Top-level Eigen functions.</p>
-<p> For per-type factories, see <a href="./eigentype.html">EigenType</a>.</p>
+<h1>Module <code>complexeigensolver</code></h1>
+<p>A data type embodying complex eigensolver operations.</p>
+<p>
+
+</p>
 
 
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#WithCache">WithCache (func, ...)</a></td>
-	<td class="summary">DOCMEMORE: Call functions in a caching context, so matrices may be recycled</td>
+	<td class="name" nowrap><a href="#ComplexEigenSolver:eigenvalues">ComplexEigenSolver:eigenvalues ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ComplexEigenSolver:eigenvectors">ComplexEigenSolver:eigenvectors ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ComplexEigenSolver:getMaxIterations">ComplexEigenSolver:getMaxIterations ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ComplexEigenSolver:info">ComplexEigenSolver:info ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ComplexEigenSolver:setMaxIterations">ComplexEigenSolver:setMaxIterations (n)</a></td>
+	<td class="summary">DOCME</td>
 	</tr>
 </table>
 
@@ -101,27 +119,103 @@
     <h2><a name="Functions"></a>Functions</h2>
     <dl class="function">
     <dt>
-    <a name = "WithCache"></a>
-    <strong>WithCache (func, ...)</strong>
+    <a name = "ComplexEigenSolver:eigenvalues"></a>
+    <strong>ComplexEigenSolver:eigenvalues ()</strong>
     </dt>
     <dd>
-    DOCMEMORE: Call functions in a caching context, so matrices may be recycled
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        E
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ComplexEigenSolver:eigenvectors"></a>
+    <strong>ComplexEigenSolver:eigenvectors ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        E
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ComplexEigenSolver:getMaxIterations"></a>
+    <strong>ComplexEigenSolver:getMaxIterations ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        I
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ComplexEigenSolver:info"></a>
+    <strong>ComplexEigenSolver:info ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ComplexEigenSolver:setMaxIterations"></a>
+    <strong>ComplexEigenSolver:setMaxIterations (n)</strong>
+    </dt>
+    <dd>
+    DOCME
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">func</span>
-            <span class="types"><span class="type">callable</span></span>
-         Body of function
-        </li>
-        <li><span class="parameter">...</span>
-         X Arguments
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-        ... Values to retain
+           <span class="types"><span class="type">ComplexEigenSolver</span></span>
+        self
     </ol>
 
 

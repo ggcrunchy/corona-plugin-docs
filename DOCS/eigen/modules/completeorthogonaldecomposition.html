@@ -44,11 +44,11 @@
   <li><a href="../modules/choleskybase.html">choleskybase</a></li>
   <li><a href="../modules/colpivhouseholderqr.html">colpivhouseholderqr</a></li>
   <li><a href="../modules/commonwriteops.html">commonwriteops</a></li>
-  <li><a href="../modules/completeorthogonaldecomposition.html">completeorthogonaldecomposition</a></li>
+  <li><strong>completeorthogonaldecomposition</strong></li>
   <li><a href="../modules/complexeigensolver.html">complexeigensolver</a></li>
   <li><a href="../modules/complexschur.html">complexschur</a></li>
   <li><a href="../modules/diagonal.html">diagonal</a></li>
-  <li><strong>eigen</strong></li>
+  <li><a href="../modules/eigen.html">eigen</a></li>
   <li><a href="../modules/eigensolver.html">eigensolver</a></li>
   <li><a href="../modules/eigentype.html">eigentype</a></li>
   <li><a href="../modules/fullpivhouseholderqr.html">fullpivhouseholderqr</a></li>
@@ -81,16 +81,37 @@
 
 <div id="content">
 
-<h1>Module <code>eigen</code></h1>
-<p>Top-level Eigen functions.</p>
-<p> For per-type factories, see <a href="./eigentype.html">EigenType</a>.</p>
+<h1>Module <code>completeorthogonaldecomposition</code></h1>
+<p>A data type embodying complete orthogonal decomposition QR operations.</p>
+<p> In addition to the methods below, this also has those listed in <a href="./qrbase.html">QRBase</a>
+ and <a href="./qrextensions.hmtl">QRExtensions</a>.</p>
 
 
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#WithCache">WithCache (func, ...)</a></td>
-	<td class="summary">DOCMEMORE: Call functions in a caching context, so matrices may be recycled</td>
+	<td class="name" nowrap><a href="#CompleteOrthogonalDecomposition:householderQ">CompleteOrthogonalDecomposition:householderQ ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#CompleteOrthogonalDecomposition:info">CompleteOrthogonalDecomposition:info ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#CompleteOrthogonalDecomposition:matrixQTZ">CompleteOrthogonalDecomposition:matrixQTZ ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#CompleteOrthogonalDecomposition:matrixT">CompleteOrthogonalDecomposition:matrixT ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#CompleteOrthogonalDecomposition:matrixZ">CompleteOrthogonalDecomposition:matrixZ ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#CompleteOrthogonalDecomposition:pseudoInverse">CompleteOrthogonalDecomposition:pseudoInverse ()</a></td>
+	<td class="summary">DOCME</td>
 	</tr>
 </table>
 
@@ -101,27 +122,113 @@
     <h2><a name="Functions"></a>Functions</h2>
     <dl class="function">
     <dt>
-    <a name = "WithCache"></a>
-    <strong>WithCache (func, ...)</strong>
+    <a name = "CompleteOrthogonalDecomposition:householderQ"></a>
+    <strong>CompleteOrthogonalDecomposition:householderQ ()</strong>
     </dt>
     <dd>
-    DOCMEMORE: Call functions in a caching context, so matrices may be recycled
+    DOCME
 
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">func</span>
-            <span class="types"><span class="type">callable</span></span>
-         Body of function
-        </li>
-        <li><span class="parameter">...</span>
-         X Arguments
-        </li>
-    </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-        ... Values to retain
+           <span class="types"><span class="type">Matrix</span></span>
+        HQ
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "CompleteOrthogonalDecomposition:info"></a>
+    <strong>CompleteOrthogonalDecomposition:info ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        I
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "CompleteOrthogonalDecomposition:matrixQTZ"></a>
+    <strong>CompleteOrthogonalDecomposition:matrixQTZ ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        QTZ
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "CompleteOrthogonalDecomposition:matrixT"></a>
+    <strong>CompleteOrthogonalDecomposition:matrixT ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        T
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "CompleteOrthogonalDecomposition:matrixZ"></a>
+    <strong>CompleteOrthogonalDecomposition:matrixZ ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        Z
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "CompleteOrthogonalDecomposition:pseudoInverse"></a>
+    <strong>CompleteOrthogonalDecomposition:pseudoInverse ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        PI
     </ol>
 
 

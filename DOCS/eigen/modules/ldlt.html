@@ -48,7 +48,7 @@
   <li><a href="../modules/complexeigensolver.html">complexeigensolver</a></li>
   <li><a href="../modules/complexschur.html">complexschur</a></li>
   <li><a href="../modules/diagonal.html">diagonal</a></li>
-  <li><strong>eigen</strong></li>
+  <li><a href="../modules/eigen.html">eigen</a></li>
   <li><a href="../modules/eigensolver.html">eigensolver</a></li>
   <li><a href="../modules/eigentype.html">eigentype</a></li>
   <li><a href="../modules/fullpivhouseholderqr.html">fullpivhouseholderqr</a></li>
@@ -58,7 +58,7 @@
   <li><a href="../modules/hessenbergdecomposition.html">hessenbergdecomposition</a></li>
   <li><a href="../modules/householderqr.html">householderqr</a></li>
   <li><a href="../modules/jacobisvd.html">jacobisvd</a></li>
-  <li><a href="../modules/ldlt.html">ldlt</a></li>
+  <li><strong>ldlt</strong></li>
   <li><a href="../modules/llt.html">llt</a></li>
   <li><a href="../modules/map.html">map</a></li>
   <li><a href="../modules/matrix.html">matrix</a></li>
@@ -81,16 +81,36 @@
 
 <div id="content">
 
-<h1>Module <code>eigen</code></h1>
-<p>Top-level Eigen functions.</p>
-<p> For per-type factories, see <a href="./eigentype.html">EigenType</a>.</p>
+<h1>Module <code>ldlt</code></h1>
+<p>A data type embodying LDLT Cholesky operations.</p>
+<p> In addition to the methods listed below, this also contains those listed in <a href="./choleskybase.html">CholeskyBase</a>.</p>
 
 
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#WithCache">WithCache (func, ...)</a></td>
-	<td class="summary">DOCMEMORE: Call functions in a caching context, so matrices may be recycled</td>
+	<td class="name" nowrap><a href="#LDLT:isNegative">LDLT:isNegative ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#LDLT:isPositive">LDLT:isPositive ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#LDLT:matrixLDLT">LDLT:matrixLDLT ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#LDLT:setZero">LDLT:setZero ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#LDLT:transpositionsP">LDLT:transpositionsP ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#LDLT:vectorD">LDLT:vectorD ()</a></td>
+	<td class="summary">DOCMEMORE</td>
 	</tr>
 </table>
 
@@ -101,27 +121,107 @@
     <h2><a name="Functions"></a>Functions</h2>
     <dl class="function">
     <dt>
-    <a name = "WithCache"></a>
-    <strong>WithCache (func, ...)</strong>
+    <a name = "LDLT:isNegative"></a>
+    <strong>LDLT:isNegative ()</strong>
     </dt>
     <dd>
-    DOCMEMORE: Call functions in a caching context, so matrices may be recycled
+    DOCMEMORE
 
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">func</span>
-            <span class="types"><span class="type">callable</span></span>
-         Body of function
-        </li>
-        <li><span class="parameter">...</span>
-         X Arguments
-        </li>
-    </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-        ... Values to retain
+           <span class="types"><span class="type">boolean</span></span>
+        B
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "LDLT:isPositive"></a>
+    <strong>LDLT:isPositive ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        B
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "LDLT:matrixLDLT"></a>
+    <strong>LDLT:matrixLDLT ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        LDLT
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "LDLT:setZero"></a>
+    <strong>LDLT:setZero ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "LDLT:transpositionsP"></a>
+    <strong>LDLT:transpositionsP ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        IP
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "LDLT:vectorD"></a>
+    <strong>LDLT:vectorD ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        D
     </ol>
 
 

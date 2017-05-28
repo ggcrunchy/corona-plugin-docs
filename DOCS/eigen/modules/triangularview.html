@@ -1,0 +1,653 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Documentation</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Eigen</h1>
+
+<ul>
+  <li><a href="../api.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../modules/bdcsvd.html">bdcsvd</a></li>
+  <li><a href="../modules/block.html">block</a></li>
+  <li><a href="../modules/boolmatrix.html">boolmatrix</a></li>
+  <li><a href="../modules/choleskybase.html">choleskybase</a></li>
+  <li><a href="../modules/colpivhouseholderqr.html">colpivhouseholderqr</a></li>
+  <li><a href="../modules/commonwriteops.html">commonwriteops</a></li>
+  <li><a href="../modules/completeorthogonaldecomposition.html">completeorthogonaldecomposition</a></li>
+  <li><a href="../modules/complexeigensolver.html">complexeigensolver</a></li>
+  <li><a href="../modules/complexschur.html">complexschur</a></li>
+  <li><a href="../modules/diagonal.html">diagonal</a></li>
+  <li><a href="../modules/eigen.html">eigen</a></li>
+  <li><a href="../modules/eigensolver.html">eigensolver</a></li>
+  <li><a href="../modules/eigentype.html">eigentype</a></li>
+  <li><a href="../modules/fullpivhouseholderqr.html">fullpivhouseholderqr</a></li>
+  <li><a href="../modules/fullpivlu.html">fullpivlu</a></li>
+  <li><a href="../modules/generalizedeigensolver.html">generalizedeigensolver</a></li>
+  <li><a href="../modules/generalizedselfadjointeigensolver.html">generalizedselfadjointeigensolver</a></li>
+  <li><a href="../modules/hessenbergdecomposition.html">hessenbergdecomposition</a></li>
+  <li><a href="../modules/householderqr.html">householderqr</a></li>
+  <li><a href="../modules/jacobisvd.html">jacobisvd</a></li>
+  <li><a href="../modules/ldlt.html">ldlt</a></li>
+  <li><a href="../modules/llt.html">llt</a></li>
+  <li><a href="../modules/map.html">map</a></li>
+  <li><a href="../modules/matrix.html">matrix</a></li>
+  <li><a href="../modules/numericalwriteops.html">numericalwriteops</a></li>
+  <li><a href="../modules/partialpivlu.html">partialpivlu</a></li>
+  <li><a href="../modules/qrbase.html">qrbase</a></li>
+  <li><a href="../modules/qrextensions.html">qrextensions</a></li>
+  <li><a href="../modules/realqz.html">realqz</a></li>
+  <li><a href="../modules/realschur.html">realschur</a></li>
+  <li><a href="../modules/selfadjointeigensolver.html">selfadjointeigensolver</a></li>
+  <li><a href="../modules/selfadjointview.html">selfadjointview</a></li>
+  <li><a href="../modules/transpose.html">transpose</a></li>
+  <li><strong>triangularview</strong></li>
+  <li><a href="../modules/tridiagonalization.html">tridiagonalization</a></li>
+  <li><a href="../modules/vectorblock.html">vectorblock</a></li>
+  <li><a href="../modules/xprops.html">xprops</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>triangularview</code></h1>
+<p>A triangular view of a matrix.</p>
+<p>
+
+</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#TriangularView:adjoint">TriangularView:adjoint ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TriangularView:asMatrix">TriangularView:asMatrix ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TriangularView:assign">TriangularView:assign (R)</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TriangularView:__call">TriangularView:__call (row, col)</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TriangularView:coeffAssign">TriangularView:coeffAssign (row, col, S)</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TriangularView:cols">TriangularView:cols (c)</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TriangularView:conjugate">TriangularView:conjugate ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TriangularView:determinant">TriangularView:determinant ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TriangularView:fill">TriangularView:fill (S)</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TriangularView:innerStride">TriangularView:innerStride ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TriangularView:__mul">TriangularView:__mul (R)</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TriangularView:outerStride">TriangularView:outerStride ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TriangularView:rows">TriangularView:rows (r)</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TriangularView:selfadjointView">TriangularView:selfadjointView (S)</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TriangularView:setConstant">TriangularView:setConstant (S)</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TriangularView:setOnes">TriangularView:setOnes ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TriangularView:setZero">TriangularView:setZero ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TriangularView:solve">TriangularView:solve (B, S)</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TriangularView:solveInPlace">TriangularView:solveInPlace (B, S)</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#TriangularView:tranpose">TriangularView:tranpose ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "TriangularView:adjoint"></a>
+    <strong>TriangularView:adjoint ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Adjoint</span></span>
+        a
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TriangularView:asMatrix"></a>
+    <strong>TriangularView:asMatrix ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        M
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TriangularView:assign"></a>
+    <strong>TriangularView:assign (R)</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">R</span>
+            <span class="types"><span class="type">TriangularView</span> or <span class="type">Matrix</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TriangularView:__call"></a>
+    <strong>TriangularView:__call (row, col)</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">row</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">col</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Scalar</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TriangularView:coeffAssign"></a>
+    <strong>TriangularView:coeffAssign (row, col, S)</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">row</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">col</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">S</span>
+            <span class="types"><span class="type">Scalar</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TriangularView:cols"></a>
+    <strong>TriangularView:cols (c)</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">c</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TriangularView:conjugate"></a>
+    <strong>TriangularView:conjugate ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Conjugate</span></span>
+        c
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TriangularView:determinant"></a>
+    <strong>TriangularView:determinant ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        D
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TriangularView:fill"></a>
+    <strong>TriangularView:fill (S)</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">S</span>
+            <span class="types"><span class="type">Scalar</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TriangularView:innerStride"></a>
+    <strong>TriangularView:innerStride ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        s
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TriangularView:__mul"></a>
+    <strong>TriangularView:__mul (R)</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">R</span>
+            <span class="types"><span class="type">TriangularView</span>, <span class="type">Adjoint</span>, <span class="type">Conjugate</span>, <span class="type">Tranpose</span> or <span class="type">Matrix</span></span>
+         (may be param 1 and / or 2)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        prod
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TriangularView:outerStride"></a>
+    <strong>TriangularView:outerStride ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        s
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TriangularView:rows"></a>
+    <strong>TriangularView:rows (r)</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">r</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TriangularView:selfadjointView"></a>
+    <strong>TriangularView:selfadjointView (S)</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">S</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         ("Lower", "Upper")
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SelfAdjointView</span></span>
+        SAV
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TriangularView:setConstant"></a>
+    <strong>TriangularView:setConstant (S)</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">S</span>
+            <span class="types"><span class="type">Scalar</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        Self, for chaining methods.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TriangularView:setOnes"></a>
+    <strong>TriangularView:setOnes ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        Self, for chaining methods.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TriangularView:setZero"></a>
+    <strong>TriangularView:setZero ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        Self, for chaining methods.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TriangularView:solve"></a>
+    <strong>TriangularView:solve (B, S)</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">B</span>
+            <span class="types"><span class="type">Matrix</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">S</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         ("OnTheRight")
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        X
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TriangularView:solveInPlace"></a>
+    <strong>TriangularView:solveInPlace (B, S)</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">B</span>
+            <span class="types"><span class="type">Matrix</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">S</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         ("OnTheRight")
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "TriangularView:tranpose"></a>
+    <strong>TriangularView:tranpose ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Transpose</span></span>
+        tt
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

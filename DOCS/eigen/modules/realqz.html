@@ -48,7 +48,7 @@
   <li><a href="../modules/complexeigensolver.html">complexeigensolver</a></li>
   <li><a href="../modules/complexschur.html">complexschur</a></li>
   <li><a href="../modules/diagonal.html">diagonal</a></li>
-  <li><strong>eigen</strong></li>
+  <li><a href="../modules/eigen.html">eigen</a></li>
   <li><a href="../modules/eigensolver.html">eigensolver</a></li>
   <li><a href="../modules/eigentype.html">eigentype</a></li>
   <li><a href="../modules/fullpivhouseholderqr.html">fullpivhouseholderqr</a></li>
@@ -66,7 +66,7 @@
   <li><a href="../modules/partialpivlu.html">partialpivlu</a></li>
   <li><a href="../modules/qrbase.html">qrbase</a></li>
   <li><a href="../modules/qrextensions.html">qrextensions</a></li>
-  <li><a href="../modules/realqz.html">realqz</a></li>
+  <li><strong>realqz</strong></li>
   <li><a href="../modules/realschur.html">realschur</a></li>
   <li><a href="../modules/selfadjointeigensolver.html">selfadjointeigensolver</a></li>
   <li><a href="../modules/selfadjointview.html">selfadjointview</a></li>
@@ -81,16 +81,42 @@
 
 <div id="content">
 
-<h1>Module <code>eigen</code></h1>
-<p>Top-level Eigen functions.</p>
-<p> For per-type factories, see <a href="./eigentype.html">EigenType</a>.</p>
+<h1>Module <code>realqz</code></h1>
+<p>A data type embodying real QZ operations.</p>
+<p>
+
+</p>
 
 
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#WithCache">WithCache (func, ...)</a></td>
-	<td class="summary">DOCMEMORE: Call functions in a caching context, so matrices may be recycled</td>
+	<td class="name" nowrap><a href="#RealQZ:info">RealQZ:info ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#RealQZ:iterations">RealQZ:iterations ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#RealQZ:matrixQ">RealQZ:matrixQ ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#RealQZ:matrixS">RealQZ:matrixS ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#RealQZ:matrixT">RealQZ:matrixT ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#RealQZ:matrixZ">RealQZ:matrixZ ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#RealQZ:setIterations">RealQZ:setIterations (n)</a></td>
+	<td class="summary">DOCMEMORE</td>
 	</tr>
 </table>
 
@@ -101,28 +127,136 @@
     <h2><a name="Functions"></a>Functions</h2>
     <dl class="function">
     <dt>
-    <a name = "WithCache"></a>
-    <strong>WithCache (func, ...)</strong>
+    <a name = "RealQZ:info"></a>
+    <strong>RealQZ:info ()</strong>
     </dt>
     <dd>
-    DOCMEMORE: Call functions in a caching context, so matrices may be recycled
+    DOCMEMORE
 
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">func</span>
-            <span class="types"><span class="type">callable</span></span>
-         Body of function
-        </li>
-        <li><span class="parameter">...</span>
-         X Arguments
-        </li>
-    </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-        ... Values to retain
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        I
     </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "RealQZ:iterations"></a>
+    <strong>RealQZ:iterations ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        I
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "RealQZ:matrixQ"></a>
+    <strong>RealQZ:matrixQ ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        Q
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "RealQZ:matrixS"></a>
+    <strong>RealQZ:matrixS ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "RealQZ:matrixT"></a>
+    <strong>RealQZ:matrixT ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        Z
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "RealQZ:matrixZ"></a>
+    <strong>RealQZ:matrixZ ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        Z
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "RealQZ:setIterations"></a>
+    <strong>RealQZ:setIterations (n)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
 
 
 

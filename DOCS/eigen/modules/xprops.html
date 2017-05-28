@@ -1,0 +1,714 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Documentation</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Eigen</h1>
+
+<ul>
+  <li><a href="../api.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../modules/bdcsvd.html">bdcsvd</a></li>
+  <li><a href="../modules/block.html">block</a></li>
+  <li><a href="../modules/boolmatrix.html">boolmatrix</a></li>
+  <li><a href="../modules/choleskybase.html">choleskybase</a></li>
+  <li><a href="../modules/colpivhouseholderqr.html">colpivhouseholderqr</a></li>
+  <li><a href="../modules/commonwriteops.html">commonwriteops</a></li>
+  <li><a href="../modules/completeorthogonaldecomposition.html">completeorthogonaldecomposition</a></li>
+  <li><a href="../modules/complexeigensolver.html">complexeigensolver</a></li>
+  <li><a href="../modules/complexschur.html">complexschur</a></li>
+  <li><a href="../modules/diagonal.html">diagonal</a></li>
+  <li><a href="../modules/eigen.html">eigen</a></li>
+  <li><a href="../modules/eigensolver.html">eigensolver</a></li>
+  <li><a href="../modules/eigentype.html">eigentype</a></li>
+  <li><a href="../modules/fullpivhouseholderqr.html">fullpivhouseholderqr</a></li>
+  <li><a href="../modules/fullpivlu.html">fullpivlu</a></li>
+  <li><a href="../modules/generalizedeigensolver.html">generalizedeigensolver</a></li>
+  <li><a href="../modules/generalizedselfadjointeigensolver.html">generalizedselfadjointeigensolver</a></li>
+  <li><a href="../modules/hessenbergdecomposition.html">hessenbergdecomposition</a></li>
+  <li><a href="../modules/householderqr.html">householderqr</a></li>
+  <li><a href="../modules/jacobisvd.html">jacobisvd</a></li>
+  <li><a href="../modules/ldlt.html">ldlt</a></li>
+  <li><a href="../modules/llt.html">llt</a></li>
+  <li><a href="../modules/map.html">map</a></li>
+  <li><a href="../modules/matrix.html">matrix</a></li>
+  <li><a href="../modules/numericalwriteops.html">numericalwriteops</a></li>
+  <li><a href="../modules/partialpivlu.html">partialpivlu</a></li>
+  <li><a href="../modules/qrbase.html">qrbase</a></li>
+  <li><a href="../modules/qrextensions.html">qrextensions</a></li>
+  <li><a href="../modules/realqz.html">realqz</a></li>
+  <li><a href="../modules/realschur.html">realschur</a></li>
+  <li><a href="../modules/selfadjointeigensolver.html">selfadjointeigensolver</a></li>
+  <li><a href="../modules/selfadjointview.html">selfadjointview</a></li>
+  <li><a href="../modules/transpose.html">transpose</a></li>
+  <li><a href="../modules/triangularview.html">triangularview</a></li>
+  <li><a href="../modules/tridiagonalization.html">tridiagonalization</a></li>
+  <li><a href="../modules/vectorblock.html">vectorblock</a></li>
+  <li><strong>xprops</strong></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>xprops</code></h1>
+<p>Subset of methods, common to BoolMatrix and Matrix, that create expression objects.</p>
+<p> These operations are also provided to expression themselves, though in this case the
+ expression is copied to a new matrix and an expression is built from that.</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#MatrixXprOps:block">MatrixXprOps:block (a, b, c, d)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MatrixXprOps:bottomLeftCorner">MatrixXprOps:bottomLeftCorner (nrows, ncols)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MatrixXprOps:bottomRightCorner">MatrixXprOps:bottomRightCorner (nrows, ncols)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MatrixXprOps:bottomRows">MatrixXprOps:bottomRows (nrows)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MatrixXprOps:col">MatrixXprOps:col (col)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MatrixXprOps:diagonal">MatrixXprOps:diagonal (index)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MatrixXprOps:head">MatrixXprOps:head (n)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MatrixXprOps:leftCols">MatrixXprOps:leftCols (ncols)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MatrixXprOps:middleCols">MatrixXprOps:middleCols (c1, c2)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MatrixXprOps:middleRows">MatrixXprOps:middleRows (r1, r2)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MatrixXprOps:rightCols">MatrixXprOps:rightCols (ncols)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MatrixXprOps:row">MatrixXprOps:row (row)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MatrixXprOps:segment">MatrixXprOps:segment (pos, n)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MatrixXprOps:tail">MatrixXprOps:tail (n)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MatrixXprOps:topLeftCorner">MatrixXprOps:topLeftCorner (nrows, ncols)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MatrixXprOps:topRightCorner">MatrixXprOps:topRightCorner (nrows, ncols)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MatrixXprOps:topRows">MatrixXprOps:topRows (nrows)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "MatrixXprOps:block"></a>
+    <strong>MatrixXprOps:block (a, b, c, d)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">b</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">c</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">d</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Block</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MatrixXprOps:bottomLeftCorner"></a>
+    <strong>MatrixXprOps:bottomLeftCorner (nrows, ncols)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Block</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MatrixXprOps:bottomRightCorner"></a>
+    <strong>MatrixXprOps:bottomRightCorner (nrows, ncols)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Block</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MatrixXprOps:bottomRows"></a>
+    <strong>MatrixXprOps:bottomRows (nrows)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Block</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MatrixXprOps:col"></a>
+    <strong>MatrixXprOps:col (col)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">col</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Block</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MatrixXprOps:diagonal"></a>
+    <strong>MatrixXprOps:diagonal (index)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">index</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Diagonal</span></span>
+        D
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MatrixXprOps:head"></a>
+    <strong>MatrixXprOps:head (n)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">VectorBlock</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MatrixXprOps:leftCols"></a>
+    <strong>MatrixXprOps:leftCols (ncols)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Block</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MatrixXprOps:middleCols"></a>
+    <strong>MatrixXprOps:middleCols (c1, c2)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">c1</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">c2</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Block</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MatrixXprOps:middleRows"></a>
+    <strong>MatrixXprOps:middleRows (r1, r2)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">r1</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">r2</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Block</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MatrixXprOps:rightCols"></a>
+    <strong>MatrixXprOps:rightCols (ncols)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Block</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MatrixXprOps:row"></a>
+    <strong>MatrixXprOps:row (row)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">row</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Block</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MatrixXprOps:segment"></a>
+    <strong>MatrixXprOps:segment (pos, n)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">pos</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">VectorBlock</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MatrixXprOps:tail"></a>
+    <strong>MatrixXprOps:tail (n)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">VectorBlock</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MatrixXprOps:topLeftCorner"></a>
+    <strong>MatrixXprOps:topLeftCorner (nrows, ncols)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Block</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MatrixXprOps:topRightCorner"></a>
+    <strong>MatrixXprOps:topRightCorner (nrows, ncols)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Block</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MatrixXprOps:topRows"></a>
+    <strong>MatrixXprOps:topRows (nrows)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Block</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

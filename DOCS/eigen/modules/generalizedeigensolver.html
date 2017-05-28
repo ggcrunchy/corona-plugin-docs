@@ -48,12 +48,12 @@
   <li><a href="../modules/complexeigensolver.html">complexeigensolver</a></li>
   <li><a href="../modules/complexschur.html">complexschur</a></li>
   <li><a href="../modules/diagonal.html">diagonal</a></li>
-  <li><strong>eigen</strong></li>
+  <li><a href="../modules/eigen.html">eigen</a></li>
   <li><a href="../modules/eigensolver.html">eigensolver</a></li>
   <li><a href="../modules/eigentype.html">eigentype</a></li>
   <li><a href="../modules/fullpivhouseholderqr.html">fullpivhouseholderqr</a></li>
   <li><a href="../modules/fullpivlu.html">fullpivlu</a></li>
-  <li><a href="../modules/generalizedeigensolver.html">generalizedeigensolver</a></li>
+  <li><strong>generalizedeigensolver</strong></li>
   <li><a href="../modules/generalizedselfadjointeigensolver.html">generalizedselfadjointeigensolver</a></li>
   <li><a href="../modules/hessenbergdecomposition.html">hessenbergdecomposition</a></li>
   <li><a href="../modules/householderqr.html">householderqr</a></li>
@@ -81,16 +81,34 @@
 
 <div id="content">
 
-<h1>Module <code>eigen</code></h1>
-<p>Top-level Eigen functions.</p>
-<p> For per-type factories, see <a href="./eigentype.html">EigenType</a>.</p>
+<h1>Module <code>generalizedeigensolver</code></h1>
+<p>A data type embodying generalized eigensolver operations.</p>
+<p>
+
+</p>
 
 
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#WithCache">WithCache (func, ...)</a></td>
-	<td class="summary">DOCMEMORE: Call functions in a caching context, so matrices may be recycled</td>
+	<td class="name" nowrap><a href="#GeneralizedEigenSolver:alphas">GeneralizedEigenSolver:alphas ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#GeneralizedEigenSolver:betas">GeneralizedEigenSolver:betas ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#GeneralizedEigenSolver:eigenvalues">GeneralizedEigenSolver:eigenvalues ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#GeneralizedEigenSolver:eigenvectors">GeneralizedEigenSolver:eigenvectors ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#GeneralizedEigenSolver:setMaxIterations">GeneralizedEigenSolver:setMaxIterations (n)</a></td>
+	<td class="summary">DOCME</td>
 	</tr>
 </table>
 
@@ -101,27 +119,102 @@
     <h2><a name="Functions"></a>Functions</h2>
     <dl class="function">
     <dt>
-    <a name = "WithCache"></a>
-    <strong>WithCache (func, ...)</strong>
+    <a name = "GeneralizedEigenSolver:alphas"></a>
+    <strong>GeneralizedEigenSolver:alphas ()</strong>
     </dt>
     <dd>
-    DOCMEMORE: Call functions in a caching context, so matrices may be recycled
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        ac
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "GeneralizedEigenSolver:betas"></a>
+    <strong>GeneralizedEigenSolver:betas ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        b
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "GeneralizedEigenSolver:eigenvalues"></a>
+    <strong>GeneralizedEigenSolver:eigenvalues ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        ec
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "GeneralizedEigenSolver:eigenvectors"></a>
+    <strong>GeneralizedEigenSolver:eigenvectors ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        ec
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "GeneralizedEigenSolver:setMaxIterations"></a>
+    <strong>GeneralizedEigenSolver:setMaxIterations (n)</strong>
+    </dt>
+    <dd>
+    DOCME
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">func</span>
-            <span class="types"><span class="type">callable</span></span>
-         Body of function
-        </li>
-        <li><span class="parameter">...</span>
-         X Arguments
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-        ... Values to retain
+        Self, for method chaining.
     </ol>
 
 

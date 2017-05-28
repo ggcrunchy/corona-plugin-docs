@@ -1,0 +1,357 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Documentation</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Eigen</h1>
+
+<ul>
+  <li><a href="../api.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><strong>bdcsvd</strong></li>
+  <li><a href="../modules/block.html">block</a></li>
+  <li><a href="../modules/boolmatrix.html">boolmatrix</a></li>
+  <li><a href="../modules/choleskybase.html">choleskybase</a></li>
+  <li><a href="../modules/colpivhouseholderqr.html">colpivhouseholderqr</a></li>
+  <li><a href="../modules/commonwriteops.html">commonwriteops</a></li>
+  <li><a href="../modules/completeorthogonaldecomposition.html">completeorthogonaldecomposition</a></li>
+  <li><a href="../modules/complexeigensolver.html">complexeigensolver</a></li>
+  <li><a href="../modules/complexschur.html">complexschur</a></li>
+  <li><a href="../modules/diagonal.html">diagonal</a></li>
+  <li><a href="../modules/eigen.html">eigen</a></li>
+  <li><a href="../modules/eigensolver.html">eigensolver</a></li>
+  <li><a href="../modules/eigentype.html">eigentype</a></li>
+  <li><a href="../modules/fullpivhouseholderqr.html">fullpivhouseholderqr</a></li>
+  <li><a href="../modules/fullpivlu.html">fullpivlu</a></li>
+  <li><a href="../modules/generalizedeigensolver.html">generalizedeigensolver</a></li>
+  <li><a href="../modules/generalizedselfadjointeigensolver.html">generalizedselfadjointeigensolver</a></li>
+  <li><a href="../modules/hessenbergdecomposition.html">hessenbergdecomposition</a></li>
+  <li><a href="../modules/householderqr.html">householderqr</a></li>
+  <li><a href="../modules/jacobisvd.html">jacobisvd</a></li>
+  <li><a href="../modules/ldlt.html">ldlt</a></li>
+  <li><a href="../modules/llt.html">llt</a></li>
+  <li><a href="../modules/map.html">map</a></li>
+  <li><a href="../modules/matrix.html">matrix</a></li>
+  <li><a href="../modules/numericalwriteops.html">numericalwriteops</a></li>
+  <li><a href="../modules/partialpivlu.html">partialpivlu</a></li>
+  <li><a href="../modules/qrbase.html">qrbase</a></li>
+  <li><a href="../modules/qrextensions.html">qrextensions</a></li>
+  <li><a href="../modules/realqz.html">realqz</a></li>
+  <li><a href="../modules/realschur.html">realschur</a></li>
+  <li><a href="../modules/selfadjointeigensolver.html">selfadjointeigensolver</a></li>
+  <li><a href="../modules/selfadjointview.html">selfadjointview</a></li>
+  <li><a href="../modules/transpose.html">transpose</a></li>
+  <li><a href="../modules/triangularview.html">triangularview</a></li>
+  <li><a href="../modules/tridiagonalization.html">tridiagonalization</a></li>
+  <li><a href="../modules/vectorblock.html">vectorblock</a></li>
+  <li><a href="../modules/xprops.html">xprops</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>bdcsvd</code></h1>
+<p>A data type embodying bidiagonal divide-and-conquer SVD operations.</p>
+<p>
+
+</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#BDCSVD:computeU">BDCSVD:computeU ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#BDCSVD:computeV">BDCSVD:computeV ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#BDCSVD:matrixU">BDCSVD:matrixU ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#BDCSVD:matrixV">BDCSVD:matrixV ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#BDCSVD:nonzeroSingularValues">BDCSVD:nonzeroSingularValues ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#BDCSVD:rank">BDCSVD:rank ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#BDCSVD:setThreshold">BDCSVD:setThreshold (Default)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#BDCSVD:singularValues">BDCSVD:singularValues ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#BDCSVD:solve">BDCSVD:solve (B)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#BDCSVD:threshold">BDCSVD:threshold ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "BDCSVD:computeU"></a>
+    <strong>BDCSVD:computeU ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        CU
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "BDCSVD:computeV"></a>
+    <strong>BDCSVD:computeV ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        CV
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "BDCSVD:matrixU"></a>
+    <strong>BDCSVD:matrixU ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        U
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "BDCSVD:matrixV"></a>
+    <strong>BDCSVD:matrixV ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        V
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "BDCSVD:nonzeroSingularValues"></a>
+    <strong>BDCSVD:nonzeroSingularValues ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        n
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "BDCSVD:rank"></a>
+    <strong>BDCSVD:rank ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        R
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "BDCSVD:setThreshold"></a>
+    <strong>BDCSVD:setThreshold (Default)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">Default</span>
+            <span class="types"><span class="type">number</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        ")
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">BDCSVD</span></span>
+        self
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "BDCSVD:singularValues"></a>
+    <strong>BDCSVD:singularValues ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        SV
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "BDCSVD:solve"></a>
+    <strong>BDCSVD:solve (B)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">B</span>
+            <span class="types"><span class="type">Matrix</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        X
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "BDCSVD:threshold"></a>
+    <strong>BDCSVD:threshold ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        t
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

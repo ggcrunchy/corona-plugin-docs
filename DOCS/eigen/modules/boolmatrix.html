@@ -38,9 +38,43 @@
 
 <h2>Modules</h2>
 <ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../modules/bdcsvd.html">bdcsvd</a></li>
+  <li><a href="../modules/block.html">block</a></li>
   <li><strong>boolmatrix</strong></li>
+  <li><a href="../modules/choleskybase.html">choleskybase</a></li>
+  <li><a href="../modules/colpivhouseholderqr.html">colpivhouseholderqr</a></li>
+  <li><a href="../modules/commonwriteops.html">commonwriteops</a></li>
+  <li><a href="../modules/completeorthogonaldecomposition.html">completeorthogonaldecomposition</a></li>
+  <li><a href="../modules/complexeigensolver.html">complexeigensolver</a></li>
+  <li><a href="../modules/complexschur.html">complexschur</a></li>
+  <li><a href="../modules/diagonal.html">diagonal</a></li>
   <li><a href="../modules/eigen.html">eigen</a></li>
+  <li><a href="../modules/eigensolver.html">eigensolver</a></li>
+  <li><a href="../modules/eigentype.html">eigentype</a></li>
+  <li><a href="../modules/fullpivhouseholderqr.html">fullpivhouseholderqr</a></li>
+  <li><a href="../modules/fullpivlu.html">fullpivlu</a></li>
+  <li><a href="../modules/generalizedeigensolver.html">generalizedeigensolver</a></li>
+  <li><a href="../modules/generalizedselfadjointeigensolver.html">generalizedselfadjointeigensolver</a></li>
+  <li><a href="../modules/hessenbergdecomposition.html">hessenbergdecomposition</a></li>
+  <li><a href="../modules/householderqr.html">householderqr</a></li>
+  <li><a href="../modules/jacobisvd.html">jacobisvd</a></li>
+  <li><a href="../modules/ldlt.html">ldlt</a></li>
+  <li><a href="../modules/llt.html">llt</a></li>
+  <li><a href="../modules/map.html">map</a></li>
   <li><a href="../modules/matrix.html">matrix</a></li>
+  <li><a href="../modules/numericalwriteops.html">numericalwriteops</a></li>
+  <li><a href="../modules/partialpivlu.html">partialpivlu</a></li>
+  <li><a href="../modules/qrbase.html">qrbase</a></li>
+  <li><a href="../modules/qrextensions.html">qrextensions</a></li>
+  <li><a href="../modules/realqz.html">realqz</a></li>
+  <li><a href="../modules/realschur.html">realschur</a></li>
+  <li><a href="../modules/selfadjointeigensolver.html">selfadjointeigensolver</a></li>
+  <li><a href="../modules/selfadjointview.html">selfadjointview</a></li>
+  <li><a href="../modules/transpose.html">transpose</a></li>
+  <li><a href="../modules/triangularview.html">triangularview</a></li>
+  <li><a href="../modules/tridiagonalization.html">tridiagonalization</a></li>
+  <li><a href="../modules/vectorblock.html">vectorblock</a></li>
+  <li><a href="../modules/xprops.html">xprops</a></li>
 </ul>
 
 </div>
@@ -49,9 +83,7 @@
 
 <h1>Module <code>boolmatrix</code></h1>
 <p>A data type returned by various matrix predicate operations.</p>
-<p>
-
-</p>
+<p> Inherits from <a href="./commonwriteops.html">CommonWriteOps</a> and <a href="./xprops.html">XprOps</a>.</p>
 
 
 <h2><a href="#Functions">Functions</a></h2>
@@ -63,6 +95,14 @@
 	<tr>
 	<td class="name" nowrap><a href="#BoolMatrix:any">BoolMatrix:any (how)</a></td>
 	<td class="summary">Are any entries true?</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#BoolMatrix:band">BoolMatrix:band (other)</a></td>
+	<td class="summary">Boolean and of the two matrices.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#BoolMatrix:bor">BoolMatrix:bor (other)</a></td>
+	<td class="summary">Boolean or of the two matrices.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#BoolMatrix:__call">BoolMatrix:__call (_row_, _col_)</a></td>
@@ -85,7 +125,7 @@
 	<td class="summary">Getter.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#BoolMatrix:select">BoolMatrix:select (then, else)</a></td>
+	<td class="name" nowrap><a href="#BoolMatrix:select">BoolMatrix:select (then_source, else_source)</a></td>
 	<td class="summary">Given two matrices, or a matrix-scalar pair (where the scalar is interpreted as a
  constant matrix matching its partner in shape), goes through this matrix's coefficents,
  building up a new output matrix.</td>
@@ -169,6 +209,62 @@
 
 </dd>
     <dt>
+    <a name = "BoolMatrix:band"></a>
+    <strong>BoolMatrix:band (other)</strong>
+    </dt>
+    <dd>
+    Boolean and of the two matrices.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">other</span>
+            <span class="types"><span class="type">BoolMatrix</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">BoolMatrix</span></span>
+        res
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "BoolMatrix:bor"></a>
+    <strong>BoolMatrix:bor (other)</strong>
+    </dt>
+    <dd>
+    Boolean or of the two matrices.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">other</span>
+            <span class="types"><span class="type">BoolMatrix</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">BoolMatrix</span></span>
+        res
+    </ol>
+
+
+
+
+</dd>
+    <dt>
     <a name = "BoolMatrix:__call"></a>
     <strong>BoolMatrix:__call (_row_, _col_)</strong>
     </dt>
@@ -176,7 +272,6 @@
     Metamethod. </p>
 
 <p> Fetch the coefficient at the given row and column (or offset for vectors).
- TODO: should make 1-based?
 
     <h3>Parameters:</h3>
     <ul>
@@ -281,24 +376,24 @@
 </dd>
     <dt>
     <a name = "BoolMatrix:select"></a>
-    <strong>BoolMatrix:select (then, else)</strong>
+    <strong>BoolMatrix:select (then_source, else_source)</strong>
     </dt>
     <dd>
     Given two matrices, or a matrix-scalar pair (where the scalar is interpreted as a
  constant matrix matching its partner in shape), goes through this matrix's coefficents,
  building up a new output matrix.  Any <strong>true</strong> coefficient results in the corresponding
- entry coming from <em>then</em>, otherwise from <em>else</em>.
+ entry coming from <em>then_source</em>, otherwise from <em>else_source</em>.
  TODO: If both matrices, then and else must have same shape?
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">then</span>
+        <li><span class="parameter">then_source</span>
             <span class="types"><span class="type">Matrix</span> or <span class="type">Scalar</span></span>
 
 
 
         </li>
-        <li><span class="parameter">else</span>
+        <li><span class="parameter">else_source</span>
             <span class="types"><span class="type">Matrix</span> or <span class="type">Scalar</span></span>
 
 

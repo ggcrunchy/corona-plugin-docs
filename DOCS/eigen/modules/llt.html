@@ -48,7 +48,7 @@
   <li><a href="../modules/complexeigensolver.html">complexeigensolver</a></li>
   <li><a href="../modules/complexschur.html">complexschur</a></li>
   <li><a href="../modules/diagonal.html">diagonal</a></li>
-  <li><strong>eigen</strong></li>
+  <li><a href="../modules/eigen.html">eigen</a></li>
   <li><a href="../modules/eigensolver.html">eigensolver</a></li>
   <li><a href="../modules/eigentype.html">eigentype</a></li>
   <li><a href="../modules/fullpivhouseholderqr.html">fullpivhouseholderqr</a></li>
@@ -59,7 +59,7 @@
   <li><a href="../modules/householderqr.html">householderqr</a></li>
   <li><a href="../modules/jacobisvd.html">jacobisvd</a></li>
   <li><a href="../modules/ldlt.html">ldlt</a></li>
-  <li><a href="../modules/llt.html">llt</a></li>
+  <li><strong>llt</strong></li>
   <li><a href="../modules/map.html">map</a></li>
   <li><a href="../modules/matrix.html">matrix</a></li>
   <li><a href="../modules/numericalwriteops.html">numericalwriteops</a></li>
@@ -81,16 +81,16 @@
 
 <div id="content">
 
-<h1>Module <code>eigen</code></h1>
-<p>Top-level Eigen functions.</p>
-<p> For per-type factories, see <a href="./eigentype.html">EigenType</a>.</p>
+<h1>Module <code>llt</code></h1>
+<p>A data type embodying LLT Cholesky operations.</p>
+<p> In addition to the methods listed below, this also contains those listed in <a href="./choleskybase.html">CholeskyBase</a>.</p>
 
 
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#WithCache">WithCache (func, ...)</a></td>
-	<td class="summary">DOCMEMORE: Call functions in a caching context, so matrices may be recycled</td>
+	<td class="name" nowrap><a href="#LLT:matrixLLT">LLT:matrixLLT ()</a></td>
+	<td class="summary">DOCMEMORE</td>
 	</tr>
 </table>
 
@@ -101,27 +101,18 @@
     <h2><a name="Functions"></a>Functions</h2>
     <dl class="function">
     <dt>
-    <a name = "WithCache"></a>
-    <strong>WithCache (func, ...)</strong>
+    <a name = "LLT:matrixLLT"></a>
+    <strong>LLT:matrixLLT ()</strong>
     </dt>
     <dd>
-    DOCMEMORE: Call functions in a caching context, so matrices may be recycled
+    DOCMEMORE
 
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">func</span>
-            <span class="types"><span class="type">callable</span></span>
-         Body of function
-        </li>
-        <li><span class="parameter">...</span>
-         X Arguments
-        </li>
-    </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-        ... Values to retain
+           <span class="types"><span class="type">Matrix</span></span>
+        LLT
     </ol>
 
 

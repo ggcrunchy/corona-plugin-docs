@@ -31,9 +31,43 @@
 
 <h2>Modules</h2>
 <ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="modules/bdcsvd.html">bdcsvd</a></li>
+  <li><a href="modules/block.html">block</a></li>
   <li><a href="modules/boolmatrix.html">boolmatrix</a></li>
+  <li><a href="modules/choleskybase.html">choleskybase</a></li>
+  <li><a href="modules/colpivhouseholderqr.html">colpivhouseholderqr</a></li>
+  <li><a href="modules/commonwriteops.html">commonwriteops</a></li>
+  <li><a href="modules/completeorthogonaldecomposition.html">completeorthogonaldecomposition</a></li>
+  <li><a href="modules/complexeigensolver.html">complexeigensolver</a></li>
+  <li><a href="modules/complexschur.html">complexschur</a></li>
+  <li><a href="modules/diagonal.html">diagonal</a></li>
   <li><a href="modules/eigen.html">eigen</a></li>
+  <li><a href="modules/eigensolver.html">eigensolver</a></li>
+  <li><a href="modules/eigentype.html">eigentype</a></li>
+  <li><a href="modules/fullpivhouseholderqr.html">fullpivhouseholderqr</a></li>
+  <li><a href="modules/fullpivlu.html">fullpivlu</a></li>
+  <li><a href="modules/generalizedeigensolver.html">generalizedeigensolver</a></li>
+  <li><a href="modules/generalizedselfadjointeigensolver.html">generalizedselfadjointeigensolver</a></li>
+  <li><a href="modules/hessenbergdecomposition.html">hessenbergdecomposition</a></li>
+  <li><a href="modules/householderqr.html">householderqr</a></li>
+  <li><a href="modules/jacobisvd.html">jacobisvd</a></li>
+  <li><a href="modules/ldlt.html">ldlt</a></li>
+  <li><a href="modules/llt.html">llt</a></li>
+  <li><a href="modules/map.html">map</a></li>
   <li><a href="modules/matrix.html">matrix</a></li>
+  <li><a href="modules/numericalwriteops.html">numericalwriteops</a></li>
+  <li><a href="modules/partialpivlu.html">partialpivlu</a></li>
+  <li><a href="modules/qrbase.html">qrbase</a></li>
+  <li><a href="modules/qrextensions.html">qrextensions</a></li>
+  <li><a href="modules/realqz.html">realqz</a></li>
+  <li><a href="modules/realschur.html">realschur</a></li>
+  <li><a href="modules/selfadjointeigensolver.html">selfadjointeigensolver</a></li>
+  <li><a href="modules/selfadjointview.html">selfadjointview</a></li>
+  <li><a href="modules/transpose.html">transpose</a></li>
+  <li><a href="modules/triangularview.html">triangularview</a></li>
+  <li><a href="modules/tridiagonalization.html">tridiagonalization</a></li>
+  <li><a href="modules/vectorblock.html">vectorblock</a></li>
+  <li><a href="modules/xprops.html">xprops</a></li>
 </ul>
 
 </div>
@@ -58,19 +92,156 @@
 <h2>Modules</h2>
 <table class="module_list">
 	<tr>
+		<td class="name"  nowrap><a href="modules/bdcsvd.html">bdcsvd</a></td>
+		<td class="summary">A data type embodying bidiagonal divide-and-conquer SVD operations.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/block.html">block</a></td>
+		<td class="summary">A block expression derived from a matrix.</td>
+	</tr>
+	<tr>
 		<td class="name"  nowrap><a href="modules/boolmatrix.html">boolmatrix</a></td>
 		<td class="summary">A data type returned by various matrix predicate operations.</td>
 	</tr>
 	<tr>
+		<td class="name"  nowrap><a href="modules/choleskybase.html">choleskybase</a></td>
+		<td class="summary">Methods common to all Cholesky solvers.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/colpivhouseholderqr.html">colpivhouseholderqr</a></td>
+		<td class="summary">A data type embodying column-pivot Householder QR operations.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/commonwriteops.html">commonwriteops</a></td>
+		<td class="summary">Subset of methods common to BoolMatrix and Matrix proper, as well as some expressions, that
+ modify the object.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/completeorthogonaldecomposition.html">completeorthogonaldecomposition</a></td>
+		<td class="summary">A data type embodying complete orthogonal decomposition QR operations.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/complexeigensolver.html">complexeigensolver</a></td>
+		<td class="summary">A data type embodying complex eigensolver operations.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/complexschur.html">complexschur</a></td>
+		<td class="summary">A data type embodying complex Schur operations.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/diagonal.html">diagonal</a></td>
+		<td class="summary">A diagonal expression derived from a matrix.</td>
+	</tr>
+	<tr>
 		<td class="name"  nowrap><a href="modules/eigen.html">eigen</a></td>
+		<td class="summary">Top-level Eigen functions.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/eigensolver.html">eigensolver</a></td>
+		<td class="summary">A data type embodying eigensolver operations.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/eigentype.html">eigentype</a></td>
 		<td class="summary">The Eigen plugin is divided into five namespaces, according to the underlying data type:
  <strong>int</strong> (signed integers), <strong>float</strong> (single-precision float), <strong>double</strong> (double-precision
  float), <strong>cfloat</strong> (single-precision complex number), and <strong>cdouble</strong> (double-precision
  complex number).</td>
 	</tr>
 	<tr>
+		<td class="name"  nowrap><a href="modules/fullpivhouseholderqr.html">fullpivhouseholderqr</a></td>
+		<td class="summary">A data type embodying full-pivot Householder QR operations.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/fullpivlu.html">fullpivlu</a></td>
+		<td class="summary">A data type embodying full-pivot LU operations.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/generalizedeigensolver.html">generalizedeigensolver</a></td>
+		<td class="summary">A data type embodying generalized eigensolver operations.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/generalizedselfadjointeigensolver.html">generalizedselfadjointeigensolver</a></td>
+		<td class="summary">A data type embodying generalized self-adjoint eigensolver operations.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/hessenbergdecomposition.html">hessenbergdecomposition</a></td>
+		<td class="summary">A data type embodying Hessenberg decompositions.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/householderqr.html">householderqr</a></td>
+		<td class="summary">A data type embodying Householder QR operations.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/jacobisvd.html">jacobisvd</a></td>
+		<td class="summary">A data type embodying Jacobi SVD operations.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/ldlt.html">ldlt</a></td>
+		<td class="summary">A data type embodying LDLT Cholesky operations.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/llt.html">llt</a></td>
+		<td class="summary">A data type embodying LLT Cholesky operations.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/map.html">map</a></td>
+		<td class="summary">A map over a matrix type.</td>
+	</tr>
+	<tr>
 		<td class="name"  nowrap><a href="modules/matrix.html">matrix</a></td>
 		<td class="summary">Wrapper over Eigen's matrices.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/numericalwriteops.html">numericalwriteops</a></td>
+		<td class="summary">Subset of methods, common to Matrix and some expressions, that change the object via numerical operations.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/partialpivlu.html">partialpivlu</a></td>
+		<td class="summary">A data type embodying partial-pivot LU operations.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/qrbase.html">qrbase</a></td>
+		<td class="summary">Methods common to all QR solvers.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/qrextensions.html">qrextensions</a></td>
+		<td class="summary">Methods common to a few QR solvers and occuring elsewhere as well.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/realqz.html">realqz</a></td>
+		<td class="summary">A data type embodying real QZ operations.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/realschur.html">realschur</a></td>
+		<td class="summary">A data type embodying real Schur operations.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/selfadjointeigensolver.html">selfadjointeigensolver</a></td>
+		<td class="summary">A data type embodying self-adjoint eigensolver operations.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/selfadjointview.html">selfadjointview</a></td>
+		<td class="summary">A self-adjoint view of a matrix.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/transpose.html">transpose</a></td>
+		<td class="summary">A transposed matrix.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/triangularview.html">triangularview</a></td>
+		<td class="summary">A triangular view of a matrix.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/tridiagonalization.html">tridiagonalization</a></td>
+		<td class="summary">A data type embodying a tridiagonalization.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/vectorblock.html">vectorblock</a></td>
+		<td class="summary">A vector block expression derived from a matrix.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/xprops.html">xprops</a></td>
+		<td class="summary">Subset of methods, common to BoolMatrix and Matrix, that create expression objects.</td>
 	</tr>
 </table>
 

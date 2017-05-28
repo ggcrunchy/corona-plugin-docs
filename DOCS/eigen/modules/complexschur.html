@@ -46,9 +46,9 @@
   <li><a href="../modules/commonwriteops.html">commonwriteops</a></li>
   <li><a href="../modules/completeorthogonaldecomposition.html">completeorthogonaldecomposition</a></li>
   <li><a href="../modules/complexeigensolver.html">complexeigensolver</a></li>
-  <li><a href="../modules/complexschur.html">complexschur</a></li>
+  <li><strong>complexschur</strong></li>
   <li><a href="../modules/diagonal.html">diagonal</a></li>
-  <li><strong>eigen</strong></li>
+  <li><a href="../modules/eigen.html">eigen</a></li>
   <li><a href="../modules/eigensolver.html">eigensolver</a></li>
   <li><a href="../modules/eigentype.html">eigentype</a></li>
   <li><a href="../modules/fullpivhouseholderqr.html">fullpivhouseholderqr</a></li>
@@ -81,16 +81,34 @@
 
 <div id="content">
 
-<h1>Module <code>eigen</code></h1>
-<p>Top-level Eigen functions.</p>
-<p> For per-type factories, see <a href="./eigentype.html">EigenType</a>.</p>
+<h1>Module <code>complexschur</code></h1>
+<p>A data type embodying complex Schur operations.</p>
+<p>
+
+</p>
 
 
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#WithCache">WithCache (func, ...)</a></td>
-	<td class="summary">DOCMEMORE: Call functions in a caching context, so matrices may be recycled</td>
+	<td class="name" nowrap><a href="#ComplexSchur:getMaxIterations">ComplexSchur:getMaxIterations ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ComplexSchur:info">ComplexSchur:info ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ComplexSchur:matrixT">ComplexSchur:matrixT ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ComplexSchur:matrixU">ComplexSchur:matrixU ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ComplexSchur:setMaxIterations">ComplexSchur:setMaxIterations (n)</a></td>
+	<td class="summary">DOCMEMORE</td>
 	</tr>
 </table>
 
@@ -101,27 +119,103 @@
     <h2><a name="Functions"></a>Functions</h2>
     <dl class="function">
     <dt>
-    <a name = "WithCache"></a>
-    <strong>WithCache (func, ...)</strong>
+    <a name = "ComplexSchur:getMaxIterations"></a>
+    <strong>ComplexSchur:getMaxIterations ()</strong>
     </dt>
     <dd>
-    DOCMEMORE: Call functions in a caching context, so matrices may be recycled
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        MI
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ComplexSchur:info"></a>
+    <strong>ComplexSchur:info ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ComplexSchur:matrixT"></a>
+    <strong>ComplexSchur:matrixT ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        T
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ComplexSchur:matrixU"></a>
+    <strong>ComplexSchur:matrixU ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        U
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ComplexSchur:setMaxIterations"></a>
+    <strong>ComplexSchur:setMaxIterations (n)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">func</span>
-            <span class="types"><span class="type">callable</span></span>
-         Body of function
-        </li>
-        <li><span class="parameter">...</span>
-         X Arguments
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-        ... Values to retain
+           <span class="types"><span class="type">ComplexSchur</span></span>
+        self
     </ol>
 
 

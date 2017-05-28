@@ -48,7 +48,7 @@
   <li><a href="../modules/complexeigensolver.html">complexeigensolver</a></li>
   <li><a href="../modules/complexschur.html">complexschur</a></li>
   <li><a href="../modules/diagonal.html">diagonal</a></li>
-  <li><strong>eigen</strong></li>
+  <li><a href="../modules/eigen.html">eigen</a></li>
   <li><a href="../modules/eigensolver.html">eigensolver</a></li>
   <li><a href="../modules/eigentype.html">eigentype</a></li>
   <li><a href="../modules/fullpivhouseholderqr.html">fullpivhouseholderqr</a></li>
@@ -65,7 +65,7 @@
   <li><a href="../modules/numericalwriteops.html">numericalwriteops</a></li>
   <li><a href="../modules/partialpivlu.html">partialpivlu</a></li>
   <li><a href="../modules/qrbase.html">qrbase</a></li>
-  <li><a href="../modules/qrextensions.html">qrextensions</a></li>
+  <li><strong>qrextensions</strong></li>
   <li><a href="../modules/realqz.html">realqz</a></li>
   <li><a href="../modules/realschur.html">realschur</a></li>
   <li><a href="../modules/selfadjointeigensolver.html">selfadjointeigensolver</a></li>
@@ -81,16 +81,46 @@
 
 <div id="content">
 
-<h1>Module <code>eigen</code></h1>
-<p>Top-level Eigen functions.</p>
-<p> For per-type factories, see <a href="./eigentype.html">EigenType</a>.</p>
+<h1>Module <code>qrextensions</code></h1>
+<p>Methods common to a few QR solvers and occuring elsewhere as well.</p>
+<p>
+
+</p>
 
 
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#WithCache">WithCache (func, ...)</a></td>
-	<td class="summary">DOCMEMORE: Call functions in a caching context, so matrices may be recycled</td>
+	<td class="name" nowrap><a href="#QRExtensions:isInjective">QRExtensions:isInjective ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#QRExtensions:isInvertible">QRExtensions:isInvertible ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#QRExtensions:isSurjective">QRExtensions:isSurjective ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#QRExtensions:maxPivot">QRExtensions:maxPivot ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#QRExtensions:nonzeroPivots">QRExtensions:nonzeroPivots ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#QRExtensions:rank">QRExtensions:rank ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#QRExtensions:setThreshold">QRExtensions:setThreshold (Default)</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#QRExtensions:threshold">QRExtensions:threshold ()</a></td>
+	<td class="summary">DOCME</td>
 	</tr>
 </table>
 
@@ -101,27 +131,158 @@
     <h2><a name="Functions"></a>Functions</h2>
     <dl class="function">
     <dt>
-    <a name = "WithCache"></a>
-    <strong>WithCache (func, ...)</strong>
+    <a name = "QRExtensions:isInjective"></a>
+    <strong>QRExtensions:isInjective ()</strong>
     </dt>
     <dd>
-    DOCMEMORE: Call functions in a caching context, so matrices may be recycled
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        is
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "QRExtensions:isInvertible"></a>
+    <strong>QRExtensions:isInvertible ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        is
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "QRExtensions:isSurjective"></a>
+    <strong>QRExtensions:isSurjective ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        is
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "QRExtensions:maxPivot"></a>
+    <strong>QRExtensions:maxPivot ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        mp
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "QRExtensions:nonzeroPivots"></a>
+    <strong>QRExtensions:nonzeroPivots ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        n
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "QRExtensions:rank"></a>
+    <strong>QRExtensions:rank ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        n
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "QRExtensions:setThreshold"></a>
+    <strong>QRExtensions:setThreshold (Default)</strong>
+    </dt>
+    <dd>
+    DOCME
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">func</span>
-            <span class="types"><span class="type">callable</span></span>
-         Body of function
-        </li>
-        <li><span class="parameter">...</span>
-         X Arguments
+        <li><span class="parameter">Default</span>
+            <span class="types"><span class="type">number</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        ")
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-        ... Values to retain
+           <span class="types"><span class="type">QRExtensions</span></span>
+        self
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "QRExtensions:threshold"></a>
+    <strong>QRExtensions:threshold ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        t
     </ol>
 
 

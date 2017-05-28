@@ -38,9 +38,43 @@
 
 <h2>Modules</h2>
 <ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../modules/bdcsvd.html">bdcsvd</a></li>
+  <li><a href="../modules/block.html">block</a></li>
   <li><a href="../modules/boolmatrix.html">boolmatrix</a></li>
+  <li><a href="../modules/choleskybase.html">choleskybase</a></li>
+  <li><a href="../modules/colpivhouseholderqr.html">colpivhouseholderqr</a></li>
+  <li><a href="../modules/commonwriteops.html">commonwriteops</a></li>
+  <li><a href="../modules/completeorthogonaldecomposition.html">completeorthogonaldecomposition</a></li>
+  <li><a href="../modules/complexeigensolver.html">complexeigensolver</a></li>
+  <li><a href="../modules/complexschur.html">complexschur</a></li>
+  <li><a href="../modules/diagonal.html">diagonal</a></li>
   <li><a href="../modules/eigen.html">eigen</a></li>
+  <li><a href="../modules/eigensolver.html">eigensolver</a></li>
+  <li><a href="../modules/eigentype.html">eigentype</a></li>
+  <li><a href="../modules/fullpivhouseholderqr.html">fullpivhouseholderqr</a></li>
+  <li><a href="../modules/fullpivlu.html">fullpivlu</a></li>
+  <li><a href="../modules/generalizedeigensolver.html">generalizedeigensolver</a></li>
+  <li><a href="../modules/generalizedselfadjointeigensolver.html">generalizedselfadjointeigensolver</a></li>
+  <li><a href="../modules/hessenbergdecomposition.html">hessenbergdecomposition</a></li>
+  <li><a href="../modules/householderqr.html">householderqr</a></li>
+  <li><a href="../modules/jacobisvd.html">jacobisvd</a></li>
+  <li><a href="../modules/ldlt.html">ldlt</a></li>
+  <li><a href="../modules/llt.html">llt</a></li>
+  <li><a href="../modules/map.html">map</a></li>
   <li><strong>matrix</strong></li>
+  <li><a href="../modules/numericalwriteops.html">numericalwriteops</a></li>
+  <li><a href="../modules/partialpivlu.html">partialpivlu</a></li>
+  <li><a href="../modules/qrbase.html">qrbase</a></li>
+  <li><a href="../modules/qrextensions.html">qrextensions</a></li>
+  <li><a href="../modules/realqz.html">realqz</a></li>
+  <li><a href="../modules/realschur.html">realschur</a></li>
+  <li><a href="../modules/selfadjointeigensolver.html">selfadjointeigensolver</a></li>
+  <li><a href="../modules/selfadjointview.html">selfadjointview</a></li>
+  <li><a href="../modules/transpose.html">transpose</a></li>
+  <li><a href="../modules/triangularview.html">triangularview</a></li>
+  <li><a href="../modules/tridiagonalization.html">tridiagonalization</a></li>
+  <li><a href="../modules/vectorblock.html">vectorblock</a></li>
+  <li><a href="../modules/xprops.html">xprops</a></li>
 </ul>
 
 </div>
@@ -49,13 +83,20 @@
 
 <h1>Module <code>matrix</code></h1>
 <p>Wrapper over Eigen's matrices.</p>
-<p>
-
-</p>
+<p> In addition to those listed below, matrices have those methods listed in <a href="./commonwriteops.html">CommonWriteOps</a>,
+ <a href="./numericalwriteops.html">NumericalWriteOps</a>, and <a href="./xprops.html">XprOps</a>.</p>
 
 
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:acos">Matrix:acos ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:add">Matrix:add (B, vectorwise)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Matrix:__add">Matrix:__add ()</a></td>
 	<td class="summary">Metamethod
@@ -63,10 +104,6 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Matrix:adjoint">Matrix:adjoint ()</a></td>
-	<td class="summary">DOCMEMORE</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Matrix:adjointInPlace">Matrix:adjointInPlace ()</a></td>
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
@@ -78,7 +115,15 @@
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Matrix:acos">Matrix:acos ()</a></td>
+	<td class="name" nowrap><a href="#Matrix:asDiagonal">Matrix:asDiagonal ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:asMatrix">Matrix:asMatrix ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:asPermutation">Matrix:asPermutation ()</a></td>
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
@@ -86,11 +131,11 @@
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Matrix:assign">Matrix:assign (Y)</a></td>
+	<td class="name" nowrap><a href="#Matrix:atan">Matrix:atan ()</a></td>
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Matrix:atan">Matrix:atan ()</a></td>
+	<td class="name" nowrap><a href="#Matrix:bdcSvd">Matrix:bdcSvd ([opts])</a></td>
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
@@ -98,69 +143,12 @@
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Matrix:block">Matrix:block (a, b, c, d)</a></td>
-	<td class="summary">DOCMEMORE</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Matrix:blockAssign">Matrix:blockAssign (rhs, a, b, c, d)</a></td>
-	<td class="summary">DOCMEMORE</td>
-	</tr>
-	<tr>
 	<td class="name" nowrap><a href="#Matrix:blueNorm">Matrix:blueNorm ()</a></td>
-	<td class="summary">DOCMEMORE</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Matrix:bottomLeftCorner">Matrix:bottomLeftCorner (nrows, ncols)</a></td>
-	<td class="summary">DOCMEMORE</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Matrix:bottomLeftCornerAssign">Matrix:bottomLeftCornerAssign (rhs, nrows, ncols)</a></td>
-	<td class="summary">DOCMEMORE</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Matrix:bottomRightCorner">Matrix:bottomRightCorner (nrows, ncols)</a></td>
-	<td class="summary">DOCMEMORE</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Matrix:bottomRightCornerAssign">Matrix:bottomRightCornerAssign (rhs, nrows, ncols)</a></td>
-	<td class="summary">DOCMEMORE</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Matrix:bottomRows">Matrix:bottomRows (nrows)</a></td>
-	<td class="summary">DOCMEMORE</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Matrix:bottomRowsAssign">Matrix:bottomRowsAssign (rhs, nrows)</a></td>
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Matrix:__call">Matrix:__call (row, col)</a></td>
 	<td class="summary">DOCMEMORE</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Matrix:coeffAssign">Matrix:coeffAssign (x, row, col)</a></td>
-	<td class="summary">DOCMEMORE</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Matrix:col">Matrix:col (_col_)</a></td>
-	<td class="summary">DOCMEMORE</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Matrix:conjugate">Matrix:conjugate ()</a></td>
-	<td class="summary">DOCMEMORE</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Matrix:conservativeResize">Matrix:conservativeResize (_nrows_, _ncols_)</a></td>
-	<td class="summary">DOCMEMORE</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Matrix:conservativeResizeLike">Matrix:conservativeResizeLike (other)</a></td>
-	<td class="summary">DOCMEMORE</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Matrix:__div">Matrix:__div ()</a></td>
-	<td class="summary">Metamethod
- RHS may be matrix / scalar combo</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Matrix:cast">Matrix:cast (type)</a></td>
@@ -171,11 +159,31 @@
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#Matrix:colPivHouseholderQr">Matrix:colPivHouseholderQr ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#Matrix:cols">Matrix:cols ()</a></td>
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Matrix:colStride">Matrix:colStride ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:completeOrthogonalDecomposition">Matrix:completeOrthogonalDecomposition ()</a></td>
+	<td class="summary">DOCEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:conjugate">Matrix:conjugate ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:conservativeResize">Matrix:conservativeResize (nrows, ncols)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:conservativeResizeLike">Matrix:conservativeResizeLike (other)</a></td>
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
@@ -251,11 +259,11 @@
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Matrix:determinant">Matrix:determinant ()</a></td>
+	<td class="name" nowrap><a href="#Matrix:data">Matrix:data ()</a></td>
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Matrix:data">Matrix:data ()</a></td>
+	<td class="name" nowrap><a href="#Matrix:determinant">Matrix:determinant ()</a></td>
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
@@ -263,7 +271,16 @@
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#Matrix:__div">Matrix:__div ()</a></td>
+	<td class="summary">Metamethod
+ RHS may be matrix / scalar combo</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#Matrix:dot">Matrix:dot (other)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:eigenSolver">Matrix:eigenSolver (N)</a></td>
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
@@ -271,11 +288,23 @@
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Matrix:fill">Matrix:fill (s)</a></td>
+	<td class="name" nowrap><a href="#Matrix:floor">Matrix:floor ()</a></td>
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Matrix:floor">Matrix:floor ()</a></td>
+	<td class="name" nowrap><a href="#Matrix:fullPivHouseholderQr">Matrix:fullPivHouseholderQr ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:fullPivLu">Matrix:fullPivLu ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:generalizedEigenSolver">Matrix:generalizedEigenSolver (R, N)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:generalizedSelfAdjointEigenSolver">Matrix:generalizedSelfAdjointEigenSolver (R[, opts])</a></td>
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
@@ -283,7 +312,23 @@
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#Matrix:hessenbergDecomposition">Matrix:hessenbergDecomposition ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:householderQr">Matrix:householderQr ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#Matrix:hypotNorm">Matrix:hypotNorm ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:imag">Matrix:imag ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:imagAssign">Matrix:imagAssign (M)</a></td>
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
@@ -339,6 +384,10 @@
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#Matrix:isOrthogonal">Matrix:isOrthogonal (prec)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#Matrix:isUnitary">Matrix:isUnitary (prec)</a></td>
 	<td class="summary">DOCMEMORE</td>
 	</tr>
@@ -351,15 +400,11 @@
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Matrix:ldlt_solve">Matrix:ldlt_solve (b)</a></td>
+	<td class="name" nowrap><a href="#Matrix:jacobiSvd">Matrix:jacobiSvd ([opts])</a></td>
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Matrix:leftCols">Matrix:leftCols (ncols)</a></td>
-	<td class="summary">DOCMEMORE</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Matrix:leftColsAssign">Matrix:leftColsAssign (rhs, ncols)</a></td>
+	<td class="name" nowrap><a href="#Matrix:ldlt">Matrix:ldlt (UL)</a></td>
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
@@ -367,7 +412,7 @@
 	<td class="summary">Metamethod.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Matrix:llt_solve">Matrix:llt_solve (b)</a></td>
+	<td class="name" nowrap><a href="#Matrix:llt">Matrix:llt (UL)</a></td>
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
@@ -387,8 +432,8 @@
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Matrix:lu_solve">Matrix:lu_solve (b)</a></td>
-	<td class="summary">DOCMEMORE</td>
+	<td class="name" nowrap><a href="#Matrix:lu">Matrix:lu ()</a></td>
+	<td class="summary">Synonym for <a href="../modules/matrix.html#Matrix:partialPivLu">Matrix:partialPivLu</a>.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Matrix:maxCoeff">Matrix:maxCoeff (choice)</a></td>
@@ -396,22 +441,6 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Matrix:mean">Matrix:mean (choice)</a></td>
-	<td class="summary">DOCMEMORE</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Matrix:middleCols">Matrix:middleCols (c1, c2)</a></td>
-	<td class="summary">DOCMEMORE</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Matrix:middleColsAssign">Matrix:middleColsAssign (rhs, c1, c2)</a></td>
-	<td class="summary">DOCMEMORE</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Matrix:middleRows">Matrix:middleRows (r1, r2)</a></td>
-	<td class="summary">DOCMEMORE</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Matrix:middleRowsAssign">Matrix:middleRowsAssign (rhs, r1, r2)</a></td>
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
@@ -428,6 +457,10 @@
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#Matrix:normalized">Matrix:normalized (vectorwise)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#Matrix:operatorNorm">Matrix:operatorNorm ()</a></td>
 	<td class="summary">DOCMEMORE</td>
 	</tr>
@@ -440,7 +473,7 @@
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Matrix:qr_solve">Matrix:qr_solve (b)</a></td>
+	<td class="name" nowrap><a href="#Matrix:partialPivLu">Matrix:partialPivLu ()</a></td>
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
@@ -449,20 +482,43 @@
  May be matrix / scalar combo</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Matrix:redux">Matrix:redux (func, how)</a></td>
-	<td class="summary">DOCMEMORE</td>
-	</tr>
-	<tr>
 	<td class="name" nowrap><a href="#Matrix:prod">Matrix:prod (choice)</a></td>
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Matrix:replicate">Matrix:replicate (_vcount_, _hcount_, choice)</a></td>
-	<td class="summary">DOCMEMORE
- (TODO: broken, should probably replace <em>hcount</em> by choice when available</td>
+	<td class="name" nowrap><a href="#Matrix:real">Matrix:real ()</a></td>
+	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Matrix:resize">Matrix:resize (_nrows_, _ncols_)</a></td>
+	<td class="name" nowrap><a href="#Matrix:realAssign">Matrix:realAssign (M)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:realQz">Matrix:realQz (R, N)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:redux">Matrix:redux (func, how)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:replicate">Matrix:replicate (vcount)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:reshape">Matrix:reshape (nrows, ncols)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:reshapeWithInnerStride">Matrix:reshapeWithInnerStride (nrows, ncols, stride)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:reshapeWithOuterStride">Matrix:reshapeWithOuterStride (nrows, ncols, stride)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:resize">Matrix:resize (nrows, ncols)</a></td>
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
@@ -470,27 +526,11 @@
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Matrix:reverse">Matrix:reverse ()</a></td>
-	<td class="summary">DOCMEMORE</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Matrix:reverseInPlace">Matrix:reverseInPlace ()</a></td>
-	<td class="summary">DOCMEMORE</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Matrix:rightCols">Matrix:rightCols (ncols)</a></td>
-	<td class="summary">DOCMEMORE</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Matrix:rightColsAssign">Matrix:rightColsAssign (rhs, ncols)</a></td>
+	<td class="name" nowrap><a href="#Matrix:reverse">Matrix:reverse (vectorwise)</a></td>
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Matrix:round">Matrix:round ()</a></td>
-	<td class="summary">DOCMEMORE</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Matrix:row">Matrix:row (_row_)</a></td>
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
@@ -502,23 +542,15 @@
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Matrix:setConstant">Matrix:setConstant (s)</a></td>
+	<td class="name" nowrap><a href="#Matrix:schur">Matrix:schur (N)</a></td>
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Matrix:setIdentity">Matrix:setIdentity ()</a></td>
+	<td class="name" nowrap><a href="#Matrix:selfAdjointEigenSolver">Matrix:selfAdjointEigenSolver (N)</a></td>
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Matrix:setOnes">Matrix:setOnes ()</a></td>
-	<td class="summary">DOCMEMORE</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Matrix:setRandom">Matrix:setRandom ()</a></td>
-	<td class="summary">DOCMEMORE</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Matrix:setZero">Matrix:setZero ()</a></td>
+	<td class="name" nowrap><a href="#Matrix:selfAdjointView">Matrix:selfAdjointView (N)</a></td>
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
@@ -542,6 +574,18 @@
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#Matrix:stableNorm">Matrix:stableNorm ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:stableNormalized">Matrix:stableNormalized ()</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:sub">Matrix:sub (B, vectorwise)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#Matrix:__sub">Matrix:__sub ()</a></td>
 	<td class="summary">Metamethod
  May be matrix / scalar combo</td>
@@ -551,43 +595,11 @@
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Matrix:swap">Matrix:swap (RHS)</a></td>
-	<td class="summary">DOCMEMORE</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Matrix:svd_solve">Matrix:svd_solve (b)</a></td>
-	<td class="summary">DOCMEMORE</td>
-	</tr>
-	<tr>
 	<td class="name" nowrap><a href="#Matrix:tan">Matrix:tan ()</a></td>
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Matrix:tanh">Matrix:tanh ()</a></td>
-	<td class="summary">DOCMEMORE</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Matrix:topLeftCorner">Matrix:topLeftCorner (nrows, ncols)</a></td>
-	<td class="summary">DOCMEMORE</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Matrix:topLeftCornerAssign">Matrix:topLeftCornerAssign (rhs, nrows, ncols)</a></td>
-	<td class="summary">DOCMEMORE</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Matrix:topRightCorner">Matrix:topRightCorner (nrows, ncols)</a></td>
-	<td class="summary">DOCMEMORE</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Matrix:topRightCornerAssign">Matrix:topRightCornerAssign (rhs, nrows, ncols)</a></td>
-	<td class="summary">DOCMEMORE</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Matrix:topRows">Matrix:topRows (nrows)</a></td>
-	<td class="summary">DOCMEMORE</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Matrix:topRowsAssign">Matrix:topRowsAssign (rhs, nrows)</a></td>
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
@@ -603,11 +615,19 @@
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Matrix:transposeInPlace">Matrix:transposeInPlace ()</a></td>
+	<td class="name" nowrap><a href="#Matrix:triangularView">Matrix:triangularView (Lower)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:tridiagonalization">Matrix:tridiagonalization ()</a></td>
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Matrix:unaryExpr">Matrix:unaryExpr (func)</a></td>
+	<td class="summary">DOCMEMORE</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Matrix:unitOrthogonal">Matrix:unitOrthogonal ()</a></td>
 	<td class="summary">DOCMEMORE</td>
 	</tr>
 	<tr>
@@ -630,6 +650,59 @@
 
     <h2><a name="Functions"></a>Functions</h2>
     <dl class="function">
+    <dt>
+    <a name = "Matrix:acos"></a>
+    <strong>Matrix:acos ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:add"></a>
+    <strong>Matrix:add (B, vectorwise)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">B</span>
+            <span class="types"><span class="type">Matrix</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">vectorwise</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        A
+    </ol>
+
+
+
+
+</dd>
     <dt>
     <a name = "Matrix:__add"></a>
     <strong>Matrix:__add ()</strong>
@@ -664,19 +737,6 @@
            <span class="types"><span class="type">Matrix</span></span>
         A
     </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Matrix:adjointInPlace"></a>
-    <strong>Matrix:adjointInPlace ()</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-
 
 
 
@@ -721,8 +781,46 @@
 
 </dd>
     <dt>
-    <a name = "Matrix:acos"></a>
-    <strong>Matrix:acos ()</strong>
+    <a name = "Matrix:asDiagonal"></a>
+    <strong>Matrix:asDiagonal ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:asMatrix"></a>
+    <strong>Matrix:asMatrix ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:asPermutation"></a>
+    <strong>Matrix:asPermutation ()</strong>
     </dt>
     <dd>
     DOCMEMORE
@@ -759,28 +857,6 @@
 
 </dd>
     <dt>
-    <a name = "Matrix:assign"></a>
-    <strong>Matrix:assign (Y)</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">Y</span>
-            <span class="types"><span class="type">Matrix</span></span>
-
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
     <a name = "Matrix:atan"></a>
     <strong>Matrix:atan ()</strong>
     </dt>
@@ -800,6 +876,32 @@
 
 </dd>
     <dt>
+    <a name = "Matrix:bdcSvd"></a>
+    <strong>Matrix:bdcSvd ([opts])</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         ("FullU", "ThinU", "FullV", "ThinV")
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">BDCSVD</span></span>
+        B
+    </ol>
+
+
+
+
+</dd>
+    <dt>
     <a name = "Matrix:binaryExpr"></a>
     <strong>Matrix:binaryExpr (func)</strong>
     </dt>
@@ -810,104 +912,6 @@
     <ul>
         <li><span class="parameter">func</span>
             <span class="types"><span class="type">callable</span></span>
-
-
-
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">Matrix</span></span>
-        x
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Matrix:block"></a>
-    <strong>Matrix:block (a, b, c, d)</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">a</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">b</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">c</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">d</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">Matrix</span></span>
-        x
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Matrix:blockAssign"></a>
-    <strong>Matrix:blockAssign (rhs, a, b, c, d)</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">rhs</span>
-            <span class="types"><span class="type">Matrix</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">a</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">b</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">c</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">d</span>
-            <span class="types"><span class="type">uint</span></span>
 
 
 
@@ -945,198 +949,6 @@
 
 </dd>
     <dt>
-    <a name = "Matrix:bottomLeftCorner"></a>
-    <strong>Matrix:bottomLeftCorner (nrows, ncols)</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">nrows</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">ncols</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">Matrix</span></span>
-        x
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Matrix:bottomLeftCornerAssign"></a>
-    <strong>Matrix:bottomLeftCornerAssign (rhs, nrows, ncols)</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">rhs</span>
-            <span class="types"><span class="type">Matrix</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">nrows</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">ncols</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Matrix:bottomRightCorner"></a>
-    <strong>Matrix:bottomRightCorner (nrows, ncols)</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">nrows</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">ncols</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">Matrix</span></span>
-        x
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Matrix:bottomRightCornerAssign"></a>
-    <strong>Matrix:bottomRightCornerAssign (rhs, nrows, ncols)</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">rhs</span>
-            <span class="types"><span class="type">Matrix</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">nrows</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">ncols</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Matrix:bottomRows"></a>
-    <strong>Matrix:bottomRows (nrows)</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">nrows</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">Matrix</span></span>
-        x
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Matrix:bottomRowsAssign"></a>
-    <strong>Matrix:bottomRowsAssign (rhs, nrows)</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">rhs</span>
-            <span class="types"><span class="type">Matrix</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">nrows</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
     <a name = "Matrix:__call"></a>
     <strong>Matrix:__call (row, col)</strong>
     </dt>
@@ -1164,157 +976,6 @@
 
            <span class="types"><span class="type">Scalar</span></span>
         x
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Matrix:coeffAssign"></a>
-    <strong>Matrix:coeffAssign (x, row, col)</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">x</span>
-            <span class="types"><span class="type">Scalar</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">row</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">col</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Matrix:col"></a>
-    <strong>Matrix:col (_col_)</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">_col_</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">Matrix</span></span>
-        S
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Matrix:conjugate"></a>
-    <strong>Matrix:conjugate ()</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">Matrix</span></span>
-        S
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Matrix:conservativeResize"></a>
-    <strong>Matrix:conservativeResize (_nrows_, _ncols_)</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">_nrows_</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">_ncols_</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Matrix:conservativeResizeLike"></a>
-    <strong>Matrix:conservativeResizeLike (other)</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">other</span>
-            <span class="types"><span class="type">Matrix</span></span>
-
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Matrix:__div"></a>
-    <strong>Matrix:__div ()</strong>
-    </dt>
-    <dd>
-    Metamethod
- RHS may be matrix / scalar combo
-
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">Matrix</span></span>
-        S
     </ol>
 
 
@@ -1369,6 +1030,25 @@
 
 </dd>
     <dt>
+    <a name = "Matrix:colPivHouseholderQr"></a>
+    <strong>Matrix:colPivHouseholderQr ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">ColPivHouseholderQR</span></span>
+        C
+    </ol>
+
+
+
+
+</dd>
+    <dt>
     <a name = "Matrix:cols"></a>
     <strong>Matrix:cols ()</strong>
     </dt>
@@ -1401,6 +1081,94 @@
            <span class="types"><span class="type">uint</span></span>
         C
     </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:completeOrthogonalDecomposition"></a>
+    <strong>Matrix:completeOrthogonalDecomposition ()</strong>
+    </dt>
+    <dd>
+    DOCEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">CompleteOrthogonalDecomposition</span></span>
+        C
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:conjugate"></a>
+    <strong>Matrix:conjugate ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:conservativeResize"></a>
+    <strong>Matrix:conservativeResize (nrows, ncols)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:conservativeResizeLike"></a>
+    <strong>Matrix:conservativeResizeLike (other)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">other</span>
+            <span class="types"><span class="type">Matrix</span></span>
+
+
+
+        </li>
+    </ul>
+
 
 
 
@@ -1839,25 +1607,6 @@
 
 </dd>
     <dt>
-    <a name = "Matrix:determinant"></a>
-    <strong>Matrix:determinant ()</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">number</span></span>
-        x
-    </ol>
-
-
-
-
-</dd>
-    <dt>
     <a name = "Matrix:data"></a>
     <strong>Matrix:data ()</strong>
     </dt>
@@ -1877,6 +1626,25 @@
 
 </dd>
     <dt>
+    <a name = "Matrix:determinant"></a>
+    <strong>Matrix:determinant ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
     <a name = "Matrix:diagonalSize"></a>
     <strong>Matrix:diagonalSize ()</strong>
     </dt>
@@ -1889,6 +1657,26 @@
 
            <span class="types"><span class="type">uint</span></span>
         C
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:__div"></a>
+    <strong>Matrix:__div ()</strong>
+    </dt>
+    <dd>
+    Metamethod
+ RHS may be matrix / scalar combo
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        S
     </ol>
 
 
@@ -1924,6 +1712,32 @@
 
 </dd>
     <dt>
+    <a name = "Matrix:eigenSolver"></a>
+    <strong>Matrix:eigenSolver (N)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">N</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         ("NoEigenvalues")
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">EigenSolver</span> or <span class="type">ComplexEigenSolver</span></span>
+        ES
+    </ol>
+
+
+
+
+</dd>
+    <dt>
     <a name = "Matrix:exp"></a>
     <strong>Matrix:exp ()</strong>
     </dt>
@@ -1943,28 +1757,6 @@
 
 </dd>
     <dt>
-    <a name = "Matrix:fill"></a>
-    <strong>Matrix:fill (s)</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">s</span>
-            <span class="types"><span class="type">Scalar</span></span>
-
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
     <a name = "Matrix:floor"></a>
     <strong>Matrix:floor ()</strong>
     </dt>
@@ -1977,6 +1769,108 @@
 
            <span class="types"><span class="type">Matrix</span></span>
         S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:fullPivHouseholderQr"></a>
+    <strong>Matrix:fullPivHouseholderQr ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">FullPivHouseholderQR</span></span>
+        F
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:fullPivLu"></a>
+    <strong>Matrix:fullPivLu ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">FullPivLU</span></span>
+        F
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:generalizedEigenSolver"></a>
+    <strong>Matrix:generalizedEigenSolver (R, N)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">R</span>
+            <span class="types"><span class="type">Matrix</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">N</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         ("NoEigenvectors")
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">GeneralizedEigenSolver</span></span>
+        GES
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:generalizedSelfAdjointEigenSolver"></a>
+    <strong>Matrix:generalizedSelfAdjointEigenSolver (R[, opts])</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">R</span>
+            <span class="types"><span class="type">Matrix</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         ( no<em>eigenvectors = bool, method = "ABx</em>lx", "Ax<em>lBx", "BAx</em>lx" )
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">GeneralizedSelfAdjointEigenSolver</span></span>
+        G
     </ol>
 
 
@@ -2003,6 +1897,44 @@
 
 </dd>
     <dt>
+    <a name = "Matrix:hessenbergDecomposition"></a>
+    <strong>Matrix:hessenbergDecomposition ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">HessenbergDecomposition</span></span>
+        H
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:householderQr"></a>
+    <strong>Matrix:householderQr ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">HouseholderQR</span></span>
+        H
+    </ol>
+
+
+
+
+</dd>
+    <dt>
     <a name = "Matrix:hypotNorm"></a>
     <strong>Matrix:hypotNorm ()</strong>
     </dt>
@@ -2016,6 +1948,47 @@
            <span class="types"><span class="type">number</span></span>
         n
     </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:imag"></a>
+    <strong>Matrix:imag ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        M
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:imagAssign"></a>
+    <strong>Matrix:imagAssign (M)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">M</span>
+            <span class="types"><span class="type">Matrix</span></span>
+
+
+
+        </li>
+    </ul>
+
 
 
 
@@ -2371,6 +2344,34 @@
 
 </dd>
     <dt>
+    <a name = "Matrix:isOrthogonal"></a>
+    <strong>Matrix:isOrthogonal (prec)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">prec</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        B
+    </ol>
+
+
+
+
+</dd>
+    <dt>
     <a name = "Matrix:isUnitary"></a>
     <strong>Matrix:isUnitary (prec)</strong>
     </dt>
@@ -2455,27 +2456,25 @@
 
 </dd>
     <dt>
-    <a name = "Matrix:ldlt_solve"></a>
-    <strong>Matrix:ldlt_solve (b)</strong>
+    <a name = "Matrix:jacobiSvd"></a>
+    <strong>Matrix:jacobiSvd ([opts])</strong>
     </dt>
     <dd>
     DOCMEMORE
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">b</span>
-            <span class="types"><span class="type">Matrix</span></span>
-
-
-
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         (Follows bdcSvd, also has preconditioner = "fullPiv", "householder", "none")
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Matrix</span></span>
-        x
+           <span class="types"><span class="type">JacobiSVD</span></span>
+        J
     </ol>
 
 
@@ -2483,56 +2482,26 @@
 
 </dd>
     <dt>
-    <a name = "Matrix:leftCols"></a>
-    <strong>Matrix:leftCols (ncols)</strong>
+    <a name = "Matrix:ldlt"></a>
+    <strong>Matrix:ldlt (UL)</strong>
     </dt>
     <dd>
     DOCMEMORE
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">ncols</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
+        <li><span class="parameter">UL</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         ("upper")
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Matrix</span></span>
-        x
+           <span class="types"><span class="type">LDLT</span></span>
+        L
     </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Matrix:leftColsAssign"></a>
-    <strong>Matrix:leftColsAssign (rhs, ncols)</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">rhs</span>
-            <span class="types"><span class="type">Matrix</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">ncols</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-    </ul>
-
 
 
 
@@ -2560,27 +2529,25 @@
 
 </dd>
     <dt>
-    <a name = "Matrix:llt_solve"></a>
-    <strong>Matrix:llt_solve (b)</strong>
+    <a name = "Matrix:llt"></a>
+    <strong>Matrix:llt (UL)</strong>
     </dt>
     <dd>
     DOCMEMORE
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">b</span>
-            <span class="types"><span class="type">Matrix</span></span>
-
-
-
+        <li><span class="parameter">UL</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         ("upper")
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Matrix</span></span>
-        x
+           <span class="types"><span class="type">LLT</span></span>
+        L
     </ol>
 
 
@@ -2664,28 +2631,13 @@
 
 </dd>
     <dt>
-    <a name = "Matrix:lu_solve"></a>
-    <strong>Matrix:lu_solve (b)</strong>
+    <a name = "Matrix:lu"></a>
+    <strong>Matrix:lu ()</strong>
     </dt>
     <dd>
-    DOCMEMORE
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">b</span>
-            <span class="types"><span class="type">Matrix</span></span>
+    Synonym for <a href="../modules/matrix.html#Matrix:partialPivLu">Matrix:partialPivLu</a>.
 
 
-
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">Matrix</span></span>
-        x
-    </ol>
 
 
 
@@ -2750,142 +2702,6 @@
            <span class="types"><span class="type">Matrix</span></span>
         M (col, row)
     </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Matrix:middleCols"></a>
-    <strong>Matrix:middleCols (c1, c2)</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">c1</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">c2</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">Matrix</span></span>
-        x
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Matrix:middleColsAssign"></a>
-    <strong>Matrix:middleColsAssign (rhs, c1, c2)</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">rhs</span>
-            <span class="types"><span class="type">Matrix</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">c1</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">c2</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Matrix:middleRows"></a>
-    <strong>Matrix:middleRows (r1, r2)</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">r1</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">r2</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">Matrix</span></span>
-        x
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Matrix:middleRowsAssign"></a>
-    <strong>Matrix:middleRowsAssign (rhs, r1, r2)</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">rhs</span>
-            <span class="types"><span class="type">Matrix</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">r1</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">r2</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-    </ul>
-
 
 
 
@@ -2963,6 +2779,34 @@
 
 </dd>
     <dt>
+    <a name = "Matrix:normalized"></a>
+    <strong>Matrix:normalized (vectorwise)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">vectorwise</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        A
+    </ol>
+
+
+
+
+</dd>
+    <dt>
     <a name = "Matrix:operatorNorm"></a>
     <strong>Matrix:operatorNorm ()</strong>
     </dt>
@@ -3020,27 +2864,18 @@
 
 </dd>
     <dt>
-    <a name = "Matrix:qr_solve"></a>
-    <strong>Matrix:qr_solve (b)</strong>
+    <a name = "Matrix:partialPivLu"></a>
+    <strong>Matrix:partialPivLu ()</strong>
     </dt>
     <dd>
     DOCMEMORE
 
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">b</span>
-            <span class="types"><span class="type">Matrix</span></span>
-
-
-
-        </li>
-    </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Matrix</span></span>
-        x
+           <span class="types"><span class="type">PartialPivLU</span></span>
+        P
     </ol>
 
 
@@ -3061,6 +2896,111 @@
 
            <span class="types"><span class="type">Matrix</span></span>
         S
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:prod"></a>
+    <strong>Matrix:prod (choice)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">choice</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         (colwise, rowwise)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Scalar</span></span>
+        S
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        M (col, row)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:real"></a>
+    <strong>Matrix:real ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        M
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:realAssign"></a>
+    <strong>Matrix:realAssign (M)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">M</span>
+            <span class="types"><span class="type">Matrix</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:realQz"></a>
+    <strong>Matrix:realQz (R, N)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">R</span>
+            <span class="types"><span class="type">Matrix</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">N</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         ("NoQZ")
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">RealQZ</span></span>
+        RQZ
     </ol>
 
 
@@ -3106,62 +3046,17 @@
 
 </dd>
     <dt>
-    <a name = "Matrix:prod"></a>
-    <strong>Matrix:prod (choice)</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">choice</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         (colwise, rowwise)
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">Scalar</span></span>
-        S
-    </ol>
-     <h3>Or</h3>
-    <ol>
-
-           <span class="types"><span class="type">Matrix</span></span>
-        M (col, row)
-    </ol>
-
-
-
-
-</dd>
-    <dt>
     <a name = "Matrix:replicate"></a>
-    <strong>Matrix:replicate (_vcount_, _hcount_, choice)</strong>
+    <strong>Matrix:replicate (vcount)</strong>
     </dt>
     <dd>
     DOCMEMORE
- (TODO: broken, should probably replace <em>hcount</em> by choice when available
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">_vcount_</span>
+        <li><span class="parameter">vcount</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">_hcount_</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">choice</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         (colwise, rowwise)
+         @?|uint|string hcount / choice (colwise, rowwise)
         </li>
     </ul>
 
@@ -3177,21 +3072,141 @@
 
 </dd>
     <dt>
-    <a name = "Matrix:resize"></a>
-    <strong>Matrix:resize (_nrows_, _ncols_)</strong>
+    <a name = "Matrix:reshape"></a>
+    <strong>Matrix:reshape (nrows, ncols)</strong>
     </dt>
     <dd>
     DOCMEMORE
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">_nrows_</span>
+        <li><span class="parameter">nrows</span>
             <span class="types"><span class="type">uint</span></span>
 
 
 
         </li>
-        <li><span class="parameter">_ncols_</span>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Map</span></span>
+
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:reshapeWithInnerStride"></a>
+    <strong>Matrix:reshapeWithInnerStride (nrows, ncols, stride)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">stride</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Map</span></span>
+
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:reshapeWithOuterStride"></a>
+    <strong>Matrix:reshapeWithOuterStride (nrows, ncols, stride)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ncols</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">stride</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Map</span></span>
+
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:resize"></a>
+    <strong>Matrix:resize (nrows, ncols)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nrows</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">ncols</span>
             <span class="types"><span class="type">uint</span></span>
 
 
@@ -3228,11 +3243,20 @@
 </dd>
     <dt>
     <a name = "Matrix:reverse"></a>
-    <strong>Matrix:reverse ()</strong>
+    <strong>Matrix:reverse (vectorwise)</strong>
     </dt>
     <dd>
     DOCMEMORE
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">vectorwise</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+    </ul>
 
     <h3>Returns:</h3>
     <ol>
@@ -3246,109 +3270,12 @@
 
 </dd>
     <dt>
-    <a name = "Matrix:reverseInPlace"></a>
-    <strong>Matrix:reverseInPlace ()</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Matrix:rightCols"></a>
-    <strong>Matrix:rightCols (ncols)</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">ncols</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">Matrix</span></span>
-        x
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Matrix:rightColsAssign"></a>
-    <strong>Matrix:rightColsAssign (rhs, ncols)</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">rhs</span>
-            <span class="types"><span class="type">Matrix</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">ncols</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
     <a name = "Matrix:round"></a>
     <strong>Matrix:round ()</strong>
     </dt>
     <dd>
     DOCMEMORE
 
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">Matrix</span></span>
-        S
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Matrix:row"></a>
-    <strong>Matrix:row (_row_)</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">_row_</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-    </ul>
 
     <h3>Returns:</h3>
     <ol>
@@ -3400,74 +3327,78 @@
 
 </dd>
     <dt>
-    <a name = "Matrix:setConstant"></a>
-    <strong>Matrix:setConstant (s)</strong>
+    <a name = "Matrix:schur"></a>
+    <strong>Matrix:schur (N)</strong>
     </dt>
     <dd>
     DOCMEMORE
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">s</span>
-            <span class="types"><span class="type">Scalar</span></span>
-
-
-
+        <li><span class="parameter">N</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         ("NoU")
         </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">RealSchur</span> or <span class="type">ComplexSchur</span></span>
+        S
+    </ol>
 
 
 
 
 </dd>
     <dt>
-    <a name = "Matrix:setIdentity"></a>
-    <strong>Matrix:setIdentity ()</strong>
+    <a name = "Matrix:selfAdjointEigenSolver"></a>
+    <strong>Matrix:selfAdjointEigenSolver (N)</strong>
     </dt>
     <dd>
     DOCMEMORE
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">N</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         ("NoEigenvectors")
+        </li>
+    </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">SelfAdjointEigenSolver</span></span>
+        S
+    </ol>
 
 
 
 
 </dd>
     <dt>
-    <a name = "Matrix:setOnes"></a>
-    <strong>Matrix:setOnes ()</strong>
+    <a name = "Matrix:selfAdjointView"></a>
+    <strong>Matrix:selfAdjointView (N)</strong>
     </dt>
     <dd>
     DOCMEMORE
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">N</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         ("Lower", "Upper")
+        </li>
+    </ul>
 
+    <h3>Returns:</h3>
+    <ol>
 
-
-
-
-</dd>
-    <dt>
-    <a name = "Matrix:setRandom"></a>
-    <strong>Matrix:setRandom ()</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Matrix:setZero"></a>
-    <strong>Matrix:setZero ()</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-
+           <span class="types"><span class="type">SelfAdjointView</span></span>
+        S
+    </ol>
 
 
 
@@ -3569,6 +3500,78 @@
 
 </dd>
     <dt>
+    <a name = "Matrix:stableNorm"></a>
+    <strong>Matrix:stableNorm ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        n
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:stableNormalized"></a>
+    <strong>Matrix:stableNormalized ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        A
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:sub"></a>
+    <strong>Matrix:sub (B, vectorwise)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">B</span>
+            <span class="types"><span class="type">Matrix</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">vectorwise</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Matrix</span></span>
+        A
+    </ol>
+
+
+
+
+</dd>
+    <dt>
     <a name = "Matrix:__sub"></a>
     <strong>Matrix:__sub ()</strong>
     </dt>
@@ -3621,56 +3624,6 @@
 
 </dd>
     <dt>
-    <a name = "Matrix:swap"></a>
-    <strong>Matrix:swap (RHS)</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">RHS</span>
-            <span class="types"><span class="type">Matrix</span></span>
-
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Matrix:svd_solve"></a>
-    <strong>Matrix:svd_solve (b)</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">b</span>
-            <span class="types"><span class="type">Matrix</span></span>
-
-
-
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">Matrix</span></span>
-        x
-    </ol>
-
-
-
-
-</dd>
-    <dt>
     <a name = "Matrix:tan"></a>
     <strong>Matrix:tan ()</strong>
     </dt>
@@ -3703,198 +3656,6 @@
            <span class="types"><span class="type">Matrix</span></span>
         S
     </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Matrix:topLeftCorner"></a>
-    <strong>Matrix:topLeftCorner (nrows, ncols)</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">nrows</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">ncols</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">Matrix</span></span>
-        x
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Matrix:topLeftCornerAssign"></a>
-    <strong>Matrix:topLeftCornerAssign (rhs, nrows, ncols)</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">rhs</span>
-            <span class="types"><span class="type">Matrix</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">nrows</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">ncols</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Matrix:topRightCorner"></a>
-    <strong>Matrix:topRightCorner (nrows, ncols)</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">nrows</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">ncols</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">Matrix</span></span>
-        x
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Matrix:topRightCornerAssign"></a>
-    <strong>Matrix:topRightCornerAssign (rhs, nrows, ncols)</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">rhs</span>
-            <span class="types"><span class="type">Matrix</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">nrows</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">ncols</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Matrix:topRows"></a>
-    <strong>Matrix:topRows (nrows)</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">nrows</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">Matrix</span></span>
-        x
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Matrix:topRowsAssign"></a>
-    <strong>Matrix:topRowsAssign (rhs, nrows)</strong>
-    </dt>
-    <dd>
-    DOCMEMORE
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">rhs</span>
-            <span class="types"><span class="type">Matrix</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">nrows</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-    </ul>
-
 
 
 
@@ -3943,7 +3704,7 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Matrix</span></span>
+           <span class="types"><span class="type">Transpose</span></span>
         A
     </ol>
 
@@ -3952,13 +3713,45 @@
 
 </dd>
     <dt>
-    <a name = "Matrix:transposeInPlace"></a>
-    <strong>Matrix:transposeInPlace ()</strong>
+    <a name = "Matrix:triangularView"></a>
+    <strong>Matrix:triangularView (Lower)</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">Lower</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        ", "Upper", "StrictlyLower", "StrictlyUpper", "UnitLower", "UnitUpper")
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">TriangularView</span></span>
+        T
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:tridiagonalization"></a>
+    <strong>Matrix:tridiagonalization ()</strong>
     </dt>
     <dd>
     DOCMEMORE
 
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Tridiagonalization</span></span>
+        T
+    </ol>
 
 
 
@@ -3986,6 +3779,24 @@
 
            <span class="types"><span class="type">Matrix</span></span>
         x
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Matrix:unitOrthogonal"></a>
+    <strong>Matrix:unitOrthogonal ()</strong>
+    </dt>
+    <dd>
+    DOCMEMORE
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        Matrix O
     </ol>
 
 
