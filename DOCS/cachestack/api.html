@@ -1,0 +1,282 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Documentation</title>
+    <link rel="stylesheet" href="ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>CacheStack</h1>
+
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><strong>cachestack</strong></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>cachestack</code></h1>
+<p>Implements a system for deterministic recycling of objects, via an underlying cache.</p>
+<p> When an object is created, or fetched from the cache, it may be registered with this
+ system. At a given point in execution, the system will then claim the object and add it to
+ the cache. The system is primarily intended for more intense parts of a program and must
+ be activated explicitly, being idle otherwise. When not running, registration is a no-op,
+ though the cache remains available for fetching.</p>
+
+<p> An instance of this system is created via the <a href="api.html#NewCacheStack">NewCacheStack</a> function. (Typical programs
+ will only need one instance, but this is not required, e.g. various subsystems could each
+ have their own.) <a href="api.html#NewCacheStack">NewCacheStack</a> returns two functions: <code>NewType</code>, which we will return
+ to shortly, as well as a <code>WithLayer</code> routine.</p>
+
+<p> We may invoke the latter to use the cache stack. The function takes a body along with a
+ variable argument list. In pseudo-code:</p>
+
+<pre><code>WithLayer(function(a, b) -- a: 5, b: "dog"
+  local object = GetObject() -- fetch from the cache or create a new one
+
+  Register(object) -- we want to reclaim this object later
+  InitializeAndUse(object, a, b)
+end, 5, "dog") -- when call ends, object is sent to cache
+</code></pre>
+
+<p> The first time around, the cache would be empty, so a new object would need to be created.
+ Since we register this object, it will be claimed by the cache once we have executed the
+ <code>WithLayer</code> body.</p>
+
+<p> Most code will not have a <code>Register()</code> call out in the open like this. A vector library,
+ for instance, might hard-wire it, as well as <code>GetObject()</code>, into various factory functions
+ and operators, e.g. <code>ZeroVector()</code>, <code>__add</code>, etc. For this reason, we can wind up with
+ objects that we want to keep, but that the cache would like to claim. We can unregister
+ such objects by returning them from the <code>WithLayer</code> body:</p>
+
+<pre><code>local result, number = WithLayer(function()
+   local a, b = vector.Random(), vector.Random()
+   local c = a * 5 + b * 6 + vector.Random() -- creates / fetches lots of intermediates
+
+   return c, 8 -- return final result of computation; non-registered objects fine too
+end)
+</code></pre>
+
+<p> Since we returned it, <code>c</code> will not be claimed when <code>WithLayer()</code> completes. We can safely
+ use it&mdash;as <code>result</code>&mdash;without later code hijacking it and giving us perplexing
+ errors. The garbage collector will also now treat it like any other object.</p>
+
+<p> As hinted at by the "layer" and "stack" terminology, we may nest these calls, allowing for
+ the usual benefits of composition. In these more general cases, returning an object will
+ prevent its immediate caching; however, the outer layer will try again:</p>
+
+<pre><code>local function InnerBody (rhs)
+  return IdentityMatrix() * rhs -- intermediate gets cached, result temporarily spared
+end
+
+local v = WithLayer(function()
+  local d, e = vector.Random(), vector.Random() -- inner layer will not try to claim these...
+  local a = WithLayer(InnerBody, e) -- ...even if we use them there
+  local b = WithLayer(InnerBody, 7)
+
+  return a:DotProduct(b)
+end) -- outer layer ended: a and b sent to cache, along with d and e
+</code></pre>
+
+<p> As the last example demonstrates&mdash;mixing matrices and vectors&mdash;it can be useful
+ to allow multiple object types. In fact, the cache itself is logically divided by type,
+ and this is where the <code>NewType</code> routine mentioned a while back comes into play. Given
+ our previous example, we might have done begun our program so:</p>
+
+<pre><code>local MatrixType = NewType()
+local VectorType = NewType()
+</code></pre>
+
+<p> These types are themselves functions. They accept various commands, most operating on an
+ instance of the type in question. (Since it aims for generality, the system does not make
+ many assumptions about its input; validation is the user's responsibility.) A partially
+ implemented vector type might look like:</p>
+
+<pre><code>local VectorType = NewType()
+
+-- Vector methods.
+local Methods = {}
+
+Methods.__index = Methods
+
+local function GetVector ()
+  local v = VectorType("fetch") -- try to get a vector from the cache
+
+  if not v then
+    v = setmetatable({}, Methods) -- failing that, make a new one...
+
+    VectorType("register", v) -- ...and register it (if caching is active)
+  end
+
+  return v
+end
+
+local function SetVector (x, y)
+   local v = GetVector()
+
+   v.x, v.y = x, y
+
+   return v
+end
+
+function Methods.__add (v1, v2)
+   return SetVector(v1.x + v2.x, v1.y + v2.y)
+end
+
+function Methods:DotProduct (other)
+  return self.x * other.x + self.y * other.y
+end
+
+function Methods.__mul (a, b)
+  if type(a) == "number" then
+    return SetVector(a * b.x, a * b.y)
+  elseif type(b) == "number" then
+    return SetVector(b * a.x, b * a.y)
+  else
+    return SetVector(a.x * b.x, a.y * b.y) -- arbitrarily do memberwise
+  end
+end
+
+-- ETC.
+
+-- Exported interface: vector factories et al.
+local M = {}
+
+function M.Random ()
+  return SetVector(math.random(), math.random())
+end
+
+M.Vector = SetVector
+
+-- ETC.
+
+return M
+</code></pre>
+
+<p> This ought to give some idea of the "hard-wiring" mentioned earlier. All the cache-related
+ machinery&mdash;here comprising the <strong>"fetch"</strong> and <strong>"register"</strong> commands&mdash;is done
+ indirectly through the <code>GetVector()</code> and <code>SetVector()</code> utility functions, which the user
+ never needs to see.</p>
+
+<p> A few additional commands allow objects to anchor other items, e.g. a matrix view might
+ need to hang on to its parent, where the actual memory is found. This is included in the
+ type since the items themselves might be registered; they must not be cached while in use.</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#NewCacheStack">NewCacheStack ()</a></td>
+	<td class="summary">Instantiate a <strong>CacheStack</strong>.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "NewCacheStack"></a>
+    <strong>NewCacheStack ()</strong>
+    </dt>
+    <dd>
+    Instantiate a <strong>CacheStack</strong>.  See the summary for a deeper treatment.
+
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">function</span></span>
+         Called as <code>local tfunc = NewType(on_cache)</code>, where <em>tfunc</em> is a
+ function used to interface with the type, with the following commands and arguments:</p>
+
+<ul>
+    <li><strong>"fetch"</strong>: Called as <code>object = tfunc("fetch")</code>. If an object is available in this
+    type's cache, removes and returns it; otherwise, returns <em>* nil</em>*.</li>
+    <li><strong>"get_ref"</strong>: Called as <code>local item = tfunc("get_ref", object, category)</code>. If an
+    earlier <strong>"ref"</strong> command added an item under this category, returns it; otherwise,
+    returns <strong>nil</strong>.</li>
+    <li><strong>"ref"</strong>: Called as <code>tfunc("ref", object, item)</code>, where <em>category</em> is some non-<strong>nil</strong>
+    name. Creates a weakly-keyed reference to <em>item</em> under the given category, incrementing
+    its reference count. This ties <em>item</em>'s lifetime to <em>object</em>, while also keeping it from
+    being sent to the cache. Any item previously referenced is evicted and has its reference
+    count decremented. </li>
+    <li><strong>"register"</strong>: Called as <code>tfunc("register", object)</code>. If a layer is active, the object
+    will be added it to its list for later caching; otherwise, a no-op.</li>
+    <li><strong>"unref"</strong>: Called as <code>tfunc("unref", object, category)</code>. If an earlier <strong>"ref"</strong>
+    command added an item under this category, removes it and decrements its reference count.</li>
+    <li><strong>"unregister"</strong>: Called as <code>tfunc("unregister", object)</code>. If the object was registered
+    in any layer's list&mdash;or is referenced and being held&mdash;it is removed. This has no
+    effect on already-cached objects.</li>
+</ul>
+
+<p> If provided, the <em>on_cache</em> behavior will be called as <code>pcall(on_cache, item)</code> whenever
+ an item gets sent to this type's cache.</p>
+
+<p> If Lua closes and the cache is not empty, any __gc metamethods belonging to the lingering
+ items are invoked. The "on cache" behavior should be written with this in mind to avoid
+ introducing <a href="https://www.owasp.org/index.php/Double_Free">"double free"</a>-type errors.</li>
+        <li>
+           <span class="types"><span class="type">function</span></span>
+         Called as <code>return WithLayer(body, ...)</code>. This pushes a layer onto the
+ cache stack and makes a protected call to <em>body</em> with the remaining arguments. When <em>body</em>
+ concludes or errors out, the layer is popped. If there was another layer underneath, it
+ picks up where it left off.</p>
+
+<p> If we try to register an item while a layer is running, it will be added to a list kept by
+ that layer. Any items in this list when the layer is popped will be added to the cache.</p>
+
+<p> If <em>body</em> throws an error, the whole list is sent to the cache. The error is propagated.</p>
+
+<p> Otherwise, whatever <em>body</em> returns is returned by <strong>WithLayer</strong> itself. If any of these
+ return values are items registered in this layer's list, they will be removed, although
+ the next layer down, if present, will adopt them. (See the module summary for examples.)</p>
+
+<p> If an object is still referenced, it will be moved to a holding area, rather than the
+ cache, until its reference count drops to 0.</li>
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
