@@ -1,0 +1,366 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Documentation</title>
+    <link rel="stylesheet" href="ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Awesomium</h1>
+
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><strong>tinyfiledialogs</strong></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>tinyfiledialogs</code></h1>
+<p>Corona binding for <strong>tiny file dialogs</strong>, a small library providing various dialogs on desktop platforms.</p>
+<p>
+
+
+<hr/>
+
+<p> <strong>Adapted from the original project:</strong></p>
+
+<p> tinyfiledialogs.h v2.9.3 [July 12, 2017] zlib licence</p>
+
+<p> Copyright (c) 2014 - 2017 Guillaume Vareille <a href="http://ysengrin.com">http://ysengrin.com</a></p>
+
+<p> <a href="http://tinyfiledialogs.sourceforge.net">http://tinyfiledialogs.sourceforge.net</a></p>
+
+<p> <a href="git://git.code.sf.net/p/tinyfiledialogs/code">git://git.code.sf.net/p/tinyfiledialogs/code</a></p>
+<pre><code>     ______________________________________________
+    |                                              |
+    |     email: tinyfiledialogs@ysengrin.com      |
+    |______________________________________________|
+</code></pre>
+</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#colorChooser">colorChooser (opts)</a></td>
+	<td class="summary">Creates a dialog for choosing colors.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#inputBox">inputBox (opts)</a></td>
+	<td class="summary">Creates a dialog for text input.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#messageBox">messageBox (opts)</a></td>
+	<td class="summary">Creates a message dialog.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#openFileDialog">openFileDialog (opts)</a></td>
+	<td class="summary">Creates a dialog for choosing files to open.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#saveFileDialog">saveFileDialog (opts)</a></td>
+	<td class="summary">Creates a dialog for choosing files to save.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#selectFolderDialog">selectFolderDialog (opts)</a></td>
+	<td class="summary">Creates a dialog for choosing a folder.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "colorChooser"></a>
+    <strong>colorChooser (opts)</strong>
+    </dt>
+    <dd>
+    Creates a dialog for choosing colors.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+<p> Dialog options, which include:</p>
+
+<ul>
+    <li><strong>title</strong>: Optional title, e.g. <code>"Choose a color"</code>.</li>
+    <li><strong>out_rgb</strong>: If present, a table whose <strong>r</strong>, <strong>g</strong>, and <strong>b</strong> values will be populated on success. These will
+    describe the same color as the hex string, but as numbers in the 0-1 range.</li>
+    <li><strong>rgb</strong>: If present, a table whose <strong>r</strong>, <strong>g</strong>, and <strong>b</strong> values must be numbers from 0 to 1, used as the
+    initial color. This may be the same table as <strong>out_rgb</strong>.</li>
+</ul>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        A hex string such as <code>"#FF0000"</code>.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+        <strong>false</strong>, if the user cancelled.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "inputBox"></a>
+    <strong>inputBox (opts)</strong>
+    </dt>
+    <dd>
+    Creates a dialog for text input. </p>
+
+<p> In Corona <a href="https://docs.coronalabs.com/api/library/native/newTextField.html">native.newTextField</a> will be more idiomatic,
+ but this is provided for completeness.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+<p> Dialog options, which include:</p>
+
+<ul>
+    <li><strong>title</strong>: Optional title, e.g. <code>"Messages are great..."</code>.</li>
+    <li><strong>message</strong>: Optional message, e.g. <code>"...aren't they?"</code>.</li>
+    <li><strong>default_input</strong>: If this is <strong>false</strong>, the text will be hidden, password-style. Otherwise, this may be a string
+    providing some initial text.</li>
+</ul>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Input text.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+        <strong>false</strong>, if the user cancelled.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "messageBox"></a>
+    <strong>messageBox (opts)</strong>
+    </dt>
+    <dd>
+    Creates a message dialog. </p>
+
+<p> In Corona <a href="https://docs.coronalabs.com/api/library/native/showAlert.html">native.showAlert</a> will be more idiomatic, but
+ this is provided for completeness.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+<p> Dialog options, which include:</p>
+
+<ul>
+    <li><strong>title</strong>: Optional title, e.g. <code>"Enter some text"</code>.</li>
+    <li><strong>message</strong>: Optional message, e.g. <code>"Text is great"</code>.</li>
+    <li><strong>dialog_type</strong>: One of <strong>"ok"</strong> (the default), <strong>"okcancel"</strong>, and <strong>"yesno"</strong>, determining the type of message box.</li>
+    <li><strong>icon_type</strong>: One of <strong>"info"</strong> (the default), <strong>"warning"</strong>, <strong>"error"</strong>, and <strong>"question"</strong>, determining the icon shown.</li>
+    <li><strong>default_okyes</strong>: If this is true, the <strong>OK</strong> or <strong>Yes</strong> option will be the default, rather than <strong>Cancel</strong> or <strong>No</strong>. This is
+    irrelevant if <strong>dialog_type</strong> was <strong>"ok"</strong>.</li>
+</ul>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Was the <strong>OK</strong> or <strong>Yes</strong> option chosen?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "openFileDialog"></a>
+    <strong>openFileDialog (opts)</strong>
+    </dt>
+    <dd>
+    Creates a dialog for choosing files to open.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+<p> Dialog options, which include:</p>
+
+<ul>
+    <li><strong>title</strong>: Optional title, e.g. <code>"Choose SFX"</code>.</li>
+    <li><strong>default_path_and_file</strong>: Optional path where dialog should start, e.g. <code>system.pathForFile("MySFXFolder")</code>; this may
+    more specifically refer to a file, which will be initially selected, such as <code>system.pathForFile("MySFXFolder/Hit.mp3")</code>.</li>
+    <li><strong>filter_patterns</strong>: If absent, all files in the folder will be available for selection. Otherwise, this may be either
+    a single string such as <code>"*.mp3"</code> or an array of them, e.g. <code>{ "*.mp3", "*.wav" }</code>.</li>
+    <li><strong>filter_description</strong>: Optional string used as a friendly replacement for any filter patterns, e.g. <code>"Sound Effects"</code>.</li>
+    <li><strong>allow_multiple_selects</strong>: If true, multiple files may be returned.</li>
+</ul>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">{string...}</span></span>
+        A list of file names.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        A single file name.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+        <strong>false</strong>, if the user cancelled.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "saveFileDialog"></a>
+    <strong>saveFileDialog (opts)</strong>
+    </dt>
+    <dd>
+    Creates a dialog for choosing files to save.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+<p> Dialog options, which include:</p>
+
+<ul>
+    <li><strong>title</strong>: Optional title, e.g. <code>"Choose image"</code>.</li>
+    <li><strong>default_path_and_file</strong>: Optional path where dialog should start looking, e.g. <code>system.pathForFile("MyImageFolder")</code>;
+    this may more specifically refer to a file, which will be initially selected, such as <code>system.pathForFile("MyImageFolder/Fire.png")</code>.</li>
+    <li><strong>filter_patterns</strong>: If absent, all files in the folder will be available for selection. Otherwise, this may be either
+    a single string such as <code>"*.png"</code> or an array of them, e.g. <code>{ "*.png", "*.jpg" }</code>.</li>
+    <li><strong>filter_description</strong>: Optional string used as a friendly replacement for any filter patterns, e.g. <code>"Images"</code>.</li>
+</ul>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        File name.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+        <strong>false</strong>, if the user cancelled.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "selectFolderDialog"></a>
+    <strong>selectFolderDialog (opts)</strong>
+    </dt>
+    <dd>
+    Creates a dialog for choosing a folder.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+<p> Dialog options, which include:</p>
+
+<ul>
+    <li><strong>title</strong>: Optional title, e.g. <code>"Choose image"</code>.</li>
+    <li><strong>default_path</strong>: Optional path where dialog should start looking, e.g. <code>system.pathForFile("MyImageFolder")</code>. (N.B. Buggy?)</li>
+</ul>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Folder name.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+        <strong>false</strong>, if the user cancelled.
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
