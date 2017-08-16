@@ -34,6 +34,8 @@ widget.setTheme("widget_theme_android_holo_dark")
 local left, top = 50, 50
 local str = display.newText("Choose an option", display.contentCenterX, display.contentHeight - 150, native.systemFont, 20)
 
+local not_mac = system.getInfo("platform") ~= "macos" -- hide a couple not-yet-implemented features
+
 for _, button in ipairs{
 	{
 		label = "Open Single File",
@@ -82,7 +84,7 @@ for _, button in ipairs{
 
 			str.text = folder and ("Folder: " .. folder) or "Cancelled"
 		end
-	}, {
+	}, not_mac and { -- Color chooser seems to lock up on Mac?
 		label = "Choose Color",
 		action = function()
 			local rgb = { r = .3, g = .7, b = 0 } -- use to set default values on input, reuse as output
@@ -125,7 +127,7 @@ for _, button in ipairs{
 
 			str.text = "AOK"
 		end
-	}, {
+	}, not_mac and { -- Message box okay on Mac, but results always false
 		label = "OK / Cancel",
 		action = function()
 			local ok = tfd.messageBox{
@@ -146,21 +148,23 @@ for _, button in ipairs{
 		end
 	}
 } do
-	local action = button.action
+    if button then
+        local action = button.action
 
-	widget.newButton{
-		left = left, top = top,
-		label = button.label,
-		onEvent = function(event)
-			if event.phase == "ended" then
-				action()
-			end
-		end
-	}
+        widget.newButton{
+            left = left, top = top,
+            label = button.label,
+            onEvent = function(event)
+                if event.phase == "ended" then
+                    action()
+                end
+            end
+        }
 
-	top = top + 70
+        top = top + 70
 
-	if str.y - top < 100 then
-		left, top = left + 200, 50
-	end
+        if str.y - top < 100 then
+            left, top = left + 200, 50
+        end
+    end
 end
