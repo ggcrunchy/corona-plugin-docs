@@ -24,7 +24,7 @@
 
 <div id="navigation">
 <br/>
-<h1>Awesomium</h1>
+<h1>tinyfiledialogs</h1>
 
 
 <h2>Contents</h2>
@@ -43,9 +43,18 @@
 <div id="content">
 
 <h1>Module <code>tinyfiledialogs</code></h1>
-<p>Corona binding for <strong>tiny file dialogs</strong>, a small library providing various dialogs on desktop platforms.</p>
+<p>Corona binding for <strong>tiny file dialogs</strong>, which provides various dialogs on desktop platforms.</p>
 <p>
 
+
+<p> To use the plugin, add the following in <code>build.settings</code>:</p>
+
+<pre><code>plugins = {
+ ["plugin.tinyfiledialogs"] = { publisherId = "com.xibalbastudios" }
+}
+</code></pre>
+
+<p> A sample may be found <a href="https://github.com/ggcrunchy/corona-plugin-docs/tree/master/tinyfiledialogs_sample">here</a>.</p>
 
 <hr/>
 
@@ -70,27 +79,27 @@
 <table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#colorChooser">colorChooser (opts)</a></td>
-	<td class="summary">Creates a dialog for choosing colors.</td>
+	<td class="summary">Create a dialog for choosing colors.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#inputBox">inputBox (opts)</a></td>
-	<td class="summary">Creates a dialog for text input.</td>
+	<td class="summary">Create a dialog for text input.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#messageBox">messageBox (opts)</a></td>
-	<td class="summary">Creates a message dialog.</td>
+	<td class="summary">Create a message dialog.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#openFileDialog">openFileDialog (opts)</a></td>
-	<td class="summary">Creates a dialog for choosing files to open.</td>
+	<td class="summary">Create a dialog for choosing files to open.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#saveFileDialog">saveFileDialog (opts)</a></td>
-	<td class="summary">Creates a dialog for choosing files to save.</td>
+	<td class="summary">Create a dialog for choosing files to save.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#selectFolderDialog">selectFolderDialog (opts)</a></td>
-	<td class="summary">Creates a dialog for choosing a folder.</td>
+	<td class="summary">Create a dialog for choosing a folder.</td>
 	</tr>
 </table>
 
@@ -105,7 +114,7 @@
     <strong>colorChooser (opts)</strong>
     </dt>
     <dd>
-    Creates a dialog for choosing colors.
+    Create a dialog for choosing colors.
 
     <h3>Parameters:</h3>
     <ul>
@@ -146,7 +155,7 @@
     <strong>inputBox (opts)</strong>
     </dt>
     <dd>
-    Creates a dialog for text input. </p>
+    Create a dialog for text input. </p>
 
 <p> In Corona <a href="https://docs.coronalabs.com/api/library/native/newTextField.html">native.newTextField</a> will be more idiomatic,
  but this is provided for completeness.
@@ -189,7 +198,7 @@
     <strong>messageBox (opts)</strong>
     </dt>
     <dd>
-    Creates a message dialog. </p>
+    Create a message dialog. </p>
 
 <p> In Corona <a href="https://docs.coronalabs.com/api/library/native/showAlert.html">native.showAlert</a> will be more idiomatic, but
  this is provided for completeness.
@@ -229,7 +238,7 @@
     <strong>openFileDialog (opts)</strong>
     </dt>
     <dd>
-    Creates a dialog for choosing files to open.
+    Create a dialog for choosing files to open.
 
     <h3>Parameters:</h3>
     <ul>
@@ -278,7 +287,7 @@
     <strong>saveFileDialog (opts)</strong>
     </dt>
     <dd>
-    Creates a dialog for choosing files to save.
+    Create a dialog for choosing files to save.
 
     <h3>Parameters:</h3>
     <ul>
@@ -320,7 +329,7 @@
     <strong>selectFolderDialog (opts)</strong>
     </dt>
     <dd>
-    Creates a dialog for choosing a folder.
+    Create a dialog for choosing a folder.
 
     <h3>Parameters:</h3>
     <ul>
