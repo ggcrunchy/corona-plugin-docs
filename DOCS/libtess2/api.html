@@ -78,9 +78,9 @@
  also used as input for new run. I.e. the user may first want to calculate an union all the input contours and the
  triangulate them.</p>
 
-<p> The code is released under SGI FREE SOFTWARE LICENSE B Version 2.0. https://directory.fsf.org/wiki/License:SGIFreeBv2</p>
+<p> The code is released under SGI FREE SOFTWARE LICENSE B Version 2.0. <a href="https://directory.fsf.org/wiki/License:SGIFreeBv2">https://directory.fsf.org/wiki/License:SGIFreeBv2</a></p>
 
-<p> Mikko Mononen memon@inside.org </p>
+<p> Mikko Mononen <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#x3a;m&#101;&#x6d;&#111;&#x6e;&#64;&#x69;&#110;&#x73;i&#100;&#x65;&#46;&#x6f;&#114;&#x67;">&#x6d;&#101;&#x6d;&#111;&#x6e;&#64;&#x69;n&#115;&#x69;&#100;&#x65;&#46;&#x6f;&#114;&#x67;</a></p>
 
 
 <h2><a href="#Functions">Functions</a></h2>
@@ -102,6 +102,10 @@
 	<td class="summary">Getter.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#Tessellator:GetElements">Tessellator:GetElements (arg)</a></td>
+	<td class="summary">Gather the elements resulting from tessellation.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#Tessellator:GetPolySize">Tessellator:GetPolySize ()</a></td>
 	<td class="summary">Getter.</td>
 	</tr>
@@ -110,8 +114,16 @@
 	<td class="summary">Getter.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#Tessellator:GetVertexIndices">Tessellator:GetVertexIndices (arg)</a></td>
+	<td class="summary">Gather the vertex indices resulting from tessellation, which may be used to map the generated vertices to the originals.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#Tessellator:GetVertexSize">Tessellator:GetVertexSize ()</a></td>
 	<td class="summary">Getter.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Tessellator:GetVertices">Tessellator:GetVertices (arg)</a></td>
+	<td class="summary">Gather the vertices resulting from tessellation.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Tessellator:SetOption">Tessellator:SetOption (option, enable)</a></td>
@@ -232,6 +244,46 @@
 
 </dd>
     <dt>
+    <a name = "Tessellator:GetElements"></a>
+    <strong>Tessellator:GetElements (arg)</strong>
+    </dt>
+    <dd>
+    Gather the elements resulting from tessellation. </p>
+
+<p> See the sample for how to use these results.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">arg</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a> or <span class="type">nil</span></span>
+         This may be the string <strong>"as_bytes"</strong>, in which case the elements are returned as <strong>Bytes</strong>. (<strong>N.B.</strong> NOT
+ YET IMPLEMENTED!)</p>
+
+<p> Otherwise, elements are supplied through a table, either using the one provided here or creating a new one.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         As a table, an array <code>{ elem1, elem2, ... }</code> whose values are <strong>uint</strong>s. Their interpretation
+ depends on the element type supplied to <a href="api.html#Tessellator:Tesselate">Tessellator:Tesselate</a>; some may be undefined, cf. <a href="api.html#Undef">Undef</a>.</p>
+
+<p> <strong>Bytes</strong> version not yet implemented!
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        When returning a table, the number of elements (possibly undefined).
+    </ol>
+
+
+
+
+</dd>
+    <dt>
     <a name = "Tessellator:GetPolySize"></a>
     <strong>Tessellator:GetPolySize ()</strong>
     </dt>
@@ -270,6 +322,42 @@
 
 </dd>
     <dt>
+    <a name = "Tessellator:GetVertexIndices"></a>
+    <strong>Tessellator:GetVertexIndices (arg)</strong>
+    </dt>
+    <dd>
+    Gather the vertex indices resulting from tessellation, which may be used to map the generated vertices to the originals. </p>
+
+<p> Every vertex added using <a href="api.html#Tessellator:AddContour">Tessellator:AddContour</a> will get a new index, starting from 0.</p>
+
+<p> New vertices generated at the intersections of segments are undefined, cf. <a href="api.html#Undef">Undef</a>.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">arg</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a> or <span class="type">nil</span></span>
+         As per <a href="api.html#Tessellator:GetElements">Tessellator:GetElements</a>.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        As per <a href="api.html#Tessellator:GetElements">Tessellator:GetElements</a>.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        When returning a table, the number of indices (possibly undefined).
+    </ol>
+
+
+
+
+</dd>
+    <dt>
     <a name = "Tessellator:GetVertexSize"></a>
     <strong>Tessellator:GetVertexSize ()</strong>
     </dt>
@@ -280,7 +368,43 @@
     <h3>Returns:</h3>
     <ol>
 
-        uint Number of coordinates per vertex, i.e. 2 or 3.
+           <span class="types"><span class="type">uint</span></span>
+        Number of coordinates per vertex, i.e. 2 or 3.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Tessellator:GetVertices"></a>
+    <strong>Tessellator:GetVertices (arg)</strong>
+    </dt>
+    <dd>
+    Gather the vertices resulting from tessellation.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">arg</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a> or <span class="type">nil</span></span>
+         As per <a href="api.html#Tessellator:GetElements">Tessellator:GetElements</a>.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         As a table, an array of numbers: <code>{ x1, y1, x2, y2, ... }</code> or <code>{ x1, y1, z1, x2, y2, z2, ... }</code>
+ for 2 or 3 coordinates, respectively.</p>
+
+<p> <strong>Bytes</strong> version not yet implemented!
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        When returning a table, the number of vertices.
     </ol>
 
 
