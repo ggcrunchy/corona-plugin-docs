@@ -24,157 +24,707 @@
 
 <div id="navigation">
 <br/>
-<h1>luaffifb</h1>
+<h1>object3d</h1>
 
 
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
 
 
 <h2>Modules</h2>
 <ul class="$(kind=='Topics' and '' or 'nowrap'">
-  <li><strong>luaffifb</strong></li>
+  <li><strong>object3d</strong></li>
 </ul>
 
 </div>
 
 <div id="content">
 
-<h1>Module <code>luaffifb</code></h1>
-<p>Corona binding for <a href="https://github.com/facebook/luaffifb">luaffifb</a>, a library for calling
- C functions and manipulating C types from Lua.</p>
-<p> It is designed to be interface-compatible with
- the FFI library in LuaJIT (see <a href="http://luajit.org/ext_ffi.html">here</a>). It can parse C function
- declarations and struct definitions that have been directly copied out of C header files and
- into Lua source as a string.</p>
+<h1>Module <code>object3d</code></h1>
+<p>Basic utility for rendering a batch of polygons to a texture, e.g.</p>
+<p>
+<p> for use in fills.</p>
 
-<p> This is a fork of <a href="https://github.com/jmckaskill/luaffi">luaffi</a>.</p>
+<p> To use the plugin, add the following in <code>build.settings</code>:</p>
 
-<h2> Documentation</h2>
-<p> This library is designed to be source-compatible with LuaJIT's FFI extension. The documentation <a href="http://luajit.org/ext_ffi.html">here</a>
- describes the API and semantics.</p>
+<p> <pre><code class="language-lua">plugins = {
+   ["plugin.object3d"] = { publisherId = "com.xibalbastudios" },
+   ["plugin.MemoryBlob"] = { publisherId = "com.xibalbastudios" }
+ }</code></pre></p>
 
-<h2> Pointer Comparison</h2>
-<p> Use <code>ffi.NULL</code> instead of <code>nil</code> when checking for <code>NULL</code> pointers.</p>
+<p> As shown, the (free) <a href="https://marketplace.coronalabs.com/corona-plugins/memory-blob">MemoryBlob</a> is also a dependency.
+ While not strictly necessary, the (also free) <a href="https://marketplace.coronalabs.com/corona-plugins/byte-map">Bytemap</a>
+ plugin is recommended as the way to interface the object with display objects.</p>
 
-<pre><code>ffi.new('void *', 0) == ffi.NULL -- true
-</code></pre>
+<p> Sample code is available <a href="https://github.com/ggcrunchy/corona-plugin-docs/tree/master/object3d_sample">here</a>.</p>
 
+<p> The <strong>Bytes</strong> type&mdash;specified in a few of the bytemap methods&mdash;may be any object that implements <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/ByteReader/policy.html">ByteReader</a>,
+ including strings.</p>
 
-<h2> Known Issues</h2>
+<p> The current implementation is a veneer over a somewhat customized <strong>tinyrenderer</strong>.</p>
 
-<ul>
-    <li><p>Comparing a ctype pointer to <code>nil</code> doesn't work the same as in LuaJIT (see above).
-    This is unfixable with the current metamethod semantics.</p></li>
-    <li><p>Constant expressions can't handle non integer intermediate values (eg
-    offsetof won't work because it manipulates pointers)</p></li>
-    <li><p>Not all metamethods work (e.g. char* + number). This is due to
-    the way metamethods are looked up with mixed types in Lua 5.1. If you need
-    this use boxed numbers (uint64_t and uintptr_t).</p></li>
-    <li><p>All bitfields are treated as unsigned (does anyone even use signed
-    bitfields?). Note that "int s:8" is unsigned on Unix x86/x64, but signed on Windows.</p></li>
-</ul>
+<p> <strong>From tinyrenderer's project page:</strong></p>
 
-<h2> Corona-specific changes</h2>
+<p> Tiny Renderer, <a href="https://github.com/ssloy/tinyrenderer">https://github.com/ssloy/tinyrenderer</a>
+ Copyright Dmitry V. Sokolov</p>
 
-<ul>
-    <li><a href="https://docs.coronalabs.com/api/library/global/tonumber.html">tonumber</a> and <a href="https://docs.coronalabs.com/api/library/global/type.html">type</a>
-    are left intact. For the FFI-aware behavior, stick to <code>ffi.number</code> and <code>ffi.type</code>.</li>
-    <li>To play nice with plugins, library loaders of the <code>luaopen_*</code> kind are rejected by <code>ffi.cdef</code>.</li>
-</ul>
-
-<h2> How it works</h2>
-<p> Types are represented by a struct ctype structure and an associated user value
- table. The table is shared between all related types for structs, unions, and
- functions. Its members have the types of struct members, function argument
- types, etc. The struct ctype structure then contains the modifications from
- the base type (e.g. number of pointers, array size, etc).</p>
-
-<p> Types are pushed into Lua as a userdata containing the struct ctype with fenv
- set to the shared type table.</p>
-
-<p> Boxed cdata types are pushed into Lua as a userdata containing the struct
- cdata structure (which contains the struct ctype of the data as its header)
- followed by the boxed data.</p>
-
-<p> The functions in <code>ffi.C</code> provide the <code>cdata</code> and <code>ctype</code> metatables and ffi.*
- functions which manipulate these two types.</p>
-
-<p> C functions (and function pointers) are pushed into Lua as a Lua C function
- with the function pointer cdata as the first upvalue. The actual code is JITed
- using dynasm (see call_x86.dasc). The JITed code does the following in order:</p>
+<p> This software is provided 'as-is', without any express or implied warranty.
+ In no event will the authors be held liable for any damages arising from the use of this software.
+ Permission is granted to anyone to use this software for any purpose,
+ including commercial applications, and to alter it and redistribute it freely,
+ subject to the following restrictions:</p>
 
 <ol>
-    <li>Calls the needed unpack functions in <code>ffi.C</code> placing each argument on the HW stack</li>
-    <li>Updates <code>errno</code></li>
-    <li>Performs the C call</li>
-    <li>Retrieves <code>errno</code></li>
-    <li>Pushes the result back into Lua from the HW register or stack</li>
+    <li>The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.</li>
+    <li>Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.</li>
+    <li>This notice may not be removed or altered from any source distribution.</li>
 </ol>
-
-<h2> BSD License</h2>
-
-<p> For luaffifb software</p>
-
-<p> Copyright (c) 2015, Facebook, Inc. All rights reserved.</p>
-
-<p> Redistribution and use in source and binary forms, with or without modification,
- are permitted provided that the following conditions are met:</p>
-
-<ul>
-    <li><p>Redistributions of source code must retain the above copyright notice, this
-    list of conditions and the following disclaimer.</p></li>
-    <li><p>Redistributions in binary form must reproduce the above copyright notice,
-    this list of conditions and the following disclaimer in the documentation
-    and/or other materials provided with the distribution.</p></li>
-    <li><p>Neither the name Facebook nor the names of its contributors may be used to
-    endorse or promote products derived from this software without specific
-    prior written permission.</p></li>
-</ul>
-
-<p> THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
- ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
- ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
-
-<hr/>
-
-<p> This product contains portions of third party software provided under this license:</p>
-
-<p> luaffi software</p>
-
-<p> Copyright (c) 2011 James R. McKaskill</p>
-
-<p> Permission is hereby granted, free of charge, to any person obtaining a
- copy of this software and associated documentation files (the "Software"),
- to deal in the Software without restriction, including without limitation
- the rights to use, copy, modify, merge, publish, distribute, sublicense,
- and/or sell copies of the Software, and to permit persons to whom the
- Software is furnished to do so, subject to the following conditions:</p>
-
-<p> The above copyright notice and this permission notice shall be included in
- all copies or substantial portions of the Software.</p>
-
-<p> THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- DEALINGS IN THE SOFTWARE.</p>
-
-<p> Facebook provides this code under the BSD License above.</p>
+</p>
 
 
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#New">New (w, h, has_alpha)</a></td>
+	<td class="summary">Create a new <strong>Object3d</strong>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Object3d:AddFace">Object3d:AddFace (...)</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Object3d:AddNormal">Object3d:AddNormal (x, y, z)</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Object3d:AddUV">Object3d:AddUV (u, v)</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Object3d:AddVertex">Object3d:AddVertex (x, y, z)</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Object3d:Clear">Object3d:Clear ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Object3d:GetBlob">Object3d:GetBlob ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Object3d:GetBytes">Object3d:GetBytes ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Object3d:GetColor">Object3d:GetColor ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Object3d:GetFaceVertexIndices">Object3d:GetFaceVertexIndices (index)</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Object3d:GetVertex">Object3d:GetVertex (index)</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Object3d:__len">Object3d:__len ()</a></td>
+	<td class="summary">Metamethod.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Object3d:Render">Object3d:Render ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Object3d:SetCenter">Object3d:SetCenter (x, y, z)</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Object3d:SetDiffuse">Object3d:SetDiffuse (how, w, h[, comps=3])</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Object3d:SetEye">Object3d:SetEye (x, y, z)</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Object3d:SetLightDir">Object3d:SetLightDir (x, y, z)</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Object3d:SetNormalMap">Object3d:SetNormalMap (how, w, h[, comps=3])</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Object3d:SetUp">Object3d:SetUp (x, y, z)</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+</table>
 
 <br/>
 <br/>
 
 
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "New"></a>
+    <strong>New (w, h, has_alpha)</strong>
+    </dt>
+    <dd>
+    Create a new <strong>Object3d</strong>.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">w</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">h</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">has_alpha</span>
+            <span class="types"><span class="type">bool</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Object3d</span> or <span class="type">nil</span></span>
+        Object interface, or <strong>nil</strong> on error.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Object3d:AddFace"></a>
+    <strong>Object3d:AddFace (...)</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">...</span>
+         int triples Indices
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Object3d:AddNormal"></a>
+    <strong>Object3d:AddNormal (x, y, z)</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">z</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Object3d:AddUV"></a>
+    <strong>Object3d:AddUV (u, v)</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">u</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">v</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Object3d:AddVertex"></a>
+    <strong>Object3d:AddVertex (x, y, z)</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">z</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Object3d:Clear"></a>
+    <strong>Object3d:Clear ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Object3d:GetBlob"></a>
+    <strong>Object3d:GetBlob ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">MemoryBlob</span></span>
+        B
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Object3d:GetBytes"></a>
+    <strong>Object3d:GetBytes ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        B
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Object3d:GetColor"></a>
+    <strong>Object3d:GetColor ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">r</span></span>
+
+
+</li>
+        <li>
+           <span class="types"><span class="type">g</span></span>
+
+
+</li>
+        <li>
+           <span class="types"><span class="type">b</span></span>
+
+
+</li>
+        <li>
+           <span class="types"><span class="type">a</span></span>
+
+
+</li>
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+        nil
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Object3d:GetFaceVertexIndices"></a>
+    <strong>Object3d:GetFaceVertexIndices (index)</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">index</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        ... face indices
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Object3d:GetVertex"></a>
+    <strong>Object3d:GetVertex (index)</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">index</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        x</li>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        y</li>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        z</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Object3d:__len"></a>
+    <strong>Object3d:__len ()</strong>
+    </dt>
+    <dd>
+    Metamethod.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        Face count.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Object3d:Render"></a>
+    <strong>Object3d:Render ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Object3d:SetCenter"></a>
+    <strong>Object3d:SetCenter (x, y, z)</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">z</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Object3d:SetDiffuse"></a>
+    <strong>Object3d:SetDiffuse (how, w, h[, comps=3])</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">how</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         "uvs"
+        </li>
+        <li><span class="parameter">w</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">h</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">comps</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+         (<em>default</em> 3)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Object3d:SetEye"></a>
+    <strong>Object3d:SetEye (x, y, z)</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">z</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Object3d:SetLightDir"></a>
+    <strong>Object3d:SetLightDir (x, y, z)</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">z</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Object3d:SetNormalMap"></a>
+    <strong>Object3d:SetNormalMap (how, w, h[, comps=3])</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">how</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         "uvs"
+        </li>
+        <li><span class="parameter">w</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">h</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">comps</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+         (<em>default</em> 3)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Object3d:SetUp"></a>
+    <strong>Object3d:SetUp (x, y, z)</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">z</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
 
 
 </div> <!-- id="content" -->
