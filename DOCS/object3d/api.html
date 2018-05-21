@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Documentation</title>
+    <link rel="stylesheet" href="ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>luaffifb</h1>
+
+
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><strong>luaffifb</strong></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>luaffifb</code></h1>
+<p>Corona binding for <a href="https://github.com/facebook/luaffifb">luaffifb</a>, a library for calling
+ C functions and manipulating C types from Lua.</p>
+<p> It is designed to be interface-compatible with
+ the FFI library in LuaJIT (see <a href="http://luajit.org/ext_ffi.html">here</a>). It can parse C function
+ declarations and struct definitions that have been directly copied out of C header files and
+ into Lua source as a string.</p>
+
+<p> This is a fork of <a href="https://github.com/jmckaskill/luaffi">luaffi</a>.</p>
+
+<h2> Documentation</h2>
+<p> This library is designed to be source-compatible with LuaJIT's FFI extension. The documentation <a href="http://luajit.org/ext_ffi.html">here</a>
+ describes the API and semantics.</p>
+
+<h2> Pointer Comparison</h2>
+<p> Use <code>ffi.NULL</code> instead of <code>nil</code> when checking for <code>NULL</code> pointers.</p>
+
+<pre><code>ffi.new('void *', 0) == ffi.NULL -- true
+</code></pre>
+
+
+<h2> Known Issues</h2>
+
+<ul>
+    <li><p>Comparing a ctype pointer to <code>nil</code> doesn't work the same as in LuaJIT (see above).
+    This is unfixable with the current metamethod semantics.</p></li>
+    <li><p>Constant expressions can't handle non integer intermediate values (eg
+    offsetof won't work because it manipulates pointers)</p></li>
+    <li><p>Not all metamethods work (e.g. char* + number). This is due to
+    the way metamethods are looked up with mixed types in Lua 5.1. If you need
+    this use boxed numbers (uint64_t and uintptr_t).</p></li>
+    <li><p>All bitfields are treated as unsigned (does anyone even use signed
+    bitfields?). Note that "int s:8" is unsigned on Unix x86/x64, but signed on Windows.</p></li>
+</ul>
+
+<h2> Corona-specific changes</h2>
+
+<ul>
+    <li><a href="https://docs.coronalabs.com/api/library/global/tonumber.html">tonumber</a> and <a href="https://docs.coronalabs.com/api/library/global/type.html">type</a>
+    are left intact. For the FFI-aware behavior, stick to <code>ffi.number</code> and <code>ffi.type</code>.</li>
+    <li>To play nice with plugins, library loaders of the <code>luaopen_*</code> kind are rejected by <code>ffi.cdef</code>.</li>
+</ul>
+
+<h2> How it works</h2>
+<p> Types are represented by a struct ctype structure and an associated user value
+ table. The table is shared between all related types for structs, unions, and
+ functions. Its members have the types of struct members, function argument
+ types, etc. The struct ctype structure then contains the modifications from
+ the base type (e.g. number of pointers, array size, etc).</p>
+
+<p> Types are pushed into Lua as a userdata containing the struct ctype with fenv
+ set to the shared type table.</p>
+
+<p> Boxed cdata types are pushed into Lua as a userdata containing the struct
+ cdata structure (which contains the struct ctype of the data as its header)
+ followed by the boxed data.</p>
+
+<p> The functions in <code>ffi.C</code> provide the <code>cdata</code> and <code>ctype</code> metatables and ffi.*
+ functions which manipulate these two types.</p>
+
+<p> C functions (and function pointers) are pushed into Lua as a Lua C function
+ with the function pointer cdata as the first upvalue. The actual code is JITed
+ using dynasm (see call_x86.dasc). The JITed code does the following in order:</p>
+
+<ol>
+    <li>Calls the needed unpack functions in <code>ffi.C</code> placing each argument on the HW stack</li>
+    <li>Updates <code>errno</code></li>
+    <li>Performs the C call</li>
+    <li>Retrieves <code>errno</code></li>
+    <li>Pushes the result back into Lua from the HW register or stack</li>
+</ol>
+
+<h2> BSD License</h2>
+
+<p> For luaffifb software</p>
+
+<p> Copyright (c) 2015, Facebook, Inc. All rights reserved.</p>
+
+<p> Redistribution and use in source and binary forms, with or without modification,
+ are permitted provided that the following conditions are met:</p>
+
+<ul>
+    <li><p>Redistributions of source code must retain the above copyright notice, this
+    list of conditions and the following disclaimer.</p></li>
+    <li><p>Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.</p></li>
+    <li><p>Neither the name Facebook nor the names of its contributors may be used to
+    endorse or promote products derived from this software without specific
+    prior written permission.</p></li>
+</ul>
+
+<p> THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+ ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
+
+<hr/>
+
+<p> This product contains portions of third party software provided under this license:</p>
+
+<p> luaffi software</p>
+
+<p> Copyright (c) 2011 James R. McKaskill</p>
+
+<p> Permission is hereby granted, free of charge, to any person obtaining a
+ copy of this software and associated documentation files (the "Software"),
+ to deal in the Software without restriction, including without limitation
+ the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ and/or sell copies of the Software, and to permit persons to whom the
+ Software is furnished to do so, subject to the following conditions:</p>
+
+<p> The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.</p>
+
+<p> THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ DEALINGS IN THE SOFTWARE.</p>
+
+<p> Facebook provides this code under the BSD License above.</p>
+
+
+
+<br/>
+<br/>
+
+
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

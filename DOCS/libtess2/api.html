@@ -1,0 +1,394 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Documentation</title>
+    <link rel="stylesheet" href="ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>libtess2</h1>
+
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><strong>libtess2</strong></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>libtess2</code></h1>
+<p>Corona binding for <a href="https://github.com/memononen/libtess2">libtess2</a>, a polygon tessellator and triangulator.</p>
+<p> To use the plugin, add the following in <code>build.settings</code>:</p>
+
+<p> <pre><code class="language-lua">plugins = {
+   ["plugin.libtess2"] = { publisherId = "com.xibalbastudios" }
+ }</code></pre></p>
+
+<p> Sample code is available <a href="https://github.com/ggcrunchy/corona-plugin-docs/tree/master/libtess2_sample">here</a>.</p>
+
+<p> The <strong>Bytes</strong> type&mdash;specified in a few of the bytemap methods&mdash;may be any object that implements <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/ByteReader/policy.html">ByteReader</a>,
+ including strings.</p>
+
+<p> An overview of the algorithm is available <a href="https://github.com/memononen/libtess2/blob/master/alg_outline.md">here</a>.</p>
+
+<p> <strong>Adapted from the original project:</strong></p>
+
+<p> Version 1.0.1</p>
+
+<p> This is a refactored version of the original libtess which comes with the GLU reference implementation. The code is a
+ good quality polygon tessellator and triangulator. The original code comes with a rather horrible interface and its
+ performance suffers from lots of small memory allocations. The main point of the refactoring has been the interface
+ and memory allocation scheme.</p>
+
+<p> A lot of the GLU tessellator documentation applies to Libtess2 too (apart from the API); check out
+ <a href="http://www.glprogramming.com/red/chapter11.html">Chapter 11</a> here.</p>
+
+<p> A simple bucketed memory allocator (see Graphics Gems III for reference) was added which speeds up the code by order
+ of magnitude (tests showed 15 to 50 times improvement depending on data). The API allows the user to pass his own
+ allocator to the library. It is possible to configure the library so that the library runs on predefined chunk of memory.</p>
+
+<p> The API was changed to loosely resemble the OpenGL vertex array API. The processed data can be accessed via getter
+ functions. The code is able to output contours, polygons and connected polygons. The output of the tessellator can be
+ also used as input for new run. I.e. the user may first want to calculate an union all the input contours and the
+ triangulate them.</p>
+
+<p> The code is released under SGI FREE SOFTWARE LICENSE B Version 2.0. https://directory.fsf.org/wiki/License:SGIFreeBv2</p>
+
+<p> Mikko Mononen memon@inside.org </p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#NewTess">NewTess (use3)</a></td>
+	<td class="summary">Create a new <strong>Tessellator</strong>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Undef">Undef ()</a></td>
+	<td class="summary">Getter.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Tessellator:AddContour">Tessellator:AddContour (vertices[, opts])</a></td>
+	<td class="summary">Adds a contour to be tessellated.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Tessellator:GetElementCount">Tessellator:GetElementCount ()</a></td>
+	<td class="summary">Getter.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Tessellator:GetPolySize">Tessellator:GetPolySize ()</a></td>
+	<td class="summary">Getter.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Tessellator:GetVertexCount">Tessellator:GetVertexCount ()</a></td>
+	<td class="summary">Getter.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Tessellator:GetVertexSize">Tessellator:GetVertexSize ()</a></td>
+	<td class="summary">Getter.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Tessellator:SetOption">Tessellator:SetOption (option, enable)</a></td>
+	<td class="summary">Toggles optional tessellation parameters.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Tessellator:Tesselate">Tessellator:Tesselate (winding_rule, element_type, poly_size[, normal])</a></td>
+	<td class="summary">Tessellate contours.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "NewTess"></a>
+    <strong>NewTess (use3)</strong>
+    </dt>
+    <dd>
+    Create a new <strong>Tessellator</strong>.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">use3</span>
+            <span class="types"><span class="type">bool</span></span>
+         If true, the tessellator will use 3 coordinates per vertex, rather than 2 (the default).
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Tessellator</span> or <span class="type">nil</span></span>
+        Tessellator object, or <strong>nil</strong> on error.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Undef"></a>
+    <strong>Undef ()</strong>
+    </dt>
+    <dd>
+    Getter.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        A constant that indicates an undefined index.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Tessellator:AddContour"></a>
+    <strong>Tessellator:AddContour (vertices[, opts])</strong>
+    </dt>
+    <dd>
+    Adds a contour to be tessellated. </p>
+
+<p> TODO: Are the options applied here or at tessellation?
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">vertices</span>
+            <span class="types"><span class="type">array</span> or <span class="type">Bytes</span></span>
+         As a table, the vertices are assumed to be an array of numbers: <code>{ x1, y1, x2, y2, ... }</code>
+ or <code>{ x1, y1, z1, x2, y2, z2, ... }</code> for 2 or 3 coordinates, respectively. Any incomplete trailing vertex is ignored.</p>
+
+<p> This may also be provided as bytes, pointing to the start of the first float.
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+<p> Contour options:</p>
+
+<ul>
+    <li><strong>count</strong>: Number of vertices in the contour, padding with all-zero values if necessary. By default (or when 0), the number
+    of complete values in <em>vertices</em>.</li>
+    <li><strong>stride</strong>: Offset in bytes between consecutive vertices, which must be at least <code>sizeof(float) * self:GetVertexSize()</code>.
+    This is also used to calculate the default count for <em>vertices</em> when provided as bytes.</li>
+</ul>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Tessellator:GetElementCount"></a>
+    <strong>Tessellator:GetElementCount ()</strong>
+    </dt>
+    <dd>
+    Getter.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        Number of elements in the the tesselated output.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Tessellator:GetPolySize"></a>
+    <strong>Tessellator:GetPolySize ()</strong>
+    </dt>
+    <dd>
+    Getter.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        Polygon size provided to <a href="api.html#Tessellator:Tesselate">Tessellator:Tesselate</a>, or 0 if not yet set.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Tessellator:GetVertexCount"></a>
+    <strong>Tessellator:GetVertexCount ()</strong>
+    </dt>
+    <dd>
+    Getter.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        Number of vertices in the tessellated output.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Tessellator:GetVertexSize"></a>
+    <strong>Tessellator:GetVertexSize ()</strong>
+    </dt>
+    <dd>
+    Getter.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        uint Number of coordinates per vertex, i.e. 2 or 3.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Tessellator:SetOption"></a>
+    <strong>Tessellator:SetOption (option, enable)</strong>
+    </dt>
+    <dd>
+    Toggles optional tessellation parameters.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">option</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+<p> One of the following:</p>
+
+<ul>
+    <li><strong>CONSTRAINED_DELAUNAY_TRIANGULATION</strong>: Used an improved non-robust Constrained Delaunay triangulation. (Off by default.)</li>
+    <li><strong>REVERSE_CONTOURS</strong>: <a href="api.html#Tessellator:AddContour">Tessellator:AddContour</a> will treat clockwise contours as counter-clockwise and <em>vice versa</em>.</li>
+</ul>
+
+        </li>
+        <li><span class="parameter">enable</span>
+            <span class="types"><span class="type">bool</span></span>
+         Enable the option? Disable it otherwise.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Tessellator:Tesselate"></a>
+    <strong>Tessellator:Tesselate (winding_rule, element_type, poly_size[, normal])</strong>
+    </dt>
+    <dd>
+    Tessellate contours. </p>
+
+<p> <strong>N.B.</strong> The method's spelling is carried over from <strong>libtess2</strong>.</p>
+
+<p> TODO: Could probably use a table variant where poly_size and normal are options.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">winding_rule</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+<p> Rule used for tessellation. Must be one of the following (for descriptions see the
+ <a href="http://www.glprogramming.com/red/chapter11.html">OpenGL Red Book</a>):</p>
+
+<ul>
+    <li><strong>"ABS_GEQ_TWO"</strong>: <code>abs(winding_number) >= 2</code></li>
+    <li><strong>"NEGATIVE"</strong>: <code>winding_number &lt; 0</code></li>
+    <li><strong>"NONZERO"</strong>: <code>winding_number ~= 0</code></li>
+    <li><strong>"ODD"</strong>: <code>winding_number % 2 == 1</code></li>
+    <li><strong>"POSITIVE"</strong>: <code>winding_number > 0</code></li>
+</ul>
+
+        </li>
+        <li><span class="parameter">element_type</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+<p> Resulting element type. Must be one of the following:</p>
+
+<ul>
+    <li><strong>"BOUNDARY_CONTOURS"</strong>: Generate only the outside contours of the shapes.</li>
+    <li><strong>"CONNECTED_POLYGONS"</strong>: Generate polygons with neighbor information.</li>
+    <li><strong>"POLYGONS"</strong>: Generate polygons.</li>
+</ul>
+
+        </li>
+        <li><span class="parameter">poly_size</span>
+            <span class="types"><span class="type">uint</span></span>
+         Maximum vertices per polygon when <em>element_type</em> is <strong>"POLYGONS"</strong>.
+        </li>
+        <li><span class="parameter">normal</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a>, <span class="type">Bytes</span> or <span class="type">nil</span></span>
+         Defines the normal of the input contours, either as an array of three
+ numbers or in <strong>Bytes</strong> form as three consecutive floats (if either is too small, padding 0s are added). If
+ absent, calculated automatically.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Tessellation succeeded?
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
