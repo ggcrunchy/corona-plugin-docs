@@ -24,22 +24,23 @@
 
 <div id="navigation">
 <br/>
-<h1>GlyphRenderer</h1>
+<h1>clipper</h1>
 
 
 
 
 <h2>Modules</h2>
 <ul class="$(kind=='Topics' and '' or 'nowrap'">
-  <li><a href="modules/glyphrenderer.html">glyphrenderer</a></li>
+  <li><a href="modules/core.html">core</a></li>
 </ul>
 <h2>Classes</h2>
 <ul class="$(kind=='Topics' and '' or 'nowrap'">
-  <li><a href="classes/CharArray.html">CharArray</a></li>
-  <li><a href="classes/FontInfo.html">FontInfo</a></li>
-  <li><a href="classes/Packing.html">Packing</a></li>
-  <li><a href="classes/RectArray.html">RectArray</a></li>
-  <li><a href="classes/VertexArray.html">VertexArray</a></li>
+  <li><a href="classes/Clipper.html">Clipper</a></li>
+  <li><a href="classes/Offset.html">Offset</a></li>
+  <li><a href="classes/Path.html">Path</a></li>
+  <li><a href="classes/Paths.html">Paths</a></li>
+  <li><a href="classes/PolyNode.html">PolyNode</a></li>
+  <li><a href="classes/PolyTree.html">PolyTree</a></li>
 </ul>
 
 </div>
@@ -53,43 +54,51 @@
 <p>To use the plugin, add the following in <code>build.settings</code>:</p>
 
 <pre><code class="language-lua">plugins = {
-  ["plugin.GlyphRenderer"] = { publisherId = "com.xibalbastudios" }
-}
-</code></pre>
+  ["plugin.clipper"] = { publisherId = "com.xibalbastudios" }
+}</code></pre>
 
 
-<p>A sample project is available <a href="https://github.com/ggcrunchy/corona-plugin-docs/tree/master/GlyphRenderer_sample">here</a>.</p>
+<p>A sample project is available <a href="https://github.com/ggcrunchy/corona-plugin-docs/tree/master/clipper_sample">here</a>.</p>
 
 <p>This plugin is designed to be called safely from other <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/luaproc/api.html">Lua processes</a>.</p>
 
 <h2>Modules</h2>
 <table class="module_list">
 	<tr>
-		<td class="name"  nowrap><a href="modules/glyphrenderer.html">glyphrenderer</a></td>
-		<td class="summary">Tool to render text and other glyphs, say into a texture or as a mesh.</td>
+		<td class="name"  nowrap><a href="modules/core.html">core</a></td>
+		<td class="summary">Various free functions used by Clipper.</td>
 	</tr>
 </table>
 <h2>Classes</h2>
 <table class="module_list">
 	<tr>
-		<td class="name"  nowrap><a href="classes/CharArray.html">CharArray</a></td>
-		<td class="summary">Class used intermediately by <a href="classes/Packing.html#">Packing</a>s, representing an array of packed characters.</td>
+		<td class="name"  nowrap><a href="classes/Clipper.html">Clipper</a></td>
+		<td class="summary"><a href="http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Classes/Clipper/_Body.htm">An encapsulation</a>
+ of various boolean operations on polygons.</td>
 	</tr>
 	<tr>
-		<td class="name"  nowrap><a href="classes/FontInfo.html">FontInfo</a></td>
-		<td class="summary">Class that represents font info.</td>
+		<td class="name"  nowrap><a href="classes/Offset.html">Offset</a></td>
+		<td class="summary"><a href="http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Classes/ClipperOffset/_Body.htm">An encapsulation</a>
+ of the process of offsetting (inflating/deflating) both open and closed paths using a number of different join types and end types.</td>
 	</tr>
 	<tr>
-		<td class="name"  nowrap><a href="classes/Packing.html">Packing</a></td>
-		<td class="summary">Class that represents a truetype packing context.</td>
+		<td class="name"  nowrap><a href="classes/Path.html">Path</a></td>
+		<td class="summary"><a href="http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Types/Path.htm">A sequence</a> of
+ integer-valued points representing a single contour.</td>
 	</tr>
 	<tr>
-		<td class="name"  nowrap><a href="classes/RectArray.html">RectArray</a></td>
-		<td class="summary">Class used intermediately by <a href="classes/Packing.html#">Packing</a>s, representing an array of rectangles.</td>
+		<td class="name"  nowrap><a href="classes/Paths.html">Paths</a></td>
+		<td class="summary">A grouping of multiple <a href="classes/Path.html#">Path</a>s.</td>
 	</tr>
 	<tr>
-		<td class="name"  nowrap><a href="classes/VertexArray.html">VertexArray</a></td>
-		<td class="summary">Class used intermediately by <a href="classes/FontInfo.html#">FontInfo</a>s, representing a shape as an array of vertices.</td>
+		<td class="name"  nowrap><a href="classes/PolyNode.html">PolyNode</a></td>
+		<td class="summary">Class used to represent a <a href="http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Classes/PolyNode/_Body.htm">poly node</a>,
+ representing a single polygon contained in a <a href="classes/PolyTree.html#">PolyTree</a>.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/PolyTree.html">PolyTree</a></td>
+		<td class="summary">Class used to represent <a href="http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Classes/PolyTree/_Body.htm">poly trees</a>,
+ used as a means of receiving solutions.</td>
 	</tr>
 </table>
 

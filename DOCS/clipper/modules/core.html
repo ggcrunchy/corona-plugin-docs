@@ -1,0 +1,919 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Documentation</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>clipper</h1>
+
+<ul>
+  <li><a href="../api.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+<li><a href="#Tables">Tables</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><strong>core</strong></li>
+</ul>
+<h2>Classes</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../classes/Clipper.html">Clipper</a></li>
+  <li><a href="../classes/Offset.html">Offset</a></li>
+  <li><a href="../classes/Path.html">Path</a></li>
+  <li><a href="../classes/Paths.html">Paths</a></li>
+  <li><a href="../classes/PolyNode.html">PolyNode</a></li>
+  <li><a href="../classes/PolyTree.html">PolyTree</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>core</code></h1>
+<p>Various free functions used by Clipper.</p>
+<p>
+
+</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#Area">Area (P)</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#CleanPolygon">CleanPolygon (P[, opts])</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#CleanPolygons">CleanPolygons (P[, opts])</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ClosedPathsFromPolyTree">ClosedPathsFromPolyTree (PT[, opts])</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MinkowskiDiff">MinkowskiDiff (p1, p2[, opts])</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MinkowskiSum">MinkowskiSum (P, P12[, opts])</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#NewClipper">NewClipper ([init_opts])</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#NewOffset">NewOffset ([opts])</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#NewPath">NewPath ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#NewPathArray">NewPathArray ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#NewPolyNode">NewPolyNode ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#NewPolyTree">NewPolyTree ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#OpenPathsFromPolyTree">OpenPathsFromPolyTree ([opts])</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Orientation">Orientation (P)</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#PointInPolygon">PointInPolygon (x, y, P)</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#PolyTreeToPaths">PolyTreeToPaths (PT[, opts])</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SimplifyPolygon">SimplifyPolygon (P[, opts])</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SimplifyPolygona">SimplifyPolygona (P[, opts])</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ReversePath">ReversePath (P)</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ReversePaths">ReversePaths (P)</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+</table>
+<h2><a href="#Tables">Tables</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#ClipType">ClipType</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#PolyType">PolyType</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#PolyFillType">PolyFillType</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#InitOptions">InitOptions</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#JoinType">JoinType</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#EndType">EndType</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "Area"></a>
+    <strong>Area (P)</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">P</span>
+            <span class="types"><a class="type" href="../classes/Path.html#">Path</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        A
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "CleanPolygon"></a>
+    <strong>CleanPolygon (P[, opts])</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">P</span>
+            <span class="types"><a class="type" href="../classes/Path.html#">Path</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         (mPath, mDistance)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "CleanPolygons"></a>
+    <strong>CleanPolygons (P[, opts])</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">P</span>
+            <span class="types"><a class="type" href="../classes/Paths.html#">Paths</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         (mPathArray, mDistance)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ClosedPathsFromPolyTree"></a>
+    <strong>ClosedPathsFromPolyTree (PT[, opts])</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">PT</span>
+            <span class="types"><a class="type" href="../classes/PolyTree.html#">PolyTree</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         (mPathArray)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Paths.html#">Paths</a></span>
+        P
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MinkowskiDiff"></a>
+    <strong>MinkowskiDiff (p1, p2[, opts])</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">p1</span>
+            <span class="types"><a class="type" href="../classes/Path.html#">Path</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">p2</span>
+            <span class="types"><a class="type" href="../classes/Path.html#">Path</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         (mPathArray)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MinkowskiSum"></a>
+    <strong>MinkowskiSum (P, P12[, opts])</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">P</span>
+            <span class="types"><a class="type" href="../classes/Path.html#">Path</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">P12</span>
+            <span class="types"><a class="type" href="../classes/Path.html#">Path</a> or <a class="type" href="../classes/Paths.html#">Paths</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         (mPathAarray, mIsClosed)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Paths.html#">Paths</a></span>
+        P
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "NewClipper"></a>
+    <strong>NewClipper ([init_opts])</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">init_opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         (see list... allow string?)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Clipper.html#">Clipper</a></span>
+        C
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "NewOffset"></a>
+    <strong>NewOffset ([opts])</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         (miter<em>limit=.2, round</em>precision=.25
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Offset.html#">Offset</a></span>
+        O
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "NewPath"></a>
+    <strong>NewPath ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Path.html#">Path</a></span>
+        P
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "NewPathArray"></a>
+    <strong>NewPathArray ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Paths.html#">Paths</a></span>
+        P
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "NewPolyNode"></a>
+    <strong>NewPolyNode ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/PolyNode.html#">PolyNode</a></span>
+        N
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "NewPolyTree"></a>
+    <strong>NewPolyTree ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/PolyTree.html#">PolyTree</a></span>
+        PT
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "OpenPathsFromPolyTree"></a>
+    <strong>OpenPathsFromPolyTree ([opts])</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         (mPathArray)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Paths.html#">Paths</a></span>
+        PT
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Orientation"></a>
+    <strong>Orientation (P)</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">P</span>
+            <span class="types"><a class="type" href="../classes/Path.html#">Path</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        O
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "PointInPolygon"></a>
+    <strong>PointInPolygon (x, y, P)</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">int</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">P</span>
+            <span class="types"><a class="type" href="../classes/Path.html#">Path</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        "on_poly", "inside", false
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "PolyTreeToPaths"></a>
+    <strong>PolyTreeToPaths (PT[, opts])</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">PT</span>
+            <span class="types"><a class="type" href="../classes/PolyTree.html#">PolyTree</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         (mPathArray)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Paths.html#">Paths</a></span>
+        P
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SimplifyPolygon"></a>
+    <strong>SimplifyPolygon (P[, opts])</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">P</span>
+            <span class="types"><a class="type" href="../classes/Path.html#">Path</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         (mPathArray)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SimplifyPolygona"></a>
+    <strong>SimplifyPolygona (P[, opts])</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">P</span>
+            <span class="types"><a class="type" href="../classes/Path.html#">Path</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         (mPathArray, mFillType)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ReversePath"></a>
+    <strong>ReversePath (P)</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">P</span>
+            <span class="types"><a class="type" href="../classes/Path.html#">Path</a></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ReversePaths"></a>
+    <strong>ReversePaths (P)</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">P</span>
+            <span class="types"><a class="type" href="../classes/Paths.html#">Paths</a></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2><a name="Tables"></a>Tables</h2>
+    <dl class="function">
+    <dt>
+    <a name = "ClipType"></a>
+    <strong>ClipType</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">Intersection</span>
+         I
+        </li>
+        <li><span class="parameter">Union</span>
+         U
+        </li>
+        <li><span class="parameter">Difference</span>
+         D
+        </li>
+        <li><span class="parameter">Xor</span>
+         x
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "PolyType"></a>
+    <strong>PolyType</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">Subject</span>
+
+
+
+        </li>
+        <li><span class="parameter">Clip</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "PolyFillType"></a>
+    <strong>PolyFillType</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">EvenOdd</span>
+
+
+
+        </li>
+        <li><span class="parameter">NonZero</span>
+
+
+
+        </li>
+        <li><span class="parameter">Positive</span>
+
+
+
+        </li>
+        <li><span class="parameter">Negative</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "InitOptions"></a>
+    <strong>InitOptions</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">ReverseSolution</span>
+
+
+
+        </li>
+        <li><span class="parameter">StrictlySimple</span>
+
+
+
+        </li>
+        <li><span class="parameter">PreserveCollinear</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "JoinType"></a>
+    <strong>JoinType</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">Square</span>
+
+
+
+        </li>
+        <li><span class="parameter">Round</span>
+
+
+
+        </li>
+        <li><span class="parameter">Miter</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "EndType"></a>
+    <strong>EndType</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">ClosedPolygon</span>
+
+
+
+        </li>
+        <li><span class="parameter">ClosedLine</span>
+
+
+
+        </li>
+        <li><span class="parameter">OpenButt</span>
+
+
+
+        </li>
+        <li><span class="parameter">OpenSquare</span>
+
+
+
+        </li>
+        <li><span class="parameter">OpenRound</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

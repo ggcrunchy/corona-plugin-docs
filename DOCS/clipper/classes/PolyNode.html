@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Documentation</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>clipper</h1>
+
+<ul>
+  <li><a href="../api.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Methods">Methods </a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../classes/Clipper.html">Clipper</a></li>
+  <li><a href="../classes/Offset.html">Offset</a></li>
+  <li><a href="../classes/Path.html">Path</a></li>
+  <li><a href="../classes/Paths.html">Paths</a></li>
+  <li><strong>PolyNode</strong></li>
+  <li><a href="../classes/PolyTree.html">PolyTree</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../modules/core.html">core</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>PolyNode</code></h1>
+<p>Class used to represent a <a href="http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Classes/PolyNode/_Body.htm">poly node</a>,
+ representing a single polygon contained in a <a href="../classes/PolyTree.html#">PolyTree</a>.</p>
+<p>
+
+</p>
+
+
+<h2><a href="#Methods">Methods </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#PolyNode:ChildCount">PolyNode:ChildCount ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#PolyNode:GetChild">PolyNode:GetChild (index)</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#PolyNode:GetContour">PolyNode:GetContour ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#PolyNode:GetNext">PolyNode:GetNext ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#PolyNode:GetParent">PolyNode:GetParent ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#PolyNode:IsHole">PolyNode:IsHole ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#PolyNode:IsOpen">PolyNode:IsOpen ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Methods"></a>Methods </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "PolyNode:ChildCount"></a>
+    <strong>PolyNode:ChildCount ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        C
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "PolyNode:GetChild"></a>
+    <strong>PolyNode:GetChild (index)</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">index</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/PolyNode.html#">PolyNode</a> or <span class="type">nil</span></span>
+        C
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "PolyNode:GetContour"></a>
+    <strong>PolyNode:GetContour ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Path.html#">Path</a></span>
+        C
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "PolyNode:GetNext"></a>
+    <strong>PolyNode:GetNext ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/PolyNode.html#">PolyNode</a> or <span class="type">nil</span></span>
+        N
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "PolyNode:GetParent"></a>
+    <strong>PolyNode:GetParent ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/PolyNode.html#">PolyNode</a>, <a class="type" href="../classes/PolyTree.html#">PolyTree</a> or <span class="type">nil</span></span>
+
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "PolyNode:IsHole"></a>
+    <strong>PolyNode:IsHole ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        B
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "PolyNode:IsOpen"></a>
+    <strong>PolyNode:IsOpen ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        B
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
