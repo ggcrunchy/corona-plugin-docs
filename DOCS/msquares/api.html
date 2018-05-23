@@ -44,7 +44,7 @@
 <div id="content">
 
 <h1>Module <code>msquares</code></h1>
-<p>Corona binding of Philip Allan Rideout's <a href="http://github.prideout.net/marching-squares">msquares</a>.</p>
+<p>Corona binding of Philip Allan Rideout's <strong>msquares</strong>.</p>
 <p> To use the plugin, add the following in <code>build.settings</code>:</p>
 
 <p> <pre><code class="language-lua">plugins = {
@@ -56,6 +56,19 @@
 <p> The <strong>Bytes</strong> type&mdash;specified in a few of the bytemap methods&mdash;may be any object that implements <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/ByteReader/policy.html">ByteReader</a>,
  including strings.</p>
 
+<p> <strong>From par_msquares.h</strong>:</p>
+
+<p> Converts fp32 grayscale images, or 8-bit color images, into triangles.</p>
+
+<p> For grayscale images, a threshold is specified to determine insideness.
+ For color images, an exact color is specified to determine insideness.
+ Color images can be r8, rg16, rgb24, or rgba32.</p>
+
+<p> For a visual overview of the API and all the flags, see <a href="http://github.prideout.net/marching-squares/">http://github.prideout.net/marching-squares/</a>.</p>
+
+<p> The MIT License
+ Copyright (c) 2015 Philip Rideout</p>
+
 
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
@@ -64,8 +77,28 @@
 	<td class="summary">DOCME</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#MeshList:GetBoundary">MeshList:GetBoundary (index, no_flip)</a></td>
+	<td class="name" nowrap><a href="#color_multi">color_multi (X, w, h, cell_size, bpp, flags)</a></td>
 	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#grayscale">grayscale (X, w, h, cell_size, thresholds, flags)</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#grayscale_multi">grayscale_multi (X, w, h, cell_size, color, bpp, check)</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#to_string_svg_multi">to_string_svg_multi (ML)</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#write_svg_multi">write_svg_multi (filename[, dir=system.DocumentsDirectory], ML)</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MeshList:GetBoundary">MeshList:GetBoundary (index, no_flip)</a></td>
+	<td class="summary">Extract the polyline boundary from a mesh, composed of one or more chains.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MeshList:GetMesh">MeshList:GetMesh (index, no_flip)</a></td>
@@ -84,11 +117,11 @@
 	<td class="summary">DOCME</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#MeshList:WriteOBJ">MeshList:WriteOBJ ()</a></td>
+	<td class="name" nowrap><a href="#MeshList:WriteOBJ">MeshList:WriteOBJ (filename[, dir=system.DocumentsDirectory])</a></td>
 	<td class="summary">DOCME</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#MeshList:WriteSVG">MeshList:WriteSVG ([dir=system.ResourceDirectory[, opts]])</a></td>
+	<td class="name" nowrap><a href="#MeshList:WriteSVG">MeshList:WriteSVG (filename[, dir=system.DocumentsDirectory[, opts]])</a></td>
 	<td class="summary">DOCME</td>
 	</tr>
 </table>
@@ -169,11 +202,263 @@
 
 </dd>
     <dt>
+    <a name = "color_multi"></a>
+    <strong>color_multi (X, w, h, cell_size, bpp, flags)</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">X</span>
+            <span class="types"><span class="type">Bytes</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">w</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">h</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">cell_size</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">bpp</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">flags</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a> or <span class="type">nil</span></span>
+         check "as_bytes" too
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">MeshList</span></span>
+        ML
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "grayscale"></a>
+    <strong>grayscale (X, w, h, cell_size, thresholds, flags)</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">X</span>
+            <span class="types"><span class="type">Bytes</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">w</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">h</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">cell_size</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">thresholds</span>
+            <span class="types"><span class="type">Bytes</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">flags</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a> or <span class="type">nil</span></span>
+         check "as_bytes" too
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">MeshList</span></span>
+        ML
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "grayscale_multi"></a>
+    <strong>grayscale_multi (X, w, h, cell_size, color, bpp, check)</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">X</span>
+            <span class="types"><span class="type">Bytes</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">w</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">h</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">cell_size</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">color</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">bpp</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">check</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a> or <span class="type">nil</span></span>
+         "as_bytes" too
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">MeshList</span></span>
+        ML
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "to_string_svg_multi"></a>
+    <strong>to_string_svg_multi (ML)</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">ML</span>
+            <span class="types"><span class="type">MeshList</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        svg
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "write_svg_multi"></a>
+    <strong>write_svg_multi (filename[, dir=system.DocumentsDirectory], ML)</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">filename</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">dir</span>
+
+
+
+         (<em>default</em> system.DocumentsDirectory)
+        </li>
+        <li><span class="parameter">ML</span>
+            <span class="types"><span class="type">MeshList</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <strong>true</strong>
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        <strong>nil</strong></li>
+        <li>
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        ERR</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
     <a name = "MeshList:GetBoundary"></a>
     <strong>MeshList:GetBoundary (index, no_flip)</strong>
     </dt>
     <dd>
-    DOCME
+    Extract the polyline boundary from a mesh, composed of one or more chains.
+ Counterclockwise chains are solid, clockwise chains are holes.  So, when
+ serializing to SVG, all chains can be aggregated in a single &lt;path&gt;,
+ provided they each terminate with a <strong>"Z"</strong> and use the default fill rule.
 
     <h3>Parameters:</h3>
     <ul>
@@ -304,11 +589,26 @@
 </dd>
     <dt>
     <a name = "MeshList:WriteOBJ"></a>
-    <strong>MeshList:WriteOBJ ()</strong>
+    <strong>MeshList:WriteOBJ (filename[, dir=system.DocumentsDirectory])</strong>
     </dt>
     <dd>
     DOCME
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">filename</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">dir</span>
+
+
+
+         (<em>default</em> system.DocumentsDirectory)
+        </li>
+    </ul>
 
     <h3>Returns:</h3>
     <ol>
@@ -330,18 +630,24 @@
 </dd>
     <dt>
     <a name = "MeshList:WriteSVG"></a>
-    <strong>MeshList:WriteSVG ([dir=system.ResourceDirectory[, opts]])</strong>
+    <strong>MeshList:WriteSVG (filename[, dir=system.DocumentsDirectory[, opts]])</strong>
     </dt>
     <dd>
     DOCME
 
     <h3>Parameters:</h3>
     <ul>
+        <li><span class="parameter">filename</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
         <li><span class="parameter">dir</span>
 
 
 
-         (<em>default</em> system.ResourceDirectory)
+         (<em>default</em> system.DocumentsDirectory)
         </li>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
@@ -382,28 +688,32 @@
     <h3>Fields:</h3>
     <ul>
         <li><span class="parameter">CLEAN</span>
-         h
+         Ensures there are no T-junction vertices. (<a href="api.html#color_multi">color_multi</a> only)
+ Requires the <strong>SIMPLIFY</strong> flag to be disabled.
         </li>
         <li><span class="parameter">CONNECT</span>
-         e
+         Adds extrusion triangles to each mesh other than the lowest mesh.  Requires
+ the <strong>HEIGHTS</strong> flag to be present.
         </li>
         <li><span class="parameter">DUAL</span>
-         b
+         Returns a meshlist with two meshes: one for the inside, one for the outside.
         </li>
         <li><span class="parameter">HEIGHTS</span>
-         c
+         Requests that returned meshes have 3-tuple coordinates instead of 2-tuples.
+ When using a color-based function, the Z coordinate represents the alpha
+ value of the nearest pixel.
         </li>
         <li><span class="parameter">INVERT</span>
-         a
+         Reverses the "insideness" test.
         </li>
         <li><span class="parameter">SIMPLIFY</span>
-         f
+         Enables quick &amp; dirty (not best) simpification of the returned mesh.
         </li>
         <li><span class="parameter">SNAP</span>
-         d
+         Applies a step function to the Z coordinates.  Requires <strong>HEIGHTS</strong> and <strong>DUAL</strong>.
         </li>
         <li><span class="parameter">SWIZZLE</span>
-         g
+         Indicates that the "color" argument is ABGR instead of ARGB.
         </li>
     </ul>
 

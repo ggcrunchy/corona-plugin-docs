@@ -43,9 +43,9 @@
 <div id="content">
 
 <h1>Module <code>object3d</code></h1>
-<p>Basic utility for rendering a batch of polygons to a texture, e.g.</p>
+<p>Basic utility for rendering a batch of 3-D polygons (an "object") to a texture, say for use in fills.</p>
 <p>
-<p> for use in fills.</p>
+
 
 <p> To use the plugin, add the following in <code>build.settings</code>:</p>
 
@@ -56,7 +56,7 @@
 
 <p> As shown, the (free) <a href="https://marketplace.coronalabs.com/corona-plugins/memory-blob">MemoryBlob</a> is also a dependency.
  While not strictly necessary, the (also free) <a href="https://marketplace.coronalabs.com/corona-plugins/byte-map">Bytemap</a>
- plugin is recommended as the way to interface the object with display objects.</p>
+ plugin is the recommended way to provide the texture to display objects.</p>
 
 <p> Sample code is available <a href="https://github.com/ggcrunchy/corona-plugin-docs/tree/master/object3d_sample">here</a>.</p>
 
@@ -108,19 +108,19 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Object3d:Clear">Object3d:Clear ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Wipe the texture (to black or clear) and z-buffer.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Object3d:GetBlob">Object3d:GetBlob ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Get the underlying (fixed-size) <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/MemoryBlob/api.html">memory blob</a>, e.g.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Object3d:GetBytes">Object3d:GetBytes ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Copy the current texture contents to a string.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Object3d:GetColor">Object3d:GetColor ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#Object3d:GetColor">Object3d:GetColor (px, py, pz, qx, qy, qz)</a></td>
+	<td class="summary">Attempt to intersect a segment with a face and get the color where it hits.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Object3d:GetFaceVertexIndices">Object3d:GetFaceVertexIndices (index)</a></td>
@@ -136,31 +136,31 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Object3d:Render">Object3d:Render ()</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Render the current scene, clearing the previous contents first.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Object3d:SetCenter">Object3d:SetCenter (x, y, z)</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#Object3d:SetCenter">Object3d:SetCenter (Center)</a></td>
+	<td class="summary">Set the center position.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Object3d:SetDiffuse">Object3d:SetDiffuse (how, w, h[, comps=3])</a></td>
 	<td class="summary">DOCME</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Object3d:SetEye">Object3d:SetEye (x, y, z)</a></td>
+	<td class="name" nowrap><a href="#Object3d:SetEye">Object3d:SetEye (Eye)</a></td>
+	<td class="summary">Set the eye position.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Object3d:SetLightDir">Object3d:SetLightDir (Direction)</a></td>
+	<td class="summary">Set the light direction.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Object3d:SetNormalMap">Object3d:SetNormalMap (bytes, w, h[, comps=3])</a></td>
 	<td class="summary">DOCME</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Object3d:SetLightDir">Object3d:SetLightDir (x, y, z)</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Object3d:SetNormalMap">Object3d:SetNormalMap (how, w, h[, comps=3])</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Object3d:SetUp">Object3d:SetUp (x, y, z)</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#Object3d:SetUp">Object3d:SetUp (Vector)</a></td>
+	<td class="summary">Set the up vector.</td>
 	</tr>
 </table>
 
@@ -175,27 +175,25 @@
     <strong>New (w, h, has_alpha)</strong>
     </dt>
     <dd>
-    Create a new <strong>Object3d</strong>.
+    Create a new <strong>Object3d</strong>. </p>
+
+<p> SURFACES: TEXTURE, Z-BUFFER
+ CAMERA: EYE, LIGHT DIR, LOOK AT, UP
+ SCENE: VERTEX, NORMAL, UV STREAMS
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">w</span>
             <span class="types"><span class="type">int</span></span>
-
-
-
+         Texture width...
         </li>
         <li><span class="parameter">h</span>
             <span class="types"><span class="type">int</span></span>
-
-
-
+         ...and height.
         </li>
         <li><span class="parameter">has_alpha</span>
             <span class="types"><span class="type">bool</span></span>
-
-
-
+         Include an alpha channel? (Unnecessary if the background will be filled.)
         </li>
     </ul>
 
@@ -330,7 +328,7 @@
     <strong>Object3d:Clear ()</strong>
     </dt>
     <dd>
-    DOCME
+    Wipe the texture (to black or clear) and z-buffer.
 
 
 
@@ -343,14 +341,15 @@
     <strong>Object3d:GetBlob ()</strong>
     </dt>
     <dd>
-    DOCME
+    Get the underlying (fixed-size) <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/MemoryBlob/api.html">memory blob</a>, e.g.
+ to perform blob-specific operations on it.
 
 
     <h3>Returns:</h3>
     <ol>
 
            <span class="types"><span class="type">MemoryBlob</span></span>
-        B
+        Blob.
     </ol>
 
 
@@ -362,14 +361,15 @@
     <strong>Object3d:GetBytes ()</strong>
     </dt>
     <dd>
-    DOCME
+    Copy the current texture contents to a string.
 
 
     <h3>Returns:</h3>
     <ol>
 
            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        B
+        A string of size <code>w * h * ncomps</code>, where <em>w</em> and <em>h</em> were supplied to <a href="api.html#New">New</a> and <em>ncomps</em> is
+ 3 or 4, the latter when <em>has_alpha</em> was supplied.
     </ol>
 
 
@@ -378,39 +378,58 @@
 </dd>
     <dt>
     <a name = "Object3d:GetColor"></a>
-    <strong>Object3d:GetColor ()</strong>
+    <strong>Object3d:GetColor (px, py, pz, qx, qy, qz)</strong>
     </dt>
     <dd>
-    DOCME
+    Attempt to intersect a segment with a face and get the color where it hits.
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">px</span>
+            <span class="types"><span class="type">number</span></span>
+         First endpoint of segment, x-coordinate...
+        </li>
+        <li><span class="parameter">py</span>
+            <span class="types"><span class="type">number</span></span>
+         ...y...
+        </li>
+        <li><span class="parameter">pz</span>
+            <span class="types"><span class="type">number</span></span>
+         ...and z.
+        </li>
+        <li><span class="parameter">qx</span>
+            <span class="types"><span class="type">number</span></span>
+         Second endpoint, x-coordinate...
+        </li>
+        <li><span class="parameter">qy</span>
+            <span class="types"><span class="type">number</span></span>
+         ...y...
+        </li>
+        <li><span class="parameter">qz</span>
+            <span class="types"><span class="type">number</span></span>
+         ...and z.
+        </li>
+    </ul>
 
     <h3>Returns:</h3>
     <ol>
         <li>
            <span class="types"><span class="type">r</span></span>
-
-
-</li>
+        Red component at hit...</li>
         <li>
            <span class="types"><span class="type">g</span></span>
-
-
-</li>
+        ...green component...</li>
         <li>
            <span class="types"><span class="type">b</span></span>
-
-
-</li>
+        ...red component...</li>
         <li>
            <span class="types"><span class="type">a</span></span>
-
-
-</li>
+        ...and alpha component. (Only returned if this channel exists. TODO: diffuse, normal, etc.)</li>
     </ol>
      <h3>Or</h3>
     <ol>
 
-        nil
+        <strong>nil</strong>, meaning the segment never intersected the face.
     </ol>
 
 
@@ -465,13 +484,13 @@
     <ol>
         <li>
            <span class="types"><span class="type">number</span></span>
-        x</li>
+        Vertex x-coordinate...</li>
         <li>
            <span class="types"><span class="type">number</span></span>
-        y</li>
+        ...y...</li>
         <li>
            <span class="types"><span class="type">number</span></span>
-        z</li>
+        ...and z.</li>
     </ol>
 
 
@@ -502,40 +521,30 @@
     <strong>Object3d:Render ()</strong>
     </dt>
     <dd>
-    DOCME
+    Render the current scene, clearing the previous contents first.
 
 
 
 
+    <h3>See also:</h3>
+    <ul>
+         <a href="api.html#Object3d:Clear">Object3d:Clear</a>
+    </ul>
 
 
 </dd>
     <dt>
     <a name = "Object3d:SetCenter"></a>
-    <strong>Object3d:SetCenter (x, y, z)</strong>
+    <strong>Object3d:SetCenter (Center)</strong>
     </dt>
     <dd>
-    DOCME
+    Set the center position.  (TODO: lookat)
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">x</span>
+        <li><span class="parameter">Center</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">y</span>
-            <span class="types"><span class="type">number</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">z</span>
-            <span class="types"><span class="type">number</span></span>
-
-
-
+         x-coordinate...
         </li>
     </ul>
 
@@ -554,8 +563,8 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">how</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         "uvs"
+            <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
+         "uvs", bytes, or nil to clear
         </li>
         <li><span class="parameter">w</span>
             <span class="types"><span class="type">uint</span></span>
@@ -585,30 +594,16 @@
 </dd>
     <dt>
     <a name = "Object3d:SetEye"></a>
-    <strong>Object3d:SetEye (x, y, z)</strong>
+    <strong>Object3d:SetEye (Eye)</strong>
     </dt>
     <dd>
-    DOCME
+    Set the eye position.  (TODO: lookat)
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">x</span>
+        <li><span class="parameter">Eye</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">y</span>
-            <span class="types"><span class="type">number</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">z</span>
-            <span class="types"><span class="type">number</span></span>
-
-
-
+         x-coordinate...
         </li>
     </ul>
 
@@ -619,30 +614,16 @@
 </dd>
     <dt>
     <a name = "Object3d:SetLightDir"></a>
-    <strong>Object3d:SetLightDir (x, y, z)</strong>
+    <strong>Object3d:SetLightDir (Direction)</strong>
     </dt>
     <dd>
-    DOCME
+    Set the light direction.  (TODO: normal)
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">x</span>
+        <li><span class="parameter">Direction</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">y</span>
-            <span class="types"><span class="type">number</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">z</span>
-            <span class="types"><span class="type">number</span></span>
-
-
-
+        's x-component...
         </li>
     </ul>
 
@@ -653,16 +634,16 @@
 </dd>
     <dt>
     <a name = "Object3d:SetNormalMap"></a>
-    <strong>Object3d:SetNormalMap (how, w, h[, comps=3])</strong>
+    <strong>Object3d:SetNormalMap (bytes, w, h[, comps=3])</strong>
     </dt>
     <dd>
     DOCME
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">how</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         "uvs"
+        <li><span class="parameter">bytes</span>
+            <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
+         or nil to clear
         </li>
         <li><span class="parameter">w</span>
             <span class="types"><span class="type">uint</span></span>
@@ -692,30 +673,16 @@
 </dd>
     <dt>
     <a name = "Object3d:SetUp"></a>
-    <strong>Object3d:SetUp (x, y, z)</strong>
+    <strong>Object3d:SetUp (Vector)</strong>
     </dt>
     <dd>
-    DOCME
+    Set the up vector.  (TODO: lookat)
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">x</span>
+        <li><span class="parameter">Vector</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">y</span>
-            <span class="types"><span class="type">number</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">z</span>
-            <span class="types"><span class="type">number</span></span>
-
-
-
+        's x-component...
         </li>
     </ul>
 

@@ -102,7 +102,7 @@
 	<td class="summary">Getter.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Tessellator:GetElements">Tessellator:GetElements (arg)</a></td>
+	<td class="name" nowrap><a href="#Tessellator:GetElements">Tessellator:GetElements (arg, one_based)</a></td>
 	<td class="summary">Gather the elements resulting from tessellation.</td>
 	</tr>
 	<tr>
@@ -114,7 +114,7 @@
 	<td class="summary">Getter.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Tessellator:GetVertexIndices">Tessellator:GetVertexIndices (arg)</a></td>
+	<td class="name" nowrap><a href="#Tessellator:GetVertexIndices">Tessellator:GetVertexIndices (arg, one_based)</a></td>
 	<td class="summary">Gather the vertex indices resulting from tessellation, which may be used to map the generated vertices to the originals.</td>
 	</tr>
 	<tr>
@@ -130,8 +130,12 @@
 	<td class="summary">Toggles optional tessellation parameters.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Tessellator:Tesselate">Tessellator:Tesselate (winding_rule, element_type, poly_size[, normal])</a></td>
+	<td class="name" nowrap><a href="#Tessellator:Tesselate">Tessellator:Tesselate (winding_rule, element_type[, poly_size=3[, normal]])</a></td>
 	<td class="summary">Tessellate contours.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Tessellator:Tesselate">Tessellator:Tesselate (winding_rule, element_type[, opts])</a></td>
+	<td class="summary">Variant that takes an options table instead.</td>
 	</tr>
 </table>
 
@@ -245,7 +249,7 @@
 </dd>
     <dt>
     <a name = "Tessellator:GetElements"></a>
-    <strong>Tessellator:GetElements (arg)</strong>
+    <strong>Tessellator:GetElements (arg, one_based)</strong>
     </dt>
     <dd>
     Gather the elements resulting from tessellation. </p>
@@ -260,6 +264,10 @@
  YET IMPLEMENTED!)</p>
 
 <p> Otherwise, elements are supplied through a table, either using the one provided here or creating a new one.
+        </li>
+        <li><span class="parameter">one_based</span>
+            <span class="types"><span class="type">bool</span></span>
+         Elements are one-based, rather than zero-based?
         </li>
     </ul>
 
@@ -323,7 +331,7 @@
 </dd>
     <dt>
     <a name = "Tessellator:GetVertexIndices"></a>
-    <strong>Tessellator:GetVertexIndices (arg)</strong>
+    <strong>Tessellator:GetVertexIndices (arg, one_based)</strong>
     </dt>
     <dd>
     Gather the vertex indices resulting from tessellation, which may be used to map the generated vertices to the originals. </p>
@@ -337,6 +345,10 @@
         <li><span class="parameter">arg</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a> or <span class="type">nil</span></span>
          As per <a href="api.html#Tessellator:GetElements">Tessellator:GetElements</a>.
+        </li>
+        <li><span class="parameter">one_based</span>
+            <span class="types"><span class="type">bool</span></span>
+         Indices are one-based, rather than zero-based?
         </li>
     </ul>
 
@@ -444,14 +456,12 @@
 </dd>
     <dt>
     <a name = "Tessellator:Tesselate"></a>
-    <strong>Tessellator:Tesselate (winding_rule, element_type, poly_size[, normal])</strong>
+    <strong>Tessellator:Tesselate (winding_rule, element_type[, poly_size=3[, normal]])</strong>
     </dt>
     <dd>
     Tessellate contours. </p>
 
-<p> <strong>N.B.</strong> The method's spelling is carried over from <strong>libtess2</strong>.</p>
-
-<p> TODO: Could probably use a table variant where poly_size and normal are options.
+<p> <strong>N.B.</strong> The method's spelling is carried over from <strong>libtess2</strong>.
 
     <h3>Parameters:</h3>
     <ul>
@@ -485,12 +495,48 @@
         <li><span class="parameter">poly_size</span>
             <span class="types"><span class="type">uint</span></span>
          Maximum vertices per polygon when <em>element_type</em> is <strong>"POLYGONS"</strong>.
+         (<em>default</em> 3)
         </li>
         <li><span class="parameter">normal</span>
             <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a>, <span class="type">Bytes</span> or <span class="type">nil</span></span>
          Defines the normal of the input contours, either as an array of three
  numbers or in <strong>Bytes</strong> form as three consecutive floats (if either is too small, padding 0s are added). If
  absent, calculated automatically.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Tessellation succeeded?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Tessellator:Tesselate"></a>
+    <strong>Tessellator:Tesselate (winding_rule, element_type[, opts])</strong>
+    </dt>
+    <dd>
+    Variant that takes an options table instead.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">winding_rule</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         As before.
+        </li>
+        <li><span class="parameter">element_type</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         As before.
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         Tessellation options, which may include <strong>poly_size</strong> and <strong>normal</strong>, whose meaning is as
+ described before.
         </li>
     </ul>
 

@@ -109,39 +109,27 @@
     <ul>
         <li><span class="parameter">pw</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Packing width (TODO: should probably just copy this in...)
         </li>
         <li><span class="parameter">ph</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Height
         </li>
         <li><span class="parameter">char_index</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Position of character in the array, from 1 to <code>#self</code>.
         </li>
         <li><span class="parameter">xpos</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         Current position in screen space, x-coordinate...
         </li>
         <li><span class="parameter">ypos</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         ...and y-coordinate.
         </li>
         <li><span class="parameter">align</span>
             <span class="types"><span class="type">bool</span></span>
-
-
-
+         Align coordinates to integer values?
          (<em>default</em> false)
         </li>
     </ul>
@@ -150,13 +138,13 @@
     <ol>
         <li>
            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-        quad</li>
+        quad x0, y0, x1, y1, s0, t0, s1, t1 (rect and texture rect)</li>
         <li>
            <span class="types"><span class="type">number</span></span>
-        xpos</li>
+        New <em>xpos</em> after placing character...</li>
         <li>
            <span class="types"><span class="type">number</span></span>
-        ypos</li>
+        ...and <em>ypos</em>.</li>
     </ol>
 
 

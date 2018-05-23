@@ -63,6 +63,10 @@
 <h2><a href="#Methods">Methods </a></h2>
 <table class="function_list">
 	<tr>
+	<td class="name" nowrap><a href="#VertexArray:GetVertex">VertexArray:GetVertex (index)</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#VertexArray:__len">VertexArray:__len ()</a></td>
 	<td class="summary">Metamethod.</td>
 	</tr>
@@ -79,6 +83,56 @@
     <h2><a name="Methods"></a>Methods </h2>
 
     <dl class="function">
+    <dt>
+    <a name = "VertexArray:GetVertex"></a>
+    <strong>VertexArray:GetVertex (index)</strong>
+    </dt>
+    <dd>
+    DOCME
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">index</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+        Either <strong>"line_to"</strong> or <strong>"move_to"</strong>. (There will be <code>#self</code> moves in the array.)</li>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        x</li>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        y</li>
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        The string <strong>"curve_to"</strong>.</li>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        x</li>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        y</li>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        cx</li>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        cy</li>
+    </ol>
+
+
+
+
+</dd>
     <dt>
     <a name = "VertexArray:__len"></a>
     <strong>VertexArray:__len ()</strong>
