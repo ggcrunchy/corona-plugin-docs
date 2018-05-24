@@ -32,12 +32,12 @@
 
 <h2>Contents</h2>
 <ul>
-<li><a href="#Methods">Methods </a></li>
+<li><a href="#Methods">Methods</a></li>
 </ul>
 
 
 <h2>Classes</h2>
-<ul class="$(kind=='Topics' and '' or 'nowrap'">
+<ul class="nowrap">
   <li><a href="../classes/CharArray.html">CharArray</a></li>
   <li><strong>FontInfo</strong></li>
   <li><a href="../classes/Packing.html">Packing</a></li>
@@ -45,7 +45,7 @@
   <li><a href="../classes/VertexArray.html">VertexArray</a></li>
 </ul>
 <h2>Modules</h2>
-<ul class="$(kind=='Topics' and '' or 'nowrap'">
+<ul class="nowrap">
   <li><a href="../modules/glyphrenderer.html">glyphrenderer</a></li>
 </ul>
 
@@ -60,7 +60,7 @@
 </p>
 
 
-<h2><a href="#Methods">Methods </a></h2>
+<h2><a href="#Methods">Methods</a></h2>
 <table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#FontInfo:FindGlyphIndex">FontInfo:FindGlyphIndex (codepoint)</a></td>
@@ -160,11 +160,12 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#FontInfo:ScaleForMappingEmToPixels">FontInfo:ScaleForMappingEmToPixels (pixels)</a></td>
-	<td class="summary">D!!!</td>
+	<td class="summary">Computes a scale factor, according to the height of "M" in the font.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#FontInfo:ScaleForPixelHeight">FontInfo:ScaleForPixelHeight (pixels)</a></td>
-	<td class="summary">D!!!</td>
+	<td class="summary">Compute a scale factor, according to the distance from the font's highest ascender
+ to its lowest descender.</td>
 	</tr>
 </table>
 
@@ -172,7 +173,7 @@
 <br/>
 
 
-    <h2><a name="Methods"></a>Methods </h2>
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
 
     <dl class="function">
     <dt>
@@ -181,6 +182,7 @@
     </dt>
     <dd>
     D!!!
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -210,6 +212,7 @@
     <dd>
     D!!! allocates and returns a bitmap
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">xscale</span>
@@ -231,17 +234,18 @@
 
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
 
 
 
+         (<em>optional</em>)
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
         <li>
-           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
 
 
 </li>
@@ -277,6 +281,7 @@
     </dt>
     <dd>
     D!!! how big the bitmap must be
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -326,6 +331,7 @@
     </dt>
     <dd>
     D!!!
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -388,6 +394,7 @@
     <dd>
     D!!!
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">xscale</span>
@@ -421,17 +428,18 @@
 
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
 
 
 
+         (<em>optional</em>)
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
         <li>
-           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
 
 
 </li>
@@ -467,6 +475,7 @@
     </dt>
     <dd>
     D!!!
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -513,6 +522,7 @@
     D!!!
 
 
+
     <h3>Returns:</h3>
     <ol>
         <li>
@@ -533,6 +543,7 @@
     </dt>
     <dd>
     D!!!
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -568,6 +579,7 @@
     <dd>
     D!!!
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">codepoint</span>
@@ -599,6 +611,7 @@
     D!!!
 
 
+
     <h3>Returns:</h3>
     <ol>
         <li>
@@ -625,6 +638,7 @@
     </dt>
     <dd>
     D!!!
+
 
 
     <h3>Returns:</h3>
@@ -654,6 +668,7 @@
 
 
 
+
     <h3>See also:</h3>
     <ul>
          <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">FontInfo:FindGlyphIndex</a>
@@ -667,6 +682,7 @@
     </dt>
     <dd>
     Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmapBox">FontInfo:GetCodepointBitmapBox</a> but takes a glyph index, cf.  <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">FontInfo:FindGlyphIndex</a>.
+
 
 
 
@@ -688,6 +704,7 @@
 
 
 
+
     <h3>See also:</h3>
     <ul>
          <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">FontInfo:FindGlyphIndex</a>
@@ -701,6 +718,7 @@
     </dt>
     <dd>
     Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmapSubpixel">FontInfo:GetCodepointBitmapSubpixel</a>, but takes a glyph index rather than a codepoint.
+
 
 
 
@@ -722,6 +740,7 @@
 
 
 
+
     <h3>See also:</h3>
     <ul>
          <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">FontInfo:FindGlyphIndex</a>
@@ -735,6 +754,7 @@
     </dt>
     <dd>
     Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointHMetrics">FontInfo:GetCodepointHMetrics</a>, but takes a glyph index rather than a codepoint.
+
 
 
 
@@ -756,6 +776,7 @@
 
 
 
+
     <h3>See also:</h3>
     <ul>
          <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">FontInfo:FindGlyphIndex</a>
@@ -773,6 +794,7 @@
 
 
 
+
     <h3>See also:</h3>
     <ul>
          <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">FontInfo:FindGlyphIndex</a>
@@ -786,6 +808,7 @@
     </dt>
     <dd>
     D!!!
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -815,6 +838,7 @@
     <dd>
     D!!! renders into bitmap you provide
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">ow</span>
@@ -848,17 +872,18 @@
 
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
 
 
 
+         (<em>optional</em>)
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
 
 
 
@@ -875,6 +900,7 @@
     <dd>
     D!!!
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">ow</span>
@@ -920,17 +946,18 @@
 
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
 
 
 
+         (<em>optional</em>)
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
 
 
 
@@ -946,6 +973,7 @@
     </dt>
     <dd>
     D!!!
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -980,17 +1008,18 @@
 
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
 
 
 
+         (<em>optional</em>)
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
 
 
 
@@ -1006,6 +1035,7 @@
     </dt>
     <dd>
     D!!!
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -1052,17 +1082,18 @@
 
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
 
 
 
+         (<em>optional</em>)
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
 
 
 
@@ -1077,15 +1108,14 @@
     <strong>FontInfo:ScaleForMappingEmToPixels (pixels)</strong>
     </dt>
     <dd>
-    D!!!
+    Computes a scale factor, according to the height of "M" in the font.
+
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">pixels</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         Desired pixel height.
         </li>
     </ul>
 
@@ -1093,7 +1123,7 @@
     <ol>
 
            <span class="types"><span class="type">number</span></span>
-        scale
+        Scale factor, where <code>pixels = scale * height(&quot;M&quot;)</code>.
     </ol>
 
 
@@ -1105,15 +1135,19 @@
     <strong>FontInfo:ScaleForPixelHeight (pixels)</strong>
     </dt>
     <dd>
-    D!!!
+    Compute a scale factor, according to the distance from the font's highest ascender
+ to its lowest descender. </p>
+
+<p> In other words, it's equivalent to calling <a href="../classes/FontInfo.html#FontInfo:GetFontVMetrics">FontInfo:GetFontVMetrics</a> and
+ computing <code>scale = pixels / (ascent - descent)</code>, so if you prefer to measure
+ height by the ascent only, use a similar calculation.
+
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">pixels</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         Desired pixel height.
         </li>
     </ul>
 
@@ -1121,7 +1155,7 @@
     <ol>
 
            <span class="types"><span class="type">number</span></span>
-        scale
+        Scale factor, as described above.
     </ol>
 
 
@@ -1134,7 +1168,8 @@
 </div> <!-- id="content" -->
 </div> <!-- id="main" -->
 <div id="about">
-<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2018-05-24 16:10:31 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

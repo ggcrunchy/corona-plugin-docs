@@ -32,12 +32,13 @@
 
 <h2>Contents</h2>
 <ul>
-<li><a href="#Methods">Methods </a></li>
+<li><a href="#Metamethods">Metamethods</a></li>
+<li><a href="#Methods">Methods</a></li>
 </ul>
 
 
 <h2>Classes</h2>
-<ul class="$(kind=='Topics' and '' or 'nowrap'">
+<ul class="nowrap">
   <li><a href="../classes/CharArray.html">CharArray</a></li>
   <li><a href="../classes/FontInfo.html">FontInfo</a></li>
   <li><a href="../classes/Packing.html">Packing</a></li>
@@ -45,7 +46,7 @@
   <li><strong>VertexArray</strong></li>
 </ul>
 <h2>Modules</h2>
-<ul class="$(kind=='Topics' and '' or 'nowrap'">
+<ul class="nowrap">
   <li><a href="../modules/glyphrenderer.html">glyphrenderer</a></li>
 </ul>
 
@@ -60,19 +61,22 @@
 </p>
 
 
-<h2><a href="#Methods">Methods </a></h2>
+<h2><a href="#Metamethods">Metamethods</a></h2>
 <table class="function_list">
-	<tr>
-	<td class="name" nowrap><a href="#VertexArray:GetVertex">VertexArray:GetVertex (index)</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#VertexArray:__len">VertexArray:__len ()</a></td>
 	<td class="summary">Metamethod.</td>
 	</tr>
+</table>
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#VertexArray:GetVertex">VertexArray:GetVertex (index)</a></td>
+	<td class="summary">Get a "vertex", i.e.</td>
+	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#VertexArray:Rasterize">VertexArray:Rasterize (w, h, xscale, yscale, xshift, yshift, xoff, yoff[, opts])</a></td>
-	<td class="summary">Rasterize a shape with quadratic beziers into a bitmap.</td>
+	<td class="summary">Rasterize a shape with quadratic Beziérs into a bitmap.</td>
 	</tr>
 </table>
 
@@ -80,65 +84,16 @@
 <br/>
 
 
-    <h2><a name="Methods"></a>Methods </h2>
+    <h2 class="section-header "><a name="Metamethods"></a>Metamethods</h2>
 
     <dl class="function">
-    <dt>
-    <a name = "VertexArray:GetVertex"></a>
-    <strong>VertexArray:GetVertex (index)</strong>
-    </dt>
-    <dd>
-    DOCME
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">index</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-        <li>
-        Either <strong>"line_to"</strong> or <strong>"move_to"</strong>. (There will be <code>#self</code> moves in the array.)</li>
-        <li>
-           <span class="types"><span class="type">number</span></span>
-        x</li>
-        <li>
-           <span class="types"><span class="type">number</span></span>
-        y</li>
-    </ol>
-     <h3>Or</h3>
-    <ol>
-        <li>
-        The string <strong>"curve_to"</strong>.</li>
-        <li>
-           <span class="types"><span class="type">number</span></span>
-        x</li>
-        <li>
-           <span class="types"><span class="type">number</span></span>
-        y</li>
-        <li>
-           <span class="types"><span class="type">number</span></span>
-        cx</li>
-        <li>
-           <span class="types"><span class="type">number</span></span>
-        cy</li>
-    </ol>
-
-
-
-
-</dd>
     <dt>
     <a name = "VertexArray:__len"></a>
     <strong>VertexArray:__len ()</strong>
     </dt>
     <dd>
     Metamethod.
+
 
 
     <h3>Returns:</h3>
@@ -152,26 +107,82 @@
 
 
 </dd>
+</dl>
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "VertexArray:GetVertex"></a>
+    <strong>VertexArray:GetVertex (index)</strong>
+    </dt>
+    <dd>
+    Get a "vertex", i.e.  a step in the contour(s).</p>
+
+<p> Each contour begins with a <strong>"move_to"</strong>, describing the position where it begins,
+ followed by one or more line segments and / or quadratic Beziér curves.</p>
+
+<p> Segments and curves begin at the previous point, provided either by <strong>"move_to"</strong>
+ or the endpoint of the previous segment or curve.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">index</span>
+            <span class="types"><span class="type">uint</span></span>
+         Position of vertex in the array, from 1 to <code>#self</code>
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+        Either <strong>"line_to"</strong> or <strong>"move_to"</strong>. (There will be <code>#self</code> moves in the array.)</li>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        x Position to move to or line segment endpoint, x-coordinate...</li>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        y ...and y-coordinate.</li>
+    </ol>
+     <h3>Or</h3>
+    <ol>
+        <li>
+        The string <strong>"curve_to"</strong>.</li>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        x Curve endpoint, x-coordinate...</li>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        y ...and y-coordinate.</li>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        cx Curve control point, x-coordinate...</li>
+        <li>
+           <span class="types"><span class="type">number</span></span>
+        cy ...and y-coordinate.</li>
+    </ol>
+
+
+
+
+</dd>
     <dt>
     <a name = "VertexArray:Rasterize"></a>
     <strong>VertexArray:Rasterize (w, h, xscale, yscale, xshift, yshift, xoff, yoff[, opts])</strong>
     </dt>
     <dd>
-    Rasterize a shape with quadratic beziers into a bitmap.
+    Rasterize a shape with quadratic Beziérs into a bitmap.
+
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">w</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Bitmap width...
         </li>
         <li><span class="parameter">h</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         ...and height.
         </li>
         <li><span class="parameter">xscale</span>
             <span class="types"><span class="type">number</span></span>
@@ -198,17 +209,26 @@
          ...and y-components.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
 
+<p> Rasterize options, which include:</p>
 
+<ul>
+    <li><strong>as_userdata</strong>: TODO: return as userdata</li>
+    <li><strong>blob</strong>: TODO: use memory blob</li>
+    <li><strong>flatness</strong>: Allowable error of curve in pixels, .35 by default.</li>
+    <li><strong>invert</strong>: If true, vertically flip shape.</li>
+    <li><strong>stride</strong>: TODO: stride in blob</li>
+</ul>
 
+         (<em>optional</em>)
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         pixels Rasterized 1-channel bitmap.
     </ol>
 
@@ -222,7 +242,8 @@
 </div> <!-- id="content" -->
 </div> <!-- id="main" -->
 <div id="about">
-<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2018-05-24 16:10:31 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

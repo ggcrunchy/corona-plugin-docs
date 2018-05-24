@@ -32,12 +32,12 @@
 
 <h2>Contents</h2>
 <ul>
-<li><a href="#Methods">Methods </a></li>
+<li><a href="#Methods">Methods</a></li>
 </ul>
 
 
 <h2>Classes</h2>
-<ul class="$(kind=='Topics' and '' or 'nowrap'">
+<ul class="nowrap">
   <li><a href="../classes/CharArray.html">CharArray</a></li>
   <li><a href="../classes/FontInfo.html">FontInfo</a></li>
   <li><strong>Packing</strong></li>
@@ -45,7 +45,7 @@
   <li><a href="../classes/VertexArray.html">VertexArray</a></li>
 </ul>
 <h2>Modules</h2>
-<ul class="$(kind=='Topics' and '' or 'nowrap'">
+<ul class="nowrap">
   <li><a href="../modules/glyphrenderer.html">glyphrenderer</a></li>
 </ul>
 
@@ -60,7 +60,7 @@
 </p>
 
 
-<h2><a href="#Methods">Methods </a></h2>
+<h2><a href="#Methods">Methods</a></h2>
 <table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#Packing:PackEnd">Packing:PackEnd ()</a></td>
@@ -68,7 +68,7 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Packing:PackFontRange">Packing:PackFontRange (bytes, font_size, codepoint, nchars[, index=1])</a></td>
-	<td class="summary">D!!!</td>
+	<td class="summary">Given the font data, prepare bitmap layouts from for <em>nchars</em> Unicode values, starting at <em>codepoint</em>.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Packing:PackFontRanges">Packing:PackFontRanges (font, ranges[, index=1])</a></td>
@@ -96,7 +96,7 @@
 <br/>
 
 
-    <h2><a name="Methods"></a>Methods </h2>
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
 
     <dl class="function">
     <dt>
@@ -104,7 +104,8 @@
     <strong>Packing:PackEnd ()</strong>
     </dt>
     <dd>
-    Cleans up the packing context and frees all memory.
+    Cleans up the packing context and frees all memory.  (The garbage collector will also do this.)
+
 
 
 
@@ -117,51 +118,41 @@
     <strong>Packing:PackFontRange (bytes, font_size, codepoint, nchars[, index=1])</strong>
     </dt>
     <dd>
-    D!!!
+    Given the font data, prepare bitmap layouts from for <em>nchars</em> Unicode values, starting at <em>codepoint</em>.
+
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">bytes</span>
-            <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-
-
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Font data, typically the contents of a file.
         </li>
         <li><span class="parameter">font_size</span>
-            <span class="types"><span class="type">number</span></span>
-
-
-
+            <span class="types"><span class="type">number</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Target font height. As a number, this will be scaled according
+ to <a href="../classes/FontInfo.html#FontInfo:ScaleForPixelHeight">FontInfo:ScaleForPixelHeight</a>; strings, on the other hand, are assumed to come from <a href="../modules/glyphrenderer.html#PointSize">PointSize</a>
+ and will be handled by <a href="../classes/FontInfo.html#FontInfo:ScaleForMappingEmToPixels">FontInfo:ScaleForMappingEmToPixels</a>.
         </li>
         <li><span class="parameter">codepoint</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         First Unicode character in range.
         </li>
         <li><span class="parameter">nchars</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Number of characters.
         </li>
         <li><span class="parameter">index</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Font index.
          (<em>default</em> 1)
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
-        <li>
-           <span class="types"><span class="type">boolean</span></span>
-        X</li>
-        <li>
-           <span class="types"><a class="type" href="../classes/CharArray.html#">CharArray</a></span>
-        chars</li>
+
+           <span class="types"><a class="type" href="../classes/CharArray.html#">CharArray</a> or <span class="type">nil</span></span>
+        On success, rendering data which may be retrieved by <a href="../classes/CharArray.html#CharArray:GetPackedQuad">CharArray:GetPackedQuad</a>; <strong>nil</strong> otherwise.
     </ol>
 
 
@@ -175,6 +166,7 @@
     <dd>
     D!!! pack and renders
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">font</span>
@@ -200,12 +192,9 @@
 
     <h3>Returns:</h3>
     <ol>
-        <li>
-           <span class="types"><span class="type">boolean</span></span>
-        X</li>
-        <li>
-           <span class="types"><a class="type" href="../classes/CharArray.html#">CharArray</a></span>
-        chars</li>
+
+           <span class="types"><a class="type" href="../classes/CharArray.html#">CharArray</a> or <span class="type">nil</span></span>
+        On success, rendering data which may be retrieved by <a href="../classes/CharArray.html#CharArray:GetPackedQuad">CharArray:GetPackedQuad</a>; <strong>nil</strong> otherwise.
     </ol>
 
 
@@ -218,6 +207,7 @@
     </dt>
     <dd>
     D!!!
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -237,12 +227,9 @@
 
     <h3>Returns:</h3>
     <ol>
-        <li>
-           <span class="types"><span class="type">boolean</span></span>
-        X</li>
-        <li>
-           <span class="types"><a class="type" href="../classes/RectArray.html#">RectArray</a></span>
-        rects</li>
+
+           <span class="types"><a class="type" href="../classes/RectArray.html#">RectArray</a> or <span class="type">nil</span></span>
+        On success, TODO; <strong>nil</strong> otherwise.
     </ol>
 
 
@@ -255,6 +242,7 @@
     </dt>
     <dd>
     D!!!
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -278,6 +266,7 @@
     <dd>
     D!!!
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">font</span>
@@ -302,12 +291,9 @@
 
     <h3>Returns:</h3>
     <ol>
-        <li>
-           <span class="types"><span class="type">boolean</span></span>
-        X</li>
-        <li>
-           <span class="types"><a class="type" href="../classes/CharArray.html#">CharArray</a></span>
-        chars</li>
+
+           <span class="types"><a class="type" href="../classes/CharArray.html#">CharArray</a> or <span class="type">nil</span></span>
+        On success, rendering data which may be retrieved by <a href="../classes/CharArray.html#CharArray:GetPackedQuad">CharArray:GetPackedQuad</a>; <strong>nil</strong> otherwise.
     </ol>
 
 
@@ -320,6 +306,7 @@
     </dt>
     <dd>
     D!!! for improved quality on small fonts
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -350,7 +337,8 @@
 </div> <!-- id="content" -->
 </div> <!-- id="main" -->
 <div id="about">
-<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2018-05-24 16:10:31 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
