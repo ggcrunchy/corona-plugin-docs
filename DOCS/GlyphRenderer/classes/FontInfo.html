@@ -30,12 +30,37 @@
   <li><a href="../api.html">Index</a></li>
 </ul>
 
-<h2>Contents</h2>
-<ul>
-<li><a href="#Methods">Methods</a></li>
+
+
+<h2>Methods</h2>
+<ul class="nowrap">
+    <li><a href="#FontInfo:FindGlyphIndex">FontInfo:FindGlyphIndex (codepoint)</a></li>
+    <li><a href="#FontInfo:GetCodepointBitmap">FontInfo:GetCodepointBitmap (xscale, yscale, codepoint[, opts])</a></li>
+    <li><a href="#FontInfo:GetCodepointBitmapBox">FontInfo:GetCodepointBitmapBox (codepoint, xscale, yscale)</a></li>
+    <li><a href="#FontInfo:GetCodepointBitmapBoxSubpixel">FontInfo:GetCodepointBitmapBoxSubpixel (codepoint, xscale, yscale, xshift, yshift)</a></li>
+    <li><a href="#FontInfo:GetCodepointBitmapSubpixel">FontInfo:GetCodepointBitmapSubpixel (xscale, yscale, xshift, yshift, codepoint[, opts])</a></li>
+    <li><a href="#FontInfo:GetCodepointBox">FontInfo:GetCodepointBox (codepoint)</a></li>
+    <li><a href="#FontInfo:GetCodepointHMetrics">FontInfo:GetCodepointHMetrics ()</a></li>
+    <li><a href="#FontInfo:GetCodepointKernAdvance">FontInfo:GetCodepointKernAdvance (char_index_1, char_index_2)</a></li>
+    <li><a href="#FontInfo:GetCodepointShape">FontInfo:GetCodepointShape (codepoint)</a></li>
+    <li><a href="#FontInfo:GetFontBoundingBox">FontInfo:GetFontBoundingBox ()</a></li>
+    <li><a href="#FontInfo:GetFontVMetrics">FontInfo:GetFontVMetrics ()</a></li>
+    <li><a href="#FontInfo:GetGlyphBitmap">FontInfo:GetGlyphBitmap ()</a></li>
+    <li><a href="#FontInfo:GetGlyphBitmapBox">FontInfo:GetGlyphBitmapBox ()</a></li>
+    <li><a href="#FontInfo:GetGlyphBitmapBoxSubpixel">FontInfo:GetGlyphBitmapBoxSubpixel ()</a></li>
+    <li><a href="#FontInfo:GetGlyphBitmapSubpixel">FontInfo:GetGlyphBitmapSubpixel ()</a></li>
+    <li><a href="#FontInfo:GetGlyphBox">FontInfo:GetGlyphBox ()</a></li>
+    <li><a href="#FontInfo:GetGlyphHMetrics">FontInfo:GetGlyphHMetrics ()</a></li>
+    <li><a href="#FontInfo:GetGlyphKernAdvance">FontInfo:GetGlyphKernAdvance ()</a></li>
+    <li><a href="#FontInfo:GetGlyphShape">FontInfo:GetGlyphShape ()</a></li>
+    <li><a href="#FontInfo:IsGlyphEmpty">FontInfo:IsGlyphEmpty (glyph_index)</a></li>
+    <li><a href="#FontInfo:MakeCodepointBitmap">FontInfo:MakeCodepointBitmap (ow, oh, xscale, yscale, codepoint[, opts])</a></li>
+    <li><a href="#FontInfo:MakeCodepointBitmapSubpixel">FontInfo:MakeCodepointBitmapSubpixel (ow, oh, xscale, yscale, xshift, yshift, codepoint[, opts])</a></li>
+    <li><a href="#FontInfo:MakeGlyphBitmap">FontInfo:MakeGlyphBitmap ()</a></li>
+    <li><a href="#FontInfo:MakeGlyphBitmapSubpixel">FontInfo:MakeGlyphBitmapSubpixel ()</a></li>
+    <li><a href="#FontInfo:ScaleForMappingEmToPixels">FontInfo:ScaleForMappingEmToPixels (pixels)</a></li>
+    <li><a href="#FontInfo:ScaleForPixelHeight">FontInfo:ScaleForPixelHeight (pixels)</a></li>
 </ul>
-
-
 <h2>Classes</h2>
 <ul class="nowrap">
   <li><a href="../classes/CharArray.html">CharArray</a></li>
@@ -55,137 +80,10 @@
 
 <h1>Class <code>FontInfo</code></h1>
 <p>Class that represents font info.</p>
-<p>
+<p> Many methods have both Unicode and glyph variants. The full signatures of the Unicode versions are shown; the
+ glyph versions are elided but structurally identical to their Unicode counterparts. (Both in fact take <strong>uint</strong>
+ arguments, cf. <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">FontInfo:FindGlyphIndex</a>.)</p>
 
-</p>
-
-
-<h2><a href="#Methods">Methods</a></h2>
-<table class="function_list">
-	<tr>
-	<td class="name" nowrap><a href="#FontInfo:FindGlyphIndex">FontInfo:FindGlyphIndex (codepoint)</a></td>
-	<td class="summary">If you're going to perform multiple operations on the same character
- and you want a speed-up, call this function with the character you're
- going to process, then use glyph-based functions instead of the
- codepoint-based functions.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#FontInfo:GetCodepointBitmap">FontInfo:GetCodepointBitmap (xscale, yscale, codepoint[, opts])</a></td>
-	<td class="summary">D!!! allocates and returns a bitmap</p>
-
-<p> allocates a large-enough single-channel 8bpp bitmap and renders the
- specified character/glyph at the specified scale into it, with
- antialiasing.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#FontInfo:GetCodepointBitmapBox">FontInfo:GetCodepointBitmapBox (codepoint, xscale, yscale)</a></td>
-	<td class="summary">D!!! how big the bitmap must be</p>
-
-<p> get the bbox of the bitmap centered around the glyph origin; so the
- bitmap width is ix1-ix0, height is iy1-iy0, and location to place
- the bitmap top left is (leftSideBearing*scale,iy0).</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#FontInfo:GetCodepointBitmapBoxSubpixel">FontInfo:GetCodepointBitmapBoxSubpixel (codepoint, xscale, yscale, xshift, yshift)</a></td>
-	<td class="summary">Variant of <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmapBox">FontInfo:GetCodepointBitmapBox</a> that accepts a subpixel shift.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#FontInfo:GetCodepointBitmapSubpixel">FontInfo:GetCodepointBitmapSubpixel (xscale, yscale, xshift, yshift, codepoint[, opts])</a></td>
-	<td class="summary">Variant of <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmap">FontInfo:GetCodepointBitmap</a> that accepts a subpixel shift.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#FontInfo:GetCodepointBox">FontInfo:GetCodepointBox (codepoint)</a></td>
-	<td class="summary">Gets the bounding box of the visible part of the glyph, in unscaled coordinates.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#FontInfo:GetCodepointHMetrics">FontInfo:GetCodepointHMetrics ()</a></td>
-	<td class="summary">Get various horizontal metrics for a particular codepoint in the font.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#FontInfo:GetCodepointKernAdvance">FontInfo:GetCodepointKernAdvance (char_index_1, char_index_2)</a></td>
-	<td class="summary">Find the <a href="https://en.wikipedia.org/wiki/Kerning">kerning</a> between two adjacent characters, an additional
- amount to add to the 'advance' value.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#FontInfo:GetCodepointShape">FontInfo:GetCodepointShape (codepoint)</a></td>
-	<td class="summary">Get the series of contours that describe the character.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#FontInfo:GetFontBoundingBox">FontInfo:GetFontBoundingBox ()</a></td>
-	<td class="summary">Get the bounding box around all possible characters.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#FontInfo:GetFontVMetrics">FontInfo:GetFontVMetrics ()</a></td>
-	<td class="summary">Get various vertical metrics from the font.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#FontInfo:GetGlyphBitmap">FontInfo:GetGlyphBitmap ()</a></td>
-	<td class="summary">Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmap">FontInfo:GetCodepointBitmap</a>, but takes a glyph index rather than a codepoint.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#FontInfo:GetGlyphBitmapBox">FontInfo:GetGlyphBitmapBox ()</a></td>
-	<td class="summary">Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmapBox">FontInfo:GetCodepointBitmapBox</a> but takes a glyph index, cf.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#FontInfo:GetGlyphBitmapBoxSubpixel">FontInfo:GetGlyphBitmapBoxSubpixel ()</a></td>
-	<td class="summary">Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmapBoxSubpixel">FontInfo:GetCodepointBitmapBoxSubpixel</a>, but takes a glyph index rather than a codepoint.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#FontInfo:GetGlyphBitmapSubpixel">FontInfo:GetGlyphBitmapSubpixel ()</a></td>
-	<td class="summary">Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmapSubpixel">FontInfo:GetCodepointBitmapSubpixel</a>, but takes a glyph index rather than a codepoint.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#FontInfo:GetGlyphBox">FontInfo:GetGlyphBox ()</a></td>
-	<td class="summary">Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointBox">FontInfo:GetCodepointBox</a>, but takes a glyph index rather than a codepoint.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#FontInfo:GetGlyphHMetrics">FontInfo:GetGlyphHMetrics ()</a></td>
-	<td class="summary">Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointHMetrics">FontInfo:GetCodepointHMetrics</a>, but takes a glyph index rather than a codepoint.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#FontInfo:GetGlyphKernAdvance">FontInfo:GetGlyphKernAdvance ()</a></td>
-	<td class="summary">Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointKernAdvance">FontInfo:GetCodepointKernAdvance</a>, but takes glyph indices rather than codepoints.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#FontInfo:GetGlyphShape">FontInfo:GetGlyphShape ()</a></td>
-	<td class="summary">Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointShape">FontInfo:GetCodepointShape</a>, but takes a glyph index rather than a codepoint.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#FontInfo:IsGlyphEmpty">FontInfo:IsGlyphEmpty (glyph_index)</a></td>
-	<td class="summary">Predicate.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#FontInfo:MakeCodepointBitmap">FontInfo:MakeCodepointBitmap (ow, oh, xscale, yscale, codepoint[, opts])</a></td>
-	<td class="summary">D!!! renders into bitmap you provide</p>
-
-<p> the same as <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmap">FontInfo:GetCodepointBitmap</a>, but you pass in storage for the bitmap
- in the form of 'output', with row spacing of 'out_stride' bytes.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#FontInfo:MakeCodepointBitmapSubpixel">FontInfo:MakeCodepointBitmapSubpixel (ow, oh, xscale, yscale, xshift, yshift, codepoint[, opts])</a></td>
-	<td class="summary">D!!!</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#FontInfo:MakeGlyphBitmap">FontInfo:MakeGlyphBitmap (ow, oh, xscale, yscale, glyph_index[, opts])</a></td>
-	<td class="summary">D!!!</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#FontInfo:MakeGlyphBitmapSubpixel">FontInfo:MakeGlyphBitmapSubpixel (ow, oh, xscale, yscale, xshift, yshift, glyph_index[, opts])</a></td>
-	<td class="summary">D!!!</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#FontInfo:ScaleForMappingEmToPixels">FontInfo:ScaleForMappingEmToPixels (pixels)</a></td>
-	<td class="summary">Computes a scale factor, according to the height of "M" in the font.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#FontInfo:ScaleForPixelHeight">FontInfo:ScaleForPixelHeight (pixels)</a></td>
-	<td class="summary">Compute a scale factor, according to the distance from the font's highest ascender
- to its lowest descender.</td>
-	</tr>
-</table>
-
-<br/>
-<br/>
 
 
     <h2 class="section-header "><a name="Methods"></a>Methods</h2>
@@ -674,16 +572,12 @@
     <strong>FontInfo:GetGlyphBitmap ()</strong>
     </dt>
     <dd>
-    Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmap">FontInfo:GetCodepointBitmap</a>, but takes a glyph index rather than a codepoint.
+    Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmap">FontInfo:GetCodepointBitmap</a>, but takes a <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">glyph index</a> rather than a codepoint.
 
 
 
 
 
-    <h3>See also:</h3>
-    <ul>
-         <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">FontInfo:FindGlyphIndex</a>
-    </ul>
 
 
 </dd>
@@ -692,7 +586,7 @@
     <strong>FontInfo:GetGlyphBitmapBox ()</strong>
     </dt>
     <dd>
-    Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmapBox">FontInfo:GetCodepointBitmapBox</a> but takes a glyph index, cf.  <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">FontInfo:FindGlyphIndex</a>.
+    Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmapBox">FontInfo:GetCodepointBitmapBox</a> but takes a <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">glyph index</a> rather than a codepoint.
 
 
 
@@ -706,16 +600,12 @@
     <strong>FontInfo:GetGlyphBitmapBoxSubpixel ()</strong>
     </dt>
     <dd>
-    Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmapBoxSubpixel">FontInfo:GetCodepointBitmapBoxSubpixel</a>, but takes a glyph index rather than a codepoint.
+    Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmapBoxSubpixel">FontInfo:GetCodepointBitmapBoxSubpixel</a>, but takes a <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">glyph index</a> rather than a codepoint.
 
 
 
 
 
-    <h3>See also:</h3>
-    <ul>
-         <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">FontInfo:FindGlyphIndex</a>
-    </ul>
 
 
 </dd>
@@ -724,16 +614,12 @@
     <strong>FontInfo:GetGlyphBitmapSubpixel ()</strong>
     </dt>
     <dd>
-    Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmapSubpixel">FontInfo:GetCodepointBitmapSubpixel</a>, but takes a glyph index rather than a codepoint.
+    Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmapSubpixel">FontInfo:GetCodepointBitmapSubpixel</a>, but takes a <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">glyph index</a> rather than a codepoint.
 
 
 
 
 
-    <h3>See also:</h3>
-    <ul>
-         <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">FontInfo:FindGlyphIndex</a>
-    </ul>
 
 
 </dd>
@@ -742,16 +628,12 @@
     <strong>FontInfo:GetGlyphBox ()</strong>
     </dt>
     <dd>
-    Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointBox">FontInfo:GetCodepointBox</a>, but takes a glyph index rather than a codepoint.
+    Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointBox">FontInfo:GetCodepointBox</a>, but takes a <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">glyph index</a> rather than a codepoint.
 
 
 
 
 
-    <h3>See also:</h3>
-    <ul>
-         <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">FontInfo:FindGlyphIndex</a>
-    </ul>
 
 
 </dd>
@@ -760,16 +642,12 @@
     <strong>FontInfo:GetGlyphHMetrics ()</strong>
     </dt>
     <dd>
-    Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointHMetrics">FontInfo:GetCodepointHMetrics</a>, but takes a glyph index rather than a codepoint.
+    Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointHMetrics">FontInfo:GetCodepointHMetrics</a>, but takes a <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">glyph index</a> rather than a codepoint.
 
 
 
 
 
-    <h3>See also:</h3>
-    <ul>
-         <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">FontInfo:FindGlyphIndex</a>
-    </ul>
 
 
 </dd>
@@ -778,16 +656,12 @@
     <strong>FontInfo:GetGlyphKernAdvance ()</strong>
     </dt>
     <dd>
-    Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointKernAdvance">FontInfo:GetCodepointKernAdvance</a>, but takes glyph indices rather than codepoints.
+    Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointKernAdvance">FontInfo:GetCodepointKernAdvance</a>, but takes <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">glyph indices</a> rather than codepoints.
 
 
 
 
 
-    <h3>See also:</h3>
-    <ul>
-         <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">FontInfo:FindGlyphIndex</a>
-    </ul>
 
 
 </dd>
@@ -796,16 +670,12 @@
     <strong>FontInfo:GetGlyphShape ()</strong>
     </dt>
     <dd>
-    Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointShape">FontInfo:GetCodepointShape</a>, but takes a glyph index rather than a codepoint.
+    Like <a href="../classes/FontInfo.html#FontInfo:GetCodepointShape">FontInfo:GetCodepointShape</a>, but takes a <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">glyph index</a> rather than a codepoint.
 
 
 
 
 
-    <h3>See also:</h3>
-    <ul>
-         <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">FontInfo:FindGlyphIndex</a>
-    </ul>
 
 
 </dd>
@@ -821,7 +691,7 @@
     <ul>
         <li><span class="parameter">glyph_index</span>
             <span class="types"><span class="type">uint</span></span>
-         Glyph index, cf. <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">FontInfo:FindGlyphIndex</a>.
+         <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">Glyph index</a>.
         </li>
     </ul>
 
@@ -908,7 +778,7 @@
     <strong>FontInfo:MakeCodepointBitmapSubpixel (ow, oh, xscale, yscale, xshift, yshift, codepoint[, opts])</strong>
     </dt>
     <dd>
-    D!!!
+    Variant of <a href="../classes/FontInfo.html#FontInfo:MakeCodepointBitmap">FontInfo:MakeCodepointBitmap</a> that accepts a subpixel shift.
 
 
     <h3>Parameters:</h3>
@@ -979,61 +849,13 @@
 </dd>
     <dt>
     <a name = "FontInfo:MakeGlyphBitmap"></a>
-    <strong>FontInfo:MakeGlyphBitmap (ow, oh, xscale, yscale, glyph_index[, opts])</strong>
+    <strong>FontInfo:MakeGlyphBitmap ()</strong>
     </dt>
     <dd>
-    D!!!
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">ow</span>
-            <span class="types"><span class="type">uint</span></span>
+    Like <a href="../classes/FontInfo.html#FontInfo:MakeCodepointBitmap">FontInfo:MakeCodepointBitmap</a>, but takes a <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">glyph index</a> rather than a codepoint.
 
 
 
-        </li>
-        <li><span class="parameter">oh</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">xscale</span>
-            <span class="types"><span class="type">number</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">yscale</span>
-            <span class="types"><span class="type">number</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">glyph_index</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-
-
-
-         (<em>optional</em>)
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">Bytes</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-
-
-    </ol>
 
 
 
@@ -1041,73 +863,13 @@
 </dd>
     <dt>
     <a name = "FontInfo:MakeGlyphBitmapSubpixel"></a>
-    <strong>FontInfo:MakeGlyphBitmapSubpixel (ow, oh, xscale, yscale, xshift, yshift, glyph_index[, opts])</strong>
+    <strong>FontInfo:MakeGlyphBitmapSubpixel ()</strong>
     </dt>
     <dd>
-    D!!!
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">ow</span>
-            <span class="types"><span class="type">uint</span></span>
+    Like <a href="../classes/FontInfo.html#FontInfo:MakeCodepointBitmapSubpixel">FontInfo:MakeCodepointBitmapSubpixel</a>, but takes a <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">glyph index</a> rather than a codepoint.
 
 
 
-        </li>
-        <li><span class="parameter">oh</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">xscale</span>
-            <span class="types"><span class="type">number</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">yscale</span>
-            <span class="types"><span class="type">number</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">xshift</span>
-            <span class="types"><span class="type">number</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">yshift</span>
-            <span class="types"><span class="type">number</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">glyph_index</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-
-
-
-         (<em>optional</em>)
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">Bytes</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-
-
-    </ol>
 
 
 
@@ -1179,7 +941,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2018-05-24 18:34:01 </i>
+<i style="float:right;">Last updated 2018-05-24 18:53:07 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
