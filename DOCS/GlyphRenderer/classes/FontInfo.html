@@ -64,47 +64,59 @@
 <table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#FontInfo:FindGlyphIndex">FontInfo:FindGlyphIndex (codepoint)</a></td>
-	<td class="summary">D!!!</td>
+	<td class="summary">If you're going to perform multiple operations on the same character
+ and you want a speed-up, call this function with the character you're
+ going to process, then use glyph-based functions instead of the
+ codepoint-based functions.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#FontInfo:GetCodepointBitmap">FontInfo:GetCodepointBitmap (xscale, yscale, codepoint[, opts])</a></td>
-	<td class="summary">D!!! allocates and returns a bitmap</td>
+	<td class="summary">D!!! allocates and returns a bitmap</p>
+
+<p> allocates a large-enough single-channel 8bpp bitmap and renders the
+ specified character/glyph at the specified scale into it, with
+ antialiasing.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#FontInfo:GetCodepointBitmapBox">FontInfo:GetCodepointBitmapBox (codepoint, xscale, yscale)</a></td>
-	<td class="summary">D!!! how big the bitmap must be</td>
+	<td class="summary">D!!! how big the bitmap must be</p>
+
+<p> get the bbox of the bitmap centered around the glyph origin; so the
+ bitmap width is ix1-ix0, height is iy1-iy0, and location to place
+ the bitmap top left is (leftSideBearing*scale,iy0).</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#FontInfo:GetCodepointBitmapBoxSubpixel">FontInfo:GetCodepointBitmapBoxSubpixel (codepoint, xscale, yscale, xshift, yshift)</a></td>
-	<td class="summary">D!!!</td>
+	<td class="summary">Variant of <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmapBox">FontInfo:GetCodepointBitmapBox</a> that accepts a subpixel shift.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#FontInfo:GetCodepointBitmapSubpixel">FontInfo:GetCodepointBitmapSubpixel (xscale, yscale, xshift, yshift, codepoint[, opts])</a></td>
-	<td class="summary">D!!!</td>
+	<td class="summary">Variant of <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmap">FontInfo:GetCodepointBitmap</a> that accepts a subpixel shift.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#FontInfo:GetCodepointBox">FontInfo:GetCodepointBox (codepoint)</a></td>
-	<td class="summary">D!!!</td>
+	<td class="summary">Gets the bounding box of the visible part of the glyph, in unscaled coordinates.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#FontInfo:GetCodepointHMetrics">FontInfo:GetCodepointHMetrics ()</a></td>
-	<td class="summary">D!!!</td>
+	<td class="summary">Get various horizontal metrics for a particular codepoint in the font.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#FontInfo:GetCodepointKernAdvance">FontInfo:GetCodepointKernAdvance (char_index_1, char_index_2)</a></td>
-	<td class="summary">D!!!</td>
+	<td class="summary">Find the <a href="https://en.wikipedia.org/wiki/Kerning">kerning</a> between two adjacent characters, an additional
+ amount to add to the 'advance' value.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#FontInfo:GetCodepointShape">FontInfo:GetCodepointShape (codepoint)</a></td>
-	<td class="summary">D!!!</td>
+	<td class="summary">Get the series of contours that describe the character.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#FontInfo:GetFontBoundingBox">FontInfo:GetFontBoundingBox ()</a></td>
-	<td class="summary">D!!!</td>
+	<td class="summary">Get the bounding box around all possible characters.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#FontInfo:GetFontVMetrics">FontInfo:GetFontVMetrics ()</a></td>
-	<td class="summary">D!!!</td>
+	<td class="summary">Get various vertical metrics from the font.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#FontInfo:GetGlyphBitmap">FontInfo:GetGlyphBitmap ()</a></td>
@@ -140,11 +152,14 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#FontInfo:IsGlyphEmpty">FontInfo:IsGlyphEmpty (glyph_index)</a></td>
-	<td class="summary">D!!!</td>
+	<td class="summary">Predicate.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#FontInfo:MakeCodepointBitmap">FontInfo:MakeCodepointBitmap (ow, oh, xscale, yscale, codepoint[, opts])</a></td>
-	<td class="summary">D!!! renders into bitmap you provide</td>
+	<td class="summary">D!!! renders into bitmap you provide</p>
+
+<p> the same as <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmap">FontInfo:GetCodepointBitmap</a>, but you pass in storage for the bitmap
+ in the form of 'output', with row spacing of 'out_stride' bytes.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#FontInfo:MakeCodepointBitmapSubpixel">FontInfo:MakeCodepointBitmapSubpixel (ow, oh, xscale, yscale, xshift, yshift, codepoint[, opts])</a></td>
@@ -181,16 +196,17 @@
     <strong>FontInfo:FindGlyphIndex (codepoint)</strong>
     </dt>
     <dd>
-    D!!!
+    If you're going to perform multiple operations on the same character
+ and you want a speed-up, call this function with the character you're
+ going to process, then use glyph-based functions instead of the
+ codepoint-based functions.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">codepoint</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Unicode point.
         </li>
     </ul>
 
@@ -198,7 +214,7 @@
     <ol>
 
            <span class="types"><span class="type">uint</span></span>
-        index
+        Index of glyph in this font.
     </ol>
 
 
@@ -210,7 +226,12 @@
     <strong>FontInfo:GetCodepointBitmap (xscale, yscale, codepoint[, opts])</strong>
     </dt>
     <dd>
-    D!!! allocates and returns a bitmap
+    D!!! allocates and returns a bitmap</p>
+
+<p> allocates a large-enough single-channel 8bpp bitmap and renders the
+ specified character/glyph at the specified scale into it, with
+ antialiasing.  0 is no coverage (transparent), 255 is fully covered (opaque).
+ which is stored left-to-right, top-to-bottom.
 
 
     <h3>Parameters:</h3>
@@ -229,9 +250,7 @@
         </li>
         <li><span class="parameter">codepoint</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Unicode point.
         </li>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
@@ -251,24 +270,21 @@
 </li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        w</li>
+        w Width of the bitmap...</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        h</li>
+        h ...and height.</li>
         <li>
            <span class="types"><span class="type">int</span></span>
-        xoff</li>
+        Offset in pixel space from the glyph origin to the top-left corner of the bitmap, x-coordinate...</li>
         <li>
            <span class="types"><span class="type">int</span></span>
-        yoff</li>
+        ...and y-coordinate.</li>
     </ol>
      <h3>Or</h3>
     <ol>
 
-           <span class="types"><span class="type">nil</span></span>
-
-
-
+        <strong>nil</strong>, indicating failure.
     </ol>
 
 
@@ -280,16 +296,20 @@
     <strong>FontInfo:GetCodepointBitmapBox (codepoint, xscale, yscale)</strong>
     </dt>
     <dd>
-    D!!! how big the bitmap must be
+    D!!! how big the bitmap must be</p>
+
+<p> get the bbox of the bitmap centered around the glyph origin; so the
+ bitmap width is ix1-ix0, height is iy1-iy0, and location to place
+ the bitmap top left is (leftSideBearing*scale,iy0).
+ (Note that the bitmap uses y-increases-down, but the shape uses
+ y-increases-up, so CodepointBitmapBox and CodepointBox are inverted.)
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">codepoint</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Unicode point.
         </li>
         <li><span class="parameter">xscale</span>
             <span class="types"><span class="type">number</span></span>
@@ -330,16 +350,14 @@
     <strong>FontInfo:GetCodepointBitmapBoxSubpixel (codepoint, xscale, yscale, xshift, yshift)</strong>
     </dt>
     <dd>
-    D!!!
+    Variant of <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmapBox">FontInfo:GetCodepointBitmapBox</a> that accepts a subpixel shift.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">codepoint</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Unicode point.
         </li>
         <li><span class="parameter">xscale</span>
             <span class="types"><span class="type">number</span></span>
@@ -392,7 +410,7 @@
     <strong>FontInfo:GetCodepointBitmapSubpixel (xscale, yscale, xshift, yshift, codepoint[, opts])</strong>
     </dt>
     <dd>
-    D!!!
+    Variant of <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmap">FontInfo:GetCodepointBitmap</a> that accepts a subpixel shift.
 
 
     <h3>Parameters:</h3>
@@ -423,9 +441,7 @@
         </li>
         <li><span class="parameter">codepoint</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Unicode point.
         </li>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
@@ -474,16 +490,14 @@
     <strong>FontInfo:GetCodepointBox (codepoint)</strong>
     </dt>
     <dd>
-    D!!!
+    Gets the bounding box of the visible part of the glyph, in unscaled coordinates.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">codepoint</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Unicode point.
         </li>
     </ul>
 
@@ -519,7 +533,7 @@
     <strong>FontInfo:GetCodepointHMetrics ()</strong>
     </dt>
     <dd>
-    D!!!
+    Get various horizontal metrics for a particular codepoint in the font.
 
 
 
@@ -527,10 +541,11 @@
     <ol>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        advance_width</li>
+        Advance width, the offset from the current horizontal position to the next horizontal position,
+ expressed in unscaled coordinates.</li>
         <li>
            <span class="types"><span class="type">int</span></span>
-        left<em>side</em>bearing (TODO: int or uint?)</li>
+        Left side bearing, the offset from the current horizontal position to the left edge of the character.</li>
     </ol>
 
 
@@ -542,22 +557,19 @@
     <strong>FontInfo:GetCodepointKernAdvance (char_index_1, char_index_2)</strong>
     </dt>
     <dd>
-    D!!!
+    Find the <a href="https://en.wikipedia.org/wiki/Kerning">kerning</a> between two adjacent characters, an additional
+ amount to add to the 'advance' value.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">char_index_1</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         First Unicode point...
         </li>
         <li><span class="parameter">char_index_2</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         ...and second.
         </li>
     </ul>
 
@@ -565,7 +577,7 @@
     <ol>
 
            <span class="types"><span class="type">int</span></span>
-        kerning (TODO: int or uint?)
+        Kerning.
     </ol>
 
 
@@ -577,16 +589,14 @@
     <strong>FontInfo:GetCodepointShape (codepoint)</strong>
     </dt>
     <dd>
-    D!!!
+    Get the series of contours that describe the character.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">codepoint</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Unicode point.
         </li>
     </ul>
 
@@ -594,9 +604,7 @@
     <ol>
 
            <span class="types"><a class="type" href="../classes/VertexArray.html#">VertexArray</a> or <span class="type">nil</span></span>
-
-
-
+        On success, the shape's vertices; otherwise <strong>nil</strong>.
     </ol>
 
 
@@ -608,7 +616,7 @@
     <strong>FontInfo:GetFontBoundingBox ()</strong>
     </dt>
     <dd>
-    D!!!
+    Get the bounding box around all possible characters.
 
 
 
@@ -637,7 +645,10 @@
     <strong>FontInfo:GetFontVMetrics ()</strong>
     </dt>
     <dd>
-    D!!!
+    Get various vertical metrics from the font. </p>
+
+<p> You should advance the vertical position by <code>ascent - descent + line_gap</code>. These are expressed in
+ unscaled coordinates, so you must multiply by the scale factor for a given size.
 
 
 
@@ -645,13 +656,13 @@
     <ol>
         <li>
            <span class="types"><span class="type">int</span></span>
-        ascent (TODO: int or uint?)</li>
+        Ascent, the coordinate above the baseline the font extends.</li>
         <li>
            <span class="types"><span class="type">int</span></span>
-        descent (TODO: ditto)</li>
+        Descent, the coordinate below the baseline the font extends (i.e. it is typically negative).</li>
         <li>
            <span class="types"><span class="type">int</span></span>
-        line_grap (TODO: again)</li>
+        Line gap, the spacing between one row's descent and the next row's ascent...</li>
     </ol>
 
 
@@ -687,10 +698,6 @@
 
 
 
-    <h3>See also:</h3>
-    <ul>
-         <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">FontInfo:FindGlyphIndex</a>
-    </ul>
 
 
 </dd>
@@ -807,16 +814,14 @@
     <strong>FontInfo:IsGlyphEmpty (glyph_index)</strong>
     </dt>
     <dd>
-    D!!!
+    Predicate.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">glyph_index</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Glyph index, cf. <a href="../classes/FontInfo.html#FontInfo:FindGlyphIndex">FontInfo:FindGlyphIndex</a>.
         </li>
     </ul>
 
@@ -824,7 +829,7 @@
     <ol>
 
            <span class="types"><span class="type">boolean</span></span>
-        X
+        Is anything drawn for this glyph?
     </ol>
 
 
@@ -836,7 +841,12 @@
     <strong>FontInfo:MakeCodepointBitmap (ow, oh, xscale, yscale, codepoint[, opts])</strong>
     </dt>
     <dd>
-    D!!! renders into bitmap you provide
+    D!!! renders into bitmap you provide</p>
+
+<p> the same as <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmap">FontInfo:GetCodepointBitmap</a>, but you pass in storage for the bitmap
+ in the form of 'output', with row spacing of 'out_stride' bytes.  the bitmap
+ is clipped to ow/oh bytes. Call <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmapBox">FontInfo:GetCodepointBitmapBox</a> to get the
+  width and height and positioning info for it first.
 
 
     <h3>Parameters:</h3>
@@ -1169,7 +1179,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2018-05-24 16:10:31 </i>
+<i style="float:right;">Last updated 2018-05-24 18:34:01 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

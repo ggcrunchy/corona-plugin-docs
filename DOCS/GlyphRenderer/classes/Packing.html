@@ -32,6 +32,7 @@
 
 <h2>Contents</h2>
 <ul>
+<li><a href="#Tables">Tables</a></li>
 <li><a href="#Methods">Methods</a></li>
 </ul>
 
@@ -60,6 +61,13 @@
 </p>
 
 
+<h2><a href="#Tables">Tables</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#Packing.PackRange">Packing.PackRange</a></td>
+	<td class="summary">Representation of a packed range.</td>
+	</tr>
+</table>
 <h2><a href="#Methods">Methods</a></h2>
 <table class="function_list">
 	<tr>
@@ -68,15 +76,18 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Packing:PackFontRange">Packing:PackFontRange (bytes, font_size, codepoint, nchars[, index=1])</a></td>
-	<td class="summary">Given the font data, prepare bitmap layouts from for <em>nchars</em> Unicode values, starting at <em>codepoint</em>.</td>
+	<td class="summary">Given the font data, prepare bitmap layouts for <em>nchars</em> Unicode values, starting at <em>codepoint</em>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Packing:PackFontRanges">Packing:PackFontRanges (font, ranges[, index=1])</a></td>
-	<td class="summary">D!!! pack and renders</td>
+	<td class="name" nowrap><a href="#Packing:PackFontRanges">Packing:PackFontRanges (bytes, ranges[, index=1])</a></td>
+	<td class="summary">Given the font data, prepare bitmap layouts for multiple ranges of characters.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Packing:PackFontRangesGatherRects">Packing:PackFontRangesGatherRects (font, ranges)</a></td>
-	<td class="summary">D!!!</td>
+	<td class="summary">D!!!</p>
+
+<p> Calling these functions in sequence is roughly equivalent to calling
+ PackFontRanges().</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Packing:PackFontRangesPackRects">Packing:PackFontRangesPackRects (rects)</a></td>
@@ -88,7 +99,10 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Packing:PackSetOversampling">Packing:PackSetOversampling ([hoversampling=1[, voversampling=1]])</a></td>
-	<td class="summary">D!!! for improved quality on small fonts</td>
+	<td class="summary">D!!! for improved quality on small fonts</p>
+
+<p> Oversampling a font increases the quality by allowing higher-quality subpixel
+ positioning, and is especially valuable at smaller text sizes.</td>
 	</tr>
 </table>
 
@@ -96,6 +110,37 @@
 <br/>
 
 
+    <h2 class="section-header "><a name="Tables"></a>Tables</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "Packing.PackRange"></a>
+    <strong>Packing.PackRange</strong>
+    </dt>
+    <dd>
+    Representation of a packed range.
+
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">font_size</span>
+         As per <a href="../classes/Packing.html#Packing:PackFontRange">Packing:PackFontRange</a>. (Required)
+        </li>
+        <li><span class="parameter">codepoints</span>
+         Either a single <strong>uint</strong> codepoint or an array of the same. In the second case these are the codepoints
+ themselves; otherwise, this is the first point in a range. (Required)
+        </li>
+        <li><span class="parameter">num_chars</span>
+         Number of characters in the range. (Ignored when <strong>codepoints</strong> is an array, required otherwise.)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
     <h2 class="section-header "><a name="Methods"></a>Methods</h2>
 
     <dl class="function">
@@ -118,7 +163,7 @@
     <strong>Packing:PackFontRange (bytes, font_size, codepoint, nchars[, index=1])</strong>
     </dt>
     <dd>
-    Given the font data, prepare bitmap layouts from for <em>nchars</em> Unicode values, starting at <em>codepoint</em>.
+    Given the font data, prepare bitmap layouts for <em>nchars</em> Unicode values, starting at <em>codepoint</em>.
 
 
     <h3>Parameters:</h3>
@@ -143,7 +188,7 @@
         </li>
         <li><span class="parameter">index</span>
             <span class="types"><span class="type">uint</span></span>
-         Font index.
+         Font index, &ge; 1.
          (<em>default</em> 1)
         </li>
     </ul>
@@ -161,31 +206,28 @@
 </dd>
     <dt>
     <a name = "Packing:PackFontRanges"></a>
-    <strong>Packing:PackFontRanges (font, ranges[, index=1])</strong>
+    <strong>Packing:PackFontRanges (bytes, ranges[, index=1])</strong>
     </dt>
     <dd>
-    D!!! pack and renders
+    Given the font data, prepare bitmap layouts for multiple ranges of characters. </p>
+
+<p> This will usually create a better-packed bitmaps than multiple calls to <a href="../classes/Packing.html#Packing:PackFontRange">Packing:PackFontRange</a>. Note that
+ you can call this multiple times without calling <a href="../classes/Packing.html#Packing:PackEnd">Packing:PackEnd</a>.
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">font</span>
-            <span class="types"><a class="type" href="../classes/FontInfo.html#">FontInfo</a></span>
-
-
-
+        <li><span class="parameter">bytes</span>
+            <span class="types"><span class="type">Bytes</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Font data, typically the contents of a file.
         </li>
         <li><span class="parameter">ranges</span>
-            <span class="types"><span class="type">{PackRange,...}</span></span>
-
-
-
+            <span class="types"><a class="type" href="../classes/Packing.html#Packing.PackRange">{PackRange,...}</a></span>
+         One or more packed ranges.
         </li>
         <li><span class="parameter">index</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Font index, &ge; 1.
          (<em>default</em> 1)
         </li>
     </ul>
@@ -193,8 +235,8 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="../classes/CharArray.html#">CharArray</a> or <span class="type">nil</span></span>
-        On success, rendering data which may be retrieved by <a href="../classes/CharArray.html#CharArray:GetPackedQuad">CharArray:GetPackedQuad</a>; <strong>nil</strong> otherwise.
+           <span class="types"><a class="type" href="../classes/CharArray.html#">{CharArray,...}</a> or <span class="type">nil</span></span>
+        On success, an array of <a href="../classes/CharArray.html#">CharArray</a>s, cf. <a href="../classes/Packing.html#Packing:PackFontRange">Packing:PackFontRange</a>; <strong>nil</strong> otherwise.
     </ol>
 
 
@@ -206,7 +248,17 @@
     <strong>Packing:PackFontRangesGatherRects (font, ranges)</strong>
     </dt>
     <dd>
-    D!!!
+    D!!!</p>
+
+<p> Calling these functions in sequence is roughly equivalent to calling
+ PackFontRanges().  If you more control over the packing of multiple
+ fonts, or if you want to pack custom data into a font texture, take a look
+ at the source to of PackFontRanges() and create a custom version
+ using these functions, e.g. call GatherRects multiple times,
+ building up a single array of rects, then call PackRects once,
+ then call RenderIntoRects repeatedly. This may result in a
+ better packing than calling PackFontRanges multiple times
+ (or it may not).
 
 
     <h3>Parameters:</h3>
@@ -218,10 +270,8 @@
 
         </li>
         <li><span class="parameter">ranges</span>
-            <span class="types"><span class="type">{PackRange,...}</span></span>
-
-
-
+            <span class="types"><a class="type" href="../classes/Packing.html#Packing.PackRange">{PackRange,...}</a></span>
+         One or more packed ranges.
         </li>
     </ul>
 
@@ -276,10 +326,8 @@
 
         </li>
         <li><span class="parameter">ranges</span>
-            <span class="types"><span class="type">{PackRange,...}</span></span>
-
-
-
+            <span class="types"><a class="type" href="../classes/Packing.html#Packing.PackRange">{PackRange,...}</a></span>
+         One or more packed ranges.
         </li>
         <li><span class="parameter">rects</span>
             <span class="types"><a class="type" href="../classes/RectArray.html#">RectArray</a></span>
@@ -305,7 +353,22 @@
     <strong>Packing:PackSetOversampling ([hoversampling=1[, voversampling=1]])</strong>
     </dt>
     <dd>
-    D!!! for improved quality on small fonts
+    D!!! for improved quality on small fonts</p>
+
+<p> Oversampling a font increases the quality by allowing higher-quality subpixel
+ positioning, and is especially valuable at smaller text sizes. </p>
+
+<p> This function sets the amount of oversampling for all following calls to
+ stbtt<em>PackFontRange(s) or stbtt</em>PackFontRangesGatherRects for a given
+ pack context. The default (no oversampling) is achieved by h<em>oversample=1
+ and v</em>oversample=1. The total number of pixels required is
+ h<em>oversample*v</em>oversample larger than the default; for example, 2x2
+ oversampling requires 4x the storage of 1x1. For best results, render
+ oversampled textures with bilinear filtering. Look at the readme in
+ stb/tests/oversample for information about oversampled fonts</p>
+
+<p> To use with PackFontRangesGather etc., you must set it before calls
+ call to PackFontRangesGatherRects.
 
 
     <h3>Parameters:</h3>
@@ -338,7 +401,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2018-05-24 16:10:31 </i>
+<i style="float:right;">Last updated 2018-05-24 18:34:01 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
