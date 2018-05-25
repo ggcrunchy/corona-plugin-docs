@@ -38,13 +38,14 @@
 </ul>
 <h2>Methods</h2>
 <ul class="nowrap">
+    <li><a href="#Packing:GetBitmap">Packing:GetBitmap (as_userdata)</a></li>
     <li><a href="#Packing:PackEnd">Packing:PackEnd ()</a></li>
     <li><a href="#Packing:PackFontRange">Packing:PackFontRange (bytes, font_size, codepoint, nchars[, index=1])</a></li>
     <li><a href="#Packing:PackFontRanges">Packing:PackFontRanges (bytes, ranges[, index=1])</a></li>
     <li><a href="#Packing:PackFontRangesGatherRects">Packing:PackFontRangesGatherRects (font, ranges)</a></li>
     <li><a href="#Packing:PackFontRangesPackRects">Packing:PackFontRangesPackRects (rects)</a></li>
     <li><a href="#Packing:PackFontRangesRenderIntoRects">Packing:PackFontRangesRenderIntoRects (font, ranges, rects)</a></li>
-    <li><a href="#Packing:PackSetOversampling">Packing:PackSetOversampling ([hoversampling=1[, voversampling=1]])</a></li>
+    <li><a href="#Packing:PackSetOversampling">Packing:PackSetOversampling (hoversampling, voversampling)</a></li>
 </ul>
 <h2>Classes</h2>
 <ul class="nowrap">
@@ -52,7 +53,7 @@
   <li><a href="../classes/FontInfo.html">FontInfo</a></li>
   <li><strong>Packing</strong></li>
   <li><a href="../classes/RectArray.html">RectArray</a></li>
-  <li><a href="../classes/VertexArray.html">VertexArray</a></li>
+  <li><a href="../classes/Shape.html">Shape</a></li>
 </ul>
 <h2>Modules</h2>
 <ul class="nowrap">
@@ -65,9 +66,7 @@
 
 <h1>Class <code>Packing</code></h1>
 <p>Class that represents a truetype packing context.</p>
-<p>
-
-</p>
+<p> <strong>N.B.</strong> These APIs are only lightly tested at the moment, so use at your own risk!</p>
 
 
 
@@ -105,6 +104,33 @@
     <h2 class="section-header "><a name="Methods"></a>Methods</h2>
 
     <dl class="function">
+    <dt>
+    <a name = "Packing:GetBitmap"></a>
+    <strong>Packing:GetBitmap (as_userdata)</strong>
+    </dt>
+    <dd>
+    <strong>N.B.</strong> And of COURSE I forgot to implement this...  <strong>sigh</strong>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">as_userdata</span>
+            <span class="types"><span class="type">bool</span></span>
+         OR MAYBE "as_bytes"?
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        X
+    </ol>
+
+
+
+
+</dd>
     <dt>
     <a name = "Packing:PackEnd"></a>
     <strong>Packing:PackEnd ()</strong>
@@ -209,26 +235,24 @@
     <strong>Packing:PackFontRangesGatherRects (font, ranges)</strong>
     </dt>
     <dd>
-    D!!!</p>
+    Calculates the dimensions for all the characters to be packed, taking into account font size and
+ oversampling, cf.  <a href="../classes/Packing.html#Packing:PackFontRange">Packing:PackFontRange</a> and <a href="../classes/Packing.html#Packing:PackSetOversampling">Packing:PackSetOversampling</a> respectively.</p>
 
-<p> Calling these functions in sequence is roughly equivalent to calling
- PackFontRanges().  If you more control over the packing of multiple
- fonts, or if you want to pack custom data into a font texture, take a look
- at the source to of PackFontRanges() and create a custom version
- using these functions, e.g. call GatherRects multiple times,
- building up a single array of rects, then call PackRects once,
- then call RenderIntoRects repeatedly. This may result in a
- better packing than calling PackFontRanges multiple times
- (or it may not).
+<p> Calling this, <a href="../classes/Packing.html#Packing:PackFontRangesPackRects">Packing:PackFontRangesPackRects</a>, and <a href="../classes/Packing.html#Packing:PackFontRangesRenderIntoRects">Packing:PackFontRangesRenderIntoRects</a>
+ in sequence is roughly equivalent to calling <a href="../classes/Packing.html#Packing:PackFontRanges">Packing:PackFontRanges</a>.</p>
+
+<p> If you more control over the packing of multiple fonts, or if you want to pack custom data into a
+ font texture, you can create a custom version of <strong>PackFontRanges</strong> using these functions, e.g.
+ gather rects multiple times, concatenate the resulting arrays into one (<strong>N.B.</strong> NYI!), pack that,
+ then render repeatedly. This may result in a better packing than calling <strong>PackFontRanges</strong> multiple
+ times (or it may not).
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">font</span>
             <span class="types"><a class="type" href="../classes/FontInfo.html#">FontInfo</a></span>
-
-
-
+         Info for a specific font.
         </li>
         <li><span class="parameter">ranges</span>
             <span class="types"><a class="type" href="../classes/Packing.html#Packing.PackRange">{PackRange,...}</a></span>
@@ -240,7 +264,8 @@
     <ol>
 
            <span class="types"><a class="type" href="../classes/RectArray.html#">RectArray</a> or <span class="type">nil</span></span>
-        On success, TODO; <strong>nil</strong> otherwise.
+        On success, the characters' rects with proper dimensions and default
+ positions; <strong>nil</strong> otherwise.
     </ol>
 
 
@@ -252,16 +277,16 @@
     <strong>Packing:PackFontRangesPackRects (rects)</strong>
     </dt>
     <dd>
-    D!!!
+    Assign packed locations to rectangles.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">rects</span>
             <span class="types"><a class="type" href="../classes/RectArray.html#">RectArray</a></span>
-
-
-
+         On input, only the <a href="../classes/Packing.html#Packing:PackFontRangesGatherRects">dimensions</a> are considered.
+ Afterward, valid positions
+ will have been assigned to each successfully packed rect, cf. <a href="../classes/RectArray.html#RectArray:WasPacked">RectArray:WasPacked</a>.
         </li>
     </ul>
 
@@ -275,16 +300,14 @@
     <strong>Packing:PackFontRangesRenderIntoRects (font, ranges, rects)</strong>
     </dt>
     <dd>
-    D!!!
+    Renders any <a href="../classes/RectArray.html#RectArray:WasPacked">successfully packed</a> characters into the <a href="../classes/Packing.html#Packing:GetBitmap">packing&apos;s bitmap</a>.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">font</span>
             <span class="types"><a class="type" href="../classes/FontInfo.html#">FontInfo</a></span>
-
-
-
+         Info for a specific font.
         </li>
         <li><span class="parameter">ranges</span>
             <span class="types"><a class="type" href="../classes/Packing.html#Packing.PackRange">{PackRange,...}</a></span>
@@ -292,9 +315,7 @@
         </li>
         <li><span class="parameter">rects</span>
             <span class="types"><a class="type" href="../classes/RectArray.html#">RectArray</a></span>
-
-
-
+         <a href="../classes/Packing.html#Packing:PackFontRangesPackRects">Packed locations and dimension information</a>.
         </li>
     </ul>
 
@@ -311,42 +332,36 @@
 </dd>
     <dt>
     <a name = "Packing:PackSetOversampling"></a>
-    <strong>Packing:PackSetOversampling ([hoversampling=1[, voversampling=1]])</strong>
+    <strong>Packing:PackSetOversampling (hoversampling, voversampling)</strong>
     </dt>
     <dd>
-    D!!! for improved quality on small fonts</p>
-
-<p> Oversampling a font increases the quality by allowing higher-quality subpixel
+    Oversampling a font increases the quality by allowing higher-quality subpixel
  positioning, and is especially valuable at smaller text sizes. </p>
 
 <p> This function sets the amount of oversampling for all following calls to
- PackFontRange(s) or PackFontRangesGatherRects for a given
- pack context. The default (no oversampling) is achieved by hoversample=1
- and voversample=1. The total number of pixels required is
- hoversample*voversample larger than the default; for example, 2x2
+ <a href="../classes/Packing.html#Packing:PackFontRange">Packing:PackFontRange</a>, <a href="../classes/Packing.html#Packing:PackFontRanges">Packing:PackFontRanges</a>, or <a href="../classes/Packing.html#Packing:PackFontRangesGatherRects">Packing:PackFontRangesGatherRects</a>
+ for a given packing. The default (no oversampling) is achieved by <code>hoversampling == 1</code>
+ and <code>voversampling == 1</code>. The total number of pixels required is
+ <code>hoversampling * voversampling</code> larger than the default; for example, 2x2
  oversampling requires 4x the storage of 1x1. For best results, render
- oversampled textures with bilinear filtering. Look at the readme in
- stb/tests/oversample for information about oversampled fonts</p>
+ oversampled textures with bilinear filtering.</p>
 
-<p> To use with PackFontRangesGather etc., you must set it before calls
- call to PackFontRangesGatherRects.
+<p> The <a href="https://github.com/nothings/stb/tree/master/tests/oversample">readme</a> for <strong>stb</strong>'s
+ oversample tests has some good information about oversampled fonts.</p>
+
+<p> To use with <a href="../classes/Packing.html#Packing:PackFontRangesGatherRects">Packing:PackFontRangesGatherRects</a> and friends, oversampling must be
+ set before the sequence of calls, cf. the docs for the same.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">hoversampling</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
-         (<em>default</em> 1)
+         Horizontal oversampling...
         </li>
         <li><span class="parameter">voversampling</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
-         (<em>default</em> 1)
+         ...and vertical.
         </li>
     </ul>
 
@@ -362,7 +377,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2018-05-24 19:36:10 </i>
+<i style="float:right;">Last updated 2018-05-25 15:11:27 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
