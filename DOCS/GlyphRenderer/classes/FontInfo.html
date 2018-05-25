@@ -152,9 +152,7 @@
         </li>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-
-
-
+         stride, as_userdata
          (<em>optional</em>)
         </li>
     </ul>
@@ -168,10 +166,10 @@
 </li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        w Width of the bitmap...</li>
+        Width of the bitmap...</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        h ...and height.</li>
+        ...and height.</li>
         <li>
            <span class="types"><span class="type">int</span></span>
         Offset in pixel space from the glyph origin to the top-left corner of the bitmap, x-coordinate...</li>
@@ -227,16 +225,16 @@
     <ol>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        x0</li>
+        Upper-left corner, x-coordinate...</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        y0</li>
+        ...and y-coordinate.</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        x1</li>
+        Lower-right corner, x-coordinate...</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        y1</li>
+        ...and y-coordinate.</li>
     </ol>
 
 
@@ -287,16 +285,16 @@
     <ol>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        x0</li>
+        Upper-left corner, x-coordinate...</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        y0</li>
+        ...and y-coordinate.</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        x1</li>
+        Lower-right corner, x-coordinate...</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        y1</li>
+        ...and y-coordinate.</li>
     </ol>
 
 
@@ -343,9 +341,7 @@
         </li>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-
-
-
+         As per <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmapSubpixel">FontInfo:GetCodepointBitmapSubpixel</a>.
          (<em>optional</em>)
         </li>
     </ul>
@@ -405,16 +401,16 @@
         <strong>true</strong>, indicating success.</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        x0</li>
+        Upper-left corner, x-coordinate...</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        y0</li>
+        ...and y-coordinate.</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        x1</li>
+        Lower-right corner, x-coordinate...</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        y1</li>
+        ...and y-coordinate.</li>
     </ol>
      <h3>Or</h3>
     <ol>
@@ -522,16 +518,16 @@
     <ol>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        x0</li>
+        Upper-left corner, x-coordinate...</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        y0</li>
+        ...and y-coordinate.</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        x1</li>
+        Lower-right corner, x-coordinate...</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        y1</li>
+        ...and y-coordinate.</li>
     </ol>
 
 
@@ -747,15 +743,11 @@
         </li>
         <li><span class="parameter">codepoint</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Unicode point.
         </li>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-
-
-
+         blob, stride, as_userdata
          (<em>optional</em>)
         </li>
     </ul>
@@ -821,15 +813,11 @@
         </li>
         <li><span class="parameter">codepoint</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Unicode point.
         </li>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-
-
-
+         As per <a href="../classes/FontInfo.html#FontInfo:MakeCodepointBitmap">FontInfo:MakeCodepointBitmap</a>.
          (<em>optional</em>)
         </li>
     </ul>
@@ -880,7 +868,7 @@
     <strong>FontInfo:ScaleForMappingEmToPixels (pixels)</strong>
     </dt>
     <dd>
-    Computes a scale factor, according to the height of "M" in the font.
+    Computes a scale factor&mdash;from our actual font to an ideal one&mdash;according to the height of "M".
 
 
     <h3>Parameters:</h3>
@@ -907,8 +895,8 @@
     <strong>FontInfo:ScaleForPixelHeight (pixels)</strong>
     </dt>
     <dd>
-    Compute a scale factor, according to the distance from the font's highest ascender
- to its lowest descender. </p>
+    Compute a scale factor&mdash;from our actual font to an ideal one&mdash;according to the distance from the
+ highest ascender to the lowest descender. </p>
 
 <p> In other words, it's equivalent to calling <a href="../classes/FontInfo.html#FontInfo:GetFontVMetrics">FontInfo:GetFontVMetrics</a> and
  computing <code>scale = pixels / (ascent - descent)</code>, so if you prefer to measure
@@ -941,7 +929,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2018-05-24 18:53:07 </i>
+<i style="float:right;">Last updated 2018-05-24 19:36:10 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
