@@ -34,7 +34,7 @@
 
 
 <h2>Modules</h2>
-<ul class="$(kind=='Topics' and '' or 'nowrap'">
+<ul class="nowrap">
   <li><strong>bytemap</strong></li>
 </ul>
 
@@ -63,6 +63,8 @@
 <p> Functions and sections that begin with (<strong>WIP</strong>) describe work in progress. These features are not considered stable,
  but give a reasonable idea of what to expect.</p>
 
+<p> This plugin is designed to be called safely from other <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/luaproc/api.html">Lua processes</a>.</p>
+
 
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
@@ -71,8 +73,12 @@
 	<td class="summary">Create a new <strong>Bytemap</strong>, a two-dimensional memory-structuring mechanism.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#loadTexture">loadTexture (config)</a></td>
+	<td class="summary">(<strong>WIP</strong>) Create and populate a new <strong>Bytemap</strong> from a <strong>JPEG</strong> or <strong>PNG</strong> file.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#Bytemap:BindBlob">Bytemap:BindBlob (blob)</a></td>
-	<td class="summary">(<strong>WIP</strong>) Bind a <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/MemoryBlob/api.html">memory blob</a> to the bytemap,
+	<td class="summary">(<strong>WIP</strong>, but promising) Bind a <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/MemoryBlob/api.html">memory blob</a> to the bytemap,
  making it the data source.</td>
 	</tr>
 	<tr>
@@ -98,7 +104,8 @@
 <br/>
 
 
-    <h2><a name="Functions"></a>Functions</h2>
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
     <dl class="function">
     <dt>
     <a name = "newTexture"></a>
@@ -131,10 +138,11 @@ R3 G3 B3 A3 | R4 G4 B4 A4
  and <a href="https://docs.coronalabs.com/api/type/TextureResource/releaseSelf.html">releaseSelf</a> become no-ops, whereas <code>filename</code> and
  <code>baseDir</code> will throw errors if accessed.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">config</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          Parameters used to initialize the bytemap:</p>
 
 <ul>
@@ -163,11 +171,52 @@ R3 G3 B3 A3 | R4 G4 B4 A4
 
 </dd>
     <dt>
+    <a name = "loadTexture"></a>
+    <strong>loadTexture (config)</strong>
+    </dt>
+    <dd>
+    (<strong>WIP</strong>) Create and populate a new <strong>Bytemap</strong> from a <strong>JPEG</strong> or <strong>PNG</strong> file. </p>
+
+<p> Compare the details about those image formats <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/impack/modules/image.html">here</a>
+ for an idea of what limitations are in place, as this uses similar machinery.</p>
+
+<p> Further details about bytemaps may be found in <a href="api.html#newTexture">newTexture</a>'s summary.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">config</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+<p> Parameters used to initialize the bytemap:</p>
+
+<ul>
+    <li><strong>filename</strong>: Name of file to load. The dimensions will be extracted from the file.</li>
+    <li><strong>baseDir</strong>: If provided, the directory where <em>filename</em> can be found, cf. <a href="https://docs.coronalabs.com/api/library/system/pathForFile.html">system.pathForFile</a>.</li>
+    <li><strong>format</strong>: As per <a href="api.html#newTexture">newTexture</a>. (Importantly, the number of components in the file is <strong>not</strong> consulted.)</li>
+    <li><strong>is_non_external</strong>: As per <a href="api.html#newTexture">newTexture</a>.</li>
+</ul>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytemap</span> or <span class="type">nil</span></span>
+        The new bytemap, or <strong>nil</strong> on error.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
     <a name = "Bytemap:BindBlob"></a>
     <strong>Bytemap:BindBlob (blob)</strong>
     </dt>
     <dd>
-    (<strong>WIP</strong>) Bind a <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/MemoryBlob/api.html">memory blob</a> to the bytemap,
+    (<strong>WIP</strong>, but promising) Bind a <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/MemoryBlob/api.html">memory blob</a> to the bytemap,
  making it the data source. </p>
 
 <p> When a blob is first bound, the bytemap's normal memory is deallocated. If a blob is later detached without
@@ -186,6 +235,7 @@ R3 G3 B3 A3 | R4 G4 B4 A4
  render the blob contents into that. A corollary is that bytemaps regard blobs as read-only, so that
  <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/MemoryBlob/api.html#MemoryBlob:IsLocked">locked blobs</a>
  may be bound without any problems.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -223,6 +273,7 @@ R3 G3 B3 A3 | R4 G4 B4 A4
  fixed-size blob. See <a href="api.html#Bytemap:BindBlob">Bytemap:BindBlob</a> for details.
 
 
+
     <h3>Returns:</h3>
     <ol>
 
@@ -240,6 +291,7 @@ R3 G3 B3 A3 | R4 G4 B4 A4
     </dt>
     <dd>
     (<strong>WIP</strong>) Get the memory blob, if any, bound to the bytemap.
+
 
 
     <h3>Returns:</h3>
@@ -272,10 +324,11 @@ R3 G3 B3 A3 | R4 G4 B4 A4
  outside&mdash;<em>x1</em> and <em>x2</em> are both &lt; 1, for instance&mdash;no bytes are available, so a
  zero-length string is returned.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">opts</span>
-            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
 
 <p> Options for getting bytes, which include:</p>
 
@@ -307,10 +360,10 @@ R3 G3 B3 A3 | R4 G4 B4 A4
     <h3>Returns:</h3>
     <ol>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         A copy of the requested bytes.</li>
         <li>
-           <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+           <span class="types">optional <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          If <strong>get_info</strong> was provided as an option, the info table.</p>
 
 <p> The final region coordinates will be added under the <strong>x1</strong>, <strong>y1</strong>, <strong>x2</strong>, and <strong>y2</strong> fields.
@@ -345,6 +398,7 @@ R3 G3 B3 A3 | R4 G4 B4 A4
 
 <p> Regardless of whether bytes are written, any blob is detached, cf. <a href="api.html#Bytemap:BindBlob">Bytemap:BindBlob</a>.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">bytes</span>
@@ -354,7 +408,7 @@ R3 G3 B3 A3 | R4 G4 B4 A4
 <p> <strong>N.B.</strong> These are the pre-clipping values of the region coordinates (though sorted).
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
 
 <p> Options for setting bytes, which include:</p>
 
@@ -391,7 +445,7 @@ R3 G3 B3 A3 | R4 G4 B4 A4
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+           <span class="types">optional <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          The info table, if requested.</p>
 
 <p> The table contents match those for <a href="api.html#Bytemap:GetBytes">Bytemap:GetBytes</a>, except now they describe the assigned&mdash;rather
@@ -408,7 +462,8 @@ R3 G3 B3 A3 | R4 G4 B4 A4
 </div> <!-- id="content" -->
 </div> <!-- id="main" -->
 <div id="about">
-<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2018-05-26 21:38:15 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

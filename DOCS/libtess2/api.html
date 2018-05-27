@@ -34,7 +34,7 @@
 
 
 <h2>Modules</h2>
-<ul class="$(kind=='Topics' and '' or 'nowrap'">
+<ul class="nowrap">
   <li><strong>libtess2</strong></li>
 </ul>
 
@@ -86,7 +86,7 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#NewTess">NewTess (use3)</a></td>
+	<td class="name" nowrap><a href="#NewTess">NewTess ()</a></td>
 	<td class="summary">Create a new <strong>Tessellator</strong>.</td>
 	</tr>
 	<tr>
@@ -137,28 +137,27 @@
 	<td class="name" nowrap><a href="#Tessellator:Tesselate">Tessellator:Tesselate (winding_rule, element_type[, opts])</a></td>
 	<td class="summary">Variant that takes an options table instead.</td>
 	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Tessellator:UseVertexSizeOf3">Tessellator:UseVertexSizeOf3 (use3)</a></td>
+	<td class="summary">Set the vertex size used by subsequent calls to <a href="api.html#Tessellator:AddContour">Tessellator:AddContour</a> and <a href="api.html#Tessellator:Tesselate">Tessellator:Tesselate</a>.</td>
+	</tr>
 </table>
 
 <br/>
 <br/>
 
 
-    <h2><a name="Functions"></a>Functions</h2>
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
     <dl class="function">
     <dt>
     <a name = "NewTess"></a>
-    <strong>NewTess (use3)</strong>
+    <strong>NewTess ()</strong>
     </dt>
     <dd>
     Create a new <strong>Tessellator</strong>.
 
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">use3</span>
-            <span class="types"><span class="type">bool</span></span>
-         If true, the tessellator will use 3 coordinates per vertex, rather than 2 (the default).
-        </li>
-    </ul>
+
 
     <h3>Returns:</h3>
     <ol>
@@ -177,6 +176,7 @@
     </dt>
     <dd>
     Getter.
+
 
 
     <h3>Returns:</h3>
@@ -199,6 +199,7 @@
 
 <p> TODO: Are the options applied here or at tessellation?
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">vertices</span>
@@ -209,7 +210,7 @@
 <p> This may also be provided as bytes, pointing to the start of the first float.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
 
 <p> Contour options:</p>
 
@@ -220,6 +221,7 @@
     This is also used to calculate the default count for <em>vertices</em> when provided as bytes.</li>
 </ul>
 
+         (<em>optional</em>)
         </li>
     </ul>
 
@@ -234,6 +236,7 @@
     </dt>
     <dd>
     Getter.
+
 
 
     <h3>Returns:</h3>
@@ -256,29 +259,28 @@
 
 <p> See the sample for how to use these results.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">arg</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a> or <span class="type">nil</span></span>
-         This may be the string <strong>"as_bytes"</strong>, in which case the elements are returned as <strong>Bytes</strong>. (<strong>N.B.</strong> NOT
- YET IMPLEMENTED!)</p>
-
-<p> Otherwise, elements are supplied through a table, either using the one provided here or creating a new one.
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a> or <span class="type">nil</span></span>
+         This may be the string <strong>"as_bytes"</strong>, in which case the elements are returned as <strong>Bytes</strong>.
+ Otherwise, elements are supplied through a table, either using the one provided here or creating a new one.
         </li>
         <li><span class="parameter">one_based</span>
             <span class="types"><span class="type">bool</span></span>
-         Elements are one-based, rather than zero-based?
+         Elements are one-based, rather than zero-based? This is ignored for <strong>Bytes</strong>.
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          As a table, an array <code>{ elem1, elem2, ... }</code> whose values are <strong>uint</strong>s. Their interpretation
  depends on the element type supplied to <a href="api.html#Tessellator:Tesselate">Tessellator:Tesselate</a>; some may be undefined, cf. <a href="api.html#Undef">Undef</a>.</p>
 
-<p> <strong>Bytes</strong> version not yet implemented!
+<p> Otherwise, a proxy object that implements <strong>Bytes</strong> and reflects the most recent tessellation results.
     </ol>
      <h3>Or</h3>
     <ol>
@@ -299,6 +301,7 @@
     Getter.
 
 
+
     <h3>Returns:</h3>
     <ol>
 
@@ -316,6 +319,7 @@
     </dt>
     <dd>
     Getter.
+
 
 
     <h3>Returns:</h3>
@@ -340,22 +344,23 @@
 
 <p> New vertices generated at the intersections of segments are undefined, cf. <a href="api.html#Undef">Undef</a>.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">arg</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a> or <span class="type">nil</span></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a> or <span class="type">nil</span></span>
          As per <a href="api.html#Tessellator:GetElements">Tessellator:GetElements</a>.
         </li>
         <li><span class="parameter">one_based</span>
             <span class="types"><span class="type">bool</span></span>
-         Indices are one-based, rather than zero-based?
+         Elements are one-based, rather than zero-based? This is ignored for <strong>Bytes</strong>.
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
         As per <a href="api.html#Tessellator:GetElements">Tessellator:GetElements</a>.
     </ol>
      <h3>Or</h3>
@@ -377,6 +382,7 @@
     Getter.
 
 
+
     <h3>Returns:</h3>
     <ol>
 
@@ -385,6 +391,10 @@
     </ol>
 
 
+    <h3>See also:</h3>
+    <ul>
+         <a href="api.html#Tessellator:UseVertexSizeOf3">Tessellator:UseVertexSizeOf3</a>
+    </ul>
 
 
 </dd>
@@ -395,10 +405,11 @@
     <dd>
     Gather the vertices resulting from tessellation.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">arg</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a> or <span class="type">nil</span></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a> or <span class="type">nil</span></span>
          As per <a href="api.html#Tessellator:GetElements">Tessellator:GetElements</a>.
         </li>
     </ul>
@@ -406,11 +417,11 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Bytes</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+           <span class="types"><span class="type">Bytes</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          As a table, an array of numbers: <code>{ x1, y1, x2, y2, ... }</code> or <code>{ x1, y1, z1, x2, y2, z2, ... }</code>
  for 2 or 3 coordinates, respectively.</p>
 
-<p> <strong>Bytes</strong> version not yet implemented!
+<p> <strong>Bytes</strong> results follow the pattern of <a href="api.html#Tessellator:GetElements">Tessellator:GetElements</a>.
     </ol>
      <h3>Or</h3>
     <ol>
@@ -430,10 +441,11 @@
     <dd>
     Toggles optional tessellation parameters.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">option</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
 
 <p> One of the following:</p>
 
@@ -463,25 +475,26 @@
 
 <p> <strong>N.B.</strong> The method's spelling is carried over from <strong>libtess2</strong>.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">winding_rule</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
 
 <p> Rule used for tessellation. Must be one of the following (for descriptions see the
  <a href="http://www.glprogramming.com/red/chapter11.html">OpenGL Red Book</a>):</p>
 
 <ul>
-    <li><strong>"ABS_GEQ_TWO"</strong>: <code>abs(winding_number) >= 2</code></li>
+    <li><strong>"ABS_GEQ_TWO"</strong>: <code>abs(winding_number) &gt;= 2</code></li>
     <li><strong>"NEGATIVE"</strong>: <code>winding_number &lt; 0</code></li>
     <li><strong>"NONZERO"</strong>: <code>winding_number ~= 0</code></li>
     <li><strong>"ODD"</strong>: <code>winding_number % 2 == 1</code></li>
-    <li><strong>"POSITIVE"</strong>: <code>winding_number > 0</code></li>
+    <li><strong>"POSITIVE"</strong>: <code>winding_number &gt; 0</code></li>
 </ul>
 
         </li>
         <li><span class="parameter">element_type</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
 
 <p> Resulting element type. Must be one of the following:</p>
 
@@ -498,10 +511,11 @@
          (<em>default</em> 3)
         </li>
         <li><span class="parameter">normal</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a>, <span class="type">Bytes</span> or <span class="type">nil</span></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a>, <span class="type">Bytes</span> or <span class="type">nil</span></span>
          Defines the normal of the input contours, either as an array of three
  numbers or in <strong>Bytes</strong> form as three consecutive floats (if either is too small, padding 0s are added). If
  absent, calculated automatically.
+         (<em>optional</em>)
         </li>
     </ul>
 
@@ -523,20 +537,22 @@
     <dd>
     Variant that takes an options table instead.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">winding_rule</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          As before.
         </li>
         <li><span class="parameter">element_type</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          As before.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          Tessellation options, which may include <strong>poly_size</strong> and <strong>normal</strong>, whose meaning is as
  described before.
+         (<em>optional</em>)
         </li>
     </ul>
 
@@ -551,13 +567,39 @@
 
 
 </dd>
+    <dt>
+    <a name = "Tessellator:UseVertexSizeOf3"></a>
+    <strong>Tessellator:UseVertexSizeOf3 (use3)</strong>
+    </dt>
+    <dd>
+    Set the vertex size used by subsequent calls to <a href="api.html#Tessellator:AddContour">Tessellator:AddContour</a> and <a href="api.html#Tessellator:Tesselate">Tessellator:Tesselate</a>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">use3</span>
+            <span class="types"><span class="type">bool</span></span>
+         Use 3 coordinates per vertex, rather than 2 (the default)?
+        </li>
+    </ul>
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="api.html#Tessellator:GetVertexSize">Tessellator:GetVertexSize</a>
+    </ul>
+
+
+</dd>
 </dl>
 
 
 </div> <!-- id="content" -->
 </div> <!-- id="main" -->
 <div id="about">
-<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2018-05-26 21:36:47 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
