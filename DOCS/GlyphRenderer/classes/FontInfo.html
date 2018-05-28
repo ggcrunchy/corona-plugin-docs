@@ -124,27 +124,23 @@
     <strong>FontInfo:GetCodepointBitmap (xscale, yscale, codepoint[, opts])</strong>
     </dt>
     <dd>
-    D!!! allocates and returns a bitmap</p>
+    Allocates a large-enough single-channel 8bpp bitmap and renders the
+ specified character at the provided scale into it, with antialiasing.
+ Bitmap values range from 0, for no coverage (transparent), to 255 when fully
+ covered (opaque).</p>
 
-<p> allocates a large-enough single-channel 8bpp bitmap and renders the
- specified character/glyph at the specified scale into it, with
- antialiasing.  0 is no coverage (transparent), 255 is fully covered (opaque).
- which is stored left-to-right, top-to-bottom.
+<p> The bitmap is stored left-to-right, top-to-bottom.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">xscale</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         How much to scale the character's width...
         </li>
         <li><span class="parameter">yscale</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         ...and height.
         </li>
         <li><span class="parameter">codepoint</span>
             <span class="types"><span class="type">uint</span></span>
@@ -152,7 +148,7 @@
         </li>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         stride, as_userdata
+         as_userdata TODO probably makes more sense as "as_bytes"
          (<em>optional</em>)
         </li>
     </ul>
@@ -184,6 +180,10 @@
     </ol>
 
 
+    <h3>See also:</h3>
+    <ul>
+         <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmapBox">FontInfo:GetCodepointBitmapBox</a>
+    </ul>
 
 
 </dd>
@@ -198,7 +198,18 @@
  bitmap width is ix1-ix0, height is iy1-iy0, and location to place
  the bitmap top left is (leftSideBearing*scale,iy0).
  (Note that the bitmap uses y-increases-down, but the shape uses
- y-increases-up, so CodepointBitmapBox and CodepointBox are inverted.)
+ y-increases-up, so CodepointBitmapBox and CodepointBox are inverted.)</p>
+
+<p> This is a convenience wrapper for the following:</p>
+
+<p> <pre><code>local ok, x0, y0, x1, y1 = font:GetCodepointBox(codepoint)&#13;&#10;
+if ok then
+  local ix0, iy0 = math.floor(x0 * xscale), math.floor(-y1 * yscale)
+  local ix1, iy1 = math.ceil(x1 * xscale), math.ceil(-y0 * yscale)&#13;&#10;
+  return ix0, iy0, ix1, iy1
+else
+  return 0, 0, 0, 0
+end</code></pre>
 
 
     <h3>Parameters:</h3>
@@ -209,15 +220,11 @@
         </li>
         <li><span class="parameter">xscale</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         How much to scale the character's width...
         </li>
         <li><span class="parameter">yscale</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         ...and height.
         </li>
     </ul>
 
@@ -238,6 +245,10 @@
     </ol>
 
 
+    <h3>See also:</h3>
+    <ul>
+         <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmapBoxSubpixel">FontInfo:GetCodepointBitmapBoxSubpixel</a>
+    </ul>
 
 
 </dd>
@@ -246,7 +257,18 @@
     <strong>FontInfo:GetCodepointBitmapBoxSubpixel (codepoint, xscale, yscale, xshift, yshift)</strong>
     </dt>
     <dd>
-    Variant of <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmapBox">FontInfo:GetCodepointBitmapBox</a> that accepts a subpixel shift.
+    Variant of <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmapBox">FontInfo:GetCodepointBitmapBox</a> that accepts a subpixel shift. </p>
+
+<p> This is a convenience wrapper for the following:</p>
+
+<p> <pre><code>local ok, x0, y0, x1, y1 = font:GetCodepointBox(codepoint)&#13;&#10;
+if ok then
+  local ix0, iy0 = math.floor(x0 * xscale + xshift), math.floor(-y1 * yscale + yshift)
+  local ix1, iy1 = math.ceil(x1 * xscale + xshift), math.ceil(-y0 * yscale + yshift)&#13;&#10;
+  return ix0, iy0, ix1, iy1
+else
+  return 0, 0, 0, 0
+end</code></pre>
 
 
     <h3>Parameters:</h3>
@@ -257,27 +279,19 @@
         </li>
         <li><span class="parameter">xscale</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         How much to scale the character's width...
         </li>
         <li><span class="parameter">yscale</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         ...and height.
         </li>
         <li><span class="parameter">xshift</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         Subpixel shift of scaled x-coordinate...
         </li>
         <li><span class="parameter">yshift</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         ...and y-coordinate.
         </li>
     </ul>
 
@@ -306,34 +320,27 @@
     <strong>FontInfo:GetCodepointBitmapSubpixel (xscale, yscale, xshift, yshift, codepoint[, opts])</strong>
     </dt>
     <dd>
-    Variant of <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmap">FontInfo:GetCodepointBitmap</a> that accepts a subpixel shift.
+    Variant of <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmap">FontInfo:GetCodepointBitmap</a> that accepts a subpixel shift, cf.
+ <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmapBoxSubpixel">FontInfo:GetCodepointBitmapBoxSubpixel</a> for details.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">xscale</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         How much to scale the character's width...
         </li>
         <li><span class="parameter">yscale</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         ...and height.
         </li>
         <li><span class="parameter">xshift</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         Subpixel shift of scaled x-coordinate...
         </li>
         <li><span class="parameter">yshift</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         ...and y-coordinate.
         </li>
         <li><span class="parameter">codepoint</span>
             <span class="types"><span class="type">uint</span></span>
@@ -341,7 +348,7 @@
         </li>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         As per <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmapSubpixel">FontInfo:GetCodepointBitmapSubpixel</a>.
+         As per <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmap">FontInfo:GetCodepointBitmap</a>.
          (<em>optional</em>)
         </li>
     </ul>
@@ -709,34 +716,26 @@
 <p> the same as <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmap">FontInfo:GetCodepointBitmap</a>, but you pass in storage for the bitmap
  in the form of 'output', with row spacing of 'out_stride' bytes.  the bitmap
  is clipped to ow/oh bytes. Call <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmapBox">FontInfo:GetCodepointBitmapBox</a> to get the
- width and height and positioning info for it first.
+ width and height and positioning info for it first; see also its details on scaling.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">ow</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Output bitmap width...
         </li>
         <li><span class="parameter">oh</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         ...and height.
         </li>
         <li><span class="parameter">xscale</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         How much to scale the character's width...
         </li>
         <li><span class="parameter">yscale</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         ...and height.
         </li>
         <li><span class="parameter">codepoint</span>
             <span class="types"><span class="type">uint</span></span>
@@ -744,7 +743,7 @@
         </li>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         blob, stride, as_userdata
+         blob, stride, as_userdata TODO blob should really be mandatory (obviating as_userdata)...
          (<em>optional</em>)
         </li>
     </ul>
@@ -767,46 +766,35 @@
     <strong>FontInfo:MakeCodepointBitmapSubpixel (ow, oh, xscale, yscale, xshift, yshift, codepoint[, opts])</strong>
     </dt>
     <dd>
-    Variant of <a href="../classes/FontInfo.html#FontInfo:MakeCodepointBitmap">FontInfo:MakeCodepointBitmap</a> that accepts a subpixel shift.
+    Variant of <a href="../classes/FontInfo.html#FontInfo:MakeCodepointBitmap">FontInfo:MakeCodepointBitmap</a> that accepts a subpixel shift, cf.
+ <a href="../classes/FontInfo.html#FontInfo:GetCodepointBitmapBoxSubpixel">FontInfo:GetCodepointBitmapBoxSubpixel</a> for details.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">ow</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Output bitmap width...
         </li>
         <li><span class="parameter">oh</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         ...and height.
         </li>
         <li><span class="parameter">xscale</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         How much to scale the character's width...
         </li>
         <li><span class="parameter">yscale</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         ...and height.
         </li>
         <li><span class="parameter">xshift</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         Subpixel shift of scaled x-coordinate...
         </li>
         <li><span class="parameter">yshift</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         ...and y-coordinate.
         </li>
         <li><span class="parameter">codepoint</span>
             <span class="types"><span class="type">uint</span></span>
@@ -926,7 +914,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2018-05-26 21:43:09 </i>
+<i style="float:right;">Last updated 2018-05-28 14:06:25 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
