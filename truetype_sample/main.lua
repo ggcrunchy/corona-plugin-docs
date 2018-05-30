@@ -1,15 +1,5 @@
---- Sample for GlyphRenderer plugin.
---
--- Various fonts (all "100% Free") are used:
---
--- Pixel UniCode: http://www.dafont.com/pixel-unicode.font
--- Mayan: http://www.dafont.com/mayan2.font
--- VCR OSD Mono: http://www.dafont.com/vcr-osd-mono.font
--- Perfect DOS VGA 437: http://www.dafont.com/perfect-dos-vga-437.font
--- 8 Bit Wonder: http://www.dafont.com/8bit-wonder.font
--- 3Dventure: http://www.dafont.com/3dventure.font
+--- Test for truetype plugin.
 
---
 -- Permission is hereby granted, free of charge, to any person obtaining
 -- a copy of this software and associated documentation files (the
 -- "Software"), to deal in the Software without restriction, including
@@ -30,30 +20,13 @@
 -- SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 --
 -- [ MIT license: http://www.opensource.org/licenses/mit-license.php ]
---
 
-local glyph_renderer = require("plugin.GlyphRenderer")
+local truetype = require("plugin.truetype")
 local bytemap = require("plugin.Bytemap")
 
 local c, s = ("a"):byte(), 20
 
-local function doesFileExist (name, path)
-	local full_path = system.pathForFile(name, path)
-
-	if full_path then
-		local file = io.open(full_path)
-
-		if file then
-			file:close()
-
-			return true
-		end
-	end
-
-	return false
-end
-
-local function copyFile( srcName, srcPath, dstName, dstPath, overwrite )
+function copyFile( srcName, srcPath, dstName, dstPath, overwrite )
 
     local results = false
 
@@ -64,7 +37,7 @@ local function copyFile( srcName, srcPath, dstName, dstPath, overwrite )
 
     -- Check to see if destination file already exists
     if not ( overwrite ) then
-        if ( doesFileExist( dstName, dstPath ) ) then
+        if ( fileLib.doesFileExist( dstName, dstPath ) ) then
             return 1  -- 1 = File already exists (don't overwrite)
         end
     end
@@ -103,9 +76,7 @@ local function copyFile( srcName, srcPath, dstName, dstPath, overwrite )
     return results
 end
 
-copyFile("8-BIT WONDER-FONT.TXT", nil, "8-BIT WONDER.TTF", system.DocumentsDirectory, true)
-
-local f = io.open(system.pathForFile("8-BIT WONDER.TTF", system.DocumentsDirectory), "rb")
+local f = io.open(system.pathForFile("8-BIT WONDER-FONT.txt"), "rb") -- font (disguised as text for Android)
 
 local function Print (bitmap, w, h)
     local index, text = 1, " .:ioVM@"
@@ -128,7 +99,7 @@ if f then
 
     f:close()
 
-    local font = glyph_renderer.InitFont(buf, glyph_renderer.GetFontOffsetForIndex(buf, 0))
+    local font = truetype.InitFont(buf, truetype.GetFontOffsetForIndex(buf, 0))
 
     do
         local bitmap, w, h = font:GetCodepointBitmap(0, font:ScaleForPixelHeight(s), c)
@@ -145,7 +116,7 @@ if f then
 
     do
         local xpos = 2 -- leave a little padding in case the character extends left
-        local text = "Heljo World!" -- intentionally misspelled to show 'lj' brokenness
+        local text = "Heljo World!" -- intentionally misspelled to show 'lj' brokenness (TODO: revise to demonstrate)
         local screen = bytemap.newTexture{ width = 79, height = 20, format = "rgb" }
 
         local scale = font:ScaleForPixelHeight(15)
@@ -158,18 +129,21 @@ if f then
             local ch = text:byte(i)
             local xshift = xpos % 1
             local advance, lsb = font:GetCodepointHMetrics(ch)
-            local x0, y0, x1, y1 = font:GetCodepointBitmapBoxSubpixel(ch, scale, scale, xshift, 0)
-            local bitmap = font:MakeCodepointBitmapSubpixel(x1 - x0, y1 - y0, scale, scale, xshift, 0, ch, {
-                stride = 79
-            })
+        --  local x0, y0, x1, y1 = font:GetCodepointBitmapBoxSubpixel(ch, scale, scale, xshift, 0)
+		--	local w, h = x1 - x0, y1 - y0
+		--	N.B. the following supplies the details from the above as conveniences
+            local bitmap, w, h, x0, y0 = font:GetCodepointBitmapSubpixel(scale, scale, xshift, 0, ch)
 
-            local xf, yf = math.floor(xpos) + x0, baseline + y0
+			if bitmap then -- might be space, etc. (with box we would get w = h = 0)
+				local xf, yf = math.floor(xpos) + x0, baseline + y0
 
-            screen:SetBytes(bitmap, {
-                x1 = xf + 1, y1 = yf + 1, x2 = xf + 79, y2 = yf + 20,
-                format = "grayscale", stride = 79
-            })
+				screen:SetBytes(bitmap, {
+					x1 = xf + 1, y1 = yf + 1, x2 = xf + w, y2 = yf + h,
+					format = "grayscale"
+				})
+			end
 
+			-- TODO: this is not in the current sample but should return later using the Make APIs
             -- note that this stomps the old data, so where character boxes overlap (e.g. 'lj') it's wrong
             -- because this API is really for baking character bitmaps into textures. if you want to render
             -- a sequence of characters, you really need to render each bitmap to a temp buffer, then
@@ -189,7 +163,9 @@ if f then
         simage:toBack()
 
         simage.x, simage.y = display.contentCenterX, display.contentCenterY
-simage:scale(5, 5)
+
+		simage:scale(5, 5) -- zoom in on the word
+
         local bytes = screen:GetBytes{ format = "mask" }
 
         Print(bytes, 79, 20)
