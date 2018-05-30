@@ -27,6 +27,9 @@
 local shapes = require("shapes")
 local utils = require("utils")
 
+-- Corona modules --
+local composer = require("composer")
+
 --
 --
 --
@@ -52,14 +55,24 @@ display.newText("Next", next.x, next.y, native.systemFontBold, 14)
 
 local Description = display.newText("", display.contentCenterX, prev.y, native.systemFontBold, 12)
 
-local Examples, Index = {
-	{ scene = "blah", text = "OH BOY!" },
-	{ scene = "murg", text = "YAHOO!" },
-	{ scene = "hmmm", text = "THIRD" }
-}, 1
+local Examples = {
+	{ scene = "odd", text = "Odd winding rule" },
+	{ scene = "nonzero", text = "Nonzero winding rule" },
+	{ scene = "negative", text = "Negative winding rule" },
+	{ scene = "positive", text = "Positive winding rule" },
+	{ scene = "abs_geq_two", text = "Abs >= 2 winding rule" },
+	{ scene = "contours", text = "Boundary contours tessellation" },
+	{ scene = "connected", text = "Connected polygons tessellation" },
+	{ scene = "text", text = "Text examples" },
+	{ scene = "non_triangles", text = "Tessellate with more than three sides" }
+}
+
+local Index = 1
 
 local function GoToExample ()
 	Description.text = Examples[Index].text
+
+	composer.gotoScene("scenes." .. Examples[Index].scene)
 end
 
 local function Touch (update_index)
