@@ -30,8 +30,16 @@ local sqrt = math.sqrt
 local select = select
 local unpack = unpack
 
+-- Plugins --
+local libtess2 = require("plugin.libtess2")
+
 -- Corona globals --
+local display = display
+local system = system
 local timer = timer
+
+-- Cached module references --
+local _CancelTimers_
 
 -- Exports --
 local M = {}
@@ -40,7 +48,17 @@ local M = {}
 --
 --
 
-local Ray = {}
+local Timers = {}
+
+function M.CancelTimers ()
+	for i = #Timers, 1, -1 do
+		timer.cancel(Timers[i])
+
+		Timers[i] = nil
+	end
+end
+
+local Ray = {} -- recycle the ray
 
 local function DrawRay (group, sx, sy, ex, ey)
 	local dx, dy = ex - sx, ey - sy
@@ -67,8 +85,6 @@ end
 
 local NumberStillDrawing
 
-local Timers = {}
-
 local RayTime = 120
 
 local function DrawShape (sgroup, n, shape, ...)
@@ -77,12 +93,12 @@ local function DrawShape (sgroup, n, shape, ...)
 
 		sgroup:insert(group)
 
-		local pri, psx, psy, ptx, pty
-		
+		local since, pri, psx, psy, ptx, pty = system.getTimer()
+
 		Timers[#Timers + 1] = timer.performWithDelay(35, function(event)
-			local when, n = event.time, group.numChildren
-			local timeouts = floor(when / RayTime)
-			local last, t = timeouts + 1, when / RayTime - timeouts
+			local elapsed, n = event.time - since, group.numChildren
+			local timeouts = floor(elapsed / RayTime)
+			local last, t = timeouts + 1, elapsed / RayTime - timeouts
 			local ri, si, first, sx, sy, return_to = 1, 1
 			local x, y = shape.x or 0, shape.y or 0
 
@@ -161,18 +177,49 @@ function M.DrawAll (sgroup, ...)
 	for i = sgroup.numChildren, 1, -1 do
 		sgroup:remove(i)
 	end
-	
-	for i = 1, #Timers do
-		timer.cancel(Timers[i])
 
-		Timers[i] = nil
-	end
+	_CancelTimers_()
 	
 	DrawShape(sgroup, NumberStillDrawing, ...)
+end
+
+local Tess = libtess2.NewTess()
+
+function M.GetTess ()
+	return Tess
+end
+
+local Tri = {} -- recycle the triangle
+
+function M.PolyTris (group, tess, rule)
+	if tess:Tesselate(rule, "POLYGONS") then
+		local elems = tess:GetElements()
+		local verts = tess:GetVertices()
+
+		for i = 1, tess:GetElementCount() do
+			local base, offset = (i - 1) * 3, 0
+
+			for j = 1, 3 do
+				local index = elems[base + j]
+
+				Tri[offset + 1] = verts[index * 2 + 1]
+				Tri[offset + 2] = verts[index * 2 + 2]
+
+				offset = offset + 2
+			end
+
+			Tri[offset + 1] = Tri[1]
+			Tri[offset + 2] = Tri[2]
+
+			display.newLine(group, unpack(Tri))
+		end
+	end
 end
 
 function M.StillDrawing ()
 	return NumberStillDrawing
 end
+
+_CancelTimers_ = M.CancelTimers
 
 return M

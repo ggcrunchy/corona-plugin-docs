@@ -23,6 +23,10 @@
 -- [ MIT license: http://www.opensource.org/licenses/mit-license.php ]
 --
 
+-- Modules --
+local shapes = require("shapes")
+local utils = require("utils")
+
 -- Corona modules --
 local composer = require("composer")
 
@@ -42,7 +46,13 @@ Scene:addEventListener("create")
 -- Show --
 function Scene:show (event)
 	if event.phase == "did" then
-		
+		local group = display.newGroup()
+
+		self.view:insert(group)
+
+		self.m_group = group
+
+		utils.DrawAll(group, shapes.BoxCCW, shapes.BoxMixed, shapes.Overlap, shapes.SelfIntersectingSpiral)
 	end
 end
 
@@ -51,7 +61,9 @@ Scene:addEventListener("show")
 -- Hide --
 function Scene:hide (event)
 	if event.phase == "did" then
-		
+		self.m_group:removeSelf()
+
+		utils.CancelTimers()
 	end
 end
 

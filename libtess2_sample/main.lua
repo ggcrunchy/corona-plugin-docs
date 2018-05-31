@@ -34,14 +34,6 @@ local composer = require("composer")
 --
 --
 
-local g = display.newGroup()
-
-utils.DrawAll(g, shapes.BoxCCW, shapes.BoxMixed, shapes.Overlap, shapes.SelfIntersectingSpiral)
-
-local function FourExamples ()
-	--
-end
-
 local W, H = display.contentWidth, display.contentHeight
 local ButtonW, ButtonH = 100, 30
 local prev = display.newRoundedRect(5 + ButtonW / 2, H - ButtonH / 2 - 25, ButtonW, ButtonH, 12)
