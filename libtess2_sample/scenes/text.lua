@@ -28,6 +28,7 @@ local utils = require("utils")
 
 -- Corona globals --
 local timer = timer
+local transition = transition
 
 -- Corona modules --
 local composer = require("composer")
@@ -429,6 +430,8 @@ local CX, CY = display.contentCenterX - 100, display.contentCenterY + 50
 
 local Count, XScale, YScale = 3, .175, -.175
 
+local FadeParams = { alpha = 1, time = 950 }
+
 local Index
 
 local function DrawCharacter (group, tess)
@@ -473,6 +476,10 @@ local function DrawCharacter (group, tess)
 
 			if done then
 				utils.PolyTris(group, tess, "POSITIVE")
+
+				group.alpha = 0
+
+				transition.to(group, FadeParams)
 
 				Index = what and ti - 1 or 1 -- back up or rewind to put index at next character
 			end
