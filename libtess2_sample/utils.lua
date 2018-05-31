@@ -40,6 +40,7 @@ local timer = timer
 
 -- Cached module references --
 local _CancelTimers_
+local _GetTess_
 
 -- Exports --
 local M = {}
@@ -87,6 +88,34 @@ local NumberStillDrawing
 
 local RayTime = 120
 
+local function NoOp () end
+
+local function GetContours (x, y, shape, on_begin, on_end, on_add_vertex)
+	on_begin, on_end, on_add_vertex = on_begin or NoOp, on_end or NoOp, on_add_vertex or NoOp
+
+	local si, has_prev = 1
+
+	repeat
+		local entry = shape[si]
+
+		if not entry or entry == "sep" then
+			si, has_prev = si + 1 -- only relevant when switching contour
+
+			on_end()
+		else
+			if not has_prev then
+				on_begin()
+
+				has_prev = true
+			end
+
+			on_add_vertex(entry + x, shape[si + 1] + y)
+
+			si = si + 2
+		end
+	until not entry -- cancel case
+end
+
 local function DrawShape (sgroup, n, shape, ...)
 	if n > 0 then
 		local group = display.newGroup()
@@ -94,6 +123,10 @@ local function DrawShape (sgroup, n, shape, ...)
 		sgroup:insert(group)
 
 		local since, pri, psx, psy, ptx, pty = system.getTimer()
+		local on_done, on_all_done = sgroup.on_done, sgroup.on_all_done
+		local on_begin_contour = sgroup.on_begin_contour
+		local on_end_contour = sgroup.on_end_contour
+		local on_add_vertex = sgroup.on_add_vertex
 
 		Timers[#Timers + 1] = timer.performWithDelay(35, function(event)
 			local elapsed, n = event.time - since, group.numChildren
@@ -113,8 +146,22 @@ local function DrawShape (sgroup, n, shape, ...)
 
 						DrawRay(group, psx, psy, ptx, pty)
 					end
+
+					local tess = _GetTess_()
+
+					if on_begin_contour or on_end_contour or on_add_vertex then
+						GetContours(x, y, shape, on_begin_contour, on_end_contour, on_add_vertex)
+					end
+
+					if on_done then
+						on_done(sgroup, tess)
+					end
 					
 					NumberStillDrawing = NumberStillDrawing - 1
+
+					if NumberStillDrawing == 0 and on_all_done then
+						on_all_done(sgroup)
+					end
 				elseif entry == "sep" then -- switching contours?
 					si, sx = si + 1
 				elseif sx then -- have a previous point?
@@ -191,35 +238,44 @@ end
 
 local Tri = {} -- recycle the triangle
 
+local function AddTriVert (x, y, offset)
+	Tri[offset + 1], Tri[offset + 2] = x, y
+end
+
+local function CloseTri (group)
+	Tri[7] = Tri[1]
+	Tri[8] = Tri[2]
+
+	return display.newLine(group, unpack(Tri))
+end
+
 function M.PolyTris (group, tess, rule)
 	if tess:Tesselate(rule, "POLYGONS") then
 		local elems = tess:GetElements()
 		local verts = tess:GetVertices()
+		local add_vert, close, decorate = group.add_vert or AddTriVert, group.close or CloseTri, group.decorate
 
 		for i = 1, tess:GetElementCount() do
-			local base, offset = (i - 1) * 3, 0
+			local base, offset = (i - 1) * 3, 0 -- for an interesting error (good to know for debugging), hoist offset out of the loop
 
 			for j = 1, 3 do
 				local index = elems[base + j]
 
-				Tri[offset + 1] = verts[index * 2 + 1]
-				Tri[offset + 2] = verts[index * 2 + 2]
+				add_vert(verts[index * 2 + 1], verts[index * 2 + 2], offset)
 
 				offset = offset + 2
 			end
 
-			Tri[offset + 1] = Tri[1]
-			Tri[offset + 2] = Tri[2]
+			local object = close(group)
 
-			display.newLine(group, unpack(Tri))
+			if decorate then
+				decorate(object)
+			end
 		end
 	end
 end
 
-function M.StillDrawing ()
-	return NumberStillDrawing
-end
-
 _CancelTimers_ = M.CancelTimers
+_GetTess_ = M.GetTess
 
 return M

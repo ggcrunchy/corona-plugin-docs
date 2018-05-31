@@ -1,4 +1,4 @@
---- Scene that demonstrates boundary contours tessellation.
+--- Scene that demonstrates boundary contours tessellation with the negative winding rule.
 
 --
 -- Permission is hereby granted, free of charge, to any person obtaining
@@ -23,6 +23,9 @@
 -- [ MIT license: http://www.opensource.org/licenses/mit-license.php ]
 --
 
+-- Modules --
+local winding_bc = require("winding_bc")
+
 -- Corona modules --
 local composer = require("composer")
 
@@ -32,17 +35,10 @@ local composer = require("composer")
 
 local Scene = composer.newScene()
 
--- Create --
-function Scene:create ()
-	
-end
-
-Scene:addEventListener("create")
-
 -- Show --
 function Scene:show (event)
 	if event.phase == "did" then
-		
+		winding_bc.Show(self, "NEGATIVE")
 	end
 end
 
@@ -51,7 +47,7 @@ Scene:addEventListener("show")
 -- Hide --
 function Scene:hide (event)
 	if event.phase == "did" then
-		
+		winding_bc.Hide(self)
 	end
 end
 

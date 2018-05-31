@@ -1,4 +1,4 @@
---- Scene that demonstrates connected polygons tessellation.
+--- Scene that demonstrates boundary contours tessellation with the odd winding rule.
 
 --
 -- Permission is hereby granted, free of charge, to any person obtaining
@@ -23,6 +23,9 @@
 -- [ MIT license: http://www.opensource.org/licenses/mit-license.php ]
 --
 
+-- Modules --
+local winding_bc = require("winding_bc")
+
 -- Corona modules --
 local composer = require("composer")
 
@@ -30,47 +33,12 @@ local composer = require("composer")
 --
 --
 
---[=[
-// TESS_CONNECTED_POLYGONS
-//   Each element in the element array is polygon defined as 'polySize' number of vertex indices,
-//   followed by 'polySize' indices to neighour polygons, that is each element is 'polySize' * 2 indices.
-//   If a polygon has than 'polySize' vertices, the remaining indices are stored as TESS_UNDEF.
-//   If a polygon edge is a boundary, that is, not connected to another polygon, the neighbour index is TESS_UNDEF.
-//   Example, flood fill based on seed polygon:
-//     const int nelems = tessGetElementCount(tess);
-//     const TESSindex* elems = tessGetElements(tess);
-//     unsigned char* visited = (unsigned char*)calloc(nelems);
-//     TESSindex stack[50];
-//     int nstack = 0;
-//     stack[nstack++] = seedPoly;
-//     visited[startPoly] = 1;
-//     while (nstack > 0) {
-//         TESSindex idx = stack[--nstack];
-//			const TESSindex* poly = &elems[idx * polySize * 2];
-//			const TESSindex* nei = &poly[polySize];
-//          for (int i = 0; i < polySize; i++) {
-//              if (poly[i] == TESS_UNDEF) break;
-//              if (nei[i] != TESS_UNDEF && !visited[nei[i]])
-//	                stack[nstack++] = nei[i];
-//                  visited[nei[i]] = 1;
-//              }
-//          }
-//     }
-]=]
-
 local Scene = composer.newScene()
-
--- Create --
-function Scene:create ()
-	
-end
-
-Scene:addEventListener("create")
 
 -- Show --
 function Scene:show (event)
 	if event.phase == "did" then
-		
+		winding_bc.Show(self, "ODD")
 	end
 end
 
@@ -79,7 +47,7 @@ Scene:addEventListener("show")
 -- Hide --
 function Scene:hide (event)
 	if event.phase == "did" then
-		
+		winding_bc.Hide(self)
 	end
 end
 

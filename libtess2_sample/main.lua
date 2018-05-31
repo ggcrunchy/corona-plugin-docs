@@ -53,7 +53,11 @@ local Examples = {
 	{ scene = "negative", text = "Negative winding rule" },
 	{ scene = "positive", text = "Positive winding rule" },
 	{ scene = "abs_geq_two", text = "Abs >= 2 winding rule" },
-	{ scene = "contours", text = "Boundary contours tessellation" },
+	{ scene = "odd_bc", text = "Boundary contours (odd rule)" },
+	{ scene = "nonzero_bc", text = "Boundary contours (nonzero rule)" },
+	{ scene = "negative_bc", text = "Boundary contours (negative rule)" },
+	{ scene = "positive_bc", text = "Boundary contours (positive rule)" },
+	{ scene = "abs_geq_two_bc", text = "Boundary contours (abs >= 2 rule)" },
 	{ scene = "connected", text = "Connected polygons tessellation" },
 	{ scene = "text", text = "Text examples" },
 	{ scene = "non_triangles", text = "Tessellate with more than three sides" }

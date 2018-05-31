@@ -53,7 +53,7 @@ M.BoxMixed = {
 M.Overlap = {
 	x = .25 * W, y = .6 * H,
 
-	-L2, -L3, L2, -L3, L2, L3, -L2, L3, "sep", -- tall rect
+	-L2, L3, L2, L3, L2, -L3, -L2, -L3, "sep", -- tall rect
 	L3, -L1, -L3, -L1, -L3, L1, L3, L1, "sep", -- wide rect
 	L1, -L2, -L1, -L2, 0, L3 + 15 -- triangle
 }

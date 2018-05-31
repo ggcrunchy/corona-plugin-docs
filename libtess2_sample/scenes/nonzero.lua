@@ -23,6 +23,12 @@
 -- [ MIT license: http://www.opensource.org/licenses/mit-license.php ]
 --
 
+-- Modules --
+local winding = require("winding")
+
+-- Corona globals --
+local transition = transition
+
 -- Corona modules --
 local composer = require("composer")
 
@@ -32,17 +38,10 @@ local composer = require("composer")
 
 local Scene = composer.newScene()
 
--- Create --
-function Scene:create ()
-	
-end
-
-Scene:addEventListener("create")
-
 -- Show --
 function Scene:show (event)
 	if event.phase == "did" then
-		
+		winding.Show(self, "NONZERO")
 	end
 end
 
@@ -51,7 +50,7 @@ Scene:addEventListener("show")
 -- Hide --
 function Scene:hide (event)
 	if event.phase == "did" then
-		
+		winding.Hide(self)
 	end
 end
 

@@ -24,8 +24,7 @@
 --
 
 -- Modules --
-local shapes = require("shapes")
-local utils = require("utils")
+local winding = require("winding")
 
 -- Corona globals --
 local transition = transition
@@ -39,38 +38,10 @@ local composer = require("composer")
 
 local Scene = composer.newScene()
 
--- Create --
-function Scene:create ()
-	
-end
-
-Scene:addEventListener("create")
-
-local FadeInParams = { alpha = 1 }
-
 -- Show --
 function Scene:show (event)
 	if event.phase == "did" then
-		local back = display.newGroup()
-		local group = display.newGroup()
-
-		self.view:insert(back)
-		self.view:insert(group)
-
-		self.m_back = back
-		self.m_group = group
-
-		back.alpha = 0
-
-		function group.on_done (tess)
-			--
-		end
-
-		function group.on_all_done ()
-			transition.to(back, FadeInParams)
-		end
-
-		utils.DrawAll(group, shapes.BoxCCW, shapes.BoxMixed, shapes.Overlap, shapes.SelfIntersectingSpiral)
+		winding.Show(self, "ODD")
 	end
 end
 
@@ -79,10 +50,7 @@ Scene:addEventListener("show")
 -- Hide --
 function Scene:hide (event)
 	if event.phase == "did" then
-		self.m_back:removeSelf()
-		self.m_group:removeSelf()
-
-		utils.CancelTimers()
+		winding.Hide(self)
 	end
 end
 
