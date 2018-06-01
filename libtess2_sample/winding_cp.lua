@@ -99,7 +99,7 @@ function M.Show (scene, rule)
 
 							-- in case of poly_size > 3: if vi == UNDEF then break end
 
-							add_vert(verts[vi + 1], verts[vi + 2], offset)
+							add_vert(verts[vi * 2 + 1], verts[vi * 2 + 2], offset)
 
 							if ni ~= UNDEF and not visited[ni + 1] then
 								visited[ni + 1] = true
