@@ -23,6 +23,18 @@
 -- [ MIT license: http://www.opensource.org/licenses/mit-license.php ]
 --
 
+-- Standard library imports --
+local cos = math.cos
+local sin = math.sin
+local pi = math.pi
+local random = math.random
+
+-- Plugins --
+local libtess2 = require("plugin.libtess2")
+
+-- Modules --
+local utils = require("utils")
+
 -- Corona modules --
 local composer = require("composer")
 
@@ -32,29 +44,58 @@ local composer = require("composer")
 
 local Scene = composer.newScene()
 
--- Create --
+local CX, CY = display.contentCenterX, display.contentCenterY
+
+local Count, Radius = 13, 80 -- count = 13 introduces a triangle and quad and is still crude enough to see vertices
+
+local UNDEF = libtess2.Undef()
+
 function Scene:create ()
-	
+	local verts = {}
+
+	for i = 1, Count do
+		local angle = (i - 1) * (2 * pi) / Count
+
+		verts[#verts + 1] = CX + cos(angle) * Radius
+		verts[#verts + 1] = CY + sin(angle) * Radius
+	end
+
+	local tess = utils.GetTess()
+
+	tess:AddContour(verts)
+
+	verts[#verts + 1] = verts[1]
+	verts[#verts + 2] = verts[2]
+
+	tess:Tesselate("POSITIVE", "POLYGONS", 5) -- prefer pentagons
+
+	local elems = tess:GetElements()
+	local verts = tess:GetVertices()
+	local add_vert, close_poly = utils.Polygon()
+
+	for i = 1, tess:GetElementCount() do
+		local base, offset = (i - 1) * 5, 0
+
+		for j = 1, 5 do
+			local index = elems[base + j]
+
+			if index == UNDEF then -- unable to complete pentagon?
+				break
+			end
+
+			add_vert(verts[index * 2 + 1], verts[index * 2 + 2], offset)
+
+			offset = offset + 2
+		end
+
+		close_poly(self.view)
+
+		local polygon = self.view[self.view.numChildren]
+
+		polygon:setFillColor(random(), random(), random())
+	end
 end
 
 Scene:addEventListener("create")
-
--- Show --
-function Scene:show (event)
-	if event.phase == "did" then
-		
-	end
-end
-
-Scene:addEventListener("show")
-
--- Hide --
-function Scene:hide (event)
-	if event.phase == "did" then
-		
-	end
-end
-
-Scene:addEventListener("hide")
 
 return Scene

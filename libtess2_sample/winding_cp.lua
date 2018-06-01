@@ -107,7 +107,9 @@ function M.Show (scene, rule)
 							offset = offset + 2
 						end
 
-						local poly = close_poly(self.m_back)
+						close_poly(self.m_back)
+
+						local poly = self.m_back[self.m_back.numChildren]
 
 						poly:setFillColor(r, g, b)
 					end

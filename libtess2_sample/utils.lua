@@ -73,7 +73,7 @@ function M.CloseTri (group)
 	Tri[7] = Tri[1]
 	Tri[8] = Tri[2]
 
-	return display.newLine(group, unpack(Tri))
+	display.newLine(group, unpack(Tri))
 end
 
 local Ray = {} -- recycle the ray
@@ -262,11 +262,9 @@ function M.Polygon ()
 		xmax, ymax = max(x, xmax), max(y, ymax)
 		xmin, ymin = min(x, xmin), min(y, ymin)
 	end, function(group)
-		local poly = display.newPolygon(group, (xmax + xmin) / 2, (ymax + ymin) / 2, verts)
+		display.newPolygon(group, (xmax + xmin) / 2, (ymax + ymin) / 2, verts)
 
 		verts, xmax, ymax, xmin, ymin = {}, -huge, -huge, huge, huge
-		
-		return poly
 	end
 end
 
@@ -274,7 +272,7 @@ function M.PolyTris (group, tess, rule)
 	if tess:Tesselate(rule, "POLYGONS") then
 		local elems = tess:GetElements()
 		local verts = tess:GetVertices()
-		local add_vert, close, decorate = group.add_vert or _AddTriVert_, group.close or _CloseTri_, group.decorate
+		local add_vert, close = group.add_vert or _AddTriVert_, group.close or _CloseTri_
 
 		for i = 1, tess:GetElementCount() do
 			local base, offset = (i - 1) * 3, 0 -- for an interesting error (good to know for debugging), hoist offset out of the loop
@@ -287,11 +285,7 @@ function M.PolyTris (group, tess, rule)
 				offset = offset + 2
 			end
 
-			local object = close(group)
-
-			if decorate then
-				decorate(object)
-			end
+			close(group)
 		end
 	end
 end
