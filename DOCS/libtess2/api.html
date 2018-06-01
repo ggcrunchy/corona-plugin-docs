@@ -66,8 +66,8 @@
  performance suffers from lots of small memory allocations. The main point of the refactoring has been the interface
  and memory allocation scheme.</p>
 
-<p> A lot of the GLU tessellator documentation applies to Libtess2 too (apart from the API); check out
- <a href="http://www.glprogramming.com/red/chapter11.html">Chapter 11</a> here.</p>
+<p> A lot of the GLU tessellator documentation applies to libtess2 as well, apart from the API; check out
+ <a href="http://www.glprogramming.com/red/chapter11.html">Chapter 11</a>. See also <a href="songho.ca/opengl/gl_tessellation.html">here</a>.</p>
 
 <p> A simple bucketed memory allocator (see Graphics Gems III for reference) was added which speeds up the code by order
  of magnitude (tests showed 15 to 50 times improvement depending on data). The API allows the user to pass his own
@@ -115,7 +115,7 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Tessellator:GetVertexIndices">Tessellator:GetVertexIndices (arg, one_based)</a></td>
-	<td class="summary">Gather the vertex indices resulting from tessellation, which may be used to map the generated vertices to the originals.</td>
+	<td class="summary">Gather the vertex indices resulting from tessellation.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Tessellator:GetVertexSize">Tessellator:GetVertexSize ()</a></td>
@@ -257,7 +257,19 @@
     <dd>
     Gather the elements resulting from tessellation. </p>
 
-<p> See the sample for how to use these results.
+<p> Their interpretation depends on the element type supplied to <a href="api.html#Tessellator:Tesselate">Tessellator:Tesselate</a>:</p>
+
+<p> With <strong>POLYGONS</strong> type, elements are divvied up as <code>{ ..., vi #1, vi #2, ..., vi #n, ... }</code>, with <em>n</em> being
+ the <a href="api.html#Tessellator:GetPolySize">polygon size</a> used to perform the tessellation. Each <em>vi</em> is the index for a
+ corresponding <a href="api.html#Tessellator:GetVertices">vertex</a>; trailing indices may be undefined, cf. <a href="api.html#Undef">Undef</a>, meaning
+ the element contains fewer than <em>n</em> vertices.</p>
+
+<p> <strong>CONNECTED_POLYGONS</strong> is similar: <code>{ ..., vi #1, vi #2, ..., vi #n, ni #1, ni #2, ..., ni #n, ... }</code>. The <em>vi</em>
+ carry over their meaning with <strong>POLYGONS</strong>, whereas each <em>ni</em> is a neighbor index, indicating a particular
+ fellow element borders that side; when <em>ni</em> is undefined, there is no such neighbor.</p>
+
+<p> <strong>BOUNDARY_CONTOURS</strong>'s elements occur in pairs: <code>{ ..., vi #1, vi #2, ... }</code>. The <em>vi</em> have the same meaning
+ as before, except indices are never undefined.
 
 
     <h3>Parameters:</h3>
@@ -265,11 +277,15 @@
         <li><span class="parameter">arg</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a> or <span class="type">nil</span></span>
          This may be the string <strong>"as_bytes"</strong>, in which case the elements are returned as <strong>Bytes</strong>.
- Otherwise, elements are supplied through a table, either using the one provided here or creating a new one.
+ Otherwise, elements are supplied through a table, either using the one provided here or creating a new one.</p>
+
+<p> <strong>N.B.</strong> With a custom table, any entries not overwritten will be left as-is. If necessary, use
+ <code>self:GetElementCount() * ElementSize</code> to calculate the number of entries. <em>ElementSize</em> will be <code>n</code> for
+ <strong>POLYGONS</strong>, <code>2 * n</code> for <strong>CONNECTED_POLYGONS</strong>, and <code>2</code> for <strong>BOUNDARY_CONTOURS</strong>.
         </li>
         <li><span class="parameter">one_based</span>
             <span class="types"><span class="type">bool</span></span>
-         Elements are one-based, rather than zero-based? This is ignored for <strong>Bytes</strong>.
+         Elements are one-based, rather than zero-based? This is ignored for <strong>Bytes</strong> and undefined elements.
         </li>
     </ul>
 
@@ -277,16 +293,9 @@
     <ol>
 
            <span class="types"><span class="type">Bytes</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         As a table, an array <code>{ elem1, elem2, ... }</code> whose values are <strong>uint</strong>s. Their interpretation
- depends on the element type supplied to <a href="api.html#Tessellator:Tesselate">Tessellator:Tesselate</a>; some may be undefined, cf. <a href="api.html#Undef">Undef</a>.</p>
+        As a table, an array <code>{ comp1, comp2, ... }</code> whose values are <strong>uint</strong>s.</p>
 
 <p> Otherwise, a proxy object that implements <strong>Bytes</strong> and reflects the most recent tessellation results.
-    </ol>
-     <h3>Or</h3>
-    <ol>
-
-           <span class="types"><span class="type">uint</span></span>
-        When returning a table, the number of elements (possibly undefined).
     </ol>
 
 
@@ -338,7 +347,8 @@
     <strong>Tessellator:GetVertexIndices (arg, one_based)</strong>
     </dt>
     <dd>
-    Gather the vertex indices resulting from tessellation, which may be used to map the generated vertices to the originals. </p>
+    Gather the vertex indices resulting from tessellation.  These describe the order in which the
+ vertices were added and can be used to map the tessellator output to input.</p>
 
 <p> Every vertex added using <a href="api.html#Tessellator:AddContour">Tessellator:AddContour</a> will get a new index, starting from 0.</p>
 
@@ -353,7 +363,7 @@
         </li>
         <li><span class="parameter">one_based</span>
             <span class="types"><span class="type">bool</span></span>
-         Elements are one-based, rather than zero-based? This is ignored for <strong>Bytes</strong>.
+         Elements are one-based, rather than zero-based? This is ignored for <strong>Bytes</strong> or undefined indices.
         </li>
     </ul>
 
@@ -362,12 +372,6 @@
 
            <span class="types"><span class="type">Bytes</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
         As per <a href="api.html#Tessellator:GetElements">Tessellator:GetElements</a>.
-    </ol>
-     <h3>Or</h3>
-    <ol>
-
-           <span class="types"><span class="type">uint</span></span>
-        When returning a table, the number of indices (possibly undefined).
     </ol>
 
 
@@ -422,12 +426,6 @@
  for 2 or 3 coordinates, respectively.</p>
 
 <p> <strong>Bytes</strong> results follow the pattern of <a href="api.html#Tessellator:GetElements">Tessellator:GetElements</a>.
-    </ol>
-     <h3>Or</h3>
-    <ol>
-
-           <span class="types"><span class="type">uint</span></span>
-        When returning a table, the number of vertices.
     </ol>
 
 
@@ -599,7 +597,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2018-05-26 21:36:47 </i>
+<i style="float:right;">Last updated 2018-06-01 13:32:03 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
