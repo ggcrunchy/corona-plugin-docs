@@ -80,10 +80,9 @@ function M.Show (scene, rule)
 		local stack, visited, poly_index = {}, {}, 1
 		local add_vert, close_poly = utils.Polygon()
 
-		for i = 1, tess:GetElementCount(), 6 do -- 6 = poly_size verts, followed by poly_size neighbors (poly_size = 3)
-			if not visited[poly_index] then
-				visited[poly_index] = true
-				stack[#stack + 1] = poly_index
+		for i = 1, tess:GetElementCount() do -- multiply by 2 * poly_size (poly_size = 3 in this case) for #elems
+			if not visited[i] then -- start a new flood fill if not already absorbed
+				stack[#stack + 1], visited[i] = i, true
 
 				local r, g, b = random(), random(), random()
 
@@ -102,8 +101,7 @@ function M.Show (scene, rule)
 							add_vert(verts[vi * 2 + 1], verts[vi * 2 + 2], offset)
 
 							if ni ~= UNDEF and not visited[ni + 1] then
-								visited[ni + 1] = true
-								stack[#stack + 1] = ni + 1
+								stack[#stack + 1], visited[ni + 1] = ni + 1, true
 							end
 
 							offset = offset + 2
@@ -115,8 +113,6 @@ function M.Show (scene, rule)
 					end
 				until not index
 			end
-
-			poly_index = poly_index + 1
 		end
 	end
 
