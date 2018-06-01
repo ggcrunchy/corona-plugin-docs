@@ -58,7 +58,11 @@ local Examples = {
 	{ scene = "negative_bc", text = "Boundary contours (negative rule)" },
 	{ scene = "positive_bc", text = "Boundary contours (positive rule)" },
 	{ scene = "abs_geq_two_bc", text = "Boundary contours (abs >= 2 rule)" },
-	{ scene = "connected", text = "Connected polygons tessellation" },
+	{ scene = "odd_cp", text = "Connected polygons (odd rule)" },
+	{ scene = "nonzero_cp", text = "Connected polygons (nonzero rule)" },
+	{ scene = "negative_cp", text = "Connected polygons (negative rule)" },
+	{ scene = "positive_cp", text = "Connected polygons (positive rule)" },
+	{ scene = "abs_geq_two_cp", text = "Connected polygons (abs >= 2 rule)" },
 	{ scene = "text", text = "Text examples" },
 	{ scene = "non_triangles", text = "Tessellate with more than three sides" }
 }

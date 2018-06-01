@@ -25,6 +25,8 @@
 
 -- Standard library imports --
 local floor = math.floor
+local huge = math.huge
+local max = math.max
 local min = math.min
 local sqrt = math.sqrt
 local select = select
@@ -39,7 +41,9 @@ local system = system
 local timer = timer
 
 -- Cached module references --
+local _AddTriVert_
 local _CancelTimers_
+local _CloseTri_
 local _GetTess_
 
 -- Exports --
@@ -49,6 +53,12 @@ local M = {}
 --
 --
 
+local Tri = {} -- recycle the triangle
+
+function M.AddTriVert (x, y, offset)
+	Tri[offset + 1], Tri[offset + 2] = x, y
+end
+
 local Timers = {}
 
 function M.CancelTimers ()
@@ -57,6 +67,13 @@ function M.CancelTimers ()
 
 		Timers[i] = nil
 	end
+end
+
+function M.CloseTri (group)
+	Tri[7] = Tri[1]
+	Tri[8] = Tri[2]
+
+	return display.newLine(group, unpack(Tri))
 end
 
 local Ray = {} -- recycle the ray
@@ -236,24 +253,28 @@ function M.GetTess ()
 	return Tess
 end
 
-local Tri = {} -- recycle the triangle
+function M.Polygon ()
+	local verts, xmax, ymax, xmin, ymin = {}, -huge, -huge, huge, huge
 
-local function AddTriVert (x, y, offset)
-	Tri[offset + 1], Tri[offset + 2] = x, y
-end
+	return function(x, y, offset)
+		verts[offset + 1], verts[offset + 2] = x, y
 
-local function CloseTri (group)
-	Tri[7] = Tri[1]
-	Tri[8] = Tri[2]
+		xmax, ymax = max(x, xmax), max(y, ymax)
+		xmin, ymin = min(x, xmin), min(y, ymin)
+	end, function(group)
+		local poly = display.newPolygon(group, (xmax + xmin) / 2, (ymax + ymin) / 2, verts)
 
-	return display.newLine(group, unpack(Tri))
+		verts, xmax, ymax, xmin, ymin = {}, -huge, -huge, huge, huge
+		
+		return poly
+	end
 end
 
 function M.PolyTris (group, tess, rule)
 	if tess:Tesselate(rule, "POLYGONS") then
 		local elems = tess:GetElements()
 		local verts = tess:GetVertices()
-		local add_vert, close, decorate = group.add_vert or AddTriVert, group.close or CloseTri, group.decorate
+		local add_vert, close, decorate = group.add_vert or _AddTriVert_, group.close or _CloseTri_, group.decorate
 
 		for i = 1, tess:GetElementCount() do
 			local base, offset = (i - 1) * 3, 0 -- for an interesting error (good to know for debugging), hoist offset out of the loop
@@ -275,7 +296,9 @@ function M.PolyTris (group, tess, rule)
 	end
 end
 
+_AddTriVert_ = M.AddTriVert
 _CancelTimers_ = M.CancelTimers
+_CloseTri_ = M.CloseTri
 _GetTess_ = M.GetTess
 
 return M

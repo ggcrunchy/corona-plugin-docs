@@ -24,7 +24,12 @@
 --
 
 -- Standard library imports --
+local random = math.random
+local remove = table.remove
 local unpack = unpack
+
+-- Plugins --
+local libtess2 = require("plugin.libtess2")
 
 -- Modules --
 local shapes = require("shapes")
@@ -44,6 +49,8 @@ local M = {}
 M.Hide = winding.Hide
 
 local FadeInParams = { alpha = 1 }
+
+local UNDEF = libtess2.Undef()
 
 function M.Show (scene, rule)
 	local group = display.newGroup()
@@ -66,30 +73,50 @@ function M.Show (scene, rule)
 
 		local tess = utils.GetTess()
 
-		tess:Tesselate(rule, "BOUNDARY_CONTOURS")
+		tess:Tesselate(rule, "CONNECTED_POLYGONS")
 
 		local elems = tess:GetElements()
 		local verts = tess:GetVertices()
+		local stack, visited, poly_index = {}, {}, 1
+		local add_vert, close_poly = utils.Polygon()
 
-		for i = 1, tess:GetElementCount() do
-			local bi, boundary = i * 2, {}
-			local base, count = elems[bi - 1], elems[bi]
+		for i = 1, tess:GetElementCount(), 6 do -- 6 = poly_size verts, followed by poly_size neighbors (poly_size = 3)
+			if not visited[poly_index] then
+				visited[poly_index] = true
+				stack[#stack + 1] = poly_index
 
-			for j = 0, count - 1 do
-				local offset = (base + j) * 2
+				local r, g, b = random(), random(), random()
 
-				boundary[#boundary + 1] = verts[offset + 1]
-				boundary[#boundary + 1] = verts[offset + 2]
+				repeat
+					local index = remove(stack)
+
+					if index then
+						local base = (index - 1) * 6
+						local nbase, offset = base + 3, 0
+
+						for j = 1, 3 do
+							local vi, ni = elems[base + j], elems[nbase + j]
+
+							-- in case of poly_size > 3: if vi == UNDEF then break end
+
+							add_vert(verts[vi + 1], verts[vi + 2], offset)
+
+							if ni ~= UNDEF and not visited[ni + 1] then
+								visited[ni + 1] = true
+								stack[#stack + 1] = ni + 1
+							end
+
+							offset = offset + 2
+						end
+
+						local poly = close_poly(self.m_back)
+
+						poly:setFillColor(r, g, b)
+					end
+				until not index
 			end
 
-			boundary[#boundary + 1] = boundary[1]
-			boundary[#boundary + 1] = boundary[2]
-
-			local line = display.newLine(self.m_back, unpack(boundary))
-
-			line:setStrokeColor(0, 0, 1)
-
-			line.strokeWidth = 5
+			poly_index = poly_index + 1
 		end
 	end
 

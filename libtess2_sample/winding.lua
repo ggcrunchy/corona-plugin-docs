@@ -23,11 +23,6 @@
 -- [ MIT license: http://www.opensource.org/licenses/mit-license.php ]
 --
 
--- Standard library imports --
-local huge = math.huge
-local max = math.max
-local min = math.min
-
 -- Modules --
 local shapes = require("shapes")
 local utils = require("utils")
@@ -81,6 +76,8 @@ function M.Show (scene, rule)
 
 	_SetContourFuncs_(group)
 
+	local add_vert, close_poly = utils.Polygon()
+
 	function group:on_done (tess)
 		if not self.m_back then
 			self.m_back = display.newGroup()
@@ -91,23 +88,7 @@ function M.Show (scene, rule)
 			self.m_back.alpha = 0
 		end
 
-		local xmin, ymin, xmax, ymax = huge, huge, -huge, -huge
-		local poly_vertices = {}
-
-		function self.m_back.add_vert (x, y, offset)
-			poly_vertices[offset + 1], poly_vertices[offset + 2] = x, y
-
-			xmax, ymax = max(x, xmax), max(y, ymax)
-			xmin, ymin = min(x, xmin), min(y, ymin)
-		end
-
-		function self.m_back:close ()
-			local cx, cy = (xmax + xmin) / 2, (ymax + ymin) / 2
-
-			xmin, ymin, xmax, ymax = huge, huge, -huge, -huge
-
-			return display.newPolygon(self, cx, cy, poly_vertices)
-		end
+		self.m_back.add_vert, self.m_back.close = add_vert, close_poly
 
 		utils.PolyTris(self.m_back, tess, rule)
 	end

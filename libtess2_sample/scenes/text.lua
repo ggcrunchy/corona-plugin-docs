@@ -492,7 +492,7 @@ function Scene:show (event)
 	if event.phase == "did" then
 		local tess = utils.GetTess()
 
-		tess:SetOption("CONSTRAINED_DELAUNAY_TRIANGULATION", true)
+		tess:SetOption("CONSTRAINED_DELAUNAY_TRIANGULATION", true) -- can do in any scene, but only showing in this one
 
 		local group = display.newGroup()
 
