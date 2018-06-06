@@ -30,12 +30,11 @@
 <h2>Contents</h2>
 <ul>
 <li><a href="#Functions">Functions</a></li>
-<li><a href="#Tables">Tables</a></li>
 </ul>
 
 
 <h2>Modules</h2>
-<ul class="$(kind=='Topics' and '' or 'nowrap'">
+<ul class="nowrap">
   <li><strong>msquares</strong></li>
 </ul>
 
@@ -73,63 +72,68 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#color">color (X, w, h, cell_size, color, bpp, flags)</a></td>
+	<td class="name" nowrap><a href="#color">color (data, w, h, cell_size, color, bpp, flags)</a></td>
 	<td class="summary">DOCME</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#color_multi">color_multi (X, w, h, cell_size, bpp, flags)</a></td>
+	<td class="name" nowrap><a href="#color_multi">color_multi (data, w, h, cell_size, bpp, flags)</a></td>
 	<td class="summary">DOCME</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#grayscale">grayscale (X, w, h, cell_size, thresholds, flags)</a></td>
+	<td class="name" nowrap><a href="#grayscale">grayscale (data, w, h, cell_size, threshold, flags)</a></td>
 	<td class="summary">DOCME</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#grayscale_multi">grayscale_multi (X, w, h, cell_size, color, bpp, check)</a></td>
+	<td class="name" nowrap><a href="#grayscale_multi">grayscale_multi (data, w, h, cell_size, thresholds, flags)</a></td>
 	<td class="summary">DOCME</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#to_string_svg_multi">to_string_svg_multi (ML)</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#Proxy:GetMode">Proxy:GetMode ()</a></td>
+	<td class="summary">Getter.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#write_svg_multi">write_svg_multi (filename[, dir=system.DocumentsDirectory], ML)</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#Proxy:Reset">Proxy:Reset ()</a></td>
+	<td class="summary">Explictly remove any reference to a <a href="api.html#MeshList:GetMesh">Mesh</a>, allowing it to be garbage-collected.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#MeshList:GetBoundary">MeshList:GetBoundary (index, no_flip)</a></td>
-	<td class="summary">Extract the polyline boundary from a mesh, composed of one or more chains.</td>
+	<td class="name" nowrap><a href="#NewProxy">NewProxy ()</a></td>
+	<td class="summary">Create a proxy for use by <a href="api.html#Mesh:GetPoints">Mesh:GetPoints</a> or <a href="api.html#Mesh:GetTriangles">Mesh:GetTriangles</a>.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#MeshList:GetMesh">MeshList:GetMesh (index, no_flip)</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#MeshList:GetMesh">MeshList:GetMesh (index)</a></td>
+	<td class="summary">Get an immutable reference to one of the list's meshes.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MeshList:__len">MeshList:__len ()</a></td>
 	<td class="summary">Metamethod.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#MeshList:ToStringOBJ">MeshList:ToStringOBJ ()</a></td>
+	<td class="name" nowrap><a href="#Mesh:GetBoundary">Mesh:GetBoundary ()</a></td>
+	<td class="summary">Extract the polyline boundary, composed of one or more chains.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Mesh:GetColor">Mesh:GetColor ()</a></td>
+	<td class="summary">Getter.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Mesh:GetDim">Mesh:GetDim ()</a></td>
+	<td class="summary">Getter.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Mesh:GetNumPoints">Mesh:GetNumPoints ()</a></td>
+	<td class="summary">Getter.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Mesh:GetNumTriangles">Mesh:GetNumTriangles ()</a></td>
+	<td class="summary">Getter.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Mesh:GetPoints">Mesh:GetPoints ([opts])</a></td>
 	<td class="summary">DOCME</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#MeshList:ToStringSVG">MeshList:ToStringSVG ([opts])</a></td>
+	<td class="name" nowrap><a href="#Mesh:GetTriangles">Mesh:GetTriangles ([opts])</a></td>
 	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#MeshList:WriteOBJ">MeshList:WriteOBJ (filename[, dir=system.DocumentsDirectory])</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#MeshList:WriteSVG">MeshList:WriteSVG (filename[, dir=system.DocumentsDirectory[, opts]])</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-</table>
-<h2><a href="#Tables">Tables</a></h2>
-<table class="function_list">
-	<tr>
-	<td class="name" nowrap><a href="#Flags">Flags</a></td>
-	<td class="summary">Various flags.</td>
 	</tr>
 </table>
 
@@ -137,18 +141,20 @@
 <br/>
 
 
-    <h2><a name="Functions"></a>Functions</h2>
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
     <dl class="function">
     <dt>
     <a name = "color"></a>
-    <strong>color (X, w, h, cell_size, color, bpp, flags)</strong>
+    <strong>color (data, w, h, cell_size, color, bpp, flags)</strong>
     </dt>
     <dd>
     DOCME
 
+
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">X</span>
+        <li><span class="parameter">data</span>
             <span class="types"><span class="type">Bytes</span></span>
 
 
@@ -185,8 +191,25 @@
 
         </li>
         <li><span class="parameter">flags</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a> or <span class="type">nil</span></span>
-         check "as_bytes" too
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">{string,...}</a> or <span class="type">nil</span></span>
+         Flags describing the operation and its results.</p>
+
+<p> As an array, some combination of the following:</p>
+
+<ul>
+    <li><strong>"HEIGHTS"</strong>: Requests that returned meshes have 3-tuple coordinates instead of 2-tuples.
+    When using a color-based function, the Z coordinate represents the nearest pixel's alpha.</li>
+    <li><strong>"CONNECT"</strong>: Adds extrusion triangles to each mesh other than the lowest mesh. (This
+    implies the <strong>HEIGHTS</strong> flag, which will be added as a convenience if absent.)</li>
+    <li><strong>"DUAL"</strong>: Returns a meshlist with two meshes: one for the inside, one for the outside.</li>
+    <li><strong>"SNAP"</strong>: Applies a step function to the Z coordinates. (This implies the <strong>HEIGHTS</strong>
+    and <strong>DUAL</strong> flags, which will be added as a convenience if absent.)</li>
+    <li><strong>"SWIZZLE"</strong>: Indicates that the "color" argument is ABGR instead of ARGB.</li>
+    <li><strong>"INVERT"</strong>: Reverses the "insideness" test.</li>
+    <li><strong>"SIMPLIFY"</strong>: Enables quick &amp; dirty (not best) simpification of the returned mesh.</li>
+</ul>
+
+<p> As a string, any of the above.
         </li>
     </ul>
 
@@ -203,14 +226,15 @@
 </dd>
     <dt>
     <a name = "color_multi"></a>
-    <strong>color_multi (X, w, h, cell_size, bpp, flags)</strong>
+    <strong>color_multi (data, w, h, cell_size, bpp, flags)</strong>
     </dt>
     <dd>
     DOCME
 
+
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">X</span>
+        <li><span class="parameter">data</span>
             <span class="types"><span class="type">Bytes</span></span>
 
 
@@ -241,8 +265,14 @@
 
         </li>
         <li><span class="parameter">flags</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a> or <span class="type">nil</span></span>
-         check "as_bytes" too
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">{string,...}</a> or <span class="type">nil</span></span>
+         As per <a href="api.html#color">color</a>, but with the following addition:</p>
+
+<ul>
+    <li><strong>"CLEAN"</strong>: Ensures there are no T-junction vertices. (If present, <strong>SIMPLIFY</strong> is ignored.)</li>
+</ul>
+
+<p> Additionally, the <strong>SNAP</strong>, <strong>INVERT</strong>, and <strong>DUAL</strong> flags are ignored.
         </li>
     </ul>
 
@@ -259,18 +289,82 @@
 </dd>
     <dt>
     <a name = "grayscale"></a>
-    <strong>grayscale (X, w, h, cell_size, thresholds, flags)</strong>
+    <strong>grayscale (data, w, h, cell_size, threshold, flags)</strong>
     </dt>
     <dd>
     DOCME
 
+
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">X</span>
-            <span class="types"><span class="type">Bytes</span></span>
+        <li><span class="parameter">data</span>
+            <span class="types"><span class="type">Bytes</span> or <span class="type">{number,...}</span></span>
+         As a table, an array of numbers in [0, 1] comprising the grayscale data.</p>
+
+<p> As <strong>Bytes</strong>, this will typically be contiguous array of floats. If the octets flag is specified, however,
+ <em>data</em> is interpreted as an array of 8-bit values from 0 to 255 that are remapped from 0
+ to 1.
+        </li>
+        <li><span class="parameter">w</span>
+            <span class="types"><span class="type">uint</span></span>
 
 
 
+        </li>
+        <li><span class="parameter">h</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">cell_size</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">threshold</span>
+            <span class="types"><span class="type">number</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">flags</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">{string,...}</a> or <span class="type">nil</span></span>
+
+<p> As per <a href="api.html#color">color</a>, with the following addition:</p>
+
+<ul>
+    <li><strong>"as_octets"</strong>: Interpret <strong>Bytes</strong>-type <em>data</em> as 8-bit values, as described above.</li>
+</ul>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">MeshList</span></span>
+        ML
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "grayscale_multi"></a>
+    <strong>grayscale_multi (data, w, h, cell_size, thresholds, flags)</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">data</span>
+            <span class="types"><span class="type">Bytes</span> or <span class="type">{number,...}</span></span>
+         As per <a href="api.html#grayscale">grayscale</a>.
         </li>
         <li><span class="parameter">w</span>
             <span class="types"><span class="type">uint</span></span>
@@ -291,14 +385,20 @@
 
         </li>
         <li><span class="parameter">thresholds</span>
-            <span class="types"><span class="type">Bytes</span></span>
+            <span class="types"><span class="type">Bytes</span> or <span class="type">{number,...}</span></span>
 
 
 
         </li>
         <li><span class="parameter">flags</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a> or <span class="type">nil</span></span>
-         check "as_bytes" too
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">{string,...}</a> or <span class="type">nil</span></span>
+
+<p> As per <a href="api.html#grayscale">grayscale</a>, with the following addition:</p>
+
+<ul>
+    <li><strong>"threshold_as_octets"</strong>: Interpret <strong>Bytes</strong>-type <em>threshold</em> as 8-bit values, cf. <a href="api.html#grayscale">grayscale</a>.</li>
+</ul>
+
         </li>
     </ul>
 
@@ -314,61 +414,19 @@
 
 </dd>
     <dt>
-    <a name = "grayscale_multi"></a>
-    <strong>grayscale_multi (X, w, h, cell_size, color, bpp, check)</strong>
+    <a name = "Proxy:GetMode"></a>
+    <strong>Proxy:GetMode ()</strong>
     </dt>
     <dd>
-    DOCME
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">X</span>
-            <span class="types"><span class="type">Bytes</span></span>
+    Getter.
 
 
-
-        </li>
-        <li><span class="parameter">w</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">h</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">cell_size</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">color</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">bpp</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">check</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a> or <span class="type">nil</span></span>
-         "as_bytes" too
-        </li>
-    </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">MeshList</span></span>
-        ML
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        One of <strong>"none"</strong>, <strong>"points"</strong>, or <strong>"triangles"</strong> describing the proxy's current binding.
     </ol>
 
 
@@ -376,111 +434,37 @@
 
 </dd>
     <dt>
-    <a name = "to_string_svg_multi"></a>
-    <strong>to_string_svg_multi (ML)</strong>
+    <a name = "Proxy:Reset"></a>
+    <strong>Proxy:Reset ()</strong>
     </dt>
     <dd>
-    DOCME
+    Explictly remove any reference to a <a href="api.html#MeshList:GetMesh">Mesh</a>, allowing it to be garbage-collected. </p>
 
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">ML</span>
-            <span class="types"><span class="type">MeshList</span></span>
+<p> When a proxy is bound to another <strong>Mesh</strong>, this is done implicitly beforehand.</p>
 
+<p> Without such a reference, the proxy is a 0-length empty <strong>Bytes</strong>.
 
 
-        </li>
-    </ul>
 
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        svg
-    </ol>
 
 
 
 
 </dd>
     <dt>
-    <a name = "write_svg_multi"></a>
-    <strong>write_svg_multi (filename[, dir=system.DocumentsDirectory], ML)</strong>
+    <a name = "NewProxy"></a>
+    <strong>NewProxy ()</strong>
     </dt>
     <dd>
-    DOCME
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">filename</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+    Create a proxy for use by <a href="api.html#Mesh:GetPoints">Mesh:GetPoints</a> or <a href="api.html#Mesh:GetTriangles">Mesh:GetTriangles</a>.
 
 
-
-        </li>
-        <li><span class="parameter">dir</span>
-
-
-
-         (<em>default</em> system.DocumentsDirectory)
-        </li>
-        <li><span class="parameter">ML</span>
-            <span class="types"><span class="type">MeshList</span></span>
-
-
-
-        </li>
-    </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-        <strong>true</strong>
-    </ol>
-     <h3>Or</h3>
-    <ol>
-        <li>
-        <strong>nil</strong></li>
-        <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        ERR</li>
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "MeshList:GetBoundary"></a>
-    <strong>MeshList:GetBoundary (index, no_flip)</strong>
-    </dt>
-    <dd>
-    Extract the polyline boundary from a mesh, composed of one or more chains.
- Counterclockwise chains are solid, clockwise chains are holes.  So, when
- serializing to SVG, all chains can be aggregated in a single &lt;path&gt;,
- provided they each terminate with a <strong>"Z"</strong> and use the default fill rule.
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">index</span>
-            <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">no_flip</span>
-            <span class="types"><span class="type">bool</span></span>
-
-
-
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-        of tables of numbers... chain
+           <span class="types"><span class="type">Proxy</span></span>
+        Used to provide a <strong>Bytes</strong> view over a <strong>Mesh</strong>'s data.
     </ol>
 
 
@@ -489,32 +473,25 @@
 </dd>
     <dt>
     <a name = "MeshList:GetMesh"></a>
-    <strong>MeshList:GetMesh (index, no_flip)</strong>
+    <strong>MeshList:GetMesh (index)</strong>
     </dt>
     <dd>
-    DOCME
+    Get an immutable reference to one of the list's meshes.
+
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">index</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">no_flip</span>
-            <span class="types"><span class="type">bool</span></span>
-
-
-
+         Mesh index, from 1 to <code>#self</code>.
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-        Expand on this...
+           <span class="types"><span class="type">Mesh</span></span>
+        Mesh reference.
     </ol>
 
 
@@ -529,6 +506,7 @@
     Metamethod.
 
 
+
     <h3>Returns:</h3>
     <ol>
 
@@ -541,18 +519,27 @@
 
 </dd>
     <dt>
-    <a name = "MeshList:ToStringOBJ"></a>
-    <strong>MeshList:ToStringOBJ ()</strong>
+    <a name = "Mesh:GetBoundary"></a>
+    <strong>Mesh:GetBoundary ()</strong>
     </dt>
     <dd>
-    DOCME
+    Extract the polyline boundary, composed of one or more chains. </p>
+
+<p> Counterclockwise chains are solid, clockwise chains are holes. So, when serializing
+ to SVG, all chains can be aggregated in a single &lt;path&gt;, provided they each
+ terminate with a <strong>"Z"</strong> and use the default fill rule.</p>
+
+<p> TODO: return as bytes?
+
 
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        S
+           <span class="types"><span class="type">{{number,...},...}</span></span>
+
+
+
     </ol>
 
 
@@ -560,27 +547,113 @@
 
 </dd>
     <dt>
-    <a name = "MeshList:ToStringSVG"></a>
-    <strong>MeshList:ToStringSVG ([opts])</strong>
+    <a name = "Mesh:GetColor"></a>
+    <strong>Mesh:GetColor ()</strong>
+    </dt>
+    <dd>
+    Getter.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        If the mesh was created by <a href="api.html#color_multi">color_multi</a>, the mesh-specific color. Otherwise, 0.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Mesh:GetDim"></a>
+    <strong>Mesh:GetDim ()</strong>
+    </dt>
+    <dd>
+    Getter.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        Mesh dimensions, either 2 or 3.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Mesh:GetNumPoints"></a>
+    <strong>Mesh:GetNumPoints ()</strong>
+    </dt>
+    <dd>
+    Getter.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        Number of points.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Mesh:GetNumTriangles"></a>
+    <strong>Mesh:GetNumTriangles ()</strong>
+    </dt>
+    <dd>
+    Getter.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        Number of triangles.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Mesh:GetPoints"></a>
+    <strong>Mesh:GetPoints ([opts])</strong>
     </dt>
     <dd>
     DOCME
+
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
 
+<p> Getter options, which include:</p>
 
+<ul>
+    <li><strong>out</strong>: table or <a href="api.html#NewProxy">Proxy</a></li>
+</ul>
 
+         (<em>optional</em>)
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        S
+           <span class="types"><span class="type">Proxy</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        P
     </ol>
 
 
@@ -588,135 +661,35 @@
 
 </dd>
     <dt>
-    <a name = "MeshList:WriteOBJ"></a>
-    <strong>MeshList:WriteOBJ (filename[, dir=system.DocumentsDirectory])</strong>
+    <a name = "Mesh:GetTriangles"></a>
+    <strong>Mesh:GetTriangles ([opts])</strong>
     </dt>
     <dd>
     DOCME
 
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">filename</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-
-
-        </li>
-        <li><span class="parameter">dir</span>
-
-
-
-         (<em>default</em> system.DocumentsDirectory)
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-        <strong>true</strong>
-    </ol>
-     <h3>Or</h3>
-    <ol>
-        <li>
-        <strong>nil</strong></li>
-        <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        ERR</li>
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "MeshList:WriteSVG"></a>
-    <strong>MeshList:WriteSVG (filename[, dir=system.DocumentsDirectory[, opts]])</strong>
-    </dt>
-    <dd>
-    DOCME
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">filename</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-
-
-
-        </li>
-        <li><span class="parameter">dir</span>
-
-
-
-         (<em>default</em> system.DocumentsDirectory)
-        </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
 
+<p> Getter options, which include:</p>
 
+<ul>
+    <li><strong>one_based</strong>:</li>
+    <li><strong>out</strong>: table or <a href="api.html#NewProxy">Proxy</a></li>
+</ul>
 
+         (<em>optional</em>)
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-        <strong>true</strong>
+           <span class="types"><span class="type">Proxy</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        T
     </ol>
-     <h3>Or</h3>
-    <ol>
-        <li>
-        <strong>nil</strong></li>
-        <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        ERR</li>
-    </ol>
-
-
-
-
-</dd>
-</dl>
-    <h2><a name="Tables"></a>Tables</h2>
-    <dl class="function">
-    <dt>
-    <a name = "Flags"></a>
-    <strong>Flags</strong>
-    </dt>
-    <dd>
-    Various flags.
-
-    <h3>Fields:</h3>
-    <ul>
-        <li><span class="parameter">CLEAN</span>
-         Ensures there are no T-junction vertices. (<a href="api.html#color_multi">color_multi</a> only)
- Requires the <strong>SIMPLIFY</strong> flag to be disabled.
-        </li>
-        <li><span class="parameter">CONNECT</span>
-         Adds extrusion triangles to each mesh other than the lowest mesh.  Requires
- the <strong>HEIGHTS</strong> flag to be present.
-        </li>
-        <li><span class="parameter">DUAL</span>
-         Returns a meshlist with two meshes: one for the inside, one for the outside.
-        </li>
-        <li><span class="parameter">HEIGHTS</span>
-         Requests that returned meshes have 3-tuple coordinates instead of 2-tuples.
- When using a color-based function, the Z coordinate represents the alpha
- value of the nearest pixel.
-        </li>
-        <li><span class="parameter">INVERT</span>
-         Reverses the "insideness" test.
-        </li>
-        <li><span class="parameter">SIMPLIFY</span>
-         Enables quick &amp; dirty (not best) simpification of the returned mesh.
-        </li>
-        <li><span class="parameter">SNAP</span>
-         Applies a step function to the Z coordinates.  Requires <strong>HEIGHTS</strong> and <strong>DUAL</strong>.
-        </li>
-        <li><span class="parameter">SWIZZLE</span>
-         Indicates that the "color" argument is ABGR instead of ARGB.
-        </li>
-    </ul>
-
 
 
 
@@ -728,7 +701,8 @@
 </div> <!-- id="content" -->
 </div> <!-- id="main" -->
 <div id="about">
-<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2018-06-06 18:42:53 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
