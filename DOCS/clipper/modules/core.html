@@ -38,17 +38,17 @@
 
 
 <h2>Modules</h2>
-<ul class="$(kind=='Topics' and '' or 'nowrap'">
+<ul class="nowrap">
   <li><strong>core</strong></li>
 </ul>
 <h2>Classes</h2>
-<ul class="$(kind=='Topics' and '' or 'nowrap'">
-  <li><a href="../classes/Clipper.html">Clipper</a></li>
+<ul class="nowrap">
   <li><a href="../classes/Offset.html">Offset</a></li>
   <li><a href="../classes/Path.html">Path</a></li>
   <li><a href="../classes/Paths.html">Paths</a></li>
   <li><a href="../classes/PolyNode.html">PolyNode</a></li>
   <li><a href="../classes/PolyTree.html">PolyTree</a></li>
+  <li><a href="../classes/Clipper.html">Clipper</a></li>
 </ul>
 
 </div>
@@ -65,8 +65,8 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#Area">Area (P)</a></td>
-	<td class="summary">DOCME</td>
+	<td class="name" nowrap><a href="#Area">Area (Polygon.)</a></td>
+	<td class="summary">This function returns the area of the supplied polygon.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#CleanPolygon">CleanPolygon (P[, opts])</a></td>
@@ -78,15 +78,17 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#ClosedPathsFromPolyTree">ClosedPathsFromPolyTree (PT[, opts])</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">This function filters out <em>open</em> paths from the <strong>PolyTree</strong> structure and returns only <em>closed</em> paths.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MinkowskiDiff">MinkowskiDiff (p1, p2[, opts])</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary"><strong>Minkowski Difference</strong> is performed by subtracting each point in a polygon from the set of points in an
+ open or closed path.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MinkowskiSum">MinkowskiSum (P, P12[, opts])</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary"><strong>Minkowski Addition</strong> is performed by adding each point in a polygon 'pattern' to the set of points in an open
+ or closed path.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#NewClipper">NewClipper ([init_opts])</a></td>
@@ -114,7 +116,7 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#OpenPathsFromPolyTree">OpenPathsFromPolyTree ([opts])</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">This function filters out <em>closed</em> paths from the <strong>PolyTree</strong> structure and returns only <em>open</em> paths.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Orientation">Orientation (P)</a></td>
@@ -122,26 +124,26 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#PointInPolygon">PointInPolygon (x, y, P)</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">DOCME Returns 0 if false, -1 if pt is on poly and +1 if pt is in poly.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#PolyTreeToPaths">PolyTreeToPaths (PT[, opts])</a></td>
 	<td class="summary">DOCME</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#ReversePath">ReversePath (P)</a></td>
+	<td class="summary">Reverses the vertex order (and hence orientation) in the specified path.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ReversePaths">ReversePaths (P)</a></td>
+	<td class="summary">Reverses the vertex order (and hence orientation) in each contained path.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#SimplifyPolygon">SimplifyPolygon (P[, opts])</a></td>
 	<td class="summary">DOCME</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#SimplifyPolygona">SimplifyPolygona (P[, opts])</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#ReversePath">ReversePath (P)</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#ReversePaths">ReversePaths (P)</a></td>
+	<td class="name" nowrap><a href="#SimplifyPolygons">SimplifyPolygons (P[, opts])</a></td>
 	<td class="summary">DOCME</td>
 	</tr>
 </table>
@@ -163,36 +165,30 @@
 	<td class="name" nowrap><a href="#InitOptions">InitOptions</a></td>
 	<td class="summary">DOCME</td>
 	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#JoinType">JoinType</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#EndType">EndType</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
 </table>
 
 <br/>
 <br/>
 
 
-    <h2><a name="Functions"></a>Functions</h2>
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
     <dl class="function">
     <dt>
     <a name = "Area"></a>
-    <strong>Area (P)</strong>
+    <strong>Area (Polygon.)</strong>
     </dt>
     <dd>
-    DOCME
+    This function returns the area of the supplied polygon.  Depending on <a href="../modules/core.html#Orientation">Orientation</a>, this value may be positive
+ or negative. If <strong>Orientation</strong> is true, then the area will be positive and conversely, if <strong>Orientation</strong> is
+ false, then the area will be negative.
+
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">P</span>
+        <li><span class="parameter">Polygon.</span>
             <span class="types"><a class="type" href="../classes/Path.html#">Path</a></span>
-
-
-
+         (It's assumed that the path will be closed.)
         </li>
     </ul>
 
@@ -200,7 +196,7 @@
     <ol>
 
            <span class="types"><span class="type">number</span></span>
-        A
+        Area.
     </ol>
 
 
@@ -212,7 +208,8 @@
     <strong>CleanPolygon (P[, opts])</strong>
     </dt>
     <dd>
-    DOCME
+    DOCME  Example: http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Functions/CleanPolygon.htm
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -223,8 +220,9 @@
 
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          (mPath, mDistance)
+         (<em>optional</em>)
         </li>
     </ul>
 
@@ -238,7 +236,8 @@
     <strong>CleanPolygons (P[, opts])</strong>
     </dt>
     <dd>
-    DOCME
+    DOCME  Has same example
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -249,8 +248,9 @@
 
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          (mPathArray, mDistance)
+         (<em>optional</em>)
         </li>
     </ul>
 
@@ -264,7 +264,8 @@
     <strong>ClosedPathsFromPolyTree (PT[, opts])</strong>
     </dt>
     <dd>
-    DOCME
+    This function filters out <em>open</em> paths from the <strong>PolyTree</strong> structure and returns only <em>closed</em> paths.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -275,8 +276,9 @@
 
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          (mPathArray)
+         (<em>optional</em>)
         </li>
     </ul>
 
@@ -296,7 +298,14 @@
     <strong>MinkowskiDiff (p1, p2[, opts])</strong>
     </dt>
     <dd>
-    DOCME
+    <strong>Minkowski Difference</strong> is performed by subtracting each point in a polygon from the set of points in an
+ open or closed path.  A key feature of Minkowski Difference is that when it's applied to two polygons, the
+ resulting polygon will contain the coordinate space origin whenever the two polygons touch or overlap.
+ (This function is often used to determine when polygons collide.)</p>
+
+<p> See <a href="http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Functions/MinkowskiDiff.htm">here</a>
+ for a visual example.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -313,8 +322,9 @@
 
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          (mPathArray)
+         (<em>optional</em>)
         </li>
     </ul>
 
@@ -328,7 +338,13 @@
     <strong>MinkowskiSum (P, P12[, opts])</strong>
     </dt>
     <dd>
-    DOCME
+    <strong>Minkowski Addition</strong> is performed by adding each point in a polygon 'pattern' to the set of points in an open
+ or closed path.  The resulting polygon (or polygons) defines the region that the 'pattern' would pass over in moving
+ from the beginning to the end of the 'path'.</p>
+
+<p> See <a href="http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Functions/MinkowskiSum.htm">here</a>
+ for a visual example. TODO: code for same?
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -345,8 +361,9 @@
 
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         (mPathAarray, mIsClosed)
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         (mPathAarray, mFillType, mIsClosed)
+         (<em>optional</em>)
         </li>
     </ul>
 
@@ -368,11 +385,13 @@
     <dd>
     DOCME
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">init_opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          (see list... allow string?)
+         (<em>optional</em>)
         </li>
     </ul>
 
@@ -394,11 +413,13 @@
     <dd>
     DOCME
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          (miter<em>limit=.2, round</em>precision=.25
+         (<em>optional</em>)
         </li>
     </ul>
 
@@ -421,6 +442,7 @@
     DOCME
 
 
+
     <h3>Returns:</h3>
     <ol>
 
@@ -438,6 +460,7 @@
     </dt>
     <dd>
     DOCME
+
 
 
     <h3>Returns:</h3>
@@ -459,6 +482,7 @@
     DOCME
 
 
+
     <h3>Returns:</h3>
     <ol>
 
@@ -478,6 +502,7 @@
     DOCME
 
 
+
     <h3>Returns:</h3>
     <ol>
 
@@ -494,13 +519,15 @@
     <strong>OpenPathsFromPolyTree ([opts])</strong>
     </dt>
     <dd>
-    DOCME
+    This function filters out <em>closed</em> paths from the <strong>PolyTree</strong> structure and returns only <em>open</em> paths.
+
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          (mPathArray)
+         (<em>optional</em>)
         </li>
     </ul>
 
@@ -520,7 +547,8 @@
     <strong>Orientation (P)</strong>
     </dt>
     <dd>
-    DOCME
+    DOCME  Example: http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Functions/Orientation.htm
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -548,7 +576,8 @@
     <strong>PointInPolygon (x, y, P)</strong>
     </dt>
     <dd>
-    DOCME
+    DOCME Returns 0 if false, -1 if pt is on poly and +1 if pt is in poly.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -589,6 +618,7 @@
     <dd>
     DOCME
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">PT</span>
@@ -598,8 +628,9 @@
 
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          (mPathArray)
+         (<em>optional</em>)
         </li>
     </ul>
 
@@ -615,63 +646,12 @@
 
 </dd>
     <dt>
-    <a name = "SimplifyPolygon"></a>
-    <strong>SimplifyPolygon (P[, opts])</strong>
-    </dt>
-    <dd>
-    DOCME
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">P</span>
-            <span class="types"><a class="type" href="../classes/Path.html#">Path</a></span>
-
-
-
-        </li>
-        <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         (mPathArray)
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "SimplifyPolygona"></a>
-    <strong>SimplifyPolygona (P[, opts])</strong>
-    </dt>
-    <dd>
-    DOCME
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">P</span>
-            <span class="types"><a class="type" href="../classes/Path.html#">Path</a></span>
-
-
-
-        </li>
-        <li><span class="parameter">opts</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         (mPathArray, mFillType)
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
     <a name = "ReversePath"></a>
     <strong>ReversePath (P)</strong>
     </dt>
     <dd>
-    DOCME
+    Reverses the vertex order (and hence orientation) in the specified path.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -693,7 +673,8 @@
     <strong>ReversePaths (P)</strong>
     </dt>
     <dd>
-    DOCME
+    Reverses the vertex order (and hence orientation) in each contained path.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -710,29 +691,87 @@
 
 
 </dd>
+    <dt>
+    <a name = "SimplifyPolygon"></a>
+    <strong>SimplifyPolygon (P[, opts])</strong>
+    </dt>
+    <dd>
+    DOCME  Example: http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Functions/SimplifyPolygon.htm
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">P</span>
+            <span class="types"><a class="type" href="../classes/Path.html#">Path</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         (mPathArray)
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SimplifyPolygons"></a>
+    <strong>SimplifyPolygons (P[, opts])</strong>
+    </dt>
+    <dd>
+    DOCME  Same example
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">P</span>
+            <span class="types"><a class="type" href="../classes/Path.html#">Path</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         (mPathArray, mFillType)
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
 </dl>
-    <h2><a name="Tables"></a>Tables</h2>
+    <h2 class="section-header "><a name="Tables"></a>Tables</h2>
+
     <dl class="function">
     <dt>
     <a name = "ClipType"></a>
     <strong>ClipType</strong>
     </dt>
     <dd>
-    DOCME
+    DOCME  Examples: http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Types/ClipType.htm
+
 
     <h3>Fields:</h3>
     <ul>
         <li><span class="parameter">Intersection</span>
-         I
+         Create regions where both subject <strong>and</strong> clip polygons are filled.
         </li>
         <li><span class="parameter">Union</span>
-         U
+         Create regions where <strong>either</strong> subject <strong>or</strong> clip polygons (or both) are filled.
         </li>
         <li><span class="parameter">Difference</span>
-         D
+         Create regions where subject polygons are filled <strong>except</strong> where clip polygons are filled.
         </li>
         <li><span class="parameter">Xor</span>
-         x
+         Create regions where <strong>either</strong> subject <strong>or</strong> clip polygons are filled <strong>but not</strong> where <strong>both</strong> are filled.
         </li>
     </ul>
 
@@ -747,6 +786,7 @@
     </dt>
     <dd>
     DOCME
+
 
     <h3>Fields:</h3>
     <ul>
@@ -772,29 +812,22 @@
     <strong>PolyFillType</strong>
     </dt>
     <dd>
-    DOCME
+    DOCME  Example: http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Types/PolyFillType.htm
+
 
     <h3>Fields:</h3>
     <ul>
         <li><span class="parameter">EvenOdd</span>
-
-
-
+         Odd numbered sub-regions are filled, while even numbered sub-regions are not.
         </li>
         <li><span class="parameter">NonZero</span>
-
-
-
+         All non-zero sub-regions are filled.
         </li>
         <li><span class="parameter">Positive</span>
-
-
-
+         All sub-regions with winding counts > 0 are filled.
         </li>
         <li><span class="parameter">Negative</span>
-
-
-
+         All sub-regions with winding counts &lt; 0 are filled.
         </li>
     </ul>
 
@@ -809,6 +842,7 @@
     </dt>
     <dd>
     DOCME
+
 
     <h3>Fields:</h3>
     <ul>
@@ -834,85 +868,14 @@
 
 
 </dd>
-    <dt>
-    <a name = "JoinType"></a>
-    <strong>JoinType</strong>
-    </dt>
-    <dd>
-    DOCME
-
-    <h3>Fields:</h3>
-    <ul>
-        <li><span class="parameter">Square</span>
-
-
-
-        </li>
-        <li><span class="parameter">Round</span>
-
-
-
-        </li>
-        <li><span class="parameter">Miter</span>
-
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "EndType"></a>
-    <strong>EndType</strong>
-    </dt>
-    <dd>
-    DOCME
-
-    <h3>Fields:</h3>
-    <ul>
-        <li><span class="parameter">ClosedPolygon</span>
-
-
-
-        </li>
-        <li><span class="parameter">ClosedLine</span>
-
-
-
-        </li>
-        <li><span class="parameter">OpenButt</span>
-
-
-
-        </li>
-        <li><span class="parameter">OpenSquare</span>
-
-
-
-        </li>
-        <li><span class="parameter">OpenRound</span>
-
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
 </dl>
 
 
 </div> <!-- id="content" -->
 </div> <!-- id="main" -->
 <div id="about">
-<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2018-06-07 19:19:37 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

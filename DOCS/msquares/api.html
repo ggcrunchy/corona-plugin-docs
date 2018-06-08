@@ -73,19 +73,19 @@
 <table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#color">color (data, w, h, cell_size, color, bpp, flags)</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Generate meshes by marching over color data.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#color_multi">color_multi (data, w, h, cell_size, bpp, flags)</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Generate per-color meshes by marching over color data.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#grayscale">grayscale (data, w, h, cell_size, threshold, flags)</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Generate meshes by marching over grayscale data.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#grayscale_multi">grayscale_multi (data, w, h, cell_size, thresholds, flags)</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Using several thresholds, performs multiple marches over grayscale data.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Proxy:GetMode">Proxy:GetMode ()</a></td>
@@ -129,11 +129,11 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Mesh:GetPoints">Mesh:GetPoints ([opts])</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Getter.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Mesh:GetTriangles">Mesh:GetTriangles ([opts])</a></td>
-	<td class="summary">DOCME</td>
+	<td class="summary">Getter.</td>
 	</tr>
 </table>
 
@@ -149,46 +149,39 @@
     <strong>color (data, w, h, cell_size, color, bpp, flags)</strong>
     </dt>
     <dd>
-    DOCME
+    Generate meshes by marching over color data.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">data</span>
             <span class="types"><span class="type">Bytes</span></span>
+         Color data.</p>
 
-
-
+<p> If less than <code>w * h * bpp</code> in size, an internal copy with padding zeroes is created, which is a potential performance hit.
         </li>
         <li><span class="parameter">w</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Width of bitmap...
         </li>
         <li><span class="parameter">h</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         ...and height.
         </li>
         <li><span class="parameter">cell_size</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Dimension of marching squares cell. Both <em>w</em> and <em>h</em> must be a multiple of this size.
         </li>
         <li><span class="parameter">color</span>
             <span class="types"><span class="type">uint</span></span>
+         Pixels that have this value are regarded as being inside.</p>
 
-
-
+<p> This is a 32-bit value layed out either as <code>A|B|G|R</code> or <code>A|R|G|B</code>, with <code>A</code> in the high byte. (To convert these
+ octets to Corona color components, divide by 255.)
         </li>
         <li><span class="parameter">bpp</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Bytes per pixel, from 1 to 4.
         </li>
         <li><span class="parameter">flags</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">{string,...}</a> or <span class="type">nil</span></span>
@@ -204,7 +197,7 @@
     <li><strong>"DUAL"</strong>: Returns a meshlist with two meshes: one for the inside, one for the outside.</li>
     <li><strong>"SNAP"</strong>: Applies a step function to the Z coordinates. (This implies the <strong>HEIGHTS</strong>
     and <strong>DUAL</strong> flags, which will be added as a convenience if absent.)</li>
-    <li><strong>"SWIZZLE"</strong>: Indicates that the "color" argument is ABGR instead of ARGB.</li>
+    <li><strong>"SWIZZLE"</strong>: Indicates that <em>color</em> is ABGR instead of ARGB.</li>
     <li><strong>"INVERT"</strong>: Reverses the "insideness" test.</li>
     <li><strong>"SIMPLIFY"</strong>: Enables quick &amp; dirty (not best) simpification of the returned mesh.</li>
 </ul>
@@ -217,7 +210,7 @@
     <ol>
 
            <span class="types"><span class="type">MeshList</span></span>
-        ML
+        List of one or more resulting meshes.
     </ol>
 
 
@@ -229,40 +222,30 @@
     <strong>color_multi (data, w, h, cell_size, bpp, flags)</strong>
     </dt>
     <dd>
-    DOCME
+    Generate per-color meshes by marching over color data.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">data</span>
             <span class="types"><span class="type">Bytes</span></span>
-
-
-
+         As per <a href="api.html#color">color</a>, but may contain at most 256 distinct colors.
         </li>
         <li><span class="parameter">w</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Width of bitmap...
         </li>
         <li><span class="parameter">h</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         ...and height.
         </li>
         <li><span class="parameter">cell_size</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         As per <a href="api.html#color">color</a>.
         </li>
         <li><span class="parameter">bpp</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Bytes per pixel, from 1 to 4.
         </li>
         <li><span class="parameter">flags</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">{string,...}</a> or <span class="type">nil</span></span>
@@ -280,7 +263,7 @@
     <ol>
 
            <span class="types"><span class="type">MeshList</span></span>
-        ML
+        List of one or more resulting meshes.
     </ol>
 
 
@@ -292,7 +275,7 @@
     <strong>grayscale (data, w, h, cell_size, threshold, flags)</strong>
     </dt>
     <dd>
-    DOCME
+    Generate meshes by marching over grayscale data.
 
 
     <h3>Parameters:</h3>
@@ -301,33 +284,28 @@
             <span class="types"><span class="type">Bytes</span> or <span class="type">{number,...}</span></span>
          As a table, an array of numbers in [0, 1] comprising the grayscale data.</p>
 
-<p> As <strong>Bytes</strong>, this will typically be contiguous array of floats. If the octets flag is specified, however,
- <em>data</em> is interpreted as an array of 8-bit values from 0 to 255 that are remapped from 0
- to 1.
+<p> As <strong>Bytes</strong>, this will typically be contiguous array of 32-bit floats. If the octets flag is specified, however,
+ <em>data</em> is interpreted as an array of 8-bit values from 0 to 255 that are remapped from 0 to 1.</p>
+
+<p> If fewer than <code>w * h</code> elements are available, an internal copy with padding zeroes is created. This is potentially
+ a performance hit for float-type <em>data</em>, whereas the other representations already incur some conversion costs and
+ so this might not be so noticeable.
         </li>
         <li><span class="parameter">w</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Width of bitmap...
         </li>
         <li><span class="parameter">h</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         ...and height.
         </li>
         <li><span class="parameter">cell_size</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         As per <a href="api.html#color">color</a>.
         </li>
         <li><span class="parameter">threshold</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         Values in <em>data</em> &gt; this value are regarded as inside.
         </li>
         <li><span class="parameter">flags</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">{string,...}</a> or <span class="type">nil</span></span>
@@ -345,7 +323,7 @@
     <ol>
 
            <span class="types"><span class="type">MeshList</span></span>
-        ML
+        List of one or more resulting meshes.
     </ol>
 
 
@@ -357,7 +335,8 @@
     <strong>grayscale_multi (data, w, h, cell_size, thresholds, flags)</strong>
     </dt>
     <dd>
-    DOCME
+    Using several thresholds, performs multiple marches over grayscale data.  Several intermediate meshes are
+ generated along the way and merged at the end.
 
 
     <h3>Parameters:</h3>
@@ -368,27 +347,25 @@
         </li>
         <li><span class="parameter">w</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Width of bitmap...
         </li>
         <li><span class="parameter">h</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         ...and height.
         </li>
         <li><span class="parameter">cell_size</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         As per <a href="api.html#color">color</a>.
         </li>
         <li><span class="parameter">thresholds</span>
             <span class="types"><span class="type">Bytes</span> or <span class="type">{number,...}</span></span>
+         One or more thresholds, which should be in order. Representation-wise, this is like <em>data</em>.</p>
 
+<p> The following ranges are visited:</p>
 
+<p>  (-&infin;, threshold #1), [threshold #1, threshold #2), ..., [threshold #n, +&infin;)</p>
 
+<p> For each range, values in <em>data</em> &ge; <em>low</em> and &lt; <em>high</em> are regarded as inside the corresponding mesh.
         </li>
         <li><span class="parameter">flags</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">{string,...}</a> or <span class="type">nil</span></span>
@@ -396,7 +373,7 @@
 <p> As per <a href="api.html#grayscale">grayscale</a>, with the following addition:</p>
 
 <ul>
-    <li><strong>"threshold_as_octets"</strong>: Interpret <strong>Bytes</strong>-type <em>threshold</em> as 8-bit values, cf. <a href="api.html#grayscale">grayscale</a>.</li>
+    <li><strong>"threshold_as_octets"</strong>: Interpret <strong>Bytes</strong>-type <em>thresholds</em> as 8-bit values, cf. <a href="api.html#grayscale">grayscale</a>.</li>
 </ul>
 
         </li>
@@ -406,7 +383,7 @@
     <ol>
 
            <span class="types"><span class="type">MeshList</span></span>
-        ML
+        List of one or more resulting meshes.
     </ol>
 
 
@@ -527,9 +504,7 @@
 
 <p> Counterclockwise chains are solid, clockwise chains are holes. So, when serializing
  to SVG, all chains can be aggregated in a single &lt;path&gt;, provided they each
- terminate with a <strong>"Z"</strong> and use the default fill rule.</p>
-
-<p> TODO: return as bytes?
+ terminate with a <strong>"Z"</strong> and use the default fill rule.
 
 
 
@@ -537,9 +512,7 @@
     <ol>
 
            <span class="types"><span class="type">{{number,...},...}</span></span>
-
-
-
+        One or more arrays of points of the form { ..., x, y, ... } or { ..., x, y, z, ... }, according to the mesh's dimensions.
     </ol>
 
 
@@ -559,7 +532,7 @@
     <ol>
 
            <span class="types"><span class="type">uint</span></span>
-        If the mesh was created by <a href="api.html#color_multi">color_multi</a>, the mesh-specific color. Otherwise, 0.
+        If the mesh was created by <a href="api.html#color_multi">color_multi</a>, the mesh-specific color. (See the notes about <em>color</em> is <a href="api.html#color">color</a>.) Otherwise, 0.
     </ol>
 
 
@@ -631,20 +604,23 @@
     <strong>Mesh:GetPoints ([opts])</strong>
     </dt>
     <dd>
-    DOCME
+    Getter.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-
-<p> Getter options, which include:</p>
+         Getter options, which include:</p>
 
 <ul>
-    <li><strong>out</strong>: table or <a href="api.html#NewProxy">Proxy</a></li>
+    <li><strong>out</strong>: This may be a <a href="api.html#NewProxy">Proxy</a>, in which case it is bound to the mesh's points and returned.</li>
 </ul>
 
+<p> Otherwise, points are supplied as a table, either using the one provided here or creating a new one.</p>
+
+<p> <strong>N.B.</strong> With a custom table, any entries not overwritten will be left as-is. If necessary, use
+ <code>self:GetNumTriangles() * self:GetDim()</code> to calculate the number of entries.
          (<em>optional</em>)
         </li>
     </ul>
@@ -653,7 +629,9 @@
     <ol>
 
            <span class="types"><span class="type">Proxy</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-        P
+        As a table, an array <code>{ x1, y1, ... }</code> or <code>{ x1, y1, z1, ... }</code>, according to the mesh's dimensions, whose values are <strong>number</strong>s.</p>
+
+<p> Otherwise, the <strong>Proxy</strong> supplied as <code>opts.out</code>.
     </ol>
 
 
@@ -665,21 +643,24 @@
     <strong>Mesh:GetTriangles ([opts])</strong>
     </dt>
     <dd>
-    DOCME
+    Getter.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-
-<p> Getter options, which include:</p>
+         Getter options, which include:</p>
 
 <ul>
-    <li><strong>one_based</strong>:</li>
-    <li><strong>out</strong>: table or <a href="api.html#NewProxy">Proxy</a></li>
+    <li><strong>one_based</strong>: Triangle indices are one-based, rather zero-based?. This is ignored for <strong>Proxy</strong> results.</li>
+    <li><strong>out</strong>: This may be a <a href="api.html#NewProxy">Proxy</a>, in which case it is bound to the mesh's triangles and returned.</li>
 </ul>
 
+<p> Otherwise, indices are supplied as a table, either using the one provided here or creating a new one.</p>
+
+<p> <strong>N.B.</strong> With a custom table, any entries not overwritten will be left as-is. If necessary, use
+ <code>self:GetNumTriangles() * 3</code> to calculate the number of entries.
          (<em>optional</em>)
         </li>
     </ul>
@@ -688,7 +669,9 @@
     <ol>
 
            <span class="types"><span class="type">Proxy</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-        T
+        As a table, an array <code>{ index1, index2, index3, ... }</code> whose values are <strong>uint</strong>s.</p>
+
+<p> Otherwise, the <strong>Proxy</strong> supplied as <code>opts.out</code>.
     </ol>
 
 
@@ -702,7 +685,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2018-06-06 18:42:53 </i>
+<i style="float:right;">Last updated 2018-06-07 19:14:27 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

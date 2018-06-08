@@ -32,21 +32,22 @@
 
 <h2>Contents</h2>
 <ul>
-<li><a href="#Methods">Methods </a></li>
+<li><a href="#Tables">Tables</a></li>
+<li><a href="#Methods">Methods</a></li>
 </ul>
 
 
 <h2>Classes</h2>
-<ul class="$(kind=='Topics' and '' or 'nowrap'">
-  <li><a href="../classes/Clipper.html">Clipper</a></li>
+<ul class="nowrap">
   <li><strong>Offset</strong></li>
   <li><a href="../classes/Path.html">Path</a></li>
   <li><a href="../classes/Paths.html">Paths</a></li>
   <li><a href="../classes/PolyNode.html">PolyNode</a></li>
   <li><a href="../classes/PolyTree.html">PolyTree</a></li>
+  <li><a href="../classes/Clipper.html">Clipper</a></li>
 </ul>
 <h2>Modules</h2>
-<ul class="$(kind=='Topics' and '' or 'nowrap'">
+<ul class="nowrap">
   <li><a href="../modules/core.html">core</a></li>
 </ul>
 
@@ -62,7 +63,18 @@
 </p>
 
 
-<h2><a href="#Methods">Methods </a></h2>
+<h2><a href="#Tables">Tables</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#Offset.JoinType">Offset.JoinType</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Offset.EndType">Offset.EndType</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+</table>
+<h2><a href="#Methods">Methods</a></h2>
 <table class="function_list">
 	<tr>
 	<td class="name" nowrap><a href="#Offset:AddPath">Offset:AddPath (P, jt, et)</a></td>
@@ -106,7 +118,75 @@
 <br/>
 
 
-    <h2><a name="Methods"></a>Methods </h2>
+    <h2 class="section-header "><a name="Tables"></a>Tables</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "Offset.JoinType"></a>
+    <strong>Offset.JoinType</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">Square</span>
+
+
+
+        </li>
+        <li><span class="parameter">Round</span>
+
+
+
+        </li>
+        <li><span class="parameter">Miter</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Offset.EndType"></a>
+    <strong>Offset.EndType</strong>
+    </dt>
+    <dd>
+    DOCME  Examples: http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Types/EndType.htm
+
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">ClosedPolygon</span>
+         Ends are joined using the JoinType value and the path filled as a polygon.
+        </li>
+        <li><span class="parameter">ClosedLine</span>
+         Ends are joined using the JoinType value and the path filled as a polyline.
+        </li>
+        <li><span class="parameter">OpenButt</span>
+         Ends are squared off with no extension.
+        </li>
+        <li><span class="parameter">OpenSquare</span>
+         Ends are <em>squared</em> off and extended <strong>delta</strong> units.
+        </li>
+        <li><span class="parameter">OpenRound</span>
+         Ends are <em>rounded</em> off and extended <strong>delta</strong> units.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
 
     <dl class="function">
     <dt>
@@ -115,6 +195,7 @@
     </dt>
     <dd>
     DOCME
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -125,13 +206,13 @@
 
         </li>
         <li><span class="parameter">jt</span>
-            <span class="types"><span class="type">JoinType</span></span>
+            <span class="types"><a class="type" href="../classes/Offset.html#Offset.JoinType">JoinType</a></span>
 
 
 
         </li>
         <li><span class="parameter">et</span>
-            <span class="types"><span class="type">EndType</span></span>
+            <span class="types"><a class="type" href="../classes/Offset.html#Offset.EndType">EndType</a></span>
 
 
 
@@ -150,6 +231,7 @@
     <dd>
     DOCME
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">P</span>
@@ -159,13 +241,13 @@
 
         </li>
         <li><span class="parameter">jt</span>
-            <span class="types"><span class="type">JoinType</span></span>
+            <span class="types"><a class="type" href="../classes/Offset.html#Offset.JoinType">JoinType</a></span>
 
 
 
         </li>
         <li><span class="parameter">et</span>
-            <span class="types"><span class="type">EndType</span></span>
+            <span class="types"><a class="type" href="../classes/Offset.html#Offset.EndType">EndType</a></span>
 
 
 
@@ -189,6 +271,7 @@
 
 
 
+
 </dd>
     <dt>
     <a name = "Offset:Execute"></a>
@@ -196,6 +279,7 @@
     </dt>
     <dd>
     DOCME
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -224,6 +308,7 @@
     </dt>
     <dd>
     DOCME
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -260,6 +345,7 @@
     DOCME
 
 
+
     <h3>Returns:</h3>
     <ol>
 
@@ -279,6 +365,7 @@
     DOCME
 
 
+
     <h3>Returns:</h3>
     <ol>
 
@@ -296,6 +383,7 @@
     </dt>
     <dd>
     DOCME
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -319,6 +407,7 @@
     <dd>
     DOCME
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">ML</span>
@@ -340,7 +429,8 @@
 </div> <!-- id="content" -->
 </div> <!-- id="main" -->
 <div id="about">
-<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2018-06-07 19:19:37 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
