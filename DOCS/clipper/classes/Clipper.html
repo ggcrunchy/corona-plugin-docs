@@ -32,6 +32,10 @@
 
 
 
+<h2>Tables</h2>
+<ul class="nowrap">
+    <li><a href="#Clipper.ClipType">Clipper.ClipType</a></li>
+</ul>
 <h2>Methods</h2>
 <ul class="nowrap">
     <li><a href="#Clipper:AddPath">Clipper:AddPath (path, poly_type)</a></li>
@@ -39,22 +43,22 @@
     <li><a href="#Clipper:Clear">Clipper:Clear ()</a></li>
     <li><a href="#Clipper:Execute">Clipper:Execute (ct[, opts])</a></li>
     <li><a href="#Clipper:Execute">Clipper:Execute (ct, subject, clip[, opts])</a></li>
-    <li><a href="#Clipper:GetBounds">Clipper:GetBounds ([X])</a></li>
+    <li><a href="#Clipper:GetBounds">Clipper:GetBounds ([bounds])</a></li>
     <li><a href="#Clipper:GetPreserveCollinear">Clipper:GetPreserveCollinear ()</a></li>
     <li><a href="#Clipper:GetReverseSolution">Clipper:GetReverseSolution ()</a></li>
     <li><a href="#Clipper:GetStrictlySimple">Clipper:GetStrictlySimple ()</a></li>
-    <li><a href="#Clipper:SetPreserveCollinear">Clipper:SetPreserveCollinear (PC)</a></li>
-    <li><a href="#Clipper:SetReverseSolution">Clipper:SetReverseSolution (RS)</a></li>
-    <li><a href="#Clipper:SetStrictlySimple">Clipper:SetStrictlySimple (SS)</a></li>
+    <li><a href="#Clipper:SetPreserveCollinear">Clipper:SetPreserveCollinear (enable)</a></li>
+    <li><a href="#Clipper:SetReverseSolution">Clipper:SetReverseSolution (enable)</a></li>
+    <li><a href="#Clipper:SetStrictlySimple">Clipper:SetStrictlySimple (enable)</a></li>
 </ul>
 <h2>Classes</h2>
 <ul class="nowrap">
-  <li><strong>Clipper</strong></li>
   <li><a href="../classes/Offset.html">Offset</a></li>
   <li><a href="../classes/Path.html">Path</a></li>
   <li><a href="../classes/Paths.html">Paths</a></li>
   <li><a href="../classes/PolyNode.html">PolyNode</a></li>
   <li><a href="../classes/PolyTree.html">PolyTree</a></li>
+  <li><strong>Clipper</strong></li>
 </ul>
 <h2>Modules</h2>
 <ul class="nowrap">
@@ -74,6 +78,39 @@
 
 
 
+    <h2 class="section-header "><a name="Tables"></a>Tables</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "Clipper.ClipType"></a>
+    <strong>Clipper.ClipType</strong>
+    </dt>
+    <dd>
+    DOCME  Examples: http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Types/ClipType.htm
+
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">Intersection</span>
+         Create regions where both subject <strong>and</strong> clip polygons are filled.
+        </li>
+        <li><span class="parameter">Union</span>
+         Create regions where <strong>either</strong> subject <strong>or</strong> clip polygons (or both) are filled.
+        </li>
+        <li><span class="parameter">Difference</span>
+         Create regions where subject polygons are filled <strong>except</strong> where clip polygons are filled.
+        </li>
+        <li><span class="parameter">Xor</span>
+         Create regions where <strong>either</strong> subject <strong>or</strong> clip polygons are filled <strong>but not</strong> where <strong>both</strong> are filled.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
     <h2 class="section-header "><a name="Methods"></a>Methods</h2>
 
     <dl class="function">
@@ -193,14 +230,21 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">ct</span>
-            <span class="types"><span class="type">ClipType</span></span>
+            <span class="types"><a class="type" href="../classes/Clipper.html#Clipper.ClipType">ClipType</a></span>
 
 
 
         </li>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         (mFillType, mTree, mPathArray)
+
+<p> Options, which may include:</p>
+
+<ul>
+    <li><strong>fill_type</strong>: EvenOdd</li>
+    <li><strong>out</strong>: If this is a <strong>Paths</strong> or <strong>PolyTree</strong>, it will be populated and used as the return value.</li>
+</ul>
+
          (<em>optional</em>)
         </li>
     </ul>
@@ -227,7 +271,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">ct</span>
-            <span class="types"><span class="type">ClipType</span></span>
+            <span class="types"><a class="type" href="../classes/Clipper.html#Clipper.ClipType">ClipType</a></span>
 
 
 
@@ -246,7 +290,7 @@
         </li>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         (mFillType, mTree, mPathArray)
+         As per the other overload.
          (<em>optional</em>)
         </li>
     </ul>
@@ -264,19 +308,19 @@
 </dd>
     <dt>
     <a name = "Clipper:GetBounds"></a>
-    <strong>Clipper:GetBounds ([X])</strong>
+    <strong>Clipper:GetBounds ([bounds])</strong>
     </dt>
     <dd>
-    DOCME
+
+
+
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">X</span>
+        <li><span class="parameter">bounds</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-
-
-
+         If present, this is populated and used as the return value.
          (<em>optional</em>)
         </li>
     </ul>
@@ -285,7 +329,10 @@
     <ol>
 
            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-        B (left, top, right, bottom)
+         Bounds table with <strong>left</strong>, <strong>right</strong>, <strong>top</strong>, and <strong>bottom</strong> members, describing the axis-aligned bounding rectangle of all
+ polygons that have been added to the Clipper object.</p>
+
+<p> These members are <strong>int</strong>s. (See notes in <a href="../classes/Path.html#Path:AddPoint">Path:AddPoint</a>.)
     </ol>
 
 
@@ -297,7 +344,9 @@
     <strong>Clipper:GetPreserveCollinear ()</strong>
     </dt>
     <dd>
-    DOCME
+
+
+
 
 
 
@@ -305,10 +354,14 @@
     <ol>
 
            <span class="types"><span class="type">boolean</span></span>
-        PC
+        Is collinear preservation enabled?
     </ol>
 
 
+    <h3>See also:</h3>
+    <ul>
+         <a href="../classes/Clipper.html#Clipper:SetPreserveCollinear">Clipper:SetPreserveCollinear</a>
+    </ul>
 
 
 </dd>
@@ -317,7 +370,9 @@
     <strong>Clipper:GetReverseSolution ()</strong>
     </dt>
     <dd>
-    DOCME
+
+
+
 
 
 
@@ -325,10 +380,14 @@
     <ol>
 
            <span class="types"><span class="type">boolean</span></span>
-        RS
+        Is reversal enabled?
     </ol>
 
 
+    <h3>See also:</h3>
+    <ul>
+         <a href="../classes/Clipper.html#Clipper:SetReverseSolution">Clipper:SetReverseSolution</a>
+    </ul>
 
 
 </dd>
@@ -337,7 +396,9 @@
     <strong>Clipper:GetStrictlySimple ()</strong>
     </dt>
     <dd>
-    DOCME
+
+
+
 
 
 
@@ -345,79 +406,111 @@
     <ol>
 
            <span class="types"><span class="type">boolean</span></span>
-        SS
+        Are simple polygons strictly simple?
     </ol>
 
 
+    <h3>See also:</h3>
+    <ul>
+         <a href="../classes/Clipper.html#Clipper:SetStrictlySimple">Clipper:SetStrictlySimple</a>
+    </ul>
 
 
 </dd>
     <dt>
     <a name = "Clipper:SetPreserveCollinear"></a>
-    <strong>Clipper:SetPreserveCollinear (PC)</strong>
+    <strong>Clipper:SetPreserveCollinear (enable)</strong>
     </dt>
     <dd>
-    DOCME
+    By default, when three or more vertices are collinear in input polygons (subject or clip), the Clipper object
+ removes the 'inner' vertices before clipping.  When enabled the PreserveCollinear property prevents this default
+ behavior to allow these inner vertices to appear in the solution.
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">PC</span>
+        <li><span class="parameter">enable</span>
             <span class="types"><span class="type">bool</span></span>
-
-
-
+         Enable this state? (Disable it with <strong>false</strong>.)
         </li>
     </ul>
 
 
 
+    <h3>See also:</h3>
+    <ul>
+         <a href="../classes/Clipper.html#Clipper:GetPreserveCollinear">Clipper:GetPreserveCollinear</a>
+    </ul>
 
 
 </dd>
     <dt>
     <a name = "Clipper:SetReverseSolution"></a>
-    <strong>Clipper:SetReverseSolution (RS)</strong>
+    <strong>Clipper:SetReverseSolution (enable)</strong>
     </dt>
     <dd>
-    DOCME
+    When this property is enabled, polygons returned in the <strong>solution</strong> parameter of <a href="../classes/Clipper.html#Clipper:Execute">Clipper:Execute</a> will have
+ orientations opposite to their normal orientations.
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">RS</span>
+        <li><span class="parameter">enable</span>
             <span class="types"><span class="type">bool</span></span>
-
-
-
+         Enable this state? (Disable it with <strong>false</strong>.)
         </li>
     </ul>
 
 
 
+    <h3>See also:</h3>
+    <ul>
+         <a href="../classes/Clipper.html#Clipper:GetReverseSolution">Clipper:GetReverseSolution</a>
+    </ul>
 
 
 </dd>
     <dt>
     <a name = "Clipper:SetStrictlySimple"></a>
-    <strong>Clipper:SetStrictlySimple (SS)</strong>
+    <strong>Clipper:SetStrictlySimple (enable)</strong>
     </dt>
     <dd>
-    DOCME
+    <strong>Terminology</strong>:</p>
+
+<ul>
+    <li>A simple polygon is one that does not self-intersect. </li>
+    <li>A weakly simple polygon is a simple polygon that contains 'touching' vertices, or 'touching' edges.</li>
+    <li>A strictly simple polygon is a simple polygon that does not contain 'touching' vertices, or 'touching' edges.</li>
+</ul>
+
+<p> Vertices 'touch' if they share the same coordinates (and are not adjacent). An edge touches another if one of its
+ end vertices touches another edge excluding its adjacent edges, or if they are co-linear and overlapping (including
+ adjacent edges).</p>
+
+<p> Polygons returned by clipping operations (see <a href="../classes/Clipper.html#Clipper:Execute">Clipper.Execute</a>) should always be simple polygons. When the <strong>StrictlySimple</strong>
+ property is enabled, polygons returned will be strictly simple, otherwise they may be <em>weakly simple</em>. It's <strong>computationally
+ expensive</strong> ensuring polygons are <em>strictly simple</em> and so this property is disabled by default.</p>
+
+<p> <em>Note: There's currently no guarantee that polygons will be strictly simple since 'simplifying' is still a work in progress.</em></p>
+
+<p> (See <a href="http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Classes/Clipper/Properties/StrictlySimple.htm">here</a>
+ for a nice visual example.)
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">SS</span>
+        <li><span class="parameter">enable</span>
             <span class="types"><span class="type">bool</span></span>
-
-
-
+         Enable this state? (Disable it with <strong>false</strong>.)
         </li>
     </ul>
 
 
 
+    <h3>See also:</h3>
+    <ul>
+         <a href="../classes/Clipper.html#Clipper:GetStrictlySimple">Clipper:GetStrictlySimple</a>
+    </ul>
 
 
 </dd>
@@ -428,7 +521,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2018-06-12 19:06:54 </i>
+<i style="float:right;">Last updated 2018-06-13 18:37:04 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

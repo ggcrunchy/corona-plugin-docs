@@ -35,21 +35,22 @@
 <h2>Methods</h2>
 <ul class="nowrap">
     <li><a href="#PolyNode:ChildCount">PolyNode:ChildCount ()</a></li>
-    <li><a href="#PolyNode:GetChild">PolyNode:GetChild (index)</a></li>
-    <li><a href="#PolyNode:GetContour">PolyNode:GetContour ()</a></li>
-    <li><a href="#PolyNode:GetNext">PolyNode:GetNext ()</a></li>
-    <li><a href="#PolyNode:GetParent">PolyNode:GetParent ()</a></li>
+    <li><a href="#PolyNode:GetChild">PolyNode:GetChild (index[, Options])</a></li>
+    <li><a href="#PolyNode:GetContour">PolyNode:GetContour ([Options])</a></li>
+    <li><a href="#PolyNode:GetNext">PolyNode:GetNext ([Options])</a></li>
+    <li><a href="#PolyNode:GetParent">PolyNode:GetParent ([Options])</a></li>
     <li><a href="#PolyNode:IsHole">PolyNode:IsHole ()</a></li>
     <li><a href="#PolyNode:IsOpen">PolyNode:IsOpen ()</a></li>
+    <li><a href="#PolyNode:ToTree">PolyNode:ToTree ([Options])</a></li>
 </ul>
 <h2>Classes</h2>
 <ul class="nowrap">
-  <li><a href="../classes/Clipper.html">Clipper</a></li>
   <li><a href="../classes/Offset.html">Offset</a></li>
   <li><a href="../classes/Path.html">Path</a></li>
   <li><a href="../classes/Paths.html">Paths</a></li>
   <li><strong>PolyNode</strong></li>
   <li><a href="../classes/PolyTree.html">PolyTree</a></li>
+  <li><a href="../classes/Clipper.html">Clipper</a></li>
 </ul>
 <h2>Modules</h2>
 <ul class="nowrap">
@@ -78,7 +79,9 @@
     <strong>PolyNode:ChildCount ()</strong>
     </dt>
     <dd>
-    DOCME
+
+
+
 
 
 
@@ -95,10 +98,12 @@
 </dd>
     <dt>
     <a name = "PolyNode:GetChild"></a>
-    <strong>PolyNode:GetChild (index)</strong>
+    <strong>PolyNode:GetChild (index[, Options])</strong>
     </dt>
     <dd>
-    DOCME
+
+
+
 
 
     <h3>Parameters:</h3>
@@ -108,6 +113,17 @@
 
 
 
+        </li>
+        <li><span class="parameter">Options</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+<p>, which include:</p>
+
+<ul>
+    <li><strong>out</strong>: If this is a <strong>PolyNode</strong>, it will be populated and used as the return value.</li>
+</ul>
+
+         (<em>optional</em>)
         </li>
     </ul>
 
@@ -124,12 +140,28 @@
 </dd>
     <dt>
     <a name = "PolyNode:GetContour"></a>
-    <strong>PolyNode:GetContour ()</strong>
+    <strong>PolyNode:GetContour ([Options])</strong>
     </dt>
     <dd>
-    DOCME
 
 
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">Options</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+<p>, which include:</p>
+
+<ul>
+    <li><strong>out</strong>: If this is a <strong>Path</strong>, it will be populated and used as the return value.</li>
+</ul>
+
+         (<em>optional</em>)
+        </li>
+    </ul>
 
     <h3>Returns:</h3>
     <ol>
@@ -144,12 +176,28 @@
 </dd>
     <dt>
     <a name = "PolyNode:GetNext"></a>
-    <strong>PolyNode:GetNext ()</strong>
+    <strong>PolyNode:GetNext ([Options])</strong>
     </dt>
     <dd>
-    DOCME
 
 
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">Options</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+<p>, which include:</p>
+
+<ul>
+    <li><strong>out</strong>: If this is a <strong>PolyNode</strong>, it will be populated and used as the return value.</li>
+</ul>
+
+         (<em>optional</em>)
+        </li>
+    </ul>
 
     <h3>Returns:</h3>
     <ol>
@@ -164,17 +212,33 @@
 </dd>
     <dt>
     <a name = "PolyNode:GetParent"></a>
-    <strong>PolyNode:GetParent ()</strong>
+    <strong>PolyNode:GetParent ([Options])</strong>
     </dt>
     <dd>
-    DOCME
 
 
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">Options</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+<p>, which include:</p>
+
+<ul>
+    <li><strong>out</strong>: If this is a <strong>PolyNode</strong>, it will be populated and used as the return value.</li>
+</ul>
+
+         (<em>optional</em>)
+        </li>
+    </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="../classes/PolyNode.html#">PolyNode</a>, <a class="type" href="../classes/PolyTree.html#">PolyTree</a> or <span class="type">nil</span></span>
+           <span class="types"><a class="type" href="../classes/PolyNode.html#">PolyNode</a> or <span class="type">nil</span></span>
 
 
 
@@ -189,7 +253,9 @@
     <strong>PolyNode:IsHole ()</strong>
     </dt>
     <dd>
-    DOCME
+
+
+
 
 
 
@@ -209,7 +275,9 @@
     <strong>PolyNode:IsOpen ()</strong>
     </dt>
     <dd>
-    DOCME
+
+
+
 
 
 
@@ -224,6 +292,44 @@
 
 
 </dd>
+    <dt>
+    <a name = "PolyNode:ToTree"></a>
+    <strong>PolyNode:ToTree ([Options])</strong>
+    </dt>
+    <dd>
+
+
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">Options</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+<p>, which include:</p>
+
+<ul>
+    <li><strong>out</strong>:  If this is a <a href="../classes/PolyTree.html#">PolyTree</a>, it will be populated and used as the return value.</li>
+</ul>
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/PolyTree.html#">PolyTree</a> or <span class="type">nil</span></span>
+
+
+
+    </ol>
+
+
+
+
+</dd>
 </dl>
 
 
@@ -231,7 +337,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2018-06-12 19:06:54 </i>
+<i style="float:right;">Last updated 2018-06-13 18:37:04 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

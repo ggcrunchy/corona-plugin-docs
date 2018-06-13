@@ -34,13 +34,13 @@
 
 <h2>Functions</h2>
 <ul class="nowrap">
-    <li><a href="#Area">Area (Polygon.)</a></li>
+    <li><a href="#Area">Area (poly)</a></li>
     <li><a href="#CleanPolygon">CleanPolygon (P[, opts])</a></li>
     <li><a href="#CleanPolygons">CleanPolygons (P[, opts])</a></li>
     <li><a href="#ClosedPathsFromPolyTree">ClosedPathsFromPolyTree (PT[, opts])</a></li>
     <li><a href="#MinkowskiDiff">MinkowskiDiff (p1, p2[, opts])</a></li>
     <li><a href="#MinkowskiSum">MinkowskiSum (P, P12[, opts])</a></li>
-    <li><a href="#NewClipper">NewClipper ([init_opts])</a></li>
+    <li><a href="#NewClipper">NewClipper (init_opts)</a></li>
     <li><a href="#NewOffset">NewOffset ([opts])</a></li>
     <li><a href="#NewPath">NewPath ()</a></li>
     <li><a href="#NewPathArray">NewPathArray ()</a></li>
@@ -48,7 +48,7 @@
     <li><a href="#NewPolyTree">NewPolyTree ()</a></li>
     <li><a href="#OpenPathsFromPolyTree">OpenPathsFromPolyTree ([opts])</a></li>
     <li><a href="#Orientation">Orientation (P)</a></li>
-    <li><a href="#PointInPolygon">PointInPolygon (x, y, P)</a></li>
+    <li><a href="#PointInPolygon">PointInPolygon (x, y, poly)</a></li>
     <li><a href="#PolyTreeToPaths">PolyTreeToPaths (PT[, opts])</a></li>
     <li><a href="#ReversePath">ReversePath (P)</a></li>
     <li><a href="#ReversePaths">ReversePaths (P)</a></li>
@@ -57,9 +57,7 @@
 </ul>
 <h2>Tables</h2>
 <ul class="nowrap">
-    <li><a href="#ClipType">ClipType</a></li>
     <li><a href="#PolyFillType">PolyFillType</a></li>
-    <li><a href="#InitOptions">InitOptions</a></li>
     <li><a href="#EndOfSequenceMarkers">EndOfSequenceMarkers</a></li>
 </ul>
 <h2>Modules</h2>
@@ -68,12 +66,12 @@
 </ul>
 <h2>Classes</h2>
 <ul class="nowrap">
-  <li><a href="../classes/Clipper.html">Clipper</a></li>
   <li><a href="../classes/Offset.html">Offset</a></li>
   <li><a href="../classes/Path.html">Path</a></li>
   <li><a href="../classes/Paths.html">Paths</a></li>
   <li><a href="../classes/PolyNode.html">PolyNode</a></li>
   <li><a href="../classes/PolyTree.html">PolyTree</a></li>
+  <li><a href="../classes/Clipper.html">Clipper</a></li>
 </ul>
 
 </div>
@@ -93,19 +91,21 @@
     <dl class="function">
     <dt>
     <a name = "Area"></a>
-    <strong>Area (Polygon.)</strong>
+    <strong>Area (poly)</strong>
     </dt>
     <dd>
     This function returns the area of the supplied polygon.  Depending on <a href="../modules/core.html#Orientation">Orientation</a>, this value may be positive
  or negative. If <strong>Orientation</strong> is true, then the area will be positive and conversely, if <strong>Orientation</strong> is
- false, then the area will be negative.
+ false, then the area will be negative. (It's assumed that the path will be closed.)
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">Polygon.</span>
+        <li><span class="parameter">poly</span>
             <span class="types"><a class="type" href="../classes/Path.html#">Path</a></span>
-         (It's assumed that the path will be closed.)
+
+
+
         </li>
     </ul>
 
@@ -138,7 +138,14 @@
         </li>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         (mPath, mDistance)
+
+<p> Options, which may include:</p>
+
+<ul>
+    <li><strong>distance</strong>: (Def 1.415)</li>
+    <li><strong>out</strong>: <strong>Path</strong></li>
+</ul>
+
          (<em>optional</em>)
         </li>
     </ul>
@@ -166,7 +173,14 @@
         </li>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         (mPathArray, mDistance)
+
+<p> Options, which may include:</p>
+
+<ul>
+    <li><strong>distance</strong>: (Def 1.415)</li>
+    <li><strong>out</strong>: <strong>Paths</strong></li>
+</ul>
+
          (<em>optional</em>)
         </li>
     </ul>
@@ -194,7 +208,13 @@
         </li>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         (mPathArray)
+
+<p> Options, which may include:</p>
+
+<ul>
+    <li><strong>out</strong>:  If this is a <strong>Paths</strong>, it will be populated and used as the return value.</li>
+</ul>
+
          (<em>optional</em>)
         </li>
     </ul>
@@ -240,11 +260,23 @@
         </li>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         (mPathArray)
+
+<p> Options, which may include:</p>
+
+<ul>
+    <li><strong>out</strong>:  If this is a <strong>Paths</strong>, it will be populated and used as the return value.</li>
+</ul>
+
          (<em>optional</em>)
         </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Paths.html#">Paths</a></span>
+        P
+    </ol>
 
 
 
@@ -279,7 +311,15 @@
         </li>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         (mPathAarray, mFillType, mIsClosed)
+
+<p> Options, which may include:</p>
+
+<ul>
+    <li><strong>fill_type</strong>: EvenOdd</li>
+    <li><strong>is_closed</strong>:</li>
+    <li><strong>out</strong>: <strong>Paths</strong></li>
+</ul>
+
          (<em>optional</em>)
         </li>
     </ul>
@@ -297,18 +337,23 @@
 </dd>
     <dt>
     <a name = "NewClipper"></a>
-    <strong>NewClipper ([init_opts])</strong>
+    <strong>NewClipper (init_opts)</strong>
     </dt>
     <dd>
-    DOCME
+
+
+
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">init_opts</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         (see list... allow string?)
-         (<em>optional</em>)
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">{string,...}</a>, <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
+         This may be an array of one or more of the following options to enable:
+ <strong>"PreserveCollinear"</strong>, <strong>"ReverseSolution"</strong>, <strong>"StrictlySimple"</strong>. See the corresponding setters in <a href="../classes/Clipper.html#">Clipper</a>
+ for details.</p>
+
+<p> As a string, any of the above.
         </li>
     </ul>
 
@@ -316,10 +361,18 @@
     <ol>
 
            <span class="types"><a class="type" href="../classes/Clipper.html#">Clipper</a></span>
-        C
+
+
+
     </ol>
 
 
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="../classes/Clipper.html#Clipper:SetPreserveCollinear">Clipper:SetPreserveCollinear</a></li>
+         <li><a href="../classes/Clipper.html#Clipper:SetReverseSolution">Clipper:SetReverseSolution</a></li>
+         <li><a href="../classes/Clipper.html#Clipper:SetStrictlySimple">Clipper:SetStrictlySimple</a></li>
+    </ul>
 
 
 </dd>
@@ -335,7 +388,14 @@
     <ul>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         (miter<em>limit=.2, round</em>precision=.25
+
+<p> Options, which may include:</p>
+
+<ul>
+    <li><strong>miter_limit</strong>: Initial value for the <a href="../classes/Offset.html#Offset:SetMiterLimit">miter limit</a> (Default 2)</li>
+    <li><strong>round_precision</strong>: Initial value for the <a href="../classes/Offset.html#Offset:SetArcTolerance">arc tolerance</a>. (Default .25)</li>
+</ul>
+
          (<em>optional</em>)
         </li>
     </ul>
@@ -344,7 +404,9 @@
     <ol>
 
            <span class="types"><a class="type" href="../classes/Offset.html#">Offset</a></span>
-        O
+
+
+
     </ol>
 
 
@@ -356,7 +418,9 @@
     <strong>NewPath ()</strong>
     </dt>
     <dd>
-    Create an empty <a href="../classes/Path.html#">Path</a>.
+
+
+
 
 
 
@@ -364,7 +428,7 @@
     <ol>
 
            <span class="types"><a class="type" href="../classes/Path.html#">Path</a></span>
-        P
+        An empty instance.
     </ol>
 
 
@@ -376,7 +440,9 @@
     <strong>NewPathArray ()</strong>
     </dt>
     <dd>
-    Create an empty <a href="../classes/Paths.html#">Paths</a>.
+
+
+
 
 
 
@@ -384,7 +450,7 @@
     <ol>
 
            <span class="types"><a class="type" href="../classes/Paths.html#">Paths</a></span>
-        P
+        An empty instance.
     </ol>
 
 
@@ -396,7 +462,9 @@
     <strong>NewPolyNode ()</strong>
     </dt>
     <dd>
-    Create an empty <a href="../classes/PolyNode.html#">PolyNode</a>.
+
+
+
 
 
 
@@ -404,7 +472,7 @@
     <ol>
 
            <span class="types"><a class="type" href="../classes/PolyNode.html#">PolyNode</a></span>
-        N
+        An empty instance, intended as an <strong>out</strong> parameter.
     </ol>
 
 
@@ -416,7 +484,9 @@
     <strong>NewPolyTree ()</strong>
     </dt>
     <dd>
-    Create an empty <a href="../classes/PolyTree.html#">PolyTree</a>.
+
+
+
 
 
 
@@ -424,7 +494,7 @@
     <ol>
 
            <span class="types"><a class="type" href="../classes/PolyTree.html#">PolyTree</a></span>
-        PT
+        An empty instance, intended as an <strong>out</strong> parameter.
     </ol>
 
 
@@ -443,7 +513,13 @@
     <ul>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         (mPathArray)
+
+<p> Options, which may include:</p>
+
+<ul>
+    <li><strong>out</strong>:  If this is a <strong>Paths</strong>, it will be populated and used as the return value.</li>
+</ul>
+
          (<em>optional</em>)
         </li>
     </ul>
@@ -452,7 +528,9 @@
     <ol>
 
            <span class="types"><a class="type" href="../classes/Paths.html#">Paths</a></span>
-        PT
+
+
+
     </ol>
 
 
@@ -467,14 +545,8 @@
 
 <p><a href="http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Functions/Orientation.htm">Orientation</a> is
  only important to closed paths.  Given that vertices are declared in a specific order, orientation refers to the
- direction (clockwise or counter-clockwise) that these vertices progress around a closed path.</p>
-
-<p> Orientation is also dependent on axis direction:</p>
-
-<ul>
-    <li>On Y-axis positive upward displays, Orientation will return true if the polygon's orientation is counter-clockwise.</li>
-    <li>On Y-axis positive downward displays, Orientation will return true if the polygon's orientation is clockwise.</li>
-</ul>
+ direction (clockwise or counter-clockwise) that these vertices progress around a closed path; this will be <strong>true</strong>
+ when the polygon's orientation is clockwise.</p>
 
 <p> (Follow the link for a nice visual example.)</p>
 
@@ -482,13 +554,9 @@
 
 <ul>
     <li>Self-intersecting polygons have indeterminate orientations in which case this function won't return a meaningful value.</li>
-    <li>The majority of 2D graphic display libraries (e.g. GDI, GDI+, XLib, Cairo, AGG, Graphics32) and even the SVG file format
-    have their coordinate origins at the top-left corner of their respective viewports <em>with their Y axes increasing downward</em>.
-    However, some display libraries (eg Quartz, OpenGL) have their coordinate origins undefined or in the classic bottom-left
-    position with their Y axes increasing upward.</li>
     <li>For Non-Zero filled polygons, the orientation of <a href="../api.html#terminology">holes</a> <em>must be opposite</em> that of
     <a href="../api.html#terminology">outer</a> polygons.</li>
-    <li>For closed paths (polygons) in the <em>solution</em> returned by Clipper's <strong>Execute</strong> method, their orientations will always be
+    <li>For closed paths (polygons) in the <em>solution</em> returned by <a href="../classes/Clipper.html#Clipper:Execute">Clipper:Execute</a>, their orientations will always be
     <strong>true</strong> for outer polygons and <strong>false</strong> for hole polygons (unless the <a href="../classes/Clipper.html#Clipper:GetReverseSolution">ReverseSolution</a>
     property has been enabled).</li>
 </ul>
@@ -518,10 +586,12 @@
 </dd>
     <dt>
     <a name = "PointInPolygon"></a>
-    <strong>PointInPolygon (x, y, P)</strong>
+    <strong>PointInPolygon (x, y, poly)</strong>
     </dt>
     <dd>
-    DOCME Returns 0 if false, -1 if pt is on poly and +1 if pt is in poly.
+
+
+
 
 
     <h3>Parameters:</h3>
@@ -534,18 +604,17 @@
             <span class="types"><span class="type">int</span></span>
          ...and y.
         </li>
-        <li><span class="parameter">P</span>
+        <li><span class="parameter">poly</span>
             <span class="types"><a class="type" href="../classes/Path.html#">Path</a></span>
-
-
-
+         Polygon that might contain the point.
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-        "on_poly", "inside", false
+        If the point is outside, <strong>false</strong>. Otherwise, either <strong>"on_poly"</strong> or <strong>"inside"</strong>: the former if the point is on
+ one of <em>poly</em>'s edge, the latter if in the interior.
     </ol>
 
 
@@ -570,7 +639,13 @@
         </li>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         (mPathArray)
+
+<p> Options, which may include:</p>
+
+<ul>
+    <li><strong>out</strong>:  If this is a <strong>Paths</strong>, it will be populated and used as the return value.</li>
+</ul>
+
          (<em>optional</em>)
         </li>
     </ul>
@@ -650,7 +725,13 @@
         </li>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         (mPathArray)
+
+<p> Options, which may include:</p>
+
+<ul>
+    <li><strong>out</strong>: <strong>Paths</strong></li>
+</ul>
+
          (<em>optional</em>)
         </li>
     </ul>
@@ -678,7 +759,14 @@
         </li>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         (mPathArray, mFillType)
+
+<p> Options, which may include:</p>
+
+<ul>
+    <li><strong>fill_type</strong>: EvenOdd</li>
+    <li><strong>out</strong>: <strong>Paths</strong></li>
+</ul>
+
          (<em>optional</em>)
         </li>
     </ul>
@@ -692,35 +780,6 @@
     <h2 class="section-header "><a name="Tables"></a>Tables</h2>
 
     <dl class="function">
-    <dt>
-    <a name = "ClipType"></a>
-    <strong>ClipType</strong>
-    </dt>
-    <dd>
-    DOCME  Examples: http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Types/ClipType.htm
-
-
-    <h3>Fields:</h3>
-    <ul>
-        <li><span class="parameter">Intersection</span>
-         Create regions where both subject <strong>and</strong> clip polygons are filled.
-        </li>
-        <li><span class="parameter">Union</span>
-         Create regions where <strong>either</strong> subject <strong>or</strong> clip polygons (or both) are filled.
-        </li>
-        <li><span class="parameter">Difference</span>
-         Create regions where subject polygons are filled <strong>except</strong> where clip polygons are filled.
-        </li>
-        <li><span class="parameter">Xor</span>
-         Create regions where <strong>either</strong> subject <strong>or</strong> clip polygons are filled <strong>but not</strong> where <strong>both</strong> are filled.
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
     <dt>
     <a name = "PolyFillType"></a>
     <strong>PolyFillType</strong>
@@ -743,38 +802,6 @@
         </li>
         <li><span class="parameter">Negative</span>
          All sub-regions with winding counts &lt; 0 are filled.
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "InitOptions"></a>
-    <strong>InitOptions</strong>
-    </dt>
-    <dd>
-    DOCME
-
-
-    <h3>Fields:</h3>
-    <ul>
-        <li><span class="parameter">ReverseSolution</span>
-
-
-
-        </li>
-        <li><span class="parameter">StrictlySimple</span>
-
-
-
-        </li>
-        <li><span class="parameter">PreserveCollinear</span>
-
-
-
         </li>
     </ul>
 
@@ -824,7 +851,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2018-06-12 19:06:54 </i>
+<i style="float:right;">Last updated 2018-06-13 18:37:04 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

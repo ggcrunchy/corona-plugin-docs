@@ -41,17 +41,17 @@
     <li><a href="#Offset:Execute">Offset:Execute (delta)</a></li>
     <li><a href="#Offset:GetArcTolerance">Offset:GetArcTolerance ()</a></li>
     <li><a href="#Offset:GetMiterLimit">Offset:GetMiterLimit ()</a></li>
-    <li><a href="#Offset:SetArcTolerance">Offset:SetArcTolerance (AT)</a></li>
-    <li><a href="#Offset:SetMiterLimit">Offset:SetMiterLimit (ML)</a></li>
+    <li><a href="#Offset:SetArcTolerance">Offset:SetArcTolerance (tolerance)</a></li>
+    <li><a href="#Offset:SetMiterLimit">Offset:SetMiterLimit (limit)</a></li>
 </ul>
 <h2>Classes</h2>
 <ul class="nowrap">
-  <li><a href="../classes/Clipper.html">Clipper</a></li>
   <li><strong>Offset</strong></li>
   <li><a href="../classes/Path.html">Path</a></li>
   <li><a href="../classes/Paths.html">Paths</a></li>
   <li><a href="../classes/PolyNode.html">PolyNode</a></li>
   <li><a href="../classes/PolyTree.html">PolyTree</a></li>
+  <li><a href="../classes/Clipper.html">Clipper</a></li>
 </ul>
 <h2>Modules</h2>
 <ul class="nowrap">
@@ -102,7 +102,9 @@
         </li>
         <li><span class="parameter">join_type</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         One of <strong>"Square"</strong>, <strong>"Round"</strong>, or<strong>"Miter"</strong>.
+         One of <strong>"Square"</strong>, <strong>"Round"</strong>, or <strong>"Miter"</strong>.</p>
+
+<p> See <a href="http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Types/JoinType.htm">here</a> for some nice visual examples.)
         </li>
         <li><span class="parameter">end_type</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
@@ -116,7 +118,7 @@
     <li><strong>"OpenRound"</strong>: Ends are <em>rounded</em> off and extended <strong>delta</strong> units.</li>
 </ul>
 
-<p> Examples: http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Types/EndType.htm
+<p> See <a href="http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Types/EndType.htm">here</a> for some nice visual examples.)
         </li>
     </ul>
 
@@ -161,7 +163,7 @@
     <strong>Offset:Clear ()</strong>
     </dt>
     <dd>
-    This method clears all paths from the <strong>Offset</strong> object, allowing new paths to be assigned.
+    Clear all paths, allowing new ones to be assigned.
 
 
 
@@ -236,7 +238,9 @@
     <strong>Offset:GetArcTolerance ()</strong>
     </dt>
     <dd>
-    DOCME
+
+
+
 
 
 
@@ -244,10 +248,14 @@
     <ol>
 
            <span class="types"><span class="type">number</span></span>
-        AT
+        Current tolerance.
     </ol>
 
 
+    <h3>See also:</h3>
+    <ul>
+         <a href="../classes/Offset.html#Offset:SetArcTolerance">Offset:SetArcTolerance</a>
+    </ul>
 
 
 </dd>
@@ -256,7 +264,9 @@
     <strong>Offset:GetMiterLimit ()</strong>
     </dt>
     <dd>
-    DOCME
+
+
+
 
 
 
@@ -264,56 +274,107 @@
     <ol>
 
            <span class="types"><span class="type">number</span></span>
-        ML
+        Current limit.
     </ol>
 
 
+    <h3>See also:</h3>
+    <ul>
+         <a href="../classes/Offset.html#Offset:SetMiterLimit">Offset:SetMiterLimit</a>
+    </ul>
 
 
 </dd>
     <dt>
     <a name = "Offset:SetArcTolerance"></a>
-    <strong>Offset:SetArcTolerance (AT)</strong>
+    <strong>Offset:SetArcTolerance (tolerance)</strong>
     </dt>
     <dd>
-    DOCME
+    Since flattened paths can never perfectly represent arcs, this field / property specifies a maximum
+ acceptable imprecision ('tolerance') when arcs are approximated in an offsetting operation.  Smaller
+ values will increase 'smoothness' up to a point though at a cost of performance and in creating more
+ vertices to construct the arc.</p>
+
+<p> The default ArcTolerance is 0.25 units. This means that the maximum distance the flattened path will
+ deviate from the 'true' arc will be no more than 0.25 units (before rounding).</p>
+
+<p> <em>Reducing tolerances below 0.25 will <strong>not</strong> improve smoothness since vertex coordinates will still</em>
+ <em>be rounded to integer values.</em> The only way to achieve sub-integer precision is through coordinate
+ scaling before and after offsetting (see example below).</p>
+
+<p> <em>It's important to make ArcTolerance a sensible fraction of the offset delta (arc radius).</em> Large
+ tolerances relative to the offset delta will produce poor arc approximations but, just as importantly,
+ very small tolerances will substantially slow offsetting performance while providing unnecessary
+ degrees of precision. This is most likely to be an issue when offsetting polygons whose coordinates
+ have been scaled to preserve floating point precision.</p>
+
+<p> <strong>Example</strong>: Imagine a set of polygons (defined in floating point coordinates) that is to be offset
+ by 10 units using round joins, and the solution is to retain floating point precision up to at least
+ 6 decimal places.</p>
+
+<p> To preserve this degree of floating point precision, and given that <a href="../classes/Clipper.html#">Clipper</a> and <strong>Offset</strong> both
+ operate on integer coordinates, the polygon coordinates will be scaled up by <code>10^8</code> (and rounded to
+ integers) prior to offsetting. Both offset delta and ArcTolerance will also need to be scaled by
+ this same factor. <em>If ArcTolerance was left unscaled at the default 0.25 units, every arc in the</em>
+ <em>solution would contain a fraction of 44 THOUSAND vertices</em> while the final arc imprecision would
+ be <code>0.25 × 10^-8</code> units (i.e. once scaling was reversed). However, if 0.1 units was an acceptable
+ imprecision in the final <em>unscaled</em> solution, then ArcTolerance should be set to 0.1 × scaling_factor
+ (<code>0.1 × 10^8</code>). Now if scaling is applied equally to both ArcTolerance and to Delta Offset, then
+ in this example the number of vertices (steps) defining each arc would be a fraction of 23.</p>
+
+<p> The formula for the number of steps in a full circular arc is: <code>Pi / acos(1 - arc_tolerance / abs(delta))</code></p>
+
+<p> The arc tolerance is relevant only when <em>join_type</em> is <strong>"Round"</strong> or <em>end_type</em> is <strong>"OpenRound"</strong>
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">AT</span>
+        <li><span class="parameter">tolerance</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         New tolerance.
         </li>
     </ul>
 
 
 
+    <h3>See also:</h3>
+    <ul>
+         <a href="../classes/Offset.html#Offset:GetArcTolerance">Offset:GetArcTolerance</a>
+    </ul>
 
 
 </dd>
     <dt>
     <a name = "Offset:SetMiterLimit"></a>
-    <strong>Offset:SetMiterLimit (ML)</strong>
+    <strong>Offset:SetMiterLimit (limit)</strong>
     </dt>
     <dd>
-    DOCME
+    This property sets the maximum distance in <em>multiples of delta</em> that vertices can be offset from their
+ original positions before squaring is applied.  (Squaring truncates a miter by 'cutting it off' at 1 × delta
+ distance from the original vertex.)</p>
+
+<p> <strong>The default value for MiterLimit is 2</strong> (i.e. twice delta). This is also the smallest MiterLimit that's
+ allowed. If mitering was unrestricted (ie without any squaring), then offsets at very acute angles would
+ generate unacceptably long 'spikes'. (See <a href="http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Classes/ClipperOffset/Properties/MiterLimit.htm">here</a>
+ for an example of such a spike.)</p>
+
+<p> The miter limit is relevant only when <em>join_type</em> is <strong>"Miter"</strong>, cf. <a href="../classes/Offset.html#Offset:AddPath">Offset:AddPath</a>.
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">ML</span>
+        <li><span class="parameter">limit</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         New limit, &ge; 2.
         </li>
     </ul>
 
 
 
+    <h3>See also:</h3>
+    <ul>
+         <a href="../classes/Offset.html#Offset:GetMiterLimit">Offset:GetMiterLimit</a>
+    </ul>
 
 
 </dd>
@@ -324,7 +385,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2018-06-12 19:06:54 </i>
+<i style="float:right;">Last updated 2018-06-13 18:37:04 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
