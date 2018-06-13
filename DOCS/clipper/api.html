@@ -35,12 +35,12 @@
 </ul>
 <h2>Classes</h2>
 <ul class="nowrap">
+  <li><a href="classes/Clipper.html">Clipper</a></li>
   <li><a href="classes/Offset.html">Offset</a></li>
   <li><a href="classes/Path.html">Path</a></li>
   <li><a href="classes/Paths.html">Paths</a></li>
   <li><a href="classes/PolyNode.html">PolyNode</a></li>
   <li><a href="classes/PolyTree.html">PolyTree</a></li>
-  <li><a href="classes/Clipper.html">Clipper</a></li>
 </ul>
 
 </div>
@@ -63,7 +63,20 @@ and line &amp; polygon offsetting. The library is based on <a href="http://en.wi
 
 <p>This plugin is designed to be called safely from other <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/luaproc/api.html">Lua processes</a>.</p>
 
-<p><strong>From the Clipper home page:</strong></p>
+<p><strong>Adapted from the Clipper home page:</strong></p>
+
+<p>The <a href="http://www.angusj.com/delphi/clipper/documentation/Docs/_Body.htm">Clipper Library</a> performs <a href="modules/core.html#ClipType">clipping</a>, and <a href="classes/Offset.html#">offsetting</a> of both lines and polygons.</p>
+
+<p>A number of features set Clipper apart from other clipping libraries:</p>
+
+<ul>
+    <li>it accepts all types of polygons including self-intersecting ones</li>
+    <li>it supports multiple polygon filling rules (EvenOdd, NonZero, Positive, Negative)</li>
+    <li>it's very fast relative to <a href="http://www.angusj.com/delphi/clipper.php#features">other libraries</a></li>
+    <li>it's <a href="http://www.mpi-inf.mpg.de/~kettner/pub/nonrobust_cgta_06.pdf">numerically robust</a></li>
+    <li>it also performs line and polygon offsetting</li>
+    <li>it's free to use in both freeware and commercial applications</li>
+</ul>
 
 <p><strong>Version: 6.1.3</strong></p>
 
@@ -72,6 +85,26 @@ and line &amp; polygon offsetting. The library is based on <a href="http://en.wi
 <p>Freeware for both open source and commercial applications (<a href="http://www.boost.org/LICENSE_1_0.txt">Boost Software License</a>).</p>
 
 <p>Copyright © 2010-2014 Angus Johnson</p>
+
+<p><a name="terminology"><strong>Terminology</strong></a>:</p>
+
+<ul>
+    <li><strong>Clipping</strong>: commonly refers to the process of cutting away from a set of 2-dimensional geometric shapes those parts that are outside a rectangular '<em>clipping</em>'  window. This can be achieved by <em>intersecting</em> subject paths (lines and polygons) with a clipping rectangle. In a more general sense, the clipping window need not be rectangular but can be any type of polygon, even multiple polygons. Also, while clipping typically refers to an <em>intersection</em> operation, in this documentation it will refer to any one of the <a href="modules/core.html#ClipType">four boolean operations</a> (intersection, union, difference and exclusive-or).</li>
+    <li><strong>Path</strong>: is an ordered sequence of vertices defining a single geometric contour that's either a line (an open path) or a polygon (a closed path).</li>
+    <li><strong>Line</strong>: or polyline is an open path containing 2 or more vertices.</li>
+    <li><strong>Polygon</strong>: commonly refers to a two-dimensional region bounded by an outer non-intersecting closed contour. That region may also contain a number of 'holes'. In this documentation however, polygon will simply refer to a <em>closed</em> path.</li>
+    <li><strong>Contour</strong>: synonymous with path.</li>
+    <li><strong>Hole</strong>: is a closed region within a polygon that's not part of the polygon. A 'hole polygon' is a closed path that forms the outer boundaries of a hole.</li>
+    <li><strong>Polygon Filling Rule</strong>: the <a href="modules/core.html#PolyFillType">filling rule</a>, together with a list of closed paths, defines those regions (bounded by paths) that are <em>inside</em> (ie regions 'brush filled' in a graphical display) and those which are outside (ie 'holes').</li>
+</ul>
+
+<p><strong>References</strong>:</p>
+
+<p>The Library is based on but significantly extends Bala Vatti's polygon clipping algorithm as described in <a href="http://portal.acm.org/citation.cfm?id=129906">"A generic solution to polygon clipping"</a>, Communications of the ACM, Vol 35, Issue 7 (July 1992) pp 56-63.</p>
+
+<p>A section in <a href="http://books.google.com/books?q=vatti+clipping+agoston">"Computer graphics and geometric modeling: implementation and algorithms"</a> by By Max K. Agoston (Springer, 2005) discussing <em>Vatti Polygon Clipping</em> was also helpful in creating the initial Clipper implementation.</p>
+
+<p>The paper titled <a href="http://www.me.berkeley.edu/~mcmains/pubs/DAC05OffsetPolygon.pdf">"Polygon Offsetting by Computing Winding Numbers"</a> by Chen &amp; McMains (Paper no. DETC2005-85513, ASME 2005. Pages 565-575) contains helpful discussion on the complexities of polygon offsetting together with some solutions.  </p>
 
 <h2>Modules</h2>
 <table class="module_list">
@@ -83,6 +116,11 @@ and line &amp; polygon offsetting. The library is based on <a href="http://en.wi
 <h2>Classes</h2>
 <table class="module_list">
 	<tr>
+		<td class="name"  nowrap><a href="classes/Clipper.html">Clipper</a></td>
+		<td class="summary"><a href="http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Classes/Clipper/_Body.htm">An encapsulation</a>
+ of various boolean operations on polygons.</td>
+	</tr>
+	<tr>
 		<td class="name"  nowrap><a href="classes/Offset.html">Offset</a></td>
 		<td class="summary"><a href="http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Classes/ClipperOffset/_Body.htm">An encapsulation</a>
  of the process of offsetting (inflating/deflating) both open and closed paths using a number of different join types and end types.</td>
@@ -90,26 +128,22 @@ and line &amp; polygon offsetting. The library is based on <a href="http://en.wi
 	<tr>
 		<td class="name"  nowrap><a href="classes/Path.html">Path</a></td>
 		<td class="summary"><a href="http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Types/Path.htm">A sequence</a> of
- integer-valued points representing a single contour.</td>
+ integer-valued points representing a single contour (see also <a href="../api.html#terminology">terminology</a>).</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="classes/Paths.html">Paths</a></td>
-		<td class="summary">A grouping of multiple <a href="classes/Path.html#">Path</a>s.</td>
+		<td class="summary"><a href="http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Types/Paths.htm">This structure</a> is fundamental to the Clipper Library.</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="classes/PolyNode.html">PolyNode</a></td>
-		<td class="summary">Class used to represent a <a href="http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Classes/PolyNode/_Body.htm">poly node</a>,
- representing a single polygon contained in a <a href="classes/PolyTree.html#">PolyTree</a>.</td>
+		<td class="summary"><a href="http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Classes/PolyNode/_Body.htm">PolyNode</a>s are encapsulated
+ within a <a href="classes/PolyTree.html#">PolyTree</a> container, and together provide a data structure representing the parent-child relationships of polygon contours
+ returned by the <a href="classes/Clipper.html#Clipper:Execute">Clipper:Execute</a> method.</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="classes/PolyTree.html">PolyTree</a></td>
-		<td class="summary">Class used to represent <a href="http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Classes/PolyTree/_Body.htm">poly trees</a>,
- used as a means of receiving solutions.</td>
-	</tr>
-	<tr>
-		<td class="name"  nowrap><a href="classes/Clipper.html">Clipper</a></td>
-		<td class="summary"><a href="http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Classes/Clipper/_Body.htm">An encapsulation</a>
- of various boolean operations on polygons.</td>
+		<td class="summary"><a href="http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Classes/PolyTree/_Body.htm">PolyTree</a> is intended as a
+ <strong>read-only</strong> data structure that should only be used to receive <em>solutions</em> from clipping and offsetting operations.</td>
 	</tr>
 </table>
 
@@ -117,7 +151,7 @@ and line &amp; polygon offsetting. The library is based on <a href="http://en.wi
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2018-06-07 19:19:37 </i>
+<i style="float:right;">Last updated 2018-06-12 19:06:54 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

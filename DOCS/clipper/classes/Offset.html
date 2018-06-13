@@ -30,21 +30,28 @@
   <li><a href="../api.html">Index</a></li>
 </ul>
 
-<h2>Contents</h2>
-<ul>
-<li><a href="#Tables">Tables</a></li>
-<li><a href="#Methods">Methods</a></li>
+
+
+<h2>Methods</h2>
+<ul class="nowrap">
+    <li><a href="#Offset:AddPath">Offset:AddPath (P, join_type, end_type)</a></li>
+    <li><a href="#Offset:AddPaths">Offset:AddPaths (P, join_type, end_type)</a></li>
+    <li><a href="#Offset:Clear">Offset:Clear ()</a></li>
+    <li><a href="#Offset:Execute">Offset:Execute (solution, delta)</a></li>
+    <li><a href="#Offset:Execute">Offset:Execute (delta)</a></li>
+    <li><a href="#Offset:GetArcTolerance">Offset:GetArcTolerance ()</a></li>
+    <li><a href="#Offset:GetMiterLimit">Offset:GetMiterLimit ()</a></li>
+    <li><a href="#Offset:SetArcTolerance">Offset:SetArcTolerance (AT)</a></li>
+    <li><a href="#Offset:SetMiterLimit">Offset:SetMiterLimit (ML)</a></li>
 </ul>
-
-
 <h2>Classes</h2>
 <ul class="nowrap">
+  <li><a href="../classes/Clipper.html">Clipper</a></li>
   <li><strong>Offset</strong></li>
   <li><a href="../classes/Path.html">Path</a></li>
   <li><a href="../classes/Paths.html">Paths</a></li>
   <li><a href="../classes/PolyNode.html">PolyNode</a></li>
   <li><a href="../classes/PolyTree.html">PolyTree</a></li>
-  <li><a href="../classes/Clipper.html">Clipper</a></li>
 </ul>
 <h2>Modules</h2>
 <ul class="nowrap">
@@ -58,140 +65,28 @@
 <h1>Class <code>Offset</code></h1>
 <p><a href="http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Classes/ClipperOffset/_Body.htm">An encapsulation</a>
  of the process of offsetting (inflating/deflating) both open and closed paths using a number of different join types and end types.</p>
-<p>
+<p> (Follow the first link for a nice visual example.)</p>
 
-</p>
+<p> <strong>Preconditions for offsetting</strong>:</p>
 
+<ol>
+    <li>The orientations of closed paths must be consistent such that outer polygons share the same orientation, and any holes have the
+    opposite orientation (i.e. non-zero filling). Open paths must be oriented with closed outer polygons.</li>
+    <li>Polygons must not self-intersect. </li>
+</ol>
 
-<h2><a href="#Tables">Tables</a></h2>
-<table class="function_list">
-	<tr>
-	<td class="name" nowrap><a href="#Offset.JoinType">Offset.JoinType</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Offset.EndType">Offset.EndType</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-</table>
-<h2><a href="#Methods">Methods</a></h2>
-<table class="function_list">
-	<tr>
-	<td class="name" nowrap><a href="#Offset:AddPath">Offset:AddPath (P, jt, et)</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Offset:AddPaths">Offset:AddPaths (P, jt, et)</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Offset:Clear">Offset:Clear ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Offset:Execute">Offset:Execute (delta)</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Offset:Execute">Offset:Execute (solution, delta)</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Offset:GetArcTolerance">Offset:GetArcTolerance ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Offset:GetMiterLimit">Offset:GetMiterLimit ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Offset:SetArcTolerance">Offset:SetArcTolerance (AT)</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Offset:SetMiterLimit">Offset:SetMiterLimit (ML)</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-</table>
+<p> <strong>Limitations</strong>:</p>
 
-<br/>
-<br/>
-
-
-    <h2 class="section-header "><a name="Tables"></a>Tables</h2>
-
-    <dl class="function">
-    <dt>
-    <a name = "Offset.JoinType"></a>
-    <strong>Offset.JoinType</strong>
-    </dt>
-    <dd>
-    DOCME
-
-
-    <h3>Fields:</h3>
-    <ul>
-        <li><span class="parameter">Square</span>
+<p> When offsetting, small artefacts may appear where polygons overlap. To avoid these artefacts, offset overlapping polygons separately.</p>
 
 
 
-        </li>
-        <li><span class="parameter">Round</span>
-
-
-
-        </li>
-        <li><span class="parameter">Miter</span>
-
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Offset.EndType"></a>
-    <strong>Offset.EndType</strong>
-    </dt>
-    <dd>
-    DOCME  Examples: http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Types/EndType.htm
-
-
-    <h3>Fields:</h3>
-    <ul>
-        <li><span class="parameter">ClosedPolygon</span>
-         Ends are joined using the JoinType value and the path filled as a polygon.
-        </li>
-        <li><span class="parameter">ClosedLine</span>
-         Ends are joined using the JoinType value and the path filled as a polyline.
-        </li>
-        <li><span class="parameter">OpenButt</span>
-         Ends are squared off with no extension.
-        </li>
-        <li><span class="parameter">OpenSquare</span>
-         Ends are <em>squared</em> off and extended <strong>delta</strong> units.
-        </li>
-        <li><span class="parameter">OpenRound</span>
-         Ends are <em>rounded</em> off and extended <strong>delta</strong> units.
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-</dl>
     <h2 class="section-header "><a name="Methods"></a>Methods</h2>
 
     <dl class="function">
     <dt>
     <a name = "Offset:AddPath"></a>
-    <strong>Offset:AddPath (P, jt, et)</strong>
+    <strong>Offset:AddPath (P, join_type, end_type)</strong>
     </dt>
     <dd>
     DOCME
@@ -205,17 +100,23 @@
 
 
         </li>
-        <li><span class="parameter">jt</span>
-            <span class="types"><a class="type" href="../classes/Offset.html#Offset.JoinType">JoinType</a></span>
-
-
-
+        <li><span class="parameter">join_type</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         One of <strong>"Square"</strong>, <strong>"Round"</strong>, or<strong>"Miter"</strong>.
         </li>
-        <li><span class="parameter">et</span>
-            <span class="types"><a class="type" href="../classes/Offset.html#Offset.EndType">EndType</a></span>
+        <li><span class="parameter">end_type</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         One of:</p>
 
+<ul>
+    <li><strong>"ClosedPolygon"</strong>: Ends are joined according to <em>join_type</em> and the path filled as a polygon.</li>
+    <li><strong>"ClosedLine"</strong>: Ends are joined according to <em>join_type</em> and the path filled as a polyline.</li>
+    <li><strong>"OpenButt"</strong>: Ends are squared off with no extension.</li>
+    <li><strong>"OpenSquare"</strong>: Ends are <em>squared</em> off and extended <strong>delta</strong> units.</li>
+    <li><strong>"OpenRound"</strong>: Ends are <em>rounded</em> off and extended <strong>delta</strong> units.</li>
+</ul>
 
-
+<p> Examples: http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Types/EndType.htm
         </li>
     </ul>
 
@@ -226,7 +127,7 @@
 </dd>
     <dt>
     <a name = "Offset:AddPaths"></a>
-    <strong>Offset:AddPaths (P, jt, et)</strong>
+    <strong>Offset:AddPaths (P, join_type, end_type)</strong>
     </dt>
     <dd>
     DOCME
@@ -240,17 +141,13 @@
 
 
         </li>
-        <li><span class="parameter">jt</span>
-            <span class="types"><a class="type" href="../classes/Offset.html#Offset.JoinType">JoinType</a></span>
-
-
-
+        <li><span class="parameter">join_type</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         As per <a href="../classes/Offset.html#Offset:AddPath">Offset:AddPath</a>.
         </li>
-        <li><span class="parameter">et</span>
-            <span class="types"><a class="type" href="../classes/Offset.html#Offset.EndType">EndType</a></span>
-
-
-
+        <li><span class="parameter">end_type</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         As per <a href="../classes/Offset.html#Offset:AddPath">Offset:AddPath</a>.
         </li>
     </ul>
 
@@ -264,39 +161,10 @@
     <strong>Offset:Clear ()</strong>
     </dt>
     <dd>
-    DOCME
+    This method clears all paths from the <strong>Offset</strong> object, allowing new paths to be assigned.
 
 
 
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Offset:Execute"></a>
-    <strong>Offset:Execute (delta)</strong>
-    </dt>
-    <dd>
-    DOCME
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">delta</span>
-            <span class="types"><span class="type">number</span></span>
-
-
-
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><a class="type" href="../classes/Paths.html#">Paths</a></span>
-        P
-    </ol>
 
 
 
@@ -307,22 +175,21 @@
     <strong>Offset:Execute (solution, delta)</strong>
     </dt>
     <dd>
-    DOCME
+    Apply the offset operation to the currently added paths. </p>
+
+<p> This method can be called multiple times, offsetting the same paths by different amounts (i.e. using different deltas).
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">solution</span>
             <span class="types"><a class="type" href="../classes/PolyTree.html#">PolyTree</a> or <a class="type" href="../classes/Paths.html#">Paths</a></span>
-
-
-
+         Structure that will receive the result of the operation.
         </li>
         <li><span class="parameter">delta</span>
             <span class="types"><span class="type">number</span></span>
-
-
-
+         Amount to which the supplied paths will be offset &mdash; negative delta values to
+ shrink polygons and positive delta to expand them.
         </li>
     </ul>
 
@@ -331,6 +198,33 @@
 
            <span class="types"><a class="type" href="../classes/PolyTree.html#">PolyTree</a> or <a class="type" href="../classes/Paths.html#">Paths</a></span>
         <em>solution</em>.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Offset:Execute"></a>
+    <strong>Offset:Execute (delta)</strong>
+    </dt>
+    <dd>
+    Alternative signature of <strong>Execute</strong>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">delta</span>
+            <span class="types"><span class="type">number</span></span>
+         As before.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/Paths.html#">Paths</a></span>
+        Result of the operation, via a new object.
     </ol>
 
 
@@ -430,7 +324,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2018-06-07 19:19:37 </i>
+<i style="float:right;">Last updated 2018-06-12 19:06:54 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

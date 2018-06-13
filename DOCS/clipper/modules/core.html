@@ -30,25 +30,50 @@
   <li><a href="../api.html">Index</a></li>
 </ul>
 
-<h2>Contents</h2>
-<ul>
-<li><a href="#Functions">Functions</a></li>
-<li><a href="#Tables">Tables</a></li>
+
+
+<h2>Functions</h2>
+<ul class="nowrap">
+    <li><a href="#Area">Area (Polygon.)</a></li>
+    <li><a href="#CleanPolygon">CleanPolygon (P[, opts])</a></li>
+    <li><a href="#CleanPolygons">CleanPolygons (P[, opts])</a></li>
+    <li><a href="#ClosedPathsFromPolyTree">ClosedPathsFromPolyTree (PT[, opts])</a></li>
+    <li><a href="#MinkowskiDiff">MinkowskiDiff (p1, p2[, opts])</a></li>
+    <li><a href="#MinkowskiSum">MinkowskiSum (P, P12[, opts])</a></li>
+    <li><a href="#NewClipper">NewClipper ([init_opts])</a></li>
+    <li><a href="#NewOffset">NewOffset ([opts])</a></li>
+    <li><a href="#NewPath">NewPath ()</a></li>
+    <li><a href="#NewPathArray">NewPathArray ()</a></li>
+    <li><a href="#NewPolyNode">NewPolyNode ()</a></li>
+    <li><a href="#NewPolyTree">NewPolyTree ()</a></li>
+    <li><a href="#OpenPathsFromPolyTree">OpenPathsFromPolyTree ([opts])</a></li>
+    <li><a href="#Orientation">Orientation (P)</a></li>
+    <li><a href="#PointInPolygon">PointInPolygon (x, y, P)</a></li>
+    <li><a href="#PolyTreeToPaths">PolyTreeToPaths (PT[, opts])</a></li>
+    <li><a href="#ReversePath">ReversePath (P)</a></li>
+    <li><a href="#ReversePaths">ReversePaths (P)</a></li>
+    <li><a href="#SimplifyPolygon">SimplifyPolygon (P[, opts])</a></li>
+    <li><a href="#SimplifyPolygons">SimplifyPolygons (P[, opts])</a></li>
 </ul>
-
-
+<h2>Tables</h2>
+<ul class="nowrap">
+    <li><a href="#ClipType">ClipType</a></li>
+    <li><a href="#PolyFillType">PolyFillType</a></li>
+    <li><a href="#InitOptions">InitOptions</a></li>
+    <li><a href="#EndOfSequenceMarkers">EndOfSequenceMarkers</a></li>
+</ul>
 <h2>Modules</h2>
 <ul class="nowrap">
   <li><strong>core</strong></li>
 </ul>
 <h2>Classes</h2>
 <ul class="nowrap">
+  <li><a href="../classes/Clipper.html">Clipper</a></li>
   <li><a href="../classes/Offset.html">Offset</a></li>
   <li><a href="../classes/Path.html">Path</a></li>
   <li><a href="../classes/Paths.html">Paths</a></li>
   <li><a href="../classes/PolyNode.html">PolyNode</a></li>
   <li><a href="../classes/PolyTree.html">PolyTree</a></li>
-  <li><a href="../classes/Clipper.html">Clipper</a></li>
 </ul>
 
 </div>
@@ -61,114 +86,6 @@
 
 </p>
 
-
-<h2><a href="#Functions">Functions</a></h2>
-<table class="function_list">
-	<tr>
-	<td class="name" nowrap><a href="#Area">Area (Polygon.)</a></td>
-	<td class="summary">This function returns the area of the supplied polygon.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#CleanPolygon">CleanPolygon (P[, opts])</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#CleanPolygons">CleanPolygons (P[, opts])</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#ClosedPathsFromPolyTree">ClosedPathsFromPolyTree (PT[, opts])</a></td>
-	<td class="summary">This function filters out <em>open</em> paths from the <strong>PolyTree</strong> structure and returns only <em>closed</em> paths.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#MinkowskiDiff">MinkowskiDiff (p1, p2[, opts])</a></td>
-	<td class="summary"><strong>Minkowski Difference</strong> is performed by subtracting each point in a polygon from the set of points in an
- open or closed path.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#MinkowskiSum">MinkowskiSum (P, P12[, opts])</a></td>
-	<td class="summary"><strong>Minkowski Addition</strong> is performed by adding each point in a polygon 'pattern' to the set of points in an open
- or closed path.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#NewClipper">NewClipper ([init_opts])</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#NewOffset">NewOffset ([opts])</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#NewPath">NewPath ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#NewPathArray">NewPathArray ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#NewPolyNode">NewPolyNode ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#NewPolyTree">NewPolyTree ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#OpenPathsFromPolyTree">OpenPathsFromPolyTree ([opts])</a></td>
-	<td class="summary">This function filters out <em>closed</em> paths from the <strong>PolyTree</strong> structure and returns only <em>open</em> paths.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Orientation">Orientation (P)</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#PointInPolygon">PointInPolygon (x, y, P)</a></td>
-	<td class="summary">DOCME Returns 0 if false, -1 if pt is on poly and +1 if pt is in poly.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#PolyTreeToPaths">PolyTreeToPaths (PT[, opts])</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#ReversePath">ReversePath (P)</a></td>
-	<td class="summary">Reverses the vertex order (and hence orientation) in the specified path.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#ReversePaths">ReversePaths (P)</a></td>
-	<td class="summary">Reverses the vertex order (and hence orientation) in each contained path.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SimplifyPolygon">SimplifyPolygon (P[, opts])</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SimplifyPolygons">SimplifyPolygons (P[, opts])</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-</table>
-<h2><a href="#Tables">Tables</a></h2>
-<table class="function_list">
-	<tr>
-	<td class="name" nowrap><a href="#ClipType">ClipType</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#PolyType">PolyType</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#PolyFillType">PolyFillType</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#InitOptions">InitOptions</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-</table>
-
-<br/>
-<br/>
 
 
     <h2 class="section-header "><a name="Functions"></a>Functions</h2>
@@ -439,7 +356,7 @@
     <strong>NewPath ()</strong>
     </dt>
     <dd>
-    DOCME
+    Create an empty <a href="../classes/Path.html#">Path</a>.
 
 
 
@@ -459,7 +376,7 @@
     <strong>NewPathArray ()</strong>
     </dt>
     <dd>
-    DOCME
+    Create an empty <a href="../classes/Paths.html#">Paths</a>.
 
 
 
@@ -479,7 +396,7 @@
     <strong>NewPolyNode ()</strong>
     </dt>
     <dd>
-    DOCME
+    Create an empty <a href="../classes/PolyNode.html#">PolyNode</a>.
 
 
 
@@ -499,7 +416,7 @@
     <strong>NewPolyTree ()</strong>
     </dt>
     <dd>
-    DOCME
+    Create an empty <a href="../classes/PolyTree.html#">PolyTree</a>.
 
 
 
@@ -547,7 +464,35 @@
     <strong>Orientation (P)</strong>
     </dt>
     <dd>
-    DOCME  Example: http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Functions/Orientation.htm
+
+<p><a href="http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Functions/Orientation.htm">Orientation</a> is
+ only important to closed paths.  Given that vertices are declared in a specific order, orientation refers to the
+ direction (clockwise or counter-clockwise) that these vertices progress around a closed path.</p>
+
+<p> Orientation is also dependent on axis direction:</p>
+
+<ul>
+    <li>On Y-axis positive upward displays, Orientation will return true if the polygon's orientation is counter-clockwise.</li>
+    <li>On Y-axis positive downward displays, Orientation will return true if the polygon's orientation is clockwise.</li>
+</ul>
+
+<p> (Follow the link for a nice visual example.)</p>
+
+<p> <strong>Notes</strong>:</p>
+
+<ul>
+    <li>Self-intersecting polygons have indeterminate orientations in which case this function won't return a meaningful value.</li>
+    <li>The majority of 2D graphic display libraries (e.g. GDI, GDI+, XLib, Cairo, AGG, Graphics32) and even the SVG file format
+    have their coordinate origins at the top-left corner of their respective viewports <em>with their Y axes increasing downward</em>.
+    However, some display libraries (eg Quartz, OpenGL) have their coordinate origins undefined or in the classic bottom-left
+    position with their Y axes increasing upward.</li>
+    <li>For Non-Zero filled polygons, the orientation of <a href="../api.html#terminology">holes</a> <em>must be opposite</em> that of
+    <a href="../api.html#terminology">outer</a> polygons.</li>
+    <li>For closed paths (polygons) in the <em>solution</em> returned by Clipper's <strong>Execute</strong> method, their orientations will always be
+    <strong>true</strong> for outer polygons and <strong>false</strong> for hole polygons (unless the <a href="../classes/Clipper.html#Clipper:GetReverseSolution">ReverseSolution</a>
+    property has been enabled).</li>
+</ul>
+
 
 
     <h3>Parameters:</h3>
@@ -564,7 +509,7 @@
     <ol>
 
            <span class="types"><span class="type">boolean</span></span>
-        O
+        B
     </ol>
 
 
@@ -583,15 +528,11 @@
     <ul>
         <li><span class="parameter">x</span>
             <span class="types"><span class="type">int</span></span>
-
-
-
+         Point x-coordinate... (See notes in <a href="../classes/Path.html#Path:AddPoint">Path:AddPoint</a>.)
         </li>
         <li><span class="parameter">y</span>
             <span class="types"><span class="type">int</span></span>
-
-
-
+         ...and y.
         </li>
         <li><span class="parameter">P</span>
             <span class="types"><a class="type" href="../classes/Path.html#">Path</a></span>
@@ -650,7 +591,7 @@
     <strong>ReversePath (P)</strong>
     </dt>
     <dd>
-    Reverses the vertex order (and hence orientation) in the specified path.
+    Reverses the vertex order (and hence <a href="../modules/core.html#Orientation">orientation</a>) in the specified path.
 
 
     <h3>Parameters:</h3>
@@ -673,7 +614,7 @@
     <strong>ReversePaths (P)</strong>
     </dt>
     <dd>
-    Reverses the vertex order (and hence orientation) in each contained path.
+    Reverses the vertex order (and hence <a href="../modules/core.html#Orientation">orientation</a>) in each contained path.
 
 
     <h3>Parameters:</h3>
@@ -781,38 +722,12 @@
 
 </dd>
     <dt>
-    <a name = "PolyType"></a>
-    <strong>PolyType</strong>
-    </dt>
-    <dd>
-    DOCME
-
-
-    <h3>Fields:</h3>
-    <ul>
-        <li><span class="parameter">Subject</span>
-
-
-
-        </li>
-        <li><span class="parameter">Clip</span>
-
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
     <a name = "PolyFillType"></a>
     <strong>PolyFillType</strong>
     </dt>
     <dd>
-    DOCME  Example: http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Types/PolyFillType.htm
+    DOCME
+ Example: http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Types/PolyFillType.htm
 
 
     <h3>Fields:</h3>
@@ -868,6 +783,40 @@
 
 
 </dd>
+    <dt>
+    <a name = "EndOfSequenceMarkers"></a>
+    <strong>EndOfSequenceMarkers</strong>
+    </dt>
+    <dd>
+    A concatenation sequence such as <code>local path = point1 ..  point2 .. point3 .. clipper.ToPath</code> will produce a <a href="../classes/Path.html#">Path</a>.</p>
+
+<p> Lua's concatenation operator has right-to-left associativity, so the idiom requires placing one of the following values
+ at the end to kick off the process.
+
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">ToPath</span>
+         A point may be a two-element array of <strong>int</strong>s, i.e. <code>{x, y}</code>. (See notes in <a href="../classes/Path.html#Path:AddPoint">Path:AddPoint</a>.)</p>
+
+<p> Points in <strong>Bytes</strong> form, on the other hand, are interpreted as a contiguous pair of 32-bit signed integers.
+        </li>
+        <li><span class="parameter">ToPath8</span>
+         Like <strong>ToPath</strong>, but byte stream elements are 8-bit... (1 byte per component.)
+        </li>
+        <li><span class="parameter">ToPath16</span>
+         ...or 16-bit... (2 bytes per component.)
+        </li>
+        <li><span class="parameter">ToPath64</span>
+         ...or 64-bit. (8 bytes per component.)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
 </dl>
 
 
@@ -875,7 +824,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2018-06-07 19:19:37 </i>
+<i style="float:right;">Last updated 2018-06-12 19:06:54 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

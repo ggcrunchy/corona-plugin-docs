@@ -30,20 +30,31 @@
   <li><a href="../api.html">Index</a></li>
 </ul>
 
-<h2>Contents</h2>
-<ul>
-<li><a href="#Methods">Methods</a></li>
+
+
+<h2>Methods</h2>
+<ul class="nowrap">
+    <li><a href="#Clipper:AddPath">Clipper:AddPath (path, poly_type)</a></li>
+    <li><a href="#Clipper:AddPaths">Clipper:AddPaths (paths, As)</a></li>
+    <li><a href="#Clipper:Clear">Clipper:Clear ()</a></li>
+    <li><a href="#Clipper:Execute">Clipper:Execute (ct[, opts])</a></li>
+    <li><a href="#Clipper:Execute">Clipper:Execute (ct, subject, clip[, opts])</a></li>
+    <li><a href="#Clipper:GetBounds">Clipper:GetBounds ([X])</a></li>
+    <li><a href="#Clipper:GetPreserveCollinear">Clipper:GetPreserveCollinear ()</a></li>
+    <li><a href="#Clipper:GetReverseSolution">Clipper:GetReverseSolution ()</a></li>
+    <li><a href="#Clipper:GetStrictlySimple">Clipper:GetStrictlySimple ()</a></li>
+    <li><a href="#Clipper:SetPreserveCollinear">Clipper:SetPreserveCollinear (PC)</a></li>
+    <li><a href="#Clipper:SetReverseSolution">Clipper:SetReverseSolution (RS)</a></li>
+    <li><a href="#Clipper:SetStrictlySimple">Clipper:SetStrictlySimple (SS)</a></li>
 </ul>
-
-
 <h2>Classes</h2>
 <ul class="nowrap">
+  <li><strong>Clipper</strong></li>
   <li><a href="../classes/Offset.html">Offset</a></li>
   <li><a href="../classes/Path.html">Path</a></li>
   <li><a href="../classes/Paths.html">Paths</a></li>
   <li><a href="../classes/PolyNode.html">PolyNode</a></li>
   <li><a href="../classes/PolyTree.html">PolyTree</a></li>
-  <li><strong>Clipper</strong></li>
 </ul>
 <h2>Modules</h2>
 <ul class="nowrap">
@@ -57,65 +68,10 @@
 <h1>Class <code>Clipper</code></h1>
 <p><a href="http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Classes/Clipper/_Body.htm">An encapsulation</a>
  of various boolean operations on polygons.</p>
-<p>
+<p> Input polygons, both <em>subject</em> and <em>clip</em> sets, are passed to a <strong>Clipper</strong> object by its <a href="../classes/Clipper.html#Clipper:AddPath">AddPath</a> and
+ <a href="../classes/Clipper.html#Clipper:AddPaths">AddPaths</a> methods, and the clipping operation is performed by calling its <a href="../classes/Clipper.html#Clipper:Execute">Execute</a>
+ method. Multiple boolean operations can be performed on the same input polygon sets by repeat calls to <strong>Execute</strong>.</p>
 
-</p>
-
-
-<h2><a href="#Methods">Methods</a></h2>
-<table class="function_list">
-	<tr>
-	<td class="name" nowrap><a href="#Clipper:AddPath">Clipper:AddPath (P, PT, is_closed)</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Clipper:AddPaths">Clipper:AddPaths (P, PT, is_closed)</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Clipper:Clear">Clipper:Clear ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Clipper:Execute">Clipper:Execute (ct[, opts])</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Clipper:Execute">Clipper:Execute (ct, subject, clip[, opts])</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Clipper:GetBounds">Clipper:GetBounds ([X])</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Clipper:GetPreserveCollinear">Clipper:GetPreserveCollinear ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Clipper:GetReverseSolution">Clipper:GetReverseSolution ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Clipper:GetStrictlySimple">Clipper:GetStrictlySimple ()</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Clipper:SetPreserveCollinear">Clipper:SetPreserveCollinear (PC)</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Clipper:SetReverseSolution">Clipper:SetReverseSolution (RS)</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Clipper:SetStrictlySimple">Clipper:SetStrictlySimple (SS)</a></td>
-	<td class="summary">DOCME</td>
-	</tr>
-</table>
-
-<br/>
-<br/>
 
 
     <h2 class="section-header "><a name="Methods"></a>Methods</h2>
@@ -123,34 +79,57 @@
     <dl class="function">
     <dt>
     <a name = "Clipper:AddPath"></a>
-    <strong>Clipper:AddPath (P, PT, is_closed)</strong>
+    <strong>Clipper:AddPath (path, poly_type)</strong>
     </dt>
     <dd>
-    DOCME
+    Any number of subject and clip paths can be added to a clipping task, either individually via this method, as groups via <a href="../classes/Clipper.html#Clipper:AddPaths">AddPaths</a>,
+ or even using both methods. </p>
+
+<p> 'Subject' paths may be either <em>open</em> (lines) or <em>closed</em> (polygons) or even a mixture of both, but <strong>'clipping' paths must always be <em>closed</em></strong>.
+ Clipper allows polygons to clip both lines and other polygons, but doesn't allow lines to clip either lines or polygons.</p>
+
+<p> With closed paths, <a href="../modules/core.html#Orientation">orientation</a> should conform with the <a href="../modules/core.html#PolyFillType">filling rule</a> that will be passed via <a href="../classes/Clipper.html#Clipper:Execute">Clipper:Execute</a>.</p>
+
+<p> <strong>Path Coordinate range</strong>:</p>
+
+<p> Path coordinates must be between ±4.6e+18 (<code>2^62</code>), otherwise a range error will be thrown when attempting to add the path to the Clipper object. If
+ coordinates can be kept between ±1.0e+9, large integer math can be avoided, for a modest increase in performance (approx. 15-20%) over the larger range
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">P</span>
+        <li><span class="parameter">path</span>
             <span class="types"><a class="type" href="../classes/Path.html#">Path</a></span>
 
 
 
         </li>
-        <li><span class="parameter">PT</span>
-            <span class="types"><span class="type">PolyType</span></span>
+        <li><span class="parameter">poly_type</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         One of <strong>"Subject"</strong>, <strong>"SubjectClosed"</strong>, or <strong>"Clip"</strong>.</p>
 
+<p> Boolean (clipping) operations are mostly applied to two sets of Polygons, represented in this library as <em>subject</em> and <em>clip</em> polygons. Whenever
+ polygons are added to the Clipper object, they must be assigned to either subject or clip polygons.</p>
 
-
-        </li>
-        <li><span class="parameter">is_closed</span>
-            <span class="types"><span class="type">bool</span></span>
-
-
-
+<p> UNION operations can be performed on one set or both sets of polygons, but all other boolean operations require both sets of polygons to derive
+ meaningful solutions.
         </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+
+<p> Was the path valid? A path is invalid for clipping when:</p>
+
+<ul>
+    <li>it has less than 2 vertices</li>
+    <li>it has 2 vertices but is not an open path</li>
+    <li>the vertices are all co-linear and it is not an open path</li>
+</ul>
+
+    </ol>
 
 
 
@@ -158,34 +137,32 @@
 </dd>
     <dt>
     <a name = "Clipper:AddPaths"></a>
-    <strong>Clipper:AddPaths (P, PT, is_closed)</strong>
+    <strong>Clipper:AddPaths (paths, As)</strong>
     </dt>
     <dd>
-    DOCME
+    Like <a href="../classes/Clipper.html#Clipper:AddPath">Clipper:AddPath</a>, but allows adding paths as a group.
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">P</span>
+        <li><span class="parameter">paths</span>
             <span class="types"><a class="type" href="../classes/Paths.html#">Paths</a></span>
 
 
 
         </li>
-        <li><span class="parameter">PT</span>
-            <span class="types"><span class="type">PolyType</span></span>
-
-
-
-        </li>
-        <li><span class="parameter">is_closed</span>
-            <span class="types"><span class="type">bool</span></span>
-
-
-
+        <li><span class="parameter">As</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         per <a href="../classes/Clipper.html#Clipper:AddPath">Clipper:AddPath</a>.
         </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        As per <a href="../classes/Clipper.html#Clipper:AddPath">Clipper:AddPath</a>.
+    </ol>
 
 
 
@@ -196,7 +173,7 @@
     <strong>Clipper:Clear ()</strong>
     </dt>
     <dd>
-    DOCME
+    Removes any existing subject and clip polygons allowing the Clipper object to be reused for clipping operations on <em>different</em> polygon sets.
 
 
 
@@ -451,7 +428,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2018-06-07 19:19:37 </i>
+<i style="float:right;">Last updated 2018-06-12 19:06:54 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
