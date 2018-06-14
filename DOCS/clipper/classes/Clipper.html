@@ -32,17 +32,13 @@
 
 
 
-<h2>Tables</h2>
-<ul class="nowrap">
-    <li><a href="#Clipper.ClipType">Clipper.ClipType</a></li>
-</ul>
 <h2>Methods</h2>
 <ul class="nowrap">
     <li><a href="#Clipper:AddPath">Clipper:AddPath (path, poly_type)</a></li>
-    <li><a href="#Clipper:AddPaths">Clipper:AddPaths (paths, As)</a></li>
+    <li><a href="#Clipper:AddPaths">Clipper:AddPaths (paths, poly_type)</a></li>
     <li><a href="#Clipper:Clear">Clipper:Clear ()</a></li>
-    <li><a href="#Clipper:Execute">Clipper:Execute (ct[, opts])</a></li>
-    <li><a href="#Clipper:Execute">Clipper:Execute (ct, subject, clip[, opts])</a></li>
+    <li><a href="#Clipper:Execute">Clipper:Execute (clip_type[, opts])</a></li>
+    <li><a href="#Clipper:Execute">Clipper:Execute (clip_type, subject, clip[, opts])</a></li>
     <li><a href="#Clipper:GetBounds">Clipper:GetBounds ([bounds])</a></li>
     <li><a href="#Clipper:GetPreserveCollinear">Clipper:GetPreserveCollinear ()</a></li>
     <li><a href="#Clipper:GetReverseSolution">Clipper:GetReverseSolution ()</a></li>
@@ -53,11 +49,14 @@
 </ul>
 <h2>Classes</h2>
 <ul class="nowrap">
+  <li><a href="../classes/ClipType.html">ClipType</a></li>
   <li><a href="../classes/Offset.html">Offset</a></li>
   <li><a href="../classes/Path.html">Path</a></li>
   <li><a href="../classes/Paths.html">Paths</a></li>
+  <li><a href="../classes/PolyFillType.html">PolyFillType</a></li>
   <li><a href="../classes/PolyNode.html">PolyNode</a></li>
   <li><a href="../classes/PolyTree.html">PolyTree</a></li>
+  <li><a href="../classes/cInt.html">cInt</a></li>
   <li><strong>Clipper</strong></li>
 </ul>
 <h2>Modules</h2>
@@ -78,39 +77,6 @@
 
 
 
-    <h2 class="section-header "><a name="Tables"></a>Tables</h2>
-
-    <dl class="function">
-    <dt>
-    <a name = "Clipper.ClipType"></a>
-    <strong>Clipper.ClipType</strong>
-    </dt>
-    <dd>
-    DOCME  Examples: http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Types/ClipType.htm
-
-
-    <h3>Fields:</h3>
-    <ul>
-        <li><span class="parameter">Intersection</span>
-         Create regions where both subject <strong>and</strong> clip polygons are filled.
-        </li>
-        <li><span class="parameter">Union</span>
-         Create regions where <strong>either</strong> subject <strong>or</strong> clip polygons (or both) are filled.
-        </li>
-        <li><span class="parameter">Difference</span>
-         Create regions where subject polygons are filled <strong>except</strong> where clip polygons are filled.
-        </li>
-        <li><span class="parameter">Xor</span>
-         Create regions where <strong>either</strong> subject <strong>or</strong> clip polygons are filled <strong>but not</strong> where <strong>both</strong> are filled.
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-</dl>
     <h2 class="section-header "><a name="Methods"></a>Methods</h2>
 
     <dl class="function">
@@ -122,10 +88,10 @@
     Any number of subject and clip paths can be added to a clipping task, either individually via this method, as groups via <a href="../classes/Clipper.html#Clipper:AddPaths">AddPaths</a>,
  or even using both methods. </p>
 
-<p> 'Subject' paths may be either <em>open</em> (lines) or <em>closed</em> (polygons) or even a mixture of both, but <strong>'clipping' paths must always be <em>closed</em></strong>.
+<p> 'Subject' paths may be either <em>open</em> (lines) or <em>closed</em> (polygons) or even a mixture of both, but <strong>'clipping' paths will always be <em>closed</em></strong>.
  Clipper allows polygons to clip both lines and other polygons, but doesn't allow lines to clip either lines or polygons.</p>
 
-<p> With closed paths, <a href="../modules/core.html#Orientation">orientation</a> should conform with the <a href="../modules/core.html#PolyFillType">filling rule</a> that will be passed via <a href="../classes/Clipper.html#Clipper:Execute">Clipper:Execute</a>.</p>
+<p> With closed paths, <a href="../modules/core.html#Orientation">orientation</a> should conform with the <a href="../classes/PolyFillType.html#">filling rule</a> that will be passed via <a href="../classes/Clipper.html#Clipper:Execute">Clipper:Execute</a>.</p>
 
 <p> <strong>Path Coordinate range</strong>:</p>
 
@@ -174,7 +140,7 @@
 </dd>
     <dt>
     <a name = "Clipper:AddPaths"></a>
-    <strong>Clipper:AddPaths (paths, As)</strong>
+    <strong>Clipper:AddPaths (paths, poly_type)</strong>
     </dt>
     <dd>
     Like <a href="../classes/Clipper.html#Clipper:AddPath">Clipper:AddPath</a>, but allows adding paths as a group.
@@ -188,9 +154,9 @@
 
 
         </li>
-        <li><span class="parameter">As</span>
+        <li><span class="parameter">poly_type</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         per <a href="../classes/Clipper.html#Clipper:AddPath">Clipper:AddPath</a>.
+         As per <a href="../classes/Clipper.html#Clipper:AddPath">Clipper:AddPath</a>.
         </li>
     </ul>
 
@@ -221,16 +187,52 @@
 </dd>
     <dt>
     <a name = "Clipper:Execute"></a>
-    <strong>Clipper:Execute (ct[, opts])</strong>
+    <strong>Clipper:Execute (clip_type[, opts])</strong>
     </dt>
     <dd>
-    DOCME
+    Once <em>subject</em> and <em>clip</em> paths have been assigned (via <a href="../classes/Clipper.html#Clipper:AddPath">AddPath</a> and / or
+ <a href="../classes/Clipper.html#Clipper:AddPaths">AddPaths</a>), <a href="../classes/Clipper.html#Clipper:Execute">Execute</a> can then perform the clipping operation
+ (intersection, union, difference or XOR) specified by the <a href="../classes/ClipType.html#">clip_type</a> parameter. </p>
+
+<p> The <strong>solution</strong> can be either a <a href="../classes/Paths.html#">Paths</a> or <a href="../classes/PolyTree.html#">PolyTree</a>. 1The Paths structure is simpler than the PolyTree stucture.<code>
+ Because of this it is quicker to populate and hence clipping performance is a little better (it&apos;s roughly 10% faster).
+ However, the PolyTree data structure provides more information about the returned paths which may be important to users.
+ Firstly, </code>the PolyTree structure preserves nested parent-child polygon relationships` (i.e. outer polygons owning /
+ containing <em>holes</em> and holes owning / containing other outer polygons etc). Also, <strong>only the PolyTree structure can
+ differentiate between open and closed paths</strong> since each PolyNode has an <a href="../classes/PolyNode.html#PolyNode:IsOpen">IsOpen</a> property. (The <a href="../classes/Path.html#">Path</a>
+ structure has no member indicating whether it's open or closed.) <strong>For this reason, when <em>open</em> paths are passed to a
+ Clipper object, the user must use a PolyTree object as the solution</strong>, otherwise an error is thrown.</p>
+
+<p> When a PolyTree object is used in a clipping operation on <strong>open</strong> paths, two ancillary functions have been provided
+ to quickly separate out <em>open</em> and <em>closed</em> paths from the solution - <a href="../modules/core.html#OpenPathsFromPolyTree">OpenPathsFromPolyTree</a>
+ and <a href="../modules/core.html#ClosedPathsFromPolyTree">ClosedPathsFromPolyTree</a>. <a href="../modules/core.html#PolyTreeToPaths">PolyTreeToPaths</a> is also available
+ to convert path data to a Paths structure (irrespective of whether they're <em>open</em> or <em>closed</em>).</p>
+
+<p> There are several things to note about the solution paths returned:</p>
+
+<ul>
+    <li>they aren't in any specific order</li>
+    <li>they should never overlap or be self-intersecting (but see notes on <a href="http://www.angusj.com/delphi/clipper/documentation/Docs/Overview/Rounding.htm">rounding</a>)</li>
+    <li>holes will be oriented opposite outer polygons</li>
+    <li>the <strong>solution fill type</strong> can be considered either <em>EvenOdd</em> or <em>NonZero</em> since it will comply with either filling rule</li>
+    <li>polygons may rarely share a common edge (though this is now <em>very rare</em> as of version 6)</li>
+</ul>
+
+<p> The <strong>subject</strong> and <strong>clip</strong> fill type parameters define the polygon <a href="../classes/PolyFillType.html#">fill rule</a> to be applied to the polygons
+ (i.e. closed paths) in the subject and clip paths respectively. (It's usual though obviously not essential that both sets of
+ polygons use the same fill rule.)</p>
+
+<p> <strong>Execute</strong> can be called multiple times without reassigning subject and clip polygons (i.e. when different clipping
+ operations are required on the same polygon sets).</p>
+
+<p> See <a href="http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Classes/Clipper/Methods/Execute.htm">here</a> for
+ a visual example of the results.
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">ct</span>
-            <span class="types"><a class="type" href="../classes/Clipper.html#Clipper.ClipType">ClipType</a></span>
+        <li><span class="parameter">clip_type</span>
+            <span class="types"><a class="type" href="../classes/ClipType.html#">ClipType</a></span>
 
 
 
@@ -241,7 +243,7 @@
 <p> Options, which may include:</p>
 
 <ul>
-    <li><strong>fill_type</strong>: EvenOdd</li>
+    <li><strong>fill_type</strong>: The common <a href="../classes/PolyFillType.html#">fill rule</a> applied to both sets. (Default <strong>"EvenOdd"</strong>)</li>
     <li><strong>out</strong>: If this is a <strong>Paths</strong> or <strong>PolyTree</strong>, it will be populated and used as the return value.</li>
 </ul>
 
@@ -253,7 +255,7 @@
     <ol>
 
            <span class="types"><a class="type" href="../classes/PolyTree.html#">PolyTree</a>, <a class="type" href="../classes/Paths.html#">Paths</a> or <span class="type">nil</span></span>
-        S
+        Solution, or <strong>nil</strong> if there was a problem.
     </ol>
 
 
@@ -262,35 +264,31 @@
 </dd>
     <dt>
     <a name = "Clipper:Execute"></a>
-    <strong>Clipper:Execute (ct, subject, clip[, opts])</strong>
+    <strong>Clipper:Execute (clip_type, subject, clip[, opts])</strong>
     </dt>
     <dd>
-    DOCME
+    Alternative signature.
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">ct</span>
-            <span class="types"><a class="type" href="../classes/Clipper.html#Clipper.ClipType">ClipType</a></span>
+        <li><span class="parameter">clip_type</span>
+            <span class="types"><a class="type" href="../classes/ClipType.html#">ClipType</a></span>
 
 
 
         </li>
         <li><span class="parameter">subject</span>
-            <span class="types"><span class="type">PolyFillType</span></span>
-
-
-
+            <span class="types"><a class="type" href="../classes/PolyFillType.html#">PolyFillType</a></span>
+         Fill rule for subject set...
         </li>
         <li><span class="parameter">clip</span>
-            <span class="types"><span class="type">PolyFillType</span></span>
-
-
-
+            <span class="types"><a class="type" href="../classes/PolyFillType.html#">PolyFillType</a></span>
+         ...and for clip set.
         </li>
         <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         As per the other overload.
+         Options, which may contain <strong>out</strong> as per the other overload.
          (<em>optional</em>)
         </li>
     </ul>
@@ -299,7 +297,7 @@
     <ol>
 
            <span class="types"><a class="type" href="../classes/PolyTree.html#">PolyTree</a>, <a class="type" href="../classes/Paths.html#">Paths</a> or <span class="type">nil</span></span>
-        S
+        Solution, or <strong>nil</strong> if there was a problem.
     </ol>
 
 
@@ -329,10 +327,8 @@
     <ol>
 
            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         Bounds table with <strong>left</strong>, <strong>right</strong>, <strong>top</strong>, and <strong>bottom</strong> members, describing the axis-aligned bounding rectangle of all
- polygons that have been added to the Clipper object.</p>
-
-<p> These members are <strong>int</strong>s. (See notes in <a href="../classes/Path.html#Path:AddPoint">Path:AddPoint</a>.)
+        Bounds table with <strong>left</strong>, <strong>right</strong>, <strong>top</strong>, and <strong>bottom</strong> <a href="../classes/cInt.html#">cInt</a> members, describing the axis-aligned bounding rectangle of all
+ polygons that have been added to the Clipper object.
     </ol>
 
 
@@ -487,7 +483,7 @@
  end vertices touches another edge excluding its adjacent edges, or if they are co-linear and overlapping (including
  adjacent edges).</p>
 
-<p> Polygons returned by clipping operations (see <a href="../classes/Clipper.html#Clipper:Execute">Clipper.Execute</a>) should always be simple polygons. When the <strong>StrictlySimple</strong>
+<p> Polygons returned by clipping operations (see <a href="../classes/Clipper.html#Clipper:Execute">Clipper:Execute</a>) should always be simple polygons. When the <strong>StrictlySimple</strong>
  property is enabled, polygons returned will be strictly simple, otherwise they may be <em>weakly simple</em>. It's <strong>computationally
  expensive</strong> ensuring polygons are <em>strictly simple</em> and so this property is disabled by default.</p>
 
@@ -521,7 +517,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2018-06-13 18:37:04 </i>
+<i style="float:right;">Last updated 2018-06-14 17:53:54 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

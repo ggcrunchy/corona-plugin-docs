@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Documentation</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>clipper</h1>
+
+<ul>
+  <li><a href="../api.html">Index</a></li>
+</ul>
+
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/ClipType.html">ClipType</a></li>
+  <li><a href="../classes/Offset.html">Offset</a></li>
+  <li><a href="../classes/Path.html">Path</a></li>
+  <li><a href="../classes/Paths.html">Paths</a></li>
+  <li><strong>PolyFillType</strong></li>
+  <li><a href="../classes/PolyNode.html">PolyNode</a></li>
+  <li><a href="../classes/PolyTree.html">PolyTree</a></li>
+  <li><a href="../classes/cInt.html">cInt</a></li>
+  <li><a href="../classes/Clipper.html">Clipper</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/core.html">core</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>PolyFillType</code></h1>
+<p>
+<p>One of the following <strong>string</strong>s:</p>
+
+<ul>
+    <li><strong>"EvenOdd"</strong>: Odd numbered sub-regions are filled, while even numbered sub-regions are not.</li>
+</ul>
+</p>
+<p>
+
+<ul>
+    <li><strong>"NonZero"</strong>: All non-zero sub-regions are filled.</li>
+    <li><strong>"Positive"</strong>: All sub-regions with winding counts > 0 are filled.</li>
+    <li><strong>"Negative"</strong>: All sub-regions with winding counts &lt; 0 are filled.</li>
+</ul>
+
+<p> <strong>OVERVIEW</strong>:</p>
+
+<p> <em>Filling</em> indicates those regions that are <em>inside</em> a closed path (i.e. 'filled' with a brush color or
+ pattern in a graphical display) and those regions that are <em>outside</em>. The Clipper Library supports 4
+ filling rules: Even-Odd, Non-Zero, Positive and Negative.</p>
+
+<p> The simplest filling rule is <em>Even-Odd</em> filling (sometimes called <em>alternate</em> filling). Given a group of
+ closed paths start from a point outside the paths and progress along an imaginary line through the paths.
+ When the first path is crossed the encountered region is filled. When the next path is crossed the encountered
+ region is <em>not</em> filled. Likewise, each time a path is crossed, filling starts if it had stopped and stops if
+ it had started.</p>
+
+<p> With the exception of <em>Even-Odd</em> filling, all other filling rules rely on <strong>edge direction</strong> and <strong>winding numbers</strong>
+ to determine filling. Edge direction is determined by the order in which vertices are declared when constructing
+ a path. Edge direction is used to determine the <strong>winding number</strong> of each polygon subregion.</p>
+
+<p> The winding number for each polygon sub-region can be derived by:</p>
+
+<ol>
+    <li>starting with a winding number of zero and</li>
+    <li>from a point (P1) that's outside all polygons, draw an imaginary line to a point that's inside a given sub-region (P2)</li>
+    <li>while traversing the line from P1 to P2, for each path that crosses the imaginary line from right to left increment the
+    winding number, and for each path that crosses the line from left to right decrement the winding number.</li>
+    <li>Once you arrive at the given sub-region you have its winding number.</li>
+</ol>
+
+<p> See <a href="http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Types/PolyFillType.htm">here</a>
+ for a visual example.</p>
+
+<p> Paths are added to a Clipper object using the <a href="../classes/Clipper.html#Clipper:AddPath">AddPath</a> or <a href="../classes/Clipper.html#Clipper:AddPaths">AddPaths</a> methods and the
+ filling rules (for subject and clip polygons separately) are specified in the <a href="../classes/Clipper.html#Clipper:Execute">Execute</a> method.</p>
+
+<p> Polygon regions are defined by one or more closed paths which may or may not intersect. A single polygon region can be
+ defined by a single non-intersecting path or by multiple non-intersecting paths where there's typically an 'outer' path
+ and one or more inner 'hole' paths. Looking at the three shapes in the image above, the middle shape consists of two
+ concentric rectangles sharing the same clockwise orientation. With even-odd filling, where orientation can be disregarded,
+ the inner rectangle would create a hole in the outer rectangular polygon. There would be no hole with non-zero filling.
+ In the concentric rectangles on the right, where the inner rectangle is orientated opposite to the outer, a hole will be
+ rendered with either even-odd or non-zero filling. A single path can also define multiple subregions if it self-intersects
+ as in the example of the 5 pointed star shape shown at the earlier link.</p>
+
+<p> By far the most widely used fill rules are Even-Odd (aka Alternate) and Non-Zero (aka Winding).</p>
+
+<p> It's useful to note that <em>edge direction</em> has no affect on a winding number's odd-ness or even-ness. (This is why
+ <a href="../modules/core.html#Orientation">orientation</a> <strong>is ignored when the <em>Even-Odd rule</em> is employed</strong>.)</p>
+
+<p> The direction of the Y-axis does affect polygon orientation and <em>edge direction</em>. However, changing Y-axis orientation
+ will only change the <em>sign</em> of winding numbers, not their magnitudes, and has no effect on either <em>Even-Odd</em> or <em>Non-Zero</em>
+ filling.</p>
+</p>
+
+
+
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2018-06-14 17:53:54 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

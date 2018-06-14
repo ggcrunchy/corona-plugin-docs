@@ -35,21 +35,24 @@
 <h2>Methods</h2>
 <ul class="nowrap">
     <li><a href="#PolyNode:ChildCount">PolyNode:ChildCount ()</a></li>
-    <li><a href="#PolyNode:GetChild">PolyNode:GetChild (index[, Options])</a></li>
-    <li><a href="#PolyNode:GetContour">PolyNode:GetContour ([Options])</a></li>
-    <li><a href="#PolyNode:GetNext">PolyNode:GetNext ([Options])</a></li>
-    <li><a href="#PolyNode:GetParent">PolyNode:GetParent ([Options])</a></li>
+    <li><a href="#PolyNode:GetChild">PolyNode:GetChild (index[, opts])</a></li>
+    <li><a href="#PolyNode:GetContour">PolyNode:GetContour ([opts])</a></li>
+    <li><a href="#PolyNode:GetNext">PolyNode:GetNext ([opts])</a></li>
+    <li><a href="#PolyNode:GetParent">PolyNode:GetParent ([opts])</a></li>
     <li><a href="#PolyNode:IsHole">PolyNode:IsHole ()</a></li>
     <li><a href="#PolyNode:IsOpen">PolyNode:IsOpen ()</a></li>
-    <li><a href="#PolyNode:ToTree">PolyNode:ToTree ([Options])</a></li>
+    <li><a href="#PolyNode:ToTree">PolyNode:ToTree ([opts])</a></li>
 </ul>
 <h2>Classes</h2>
 <ul class="nowrap">
+  <li><a href="../classes/ClipType.html">ClipType</a></li>
   <li><a href="../classes/Offset.html">Offset</a></li>
   <li><a href="../classes/Path.html">Path</a></li>
   <li><a href="../classes/Paths.html">Paths</a></li>
+  <li><a href="../classes/PolyFillType.html">PolyFillType</a></li>
   <li><strong>PolyNode</strong></li>
   <li><a href="../classes/PolyTree.html">PolyTree</a></li>
+  <li><a href="../classes/cInt.html">cInt</a></li>
   <li><a href="../classes/Clipper.html">Clipper</a></li>
 </ul>
 <h2>Modules</h2>
@@ -89,7 +92,7 @@
     <ol>
 
            <span class="types"><span class="type">uint</span></span>
-        C
+        Number of <a href="../classes/PolyNode.html#PolyNode:GetChild">children</a> directly owned by the node.
     </ol>
 
 
@@ -98,26 +101,25 @@
 </dd>
     <dt>
     <a name = "PolyNode:GetChild"></a>
-    <strong>PolyNode:GetChild (index[, Options])</strong>
+    <strong>PolyNode:GetChild (index[, opts])</strong>
     </dt>
     <dd>
+    Get one of the node's children. </p>
 
-
-
+<p> Outer <strong>PolyNode</strong> childs contain hole <strong>PolyNode</strong>s, and hole <strong>PolyNode</strong> childs contain nested
+ outer <strong>PolyNode</strong>s.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">index</span>
             <span class="types"><span class="type">uint</span></span>
-
-
-
+         Child index, from 1 to <a href="../classes/PolyNode.html#PolyNode:ChildCount">PolyNode:ChildCount</a>.
         </li>
-        <li><span class="parameter">Options</span>
+        <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
 
-<p>, which include:</p>
+<p> Options, which include:</p>
 
 <ul>
     <li><strong>out</strong>: If this is a <strong>PolyNode</strong>, it will be populated and used as the return value.</li>
@@ -130,8 +132,10 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="../classes/PolyNode.html#">PolyNode</a> or <span class="type">nil</span></span>
-        C
+           <span class="types"><a class="type" href="../classes/PolyNode.html#">PolyNode</a></span>
+
+
+
     </ol>
 
 
@@ -140,7 +144,7 @@
 </dd>
     <dt>
     <a name = "PolyNode:GetContour"></a>
-    <strong>PolyNode:GetContour ([Options])</strong>
+    <strong>PolyNode:GetContour ([opts])</strong>
     </dt>
     <dd>
 
@@ -150,10 +154,10 @@
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">Options</span>
+        <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
 
-<p>, which include:</p>
+<p> Options, which include:</p>
 
 <ul>
     <li><strong>out</strong>: If this is a <strong>Path</strong>, it will be populated and used as the return value.</li>
@@ -167,7 +171,9 @@
     <ol>
 
            <span class="types"><a class="type" href="../classes/Path.html#">Path</a></span>
-        C
+
+
+
     </ol>
 
 
@@ -176,7 +182,7 @@
 </dd>
     <dt>
     <a name = "PolyNode:GetNext"></a>
-    <strong>PolyNode:GetNext ([Options])</strong>
+    <strong>PolyNode:GetNext ([opts])</strong>
     </dt>
     <dd>
 
@@ -186,10 +192,10 @@
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">Options</span>
+        <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
 
-<p>, which include:</p>
+<p> Options, which include:</p>
 
 <ul>
     <li><strong>out</strong>: If this is a <strong>PolyNode</strong>, it will be populated and used as the return value.</li>
@@ -212,7 +218,7 @@
 </dd>
     <dt>
     <a name = "PolyNode:GetParent"></a>
-    <strong>PolyNode:GetParent ([Options])</strong>
+    <strong>PolyNode:GetParent ([opts])</strong>
     </dt>
     <dd>
 
@@ -222,10 +228,10 @@
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">Options</span>
+        <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
 
-<p>, which include:</p>
+<p> Options, which include:</p>
 
 <ul>
     <li><strong>out</strong>: If this is a <strong>PolyNode</strong>, it will be populated and used as the return value.</li>
@@ -239,12 +245,14 @@
     <ol>
 
            <span class="types"><a class="type" href="../classes/PolyNode.html#">PolyNode</a> or <span class="type">nil</span></span>
-
-
-
+        If the node is not also a <a href="../classes/PolyTree.html#">PolyTree</a>, its parent; otherwise <strong>nil</strong>.
     </ol>
 
 
+    <h3>See also:</h3>
+    <ul>
+         <a href="../classes/PolyNode.html#PolyNode:ToTree">PolyNode:ToTree</a>
+    </ul>
 
 
 </dd>
@@ -263,7 +271,11 @@
     <ol>
 
            <span class="types"><span class="type">boolean</span></span>
-        B
+         Is the node's <a href="../classes/PolyNode.html#PolyNode:GetContour">contour</a> a <a href="../api.html#terminology">hole</a>?</p>
+
+<p> Children of outer polygons are always <em>holes</em>, and children of <em>holes</em> are always (nested)
+ <em>outer</em> polygons. In a <a href="../classes/PolyTree.html#">PolyTree</a> this property is undefined, but its children are always
+ top-level <em>outer</em> polygons.
     </ol>
 
 
@@ -285,7 +297,10 @@
     <ol>
 
            <span class="types"><span class="type">boolean</span></span>
-        B
+         Did the node's <a href="../classes/PolyNode.html#PolyNode:GetContour">contour</a> result from a clipping operation on
+ an open contour (path)?</p>
+
+<p> Only top-level PolyNodes can contain open contours.
     </ol>
 
 
@@ -294,7 +309,7 @@
 </dd>
     <dt>
     <a name = "PolyNode:ToTree"></a>
-    <strong>PolyNode:ToTree ([Options])</strong>
+    <strong>PolyNode:ToTree ([opts])</strong>
     </dt>
     <dd>
 
@@ -304,10 +319,10 @@
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">Options</span>
+        <li><span class="parameter">opts</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
 
-<p>, which include:</p>
+<p> Options, which include:</p>
 
 <ul>
     <li><strong>out</strong>:  If this is a <a href="../classes/PolyTree.html#">PolyTree</a>, it will be populated and used as the return value.</li>
@@ -321,9 +336,8 @@
     <ol>
 
            <span class="types"><a class="type" href="../classes/PolyTree.html#">PolyTree</a> or <span class="type">nil</span></span>
-
-
-
+        If the node is also a <a href="../classes/PolyTree.html#">PolyTree</a>, a rewrapping of this node as the
+ corresponding Lua object; otherwise <strong>nil</strong>.
     </ol>
 
 
@@ -337,7 +351,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2018-06-13 18:37:04 </i>
+<i style="float:right;">Last updated 2018-06-14 17:53:54 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
