@@ -76,7 +76,7 @@ function copyFile( srcName, srcPath, dstName, dstPath, overwrite )
     return results
 end
 
-local f = io.open(system.pathForFile("8-BIT WONDER-FONT.txt"), "rb") -- font (disguised as text for Android)
+local f = io.open(system.pathForFile("8-BIT WONDER-FONT.TXT"), "rb") -- font (disguised as text for Android)
 
 local function Print (bitmap, w, h)
     local index, text = 1, " .:ioVM@"
