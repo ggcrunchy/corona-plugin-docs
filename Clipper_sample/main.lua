@@ -1,5 +1,6 @@
---- Test for truetype plugin.
+--- Sample for Clipper plugin.
 
+--
 -- Permission is hereby granted, free of charge, to any person obtaining
 -- a copy of this software and associated documentation files (the
 -- "Software"), to deal in the Software without restriction, including
@@ -20,6 +21,11 @@
 -- SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 --
 -- [ MIT license: http://www.opensource.org/licenses/mit-license.php ]
+--
+
+-- Modules --
+local shapes = require("shapes")
+local utils = require("utils")
 
 -- Corona modules --
 local composer = require("composer")
@@ -42,22 +48,14 @@ display.newText("Next", next.x, next.y, native.systemFontBold, 14)
 local Description = display.newText("", display.contentCenterX, prev.y, native.systemFontBold, 12)
 
 local Examples = {
-	{ scene = "basic", text = "Basic string (stretched)" },
-	{ scene = "pixels", text = "Glyph pixels (see console)" },
-	{ scene = "mesh", text = "Glyph meshes" }
+--	{ scene = "odd", text = "Odd winding rule" }
 --[[
-NOTES for future ideas:
-
-- UTF-8
-- Right-to-left
-- Animated patterns, etc.
-- Following a curve
-- Packing a bitmap
-- Using a blob
-- Masking
-- Outlining
-- Squishy physics
-- Build on above libs, maybe "object3d"...
+- Luapower example, more or less
+- Offset curve
+- Make SVGs?
+- Terraforming
+- "Art" program
+- Build on libtess2, serialize?
 ]]
 }
 

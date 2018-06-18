@@ -7,15 +7,7 @@ settings =
 		-- supported = { "landscapeLeft", "landscapeRight", "portrait", "portraitUpsideDown", },
 	},
 	plugins = {
-        ["plugin.truetype"] = {
-            publisherId = "com.xibalbastudios",
-        },
-		["plugin.Bytemap"] = { publisherId = "com.xibalbastudios" },
-		-- available at: https://marketplace.coronalabs.com/plugin/byte-map
-		["plugin.libtess2"] = { publisherId = "com.xibalbastudios" },
-		-- available at: https://marketplace.coronalabs.com/plugin/libtess2
-		["plugin.MemoryBlob"] = { publisherId = "com.xibalbastudios" }
-		-- available at: https://marketplace.coronalabs.com/plugin/memory-blob
+        --["plugin.libtess2"] = { publisherId = "com.xibalbastudios" }
 	},
 	iphone =
 	{

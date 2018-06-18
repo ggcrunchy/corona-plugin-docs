@@ -1,4 +1,4 @@
---- Utilities for libtess2 sample.
+--- Utilities for libtess2 plugin.
 
 --
 -- Permission is hereby granted, free of charge, to any person obtaining
