@@ -44,7 +44,8 @@ local Description = display.newText("", display.contentCenterX, prev.y, native.s
 local Examples = {
 	{ scene = "basic", text = "Basic string (stretched)" },
 	{ scene = "pixels", text = "Glyph pixels (see console)" },
-	{ scene = "mesh", text = "Glyph meshes" }
+	{ scene = "mesh", text = "Glyph meshes" },
+	{ scene = "contour", text = "Glyph contours" }
 --[[
 NOTES for future ideas:
 
