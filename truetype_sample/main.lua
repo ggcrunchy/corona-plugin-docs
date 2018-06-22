@@ -45,7 +45,8 @@ local Examples = {
 	{ scene = "basic", text = "Basic string (stretched)" },
 	{ scene = "pixels", text = "Glyph pixels (see console)" },
 	{ scene = "mesh", text = "Glyph meshes" },
-	{ scene = "contour", text = "Glyph contours" }
+	{ scene = "contour", text = "Glyph contours" },
+	{ scene = "masked", text = "Glyphs as masks" }
 --[[
 NOTES for future ideas:
 
@@ -55,7 +56,6 @@ NOTES for future ideas:
 - Following a curve
 - Packing a bitmap
 - Using a blob
-- Masking
 - Outlining
 - Squishy physics
 - Build on above libs, maybe "object3d"...
