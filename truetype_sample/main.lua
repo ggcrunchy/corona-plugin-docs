@@ -46,7 +46,7 @@ local Examples = {
 	{ scene = "pixels", text = "Glyph pixels (see console)" },
 	{ scene = "mesh", text = "Glyph meshes" },
 	{ scene = "contour", text = "Glyph contours" },
-	{ scene = "masked", text = "Glyphs as masks" }
+	{ scene = "masked", text = "Glyphs to mask" }
 --[[
 NOTES for future ideas:
 

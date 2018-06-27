@@ -87,7 +87,8 @@ function Scene:show (event)
 				bitmap = concat(inverted)
 
 				mask:SetBytes(bitmap, {
-					x1 = xf + 1, y1 = yf + 1, x2 = xf + w, y2 = yf + h
+					x1 = xf + 1, y1 = yf + 1, x2 = xf + w, y2 = yf + h,
+				--	format = "inverse" (works but changes yet to be propagated)
 				})
 			end
 
@@ -113,11 +114,10 @@ function Scene:show (event)
 		local smask = graphics.newMask(mask.filename, mask.baseDir)
 
 		simage:setMask(smask)
-		simage:scale(5, 5) -- zoom in on the word
 
 		self.m_object, self.m_mask = simage, mask
 
-		local behind = display.newRect(display.contentCenterX, .45 * display.contentCenterY, 90, 90)
+		local behind = display.newCircle(display.contentCenterX, .45 * display.contentCenterY, 40)
 
 		behind:toBack()
 
