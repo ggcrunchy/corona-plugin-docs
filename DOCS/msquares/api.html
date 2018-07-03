@@ -63,7 +63,7 @@
  For color images, an exact color is specified to determine insideness.
  Color images can be r8, rg16, rgb24, or rgba32.</p>
 
-<p> For a visual overview of the API and all the flags, see <a href="http://github.prideout.net/marching-squares/">http://github.prideout.net/marching-squares/</a>.</p>
+<p> For a visual overview of the API and all the flags, see <a href="http://github.prideout.net/marching-squares">http://github.prideout.net/marching-squares</a>.</p>
 
 <p> The MIT License
  Copyright (c) 2015 Philip Rideout</p>
@@ -89,7 +89,9 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Proxy:GetMode">Proxy:GetMode ()</a></td>
-	<td class="summary">Getter.</td>
+	<td class="summary">
+
+</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Proxy:Reset">Proxy:Reset ()</a></td>
@@ -105,7 +107,9 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#MeshList:__len">MeshList:__len ()</a></td>
-	<td class="summary">Metamethod.</td>
+	<td class="summary">
+
+</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Mesh:GetBoundary">Mesh:GetBoundary ()</a></td>
@@ -113,27 +117,39 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Mesh:GetColor">Mesh:GetColor ()</a></td>
-	<td class="summary">Getter.</td>
+	<td class="summary">
+
+</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Mesh:GetDim">Mesh:GetDim ()</a></td>
-	<td class="summary">Getter.</td>
+	<td class="summary">
+
+</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Mesh:GetNumPoints">Mesh:GetNumPoints ()</a></td>
-	<td class="summary">Getter.</td>
+	<td class="summary">
+
+</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Mesh:GetNumTriangles">Mesh:GetNumTriangles ()</a></td>
-	<td class="summary">Getter.</td>
+	<td class="summary">
+
+</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Mesh:GetPoints">Mesh:GetPoints ([opts])</a></td>
-	<td class="summary">Getter.</td>
+	<td class="summary">
+
+</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#Mesh:GetTriangles">Mesh:GetTriangles ([opts])</a></td>
-	<td class="summary">Getter.</td>
+	<td class="summary">
+
+</td>
 	</tr>
 </table>
 
@@ -170,7 +186,7 @@
         </li>
         <li><span class="parameter">cell_size</span>
             <span class="types"><span class="type">uint</span></span>
-         Dimension of marching squares cell. Both <em>w</em> and <em>h</em> must be a multiple of this size.
+         Size of marching squares cell. Both <em>w</em> and <em>h</em> must be a multiple of this size.
         </li>
         <li><span class="parameter">color</span>
             <span class="types"><span class="type">uint</span></span>
@@ -282,14 +298,13 @@
     <ul>
         <li><span class="parameter">data</span>
             <span class="types"><span class="type">Bytes</span> or <span class="type">{number,...}</span></span>
-         As a table, an array of numbers in [0, 1] comprising the grayscale data.</p>
+         This may be an array of numbers in [0, 1].</p>
 
-<p> As <strong>Bytes</strong>, this will typically be contiguous array of 32-bit floats. If the octets flag is specified, however,
- <em>data</em> is interpreted as an array of 8-bit values from 0 to 255 that are remapped from 0 to 1.</p>
+<p> In <strong>Bytes</strong> form, this will typically be contiguous array of 32-bit floats. When the octets flag is specified,
+ however, <em>data</em> is interpreted as an array of 8-bit unsigned integers that are remapped to [0, 1].</p>
 
-<p> If fewer than <code>w * h</code> elements are available, an internal copy with padding zeroes is created. This is potentially
- a performance hit for float-type <em>data</em>, whereas the other representations already incur some conversion costs and
- so this might not be so noticeable.
+<p> If fewer than <code>w * h</code> elements are available, an internal copy with padding zeroes is created, for a potential
+ performance hit. (<strong>N.B.</strong> Non-float <em>data</em> entails some of these conversions anyhow.)
         </li>
         <li><span class="parameter">w</span>
             <span class="types"><span class="type">uint</span></span>
@@ -305,7 +320,7 @@
         </li>
         <li><span class="parameter">threshold</span>
             <span class="types"><span class="type">number</span></span>
-         Values in <em>data</em> &gt; this value are regarded as inside.
+         Values in <em>data</em> greater than the threshold are regarded as inside.
         </li>
         <li><span class="parameter">flags</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">{string,...}</a> or <span class="type">nil</span></span>
@@ -395,7 +410,9 @@
     <strong>Proxy:GetMode ()</strong>
     </dt>
     <dd>
-    Getter.
+
+
+
 
 
 
@@ -480,7 +497,9 @@
     <strong>MeshList:__len ()</strong>
     </dt>
     <dd>
-    Metamethod.
+
+
+
 
 
 
@@ -512,7 +531,8 @@
     <ol>
 
            <span class="types"><span class="type">{{number,...},...}</span></span>
-        One or more arrays of points of the form { ..., x, y, ... } or { ..., x, y, z, ... }, according to the mesh's dimensions.
+        One or more arrays of points of the form { ..., x, y, ... } or { ..., x, y, z, ... },
+ according to the mesh's dimensions. See <a href="api.html#Mesh:GetPoints">Mesh:GetPoints</a> regarding normalization.
     </ol>
 
 
@@ -524,7 +544,9 @@
     <strong>Mesh:GetColor ()</strong>
     </dt>
     <dd>
-    Getter.
+
+
+
 
 
 
@@ -544,7 +566,9 @@
     <strong>Mesh:GetDim ()</strong>
     </dt>
     <dd>
-    Getter.
+
+
+
 
 
 
@@ -564,7 +588,9 @@
     <strong>Mesh:GetNumPoints ()</strong>
     </dt>
     <dd>
-    Getter.
+
+
+
 
 
 
@@ -584,7 +610,9 @@
     <strong>Mesh:GetNumTriangles ()</strong>
     </dt>
     <dd>
-    Getter.
+
+
+
 
 
 
@@ -604,7 +632,9 @@
     <strong>Mesh:GetPoints ([opts])</strong>
     </dt>
     <dd>
-    Getter.
+
+
+
 
 
     <h3>Parameters:</h3>
@@ -629,7 +659,10 @@
     <ol>
 
            <span class="types"><span class="type">Proxy</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-        As a table, an array <code>{ x1, y1, ... }</code> or <code>{ x1, y1, z1, ... }</code>, according to the mesh's dimensions, whose values are <strong>number</strong>s.</p>
+         As a table, an array <code>{ x1, y1, ... }</code> or <code>{ x1, y1, z1, ... }</code>, according to the
+ mesh's dimensions, whose values are <strong>number</strong>s. The <em>x</em> and <em>y</em> values will be normalized to [0, 1]
+ (coordinates are scaled by <code>1 / max(width, height)</code>, using the bitmap dimensions, e.g. in <a href="api.html#color">color</a>).</p>
+
 
 <p> Otherwise, the <strong>Proxy</strong> supplied as <code>opts.out</code>.
     </ol>
@@ -643,7 +676,9 @@
     <strong>Mesh:GetTriangles ([opts])</strong>
     </dt>
     <dd>
-    Getter.
+
+
+
 
 
     <h3>Parameters:</h3>
@@ -653,7 +688,7 @@
          Getter options, which include:</p>
 
 <ul>
-    <li><strong>one_based</strong>: Triangle indices are one-based, rather zero-based?. This is ignored for <strong>Proxy</strong> results.</li>
+    <li><strong>one_based</strong>: Triangle indices are one-based, rather zero-based? Ignored for <strong>Proxy</strong> results.</li>
     <li><strong>out</strong>: This may be a <a href="api.html#NewProxy">Proxy</a>, in which case it is bound to the mesh's triangles and returned.</li>
 </ul>
 
@@ -685,7 +720,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2018-06-07 19:14:27 </i>
+<i style="float:right;">Last updated 2018-06-27 13:58:02 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
