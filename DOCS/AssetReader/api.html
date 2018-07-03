@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Documentation</title>
+    <link rel="stylesheet" href="ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Bytemap</h1>
+
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><strong>assetreader</strong></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>assetreader</code></h1>
+<p>Utility for reading files from Android, since this is not possible through traditional Lua file functions.</p>
+<p> To use the plugin, add the following in <code>build.settings</code>:</p>
+
+<p> <pre><code class="language-lua">plugins = {
+   ["plugin.AssetReader"] = { publisherId = "com.xibalbastudios" }
+ }</code></pre></p>
+
+<p> Sample code is available <a href="https://github.com/ggcrunchy/corona-plugin-docs/tree/master/AssetReader_sample">here</a>.</p>
+
+<p> The <strong>Bytes</strong> type may be any object that implements <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/ByteReader/policy.html">ByteReader</a>,
+ including strings.</p>
+
+<p> This plugin is designed to be called safely from other <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/luaproc/api.html">Lua processes</a>.</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#AssetManager:Read">AssetManager:Read (filename)</a></td>
+	<td class="summary">Check for a file in the managed directory and extract its content.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#AssetManager:Read">AssetManager:Read (buffer, filename)</a></td>
+	<td class="summary">Overload that takes a <strong>Buffer</strong>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#GetAssets">GetAssets ()</a></td>
+	<td class="summary">Get the manager for the application's <strong>assets</strong> directory.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#NewBuffer">NewBuffer ()</a></td>
+	<td class="summary">Create a buffer that may be populated with an asset's content.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Buffer:Clear">Buffer:Clear ()</a></td>
+	<td class="summary">Remove any content loaded into the buffer and free up the associated memory.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "AssetManager:Read"></a>
+    <strong>AssetManager:Read (filename)</strong>
+    </dt>
+    <dd>
+    Check for a file in the managed directory and extract its content.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">filename</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
+        On success, the content bytes as a string; otherwise <strong>nil</strong>.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "AssetManager:Read"></a>
+    <strong>AssetManager:Read (buffer, filename)</strong>
+    </dt>
+    <dd>
+    Overload that takes a <strong>Buffer</strong>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">buffer</span>
+            <span class="types"><span class="type">Buffer</span></span>
+         On success, this is populated with the asset's content, clearing any previous data.
+        </li>
+        <li><span class="parameter">filename</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+
+
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Buffer</span> or <span class="type">nil</span></span>
+        On success, <em>buffer</em>; otherwise <strong>nil</strong>.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "GetAssets"></a>
+    <strong>GetAssets ()</strong>
+    </dt>
+    <dd>
+    Get the manager for the application's <strong>assets</strong> directory. </p>
+
+<p> On non-Android platforms this returns <strong>nil</strong>.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">AssetManager</span></span>
+
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "NewBuffer"></a>
+    <strong>NewBuffer ()</strong>
+    </dt>
+    <dd>
+    Create a buffer that may be populated with an asset's content. </p>
+
+<p> Buffers implement <strong>Bytes</strong>, allowing this data to be read.</p>
+
+<p> On non-Android platforms this returns <strong>nil</strong>.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Buffer</span></span>
+
+
+
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Buffer:Clear"></a>
+    <strong>Buffer:Clear ()</strong>
+    </dt>
+    <dd>
+    Remove any content loaded into the buffer and free up the associated memory.
+
+
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2018-07-03 18:22:35 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
