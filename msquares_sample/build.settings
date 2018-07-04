@@ -7,7 +7,7 @@ settings =
 		-- supported = { "landscapeLeft", "landscapeRight", "portrait", "portraitUpsideDown", },
 	},
 	plugins = {
-        --["plugin.libtess2"] = { publisherId = "com.xibalbastudios" }
+		["plugin.Bytemap"] = { publisherId = "com.xibalbastudios" }
 	},
 	iphone =
 	{

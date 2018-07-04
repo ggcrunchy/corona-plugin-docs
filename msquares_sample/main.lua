@@ -23,10 +23,6 @@
 -- [ MIT license: http://www.opensource.org/licenses/mit-license.php ]
 --
 
--- Modules --
-local shapes = require("shapes")
-local utils = require("utils")
-
 -- Corona modules --
 local composer = require("composer")
 
@@ -48,7 +44,7 @@ display.newText("Next", next.x, next.y, native.systemFontBold, 14)
 local Description = display.newText("", display.contentCenterX, prev.y, native.systemFontBold, 12)
 
 local Examples = {
---	{ scene = "odd", text = "Odd winding rule" },
+	{ scene = "masks_and_meshes", text = "Paint, Then Convert To Masks + Meshes" },
 --[[
 - SVG stuff from tests
 - 3D examples when "object3d" is ready

@@ -23,11 +23,14 @@
 -- [ MIT license: http://www.opensource.org/licenses/mit-license.php ]
 --
 
+-- Standard library imports --
+local random = math.random
+
 -- Modules --
 local utils = require("utils")
 
 -- Corona globals --
-local timer = timer
+local display = display
 local transition = transition
 
 -- Corona modules --
@@ -43,83 +46,81 @@ local CX, CY = display.contentCenterX - 100, display.contentCenterY + 50
 
 local Count, XScale, YScale = 3, .175, -.175
 
-local FadeParams = { alpha = 1, time = 950 }
+local FadeInParams = { alpha = 1 }
+local FadeOutParams = { alpha = 0, onComplete = display.remove }
 
-local Index
+local function NewPoint (group, x, y)
+	local point = display.newCircle(group, x, y, 2)
 
-local function DrawCharacter (group, tess)
-	for i = group.numChildren, 1, -1 do
-		group:remove(i)
-	end
+	point:setFillColor(random(), random(), random())
 
-	local ti, points, px, py = Index
+	point.alpha, FadeInParams.delay = 0, FadeInParams.delay + 125
 
-	repeat
-		local what, draw, done = Glyphs[ti]
-
-		if what == "curve_to" then
-			local qx, cx = Glyphs[ti + 1], Glyphs[ti + 3]
-			local qy, cy = Glyphs[ti + 2], Glyphs[ti + 4]
-
-			for k = 1, Count do
-				local t = k / Count
-				local s = 1 - t
-				local a, b, c = s^2, 2 * s * t, t^2
-
-				points[#points + 1] = CX + (a * px + b * cx + c * qx) * XScale
-				points[#points + 1] = CY + (a * py + b * cy + c * qy) * YScale
-			end
-
-			ti, px, py = ti + 5, qx, qy
-		elseif what == "line_to" then
-			ti, px, py = ti + 3, Glyphs[ti + 1], Glyphs[ti + 2]
-
-			points[#points + 1] = CX + px * XScale
-			points[#points + 1] = CY + py * YScale
-		elseif what == "move_to" then
-			ti, px, py = ti + 3, Glyphs[ti + 1], Glyphs[ti + 2]
-			draw, points = points, { CX + px * XScale, CY + py * YScale } -- on first move will draw nothing, when points is nil
-		else -- 'what' is a character or nil
-			done = points -- ignored on opening, when points is nil
-			ti, points = ti + 1
-		end
-
-		if draw or done then
-			tess:AddContour(draw or done)
-
-			if done then
-				utils.PolyTris(group, tess, "POSITIVE")
-
-				group.alpha = 0
-
-				transition.to(group, FadeParams)
-
-				Index = what and ti - 1 or 1 -- back up or rewind to put index at next character
-			end
-		end
-	until done
+	transition.to(point, FadeInParams)
 end
 
 -- Show --
 function Scene:show (event)
 	if event.phase == "did" then
-		local tess = utils.GetTess()
+		local tgroup = display.newGroup()
 
-		tess:SetOption("CONSTRAINED_DELAUNAY_TRIANGULATION", true) -- can do in any scene, but only showing in this one
+		self.view:insert(tgroup)
 
-		local group = display.newGroup()
+		self.m_text_group = tgroup
 
-		self.view:insert(group)
+		local font = utils.FontFromText("Mayan")
+        local scale = font:ScaleForPixelHeight(15)
+        local text = "3d!7g8mMne"
+        local n, xpos, ypos = #text, 50, 200
+		local vis_index = 1
 
-		self.m_text_group = group
+		FadeInParams.delay = 0
 
-		Index = 1
+        for char_index = 1, n do
+            local ch, cgroup = text:byte(char_index), display.newGroup()
+            local advance, lsb = font:GetCodepointHMetrics(ch)
+			local shape = font:GetCodepointShape(ch)
+			local points, px, py
 
-		self.m_update = timer.performWithDelay(1500, function()
-			DrawCharacter(group, tess)
-		end, 0)
+			tgroup:insert(cgroup)
 
-		DrawCharacter(group, tess)
+			for shape_index = 1, #(shape or "") do -- account for non-shapes e.g. spaces
+				local what, x, y, cx, cy = shape:GetVertex(shape_index)
+
+				if what == "line_to" then
+					local xk, yk, dx, dy = xpos + px * XScale, ypos + py * YScale, (x - px) / Count, (y - py) / Count
+
+					for _ = 1, Count do
+						NewPoint(cgroup, xk, yk)
+
+						xk, yk = xk + dx * XScale, yk + dy * YScale
+					end
+				elseif what == "curve_to" then
+					for i = 1, Count - 1 do
+						local t = i / Count
+						local s = 1 - t
+						local a, b, c = s^2, 2 * s * t, t^2
+						local xx, yy = a * px + b * cx + c * x, a * py + b * cy + c * y
+
+						NewPoint(cgroup, xpos + xx * XScale, ypos + yy * YScale)
+					end
+				else
+					NewPoint(cgroup, xpos + x, ypos + y)
+				end
+
+				px, py = x, y
+			end
+
+			FadeOutParams.delay = FadeInParams.delay + 75
+
+			transition.to(cgroup, FadeOutParams)
+
+            xpos = xpos + advance * scale
+
+            if char_index < n then
+                xpos = xpos + scale * font:GetCodepointKernAdvance(ch, text:byte(char_index + 1))
+            end
+		end
 	end
 end
 
@@ -128,10 +129,6 @@ Scene:addEventListener("show")
 -- Hide --
 function Scene:hide (event)
 	if event.phase == "did" then
-		utils.GetTess():SetOption("CONSTRAINED_DELAUNAY_TRIANGULATION", false)
-
-		timer.cancel(self.m_update)
-
 		self.m_text_group:removeSelf()
 	end
 end

@@ -26,9 +26,6 @@
 -- Standard library imports --
 local unpack = unpack
 
--- Standard library imports --
-local floor = math.floor
-
 -- Modules --
 local utils = require("utils")
 
@@ -86,13 +83,11 @@ function Scene:show (event)
 
 		local font = utils.FontFromText("Mayan")
         local scale = font:ScaleForPixelHeight(15)
-        local ascent = font:GetFontVMetrics()
-        local baseline = floor(ascent * scale)
         local text = "Mil7kst 88 or 3?!"
         local n, xpos, ypos = #text, 50, 100
 		local vis_index = 1
 
-        for char_index = 1, n do -- TODO: loop
+        for char_index = 1, n do
             local ch = text:byte(char_index)
             local advance, lsb = font:GetCodepointHMetrics(ch)
 			local shape = font:GetCodepointShape(ch)
