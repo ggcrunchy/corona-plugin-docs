@@ -44,6 +44,8 @@
 
 <h1>Module <code>assetreader</code></h1>
 <p>Utility for reading files from Android, which are out of reach of Lua's file API.</p>
+<p> This is a thin veneer over Android's <a href="https://developer.android.com/reference/android/content/res/AssetManager">AssetManager</a>.</p>
+
 <p> To use the plugin, add the following in <code>build.settings</code>:</p>
 
 <p> <pre><code class="language-lua">plugins = {
@@ -51,9 +53,6 @@
  }</code></pre></p>
 
 <p> Sample code is available <a href="https://github.com/ggcrunchy/corona-plugin-docs/tree/master/AssetReader_sample">here</a>.</p>
-
-<p> The <strong>Bytes</strong> type may be any object that implements <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/ByteReader/policy.html">ByteReader</a>,
- including strings.</p>
 
 <p> This plugin is designed to be called safely from other <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/luaproc/api.html">Lua processes</a>.</p>
 
@@ -65,20 +64,26 @@
 	<td class="summary">Gather the contents of <strong>assets</strong> or one of its subdirectories.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#NewProxy">NewProxy ()</a></td>
+	<td class="summary">Create a proxy that may be bound to an asset.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#Read">Read (filename)</a></td>
-	<td class="summary">Check for a file in the managed directory and extract its content.</td>
+	<td class="summary">If a file is found in the assets, extract its content.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Read">Read (buffer, filename)</a></td>
-	<td class="summary">Overload that takes a <strong>Buffer</strong>.</td>
+	<td class="name" nowrap><a href="#Proxy:Bind">Proxy:Bind (filename[, opts])</a></td>
+	<td class="summary">If a file is found in the assets, <a href="api.html#Proxy:Clear">clear</a> the proxy and bind the asset.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#NewBuffer">NewBuffer ()</a></td>
-	<td class="summary">Create a buffer that may be populated with an asset's content.</td>
+	<td class="name" nowrap><a href="#Proxy:Clear">Proxy:Clear ()</a></td>
+	<td class="summary">Remove any resources associated with the proxy.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#Buffer:Clear">Buffer:Clear ()</a></td>
-	<td class="summary">Remove any content loaded into the buffer and free up the associated memory.</td>
+	<td class="name" nowrap><a href="#Proxy:GetRemainingLength">Proxy:GetRemainingLength ()</a></td>
+	<td class="summary">
+
+</td>
 	</tr>
 </table>
 
@@ -101,7 +106,7 @@
     <ul>
         <li><span class="parameter">path</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         Path to directory, relative to <strong>assets</strong>; the top-level is <strong>""</strong>.
+         Path to directory, relative to <strong>assets</strong>, the top-level being <code>&quot;&quot;</code>.
         </li>
         <li><span class="parameter">into</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
@@ -112,18 +117,42 @@
 
     <h3>Returns:</h3>
     <ol>
-
-        <strong>nil</strong>, indicating an empty or missing directory.
-    </ol>
-     <h3>Or</h3>
-    <ol>
         <li>
            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">{string,...}</a></span>
         List of file and / or directory names.</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
-        Number of entries in the directory. If <em>into</em> was provided, any entries not overwritten
- will be left as-is, in which case this may be used to obtain the proper count.</li>
+        Number of entries in the directory. If <em>into</em> was provided, any of its entries not overwritten
+ will be left as-is, so the simpler <code>#into</code> is unreliable.</li>
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+        <strong>nil</strong>, indicating an empty or missing directory.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "NewProxy"></a>
+    <strong>NewProxy ()</strong>
+    </dt>
+    <dd>
+    Create a proxy that may be bound to an asset. </p>
+
+<p> Proxies implement <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/ByteReader/policy.html">ByteReader</a>, allowing them to be consumed elsewhere.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Proxy</span></span>
+
+
+
     </ol>
 
 
@@ -135,7 +164,7 @@
     <strong>Read (filename)</strong>
     </dt>
     <dd>
-    Check for a file in the managed directory and extract its content.
+    If a file is found in the assets, extract its content.
 
 
     <h3>Parameters:</h3>
@@ -152,7 +181,7 @@
     <ol>
 
            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
-        On success, the content bytes as a string; otherwise <strong>nil</strong>.
+        On success, the content bytes; otherwise <strong>nil</strong>.
     </ol>
 
 
@@ -160,32 +189,40 @@
 
 </dd>
     <dt>
-    <a name = "Read"></a>
-    <strong>Read (buffer, filename)</strong>
+    <a name = "Proxy:Bind"></a>
+    <strong>Proxy:Bind (filename[, opts])</strong>
     </dt>
     <dd>
-    Overload that takes a <strong>Buffer</strong>.
+    If a file is found in the assets, <a href="api.html#Proxy:Clear">clear</a> the proxy and bind the asset.
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">buffer</span>
-            <span class="types"><span class="type">Buffer</span></span>
-         On success, this is populated with the asset's content, clearing any previous data.
-        </li>
         <li><span class="parameter">filename</span>
             <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
 
 
 
         </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+<p> Bind options, which include:</p>
+
+<ul>
+    <li><strong>chunk_size</strong>: Size of reads, &le; 1MB. (<strong>Not yet implemented</strong>)</li>
+    <li><strong>mode</strong>: Read mode. (<strong>Not yet implemented</strong>)</li>
+</ul>
+
+         (<em>optional</em>)
+        </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Buffer</span> or <span class="type">nil</span></span>
-        On success, <em>buffer</em>; otherwise <strong>nil</strong>.
+           <span class="types"><span class="type">boolean</span></span>
+        Was the asset bound?
     </ol>
 
 
@@ -193,38 +230,36 @@
 
 </dd>
     <dt>
-    <a name = "NewBuffer"></a>
-    <strong>NewBuffer ()</strong>
+    <a name = "Proxy:Clear"></a>
+    <strong>Proxy:Clear ()</strong>
     </dt>
     <dd>
-    Create a buffer that may be populated with an asset's content. </p>
+    Remove any resources associated with the proxy.
 
-<p> Buffers implement <strong>Bytes</strong>, allowing this data to be read.
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Proxy:GetRemainingLength"></a>
+    <strong>Proxy:GetRemainingLength ()</strong>
+    </dt>
+    <dd>
+
+
+
 
 
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">Buffer</span></span>
-
-
-
+           <span class="types"><span class="type">uint</span></span>
+        Number of bytes left to read from the asset, &le; its size, or 0 if <a href="api.html#Proxy:Clear">clear</a>.
     </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "Buffer:Clear"></a>
-    <strong>Buffer:Clear ()</strong>
-    </dt>
-    <dd>
-    Remove any content loaded into the buffer and free up the associated memory.
-
-
-
 
 
 
@@ -237,7 +272,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2018-07-04 18:00:52 </i>
+<i style="float:right;">Last updated 2018-07-05 18:08:55 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
