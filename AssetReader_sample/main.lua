@@ -36,8 +36,6 @@ local widget = require("widget")
 --
 --
 
-if system.getInfo("platform") ~= "android" or system.getInfo("environment") ~= "device" then return end
-
 widget.setTheme("widget_theme_android_holo_light")
 
 local view = widget.newScrollView{
@@ -63,7 +61,7 @@ end
 
 local contents = asset_reader.Read("T.png")
 
-AddText(("Read %i bytes"):format(#contents)):setFillColor(0, 1, 0)
+AddText(("Read %i bytes from T.png"):format(#contents)):setFillColor(0, 1, 0)
 
 local function EnumDir (name)
     name = name or ""
@@ -71,7 +69,7 @@ local function EnumDir (name)
     local dir = asset_reader.EnumerateDirectory(name)
 
     if #name > 0 then
-        name = "`" .. name .. "`"
+        name = "'" .. name .. "'"
     else
         name = "top-level"
     end
@@ -82,14 +80,14 @@ local function EnumDir (name)
         title:setFillColor(0, 0, 1)
 
         for _, file in ipairs(dir) do
-            if file:find("%.") then
+            if file:find("%.") then -- has an extension?
                 AddText("  File: " .. file)
             else
                 AddText("  Sub-directory: " .. file)
             end
         end
     else
-        local title = AddText("Nothing to enumerate in " .. name .. "directory (or does not exist)")
+        local title = AddText("Nothing to enumerate in " .. name .. " directory (or does not exist)")
 
         title:setFillColor(1, 0, 0)
     end
@@ -98,3 +96,12 @@ end
 EnumDir()
 EnumDir("more")
 EnumDir("blarg")
+
+local into = { "A", "B", "C" } -- this is more than the sample puts in more
+local _, n = asset_reader.EnumerateDirectory("more", into) -- ignore first result, which is just `into`
+
+AddText("Enumerating 'more' directory from table"):setFillColor(1, 0, 1)
+
+for i = 1, n do -- ignore leftovers in table
+    AddText("  File: " .. into[i])
+end
