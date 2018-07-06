@@ -61,7 +61,9 @@ end
 
 local contents = asset_reader.Read("T.png")
 
-AddText(("Read %i bytes from T.png"):format(#contents)):setFillColor(0, 1, 0)
+if contents then
+	AddText(("Read %i bytes from T.png"):format(#contents)):setFillColor(0, 1, 0)
+end
 
 local function EnumDir (name)
     name = name or ""
@@ -98,10 +100,12 @@ EnumDir("more")
 EnumDir("blarg")
 
 local into = { "A", "B", "C" } -- this is more than the sample puts in more
-local _, n = asset_reader.EnumerateDirectory("more", into) -- ignore first result, which is just `into`
+local out, n = asset_reader.EnumerateDirectory("more", into) -- `out` is just `into` on success
 
-AddText("Enumerating 'more' directory from table"):setFillColor(1, 0, 1)
+if out then
+	AddText("Enumerating 'more' directory from table"):setFillColor(1, 0, 1)
 
-for i = 1, n do -- ignore leftovers in table
-    AddText("  File: " .. into[i])
+	for i = 1, n do -- ignore leftovers in table
+		AddText("  File: " .. into[i])
+	end
 end

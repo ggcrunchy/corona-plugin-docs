@@ -15,8 +15,6 @@ settings =
 	{
 		plist =
 		{
-			-- UIApplicationExitsOnSuspend = true, -- default is false
-			CFBundleIconFile = "Icon.png",
 			CFBundleIconFiles =
 			{
 				"Icon.png", 
