@@ -30,15 +30,21 @@
   <li><a href="../api.html">Index</a></li>
 </ul>
 
-<h2>Contents</h2>
-<ul>
-<li><a href="#Functions">Functions</a></li>
-<li><a href="#Tables">Tables</a></li>
+
+
+<h2>Functions</h2>
+<ul class="nowrap">
+    <li><a href="#build_distance_field">build_distance_field (input, radius, w, h, opts)</a></li>
+    <li><a href="#coverage_to_distance_field">coverage_to_distance_field (input, w, h, opts)</a></li>
+    <li><a href="#rgb_to_gray">rgb_to_gray (input, w, h, opts)</a></li>
+    <li><a href="#rgba_to_gray">rgba_to_gray (input, w, h, opts)</a></li>
 </ul>
-
-
+<h2>Tables</h2>
+<ul class="nowrap">
+    <li><a href="#GrayscaleScheme">GrayscaleScheme</a></li>
+</ul>
 <h2>Modules</h2>
-<ul class="$(kind=='Topics' and '' or 'nowrap'">
+<ul class="nowrap">
   <li><strong>grayscale</strong></li>
   <li><a href="../modules/image.html">image</a></li>
   <li><a href="../modules/ops.html">ops</a></li>
@@ -111,39 +117,9 @@
 </p>
 
 
-<h2><a href="#Functions">Functions</a></h2>
-<table class="function_list">
-	<tr>
-	<td class="name" nowrap><a href="#build_distance_field">build_distance_field (input, radius, w, h, opts)</a></td>
-	<td class="summary">Sweep-and-update Euclidean distance transform of an antialised image for contour textures.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#coverage_to_distance_field">coverage_to_distance_field (input, w, h, opts)</a></td>
-	<td class="summary">This function converts the antialiased image where each pixel represents coverage (box-filter
- sampling of the ideal, crisp edge) to a distance field with narrow band radius of <code>sqrt(2)</code>.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#rgb_to_gray">rgb_to_gray (input, w, h, opts)</a></td>
-	<td class="summary">Converts a (three-bytes-per-pixel) RGB image into a grayscale one.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#rgba_to_gray">rgba_to_gray (input, w, h, opts)</a></td>
-	<td class="summary">Variant of <a href="../modules/grayscale.html#rgb_to_gray">rgb_to_gray</a> that also considers alpha.</td>
-	</tr>
-</table>
-<h2><a href="#Tables">Tables</a></h2>
-<table class="function_list">
-	<tr>
-	<td class="name" nowrap><a href="#GrayscaleScheme">GrayscaleScheme</a></td>
-	<td class="summary">Various ways to compute grayscale from RGB.</td>
-	</tr>
-</table>
 
-<br/>
-<br/>
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
 
-
-    <h2><a name="Functions"></a>Functions</h2>
     <dl class="function">
     <dt>
     <a name = "build_distance_field"></a>
@@ -166,6 +142,7 @@
 <p> Input and output can be the same buffer. (Support for <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/MemoryBlob/api.html">blobs</a>
  is planned and would be exposed via <em>opts</em>.)
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">input</span>
@@ -185,7 +162,7 @@
          ...and height.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
 
 <p> Build options, which include:</p>
 
@@ -213,7 +190,7 @@
         <li>
         <strong>nil</strong>, indicating an error.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -234,6 +211,7 @@
 
 <p> Input and output buffers must be different.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">input</span>
@@ -249,7 +227,7 @@
          ...and height.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          As per <a href="../modules/grayscale.html#build_distance_field">build_distance_field</a>.
         </li>
     </ul>
@@ -265,7 +243,7 @@
         <li>
         <strong>nil</strong>, indicating an error.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -279,6 +257,7 @@
     </dt>
     <dd>
     Converts a (three-bytes-per-pixel) RGB image into a grayscale one.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -295,7 +274,7 @@
          ...and height.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          As per <a href="../modules/grayscale.html#build_distance_field">build_distance_field</a>, but may also contain a <strong>gray_method</strong>
  field, which can have as value any of the <a href="../modules/grayscale.html#GrayscaleScheme">GrayscaleScheme</a> choices, <strong>"average"</strong> being the default.
         </li>
@@ -312,7 +291,7 @@
         <li>
         <strong>nil</strong>, indicating an error.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -326,6 +305,7 @@
     </dt>
     <dd>
     Variant of <a href="../modules/grayscale.html#rgb_to_gray">rgb_to_gray</a> that also considers alpha.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -342,7 +322,7 @@
          ...and height.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          As per <a href="../modules/grayscale.html#rgb_to_gray">rgb_to_gray</a>.
         </li>
     </ul>
@@ -358,7 +338,7 @@
         <li>
         <strong>nil</strong>, indicating an error.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -367,7 +347,8 @@
 
 </dd>
 </dl>
-    <h2><a name="Tables"></a>Tables</h2>
+    <h2 class="section-header "><a name="Tables"></a>Tables</h2>
+
     <dl class="function">
     <dt>
     <a name = "GrayscaleScheme"></a>
@@ -376,6 +357,7 @@
     <dd>
     Various ways to compute grayscale from RGB.  The "fields" are different strings that may be
  assigned as <strong>gray_method</strong> for either <a href="../modules/grayscale.html#rgb_to_gray">rgb_to_gray</a> or <a href="../modules/grayscale.html#rgba_to_gray">rgba_to_gray</a>.
+
 
     <h3>Fields:</h3>
     <ul>
@@ -419,7 +401,8 @@
 </div> <!-- id="content" -->
 </div> <!-- id="main" -->
 <div id="about">
-<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2018-07-11 19:35:26 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

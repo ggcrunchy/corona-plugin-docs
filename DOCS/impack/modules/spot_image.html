@@ -30,14 +30,58 @@
   <li><a href="../api.html">Index</a></li>
 </ul>
 
-<h2>Contents</h2>
-<ul>
-<li><a href="#Functions">Functions</a></li>
+
+
+<h2>Functions</h2>
+<ul class="nowrap">
+    <li><a href="#SpotImage:__add">SpotImage:__add ()</a></li>
+    <li><a href="#SpotImage:add_mutate">SpotImage:add_mutate (color)</a></li>
+    <li><a href="#SpotImage:blank">SpotImage:blank ()</a></li>
+    <li><a href="#SpotImage:bleed">SpotImage:bleed ()</a></li>
+    <li><a href="#SpotImage:checkered">SpotImage:checkered ()</a></li>
+    <li><a href="#SpotImage:clamp">SpotImage:clamp ()</a></li>
+    <li><a href="#SpotImage:copy">SpotImage:copy (x, y, w, h)</a></li>
+    <li><a href="#SpotImage:crop">SpotImage:crop (l, r, t, b)</a></li>
+    <li><a href="#SpotImage:__div">SpotImage:__div ()</a></li>
+    <li><a href="#SpotImage:div_mutate">SpotImage:div_mutate (color)</a></li>
+    <li><a href="#SpotImage:encode">SpotImage:encode (format, opts)</a></li>
+    <li><a href="#SpotImage:flip_h">SpotImage:flip_h ()</a></li>
+    <li><a href="#SpotImage:flip_w">SpotImage:flip_w ()</a></li>
+    <li><a href="#SpotImage:get">SpotImage:get (x)</a></li>
+    <li><a href="#SpotImage:get">SpotImage:get (x, y)</a></li>
+    <li><a href="#SpotImage:get">SpotImage:get (x, y, z)</a></li>
+    <li><a href="#SpotImage:getf">SpotImage:getf (x)</a></li>
+    <li><a href="#SpotImage:getf">SpotImage:getf (x, y)</a></li>
+    <li><a href="#SpotImage:getf">SpotImage:getf (x, y, z)</a></li>
+    <li><a href="#SpotImage:glow">SpotImage:glow ()</a></li>
+    <li><a href="#SpotImage:load">SpotImage:load ([baseDir=system.ResourceDirectory], filename)</a></li>
+    <li><a href="#SpotImage:load">SpotImage:load (params)</a></li>
+    <li><a href="#SpotImage:load_from_memory">SpotImage:load_from_memory (bytes)</a></li>
+    <li><a href="#SpotImage:load_hdr">SpotImage:load_hdr (filename[, baseDir=system.ResourceDirectory])</a></li>
+    <li><a href="#SpotImage:load_hdr">SpotImage:load_hdr (params)</a></li>
+    <li><a href="#SpotImage:load_hdr_from_memory">SpotImage:load_hdr_from_memory (bytes)</a></li>
+    <li><a href="#SpotImage:loaded">SpotImage:loaded ()</a></li>
+    <li><a href="#SpotImage:__mul">SpotImage:__mul ()</a></li>
+    <li><a href="#SpotImage:mul_mutate">SpotImage:mul_mutate (color)</a></li>
+    <li><a href="#SpotImage:paste">SpotImage:paste (x, y, image)</a></li>
+    <li><a href="#SpotImage:rgba">SpotImage:rgba ()</a></li>
+    <li><a href="#SpotImage:rotate_left">SpotImage:rotate_left ()</a></li>
+    <li><a href="#SpotImage:rotate_right">SpotImage:rotate_right ()</a></li>
+    <li><a href="#SpotImage:save">SpotImage:save (filename, opts)</a></li>
+    <li><a href="#SpotImage:set">SpotImage:set (x, color)</a></li>
+    <li><a href="#SpotImage:set">SpotImage:set (x, y, color)</a></li>
+    <li><a href="#SpotImage:set">SpotImage:set (x, y, z, color)</a></li>
+    <li><a href="#SpotImage:setf">SpotImage:setf (x, color)</a></li>
+    <li><a href="#SpotImage:setf">SpotImage:setf (x, y, color)</a></li>
+    <li><a href="#SpotImage:setf">SpotImage:setf (x, y, z, color)</a></li>
+    <li><a href="#SpotImage:set_reader_mode">SpotImage:set_reader_mode (mode)</a></li>
+    <li><a href="#SpotImage:__sub">SpotImage:__sub ()</a></li>
+    <li><a href="#SpotImage:sub_mutate">SpotImage:sub_mutate (color)</a></li>
+    <li><a href="#SpotImage:to_hsla">SpotImage:to_hsla ()</a></li>
+    <li><a href="#SpotImage:to_rbga">SpotImage:to_rbga ()</a></li>
 </ul>
-
-
 <h2>Modules</h2>
-<ul class="$(kind=='Topics' and '' or 'nowrap'">
+<ul class="nowrap">
   <li><a href="../modules/grayscale.html">grayscale</a></li>
   <li><a href="../modules/image.html">image</a></li>
   <li><a href="../modules/ops.html">ops</a></li>
@@ -104,187 +148,9 @@
 </p>
 
 
-<h2><a href="#Functions">Functions</a></h2>
-<table class="function_list">
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:__add">SpotImage:__add ()</a></td>
-	<td class="summary">Metamethod.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:add_mutate">SpotImage:add_mutate (color)</a></td>
-	<td class="summary">Modify this image by adding a color to each pixel.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:blank">SpotImage:blank ()</a></td>
-	<td class="summary">Create a new image with this image's pixels run through a blank filter.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:bleed">SpotImage:bleed ()</a></td>
-	<td class="summary">Create a new image with this image's pixels run through a bleed filter.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:checkered">SpotImage:checkered ()</a></td>
-	<td class="summary">Create a new image with this image's pixels run through a checker filter.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:clamp">SpotImage:clamp ()</a></td>
-	<td class="summary">Create a new image with all pixels' color components clamped to [0, 1].</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:copy">SpotImage:copy (x, y, w, h)</a></td>
-	<td class="summary">Copy a region of this image, given an offset and optional size.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:crop">SpotImage:crop (l, r, t, b)</a></td>
-	<td class="summary">Copy a region of this image, given the edge offsets.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:__div">SpotImage:__div ()</a></td>
-	<td class="summary">Metamethod.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:div_mutate">SpotImage:div_mutate (color)</a></td>
-	<td class="summary">Modify this image by dividing each pixel by a color.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:encode">SpotImage:encode (format, opts)</a></td>
-	<td class="summary">Save this image out to memory, in the requested format.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:flip_h">SpotImage:flip_h ()</a></td>
-	<td class="summary">Create a new image with all this image's pixels' rows flipped.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:flip_w">SpotImage:flip_w ()</a></td>
-	<td class="summary">Create a new image with all this image's pixels' columns flipped.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:get">SpotImage:get (x)</a></td>
-	<td class="summary">Get a color from the first row of this image.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:get">SpotImage:get (x, y)</a></td>
-	<td class="summary">Get a color from this image.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:get">SpotImage:get (x, y, z)</a></td>
-	<td class="summary">Get a color from this image, allowing for depth.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:getf">SpotImage:getf (x)</a></td>
-	<td class="summary">Get a color from the first row of this image, using normalized coordinates.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:getf">SpotImage:getf (x, y)</a></td>
-	<td class="summary">Get a color from this image, using normalized coordinates.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:getf">SpotImage:getf (x, y, z)</a></td>
-	<td class="summary">Get a color from this image, using normalized coordinates and allowing for depth.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:glow">SpotImage:glow ()</a></td>
-	<td class="summary">Create a new image with this image's pixels run through a glow filter.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:load">SpotImage:load (filename)</a></td>
-	<td class="summary">Populate this image from an image file.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:load_from_memory">SpotImage:load_from_memory (bytes)</a></td>
-	<td class="summary">Populate this image from an in-memory image.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:load_hdr">SpotImage:load_hdr (filename)</a></td>
-	<td class="summary">Populate this image from an HDR image file.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:load_hdr_from_memory">SpotImage:load_hdr_from_memory (bytes)</a></td>
-	<td class="summary">Populate this image from an in-memory HDR image.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:loaded">SpotImage:loaded ()</a></td>
-	<td class="summary">Did the most recent load operation succeed?</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:__mul">SpotImage:__mul ()</a></td>
-	<td class="summary">Metamethod.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:mul_mutate">SpotImage:mul_mutate (color)</a></td>
-	<td class="summary">Modify this image by multiplying each pixel by a color.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:paste">SpotImage:paste (x, y, image)</a></td>
-	<td class="summary">Paste an image (or part of one, if too large) into this image at an offset.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:rgba">SpotImage:rgba ()</a></td>
-	<td class="summary">Get the image contents in RGBA byte form.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:rotate_left">SpotImage:rotate_left ()</a></td>
-	<td class="summary">Create a new image with this image's contents rotated left 90&deg;.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:rotate_right">SpotImage:rotate_right ()</a></td>
-	<td class="summary">Create a new image with this image's contents rotated right 90&deg;.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:save">SpotImage:save (filename, opts)</a></td>
-	<td class="summary">Save this image to a file.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:set">SpotImage:set (x, color)</a></td>
-	<td class="summary">Set a color in the first row of this image.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:set">SpotImage:set (x, y, color)</a></td>
-	<td class="summary">Set a color in this image.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:set">SpotImage:set (x, y, z, color)</a></td>
-	<td class="summary">Set a color in this image, allowing for depth.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:setf">SpotImage:setf (x, color)</a></td>
-	<td class="summary">Set a color in the first row of this image, using normalized coordinates.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:setf">SpotImage:setf (x, y, color)</a></td>
-	<td class="summary">Set a color in this image, using normalized coordinates.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:setf">SpotImage:setf (x, y, z, color)</a></td>
-	<td class="summary">Set a color in this image, using normalized coordinates and allowing for depth.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:set_reader_mode">SpotImage:set_reader_mode (mode)</a></td>
-	<td class="summary">Set the mode used when bytes are read from the image, cf.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:__sub">SpotImage:__sub ()</a></td>
-	<td class="summary">Metamethod.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:sub_mutate">SpotImage:sub_mutate (color)</a></td>
-	<td class="summary">Modify this image by subtracting a color from each pixel.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:to_hsla">SpotImage:to_hsla ()</a></td>
-	<td class="summary">Create a clone of this image with components in HSLA form.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#SpotImage:to_rbga">SpotImage:to_rbga ()</a></td>
-	<td class="summary">Create a clone of this image with components in RGBA form.</td>
-	</tr>
-</table>
 
-<br/>
-<br/>
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
 
-
-    <h2><a name="Functions"></a>Functions</h2>
     <dl class="function">
     <dt>
     <a name = "SpotImage:__add"></a>
@@ -296,6 +162,7 @@
 <p> The right-hand argument must be a <strong>SpotColor</strong>, and is added to each pixel.</p>
 
 <p> Any errors are propagated.
+
 
 
     <h3>Returns:</h3>
@@ -316,6 +183,7 @@
     <dd>
     Modify this image by adding a color to each pixel.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">color</span>
@@ -334,7 +202,7 @@
         <li>
         <strong>false</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -350,6 +218,7 @@
     Create a new image with this image's pixels run through a blank filter.
 
 
+
     <h3>Returns:</h3>
     <ol>
 
@@ -361,7 +230,7 @@
         <li>
         <strong>nil</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -377,6 +246,7 @@
     Create a new image with this image's pixels run through a bleed filter.
 
 
+
     <h3>Returns:</h3>
     <ol>
 
@@ -388,7 +258,7 @@
         <li>
         <strong>nil</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -404,6 +274,7 @@
     Create a new image with this image's pixels run through a checker filter.
 
 
+
     <h3>Returns:</h3>
     <ol>
 
@@ -415,7 +286,7 @@
         <li>
         <strong>nil</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -431,6 +302,7 @@
     Create a new image with all pixels' color components clamped to [0, 1].
 
 
+
     <h3>Returns:</h3>
     <ol>
 
@@ -442,7 +314,7 @@
         <li>
         <strong>nil</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -456,6 +328,7 @@
     </dt>
     <dd>
     Copy a region of this image, given an offset and optional size.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -488,7 +361,7 @@
         <li>
         <strong>nil</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -502,6 +375,7 @@
     </dt>
     <dd>
     Copy a region of this image, given the edge offsets.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -534,7 +408,7 @@
         <li>
         <strong>nil</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -552,6 +426,7 @@
 <p> The right-hand argument must be a <strong>SpotColor</strong>, and each pixel is divided by it.</p>
 
 <p> Any errors are propagated.
+
 
 
     <h3>Returns:</h3>
@@ -572,6 +447,7 @@
     <dd>
     Modify this image by dividing each pixel by a color.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">color</span>
@@ -590,7 +466,7 @@
         <li>
         <strong>false</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error mesage.</li>
     </ol>
 
@@ -605,15 +481,16 @@
     <dd>
     Save this image out to memory, in the requested format.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">format</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          One of <strong>"PNG"</strong>, <strong>"JPG"</strong>, <strong>"PUG"</strong>, <strong>"WEBP"</strong>, <strong>"KTX"</strong>, <strong>"PVR"</strong>, <strong>"CCZ"</strong>, or <strong>"PKM"</strong>,
  corresponding to the encoding format.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
 
 <p> Encoding options, which include:</p>
 
@@ -630,7 +507,7 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         On success, the encoded image.
     </ol>
      <h3>Or</h3>
@@ -638,7 +515,7 @@
         <li>
         <strong>nil</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -654,6 +531,7 @@
     Create a new image with all this image's pixels' rows flipped.
 
 
+
     <h3>Returns:</h3>
     <ol>
 
@@ -665,7 +543,7 @@
         <li>
         <strong>nil</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -681,6 +559,7 @@
     Create a new image with all this image's pixels' columns flipped.
 
 
+
     <h3>Returns:</h3>
     <ol>
 
@@ -692,7 +571,7 @@
         <li>
         <strong>nil</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -706,6 +585,7 @@
     </dt>
     <dd>
     Get a color from the first row of this image.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -726,7 +606,7 @@
         <li>
         <strong>nil</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -740,6 +620,7 @@
     </dt>
     <dd>
     Get a color from this image.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -764,7 +645,7 @@
         <li>
         <strong>nil</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -778,6 +659,7 @@
     </dt>
     <dd>
     Get a color from this image, allowing for depth.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -806,7 +688,7 @@
         <li>
         <strong>nil</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -820,6 +702,7 @@
     </dt>
     <dd>
     Get a color from the first row of this image, using normalized coordinates.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -840,7 +723,7 @@
         <li>
         <strong>nil</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -854,6 +737,7 @@
     </dt>
     <dd>
     Get a color from this image, using normalized coordinates.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -878,7 +762,7 @@
         <li>
         <strong>nil</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -892,6 +776,7 @@
     </dt>
     <dd>
     Get a color from this image, using normalized coordinates and allowing for depth.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -920,7 +805,7 @@
         <li>
         <strong>nil</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -936,6 +821,7 @@
     Create a new image with this image's pixels run through a glow filter.
 
 
+
     <h3>Returns:</h3>
     <ol>
 
@@ -947,7 +833,7 @@
         <li>
         <strong>nil</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -957,15 +843,21 @@
 </dd>
     <dt>
     <a name = "SpotImage:load"></a>
-    <strong>SpotImage:load (filename)</strong>
+    <strong>SpotImage:load ([baseDir=system.ResourceDirectory], filename)</strong>
     </dt>
     <dd>
     Populate this image from an image file.
 
+
     <h3>Parameters:</h3>
     <ul>
+        <li><span class="parameter">baseDir</span>
+         (<strong>WIP</strong>) Directory to search, as per
+ <a href="https://docs.coronalabs.com/api/library/system/pathForFile.html">system.pathForFile</a>.
+         (<em>default</em> system.ResourceDirectory)
+        </li>
         <li><span class="parameter">filename</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          Name of file.
         </li>
     </ul>
@@ -980,8 +872,38 @@
         <li>
         <strong>false</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:load"></a>
+    <strong>SpotImage:load (params)</strong>
+    </dt>
+    <dd>
+    (<strong>WIP</strong>) Alternate method overload.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">params</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         Info parameters. This must include <strong>filename</strong> and may have a <strong>baseDir</strong> field, with meanings as in
+ the other overload.</p>
+
+<p> If an <strong>is_absolute</strong> is present and true, <em>filename</em> is interpreted as an absolute path (any <em>baseDir</em> is ignored). On
+ non-desktop platforms, this raises an error.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        As per the other overload.
     </ol>
 
 
@@ -995,6 +917,7 @@
     <dd>
     Populate this image from an in-memory image.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">bytes</span>
@@ -1013,7 +936,7 @@
         <li>
         <strong>false</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -1023,16 +946,22 @@
 </dd>
     <dt>
     <a name = "SpotImage:load_hdr"></a>
-    <strong>SpotImage:load_hdr (filename)</strong>
+    <strong>SpotImage:load_hdr (filename[, baseDir=system.ResourceDirectory])</strong>
     </dt>
     <dd>
     Populate this image from an HDR image file.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">filename</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          Name of file.
+        </li>
+        <li><span class="parameter">baseDir</span>
+         (<strong>WIP</strong>) Directory to search, as per
+ <a href="https://docs.coronalabs.com/api/library/system/pathForFile.html">system.pathForFile</a>.
+         (<em>default</em> system.ResourceDirectory)
         </li>
     </ul>
 
@@ -1046,8 +975,34 @@
         <li>
         <strong>false</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotImage:load_hdr"></a>
+    <strong>SpotImage:load_hdr (params)</strong>
+    </dt>
+    <dd>
+    (<strong>WIP</strong>) Alternate method overload.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">params</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         Load parameters. See the table overload of <a href="../modules/spot_image.html#SpotImage:load">SpotImage:load</a> for details.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        As per the other overload.
     </ol>
 
 
@@ -1061,6 +1016,7 @@
     <dd>
     Populate this image from an in-memory HDR image.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">bytes</span>
@@ -1079,7 +1035,7 @@
         <li>
         <strong>false</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -1093,6 +1049,7 @@
     </dt>
     <dd>
     Did the most recent load operation succeed?
+
 
 
     <h3>Returns:</h3>
@@ -1118,6 +1075,7 @@
 <p> Any errors are propagated.
 
 
+
     <h3>Returns:</h3>
     <ol>
 
@@ -1135,6 +1093,7 @@
     </dt>
     <dd>
     Modify this image by multiplying each pixel by a color.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -1154,7 +1113,7 @@
         <li>
         <strong>false</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error mesage.</li>
     </ol>
 
@@ -1168,6 +1127,7 @@
     </dt>
     <dd>
     Paste an image (or part of one, if too large) into this image at an offset.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -1196,7 +1156,7 @@
         <li>
         <strong>nil</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -1212,10 +1172,11 @@
     Get the image contents in RGBA byte form.
 
 
+
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         The image as bytes.
     </ol>
      <h3>Or</h3>
@@ -1223,7 +1184,7 @@
         <li>
         <strong>nil</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -1239,6 +1200,7 @@
     Create a new image with this image's contents rotated left 90&deg;.
 
 
+
     <h3>Returns:</h3>
     <ol>
 
@@ -1250,7 +1212,7 @@
         <li>
         <strong>nil</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -1266,6 +1228,7 @@
     Create a new image with this image's contents rotated right 90&deg;.
 
 
+
     <h3>Returns:</h3>
     <ol>
 
@@ -1277,7 +1240,7 @@
         <li>
         <strong>nil</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -1292,14 +1255,15 @@
     <dd>
     Save this image to a file.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">filename</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          Name of file.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          Save options.</p>
 
 <p> In addition to the choices available in <a href="../modules/spot_image.html#SpotImage:encode">SpotImage:encode</a>, a <strong>format</strong> may be provided with any of
@@ -1319,7 +1283,7 @@
         <li>
         <strong>false</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -1333,6 +1297,7 @@
     </dt>
     <dd>
     Set a color in the first row of this image.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -1356,7 +1321,7 @@
         <li>
         <strong>false</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -1370,6 +1335,7 @@
     </dt>
     <dd>
     Set a color in this image.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -1397,7 +1363,7 @@
         <li>
         <strong>false</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -1411,6 +1377,7 @@
     </dt>
     <dd>
     Set a color in this image, allowing for depth.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -1442,7 +1409,7 @@
         <li>
         <strong>false</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -1456,6 +1423,7 @@
     </dt>
     <dd>
     Set a color in the first row of this image, using normalized coordinates.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -1479,7 +1447,7 @@
         <li>
         <strong>false</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -1493,6 +1461,7 @@
     </dt>
     <dd>
     Set a color in this image, using normalized coordinates.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -1520,7 +1489,7 @@
         <li>
         <strong>false</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -1534,6 +1503,7 @@
     </dt>
     <dd>
     Set a color in this image, using normalized coordinates and allowing for depth.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -1565,7 +1535,7 @@
         <li>
         <strong>false</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -1579,6 +1549,7 @@
     </dt>
     <dd>
     Set the mode used when bytes are read from the image, cf.  the summary above.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -1611,6 +1582,7 @@
 <p> Any errors are propagated.
 
 
+
     <h3>Returns:</h3>
     <ol>
 
@@ -1628,6 +1600,7 @@
     </dt>
     <dd>
     Modify this image by subtracting a color from each pixel.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -1647,7 +1620,7 @@
         <li>
         <strong>false</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error mesage.</li>
     </ol>
 
@@ -1663,6 +1636,7 @@
     Create a clone of this image with components in HSLA form.
 
 
+
     <h3>Returns:</h3>
     <ol>
 
@@ -1674,7 +1648,7 @@
         <li>
         <strong>nil</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -1690,6 +1664,7 @@
     Create a clone of this image with components in RGBA form.
 
 
+
     <h3>Returns:</h3>
     <ol>
 
@@ -1701,7 +1676,7 @@
         <li>
         <strong>nil</strong>, meaning failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -1715,7 +1690,8 @@
 </div> <!-- id="content" -->
 </div> <!-- id="main" -->
 <div id="about">
-<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2018-07-11 19:35:26 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

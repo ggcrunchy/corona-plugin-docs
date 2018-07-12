@@ -1,0 +1,1072 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Documentation</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>impack</h1>
+
+<ul>
+  <li><a href="../api.html">Index</a></li>
+</ul>
+
+
+
+<h2>Functions</h2>
+<ul class="nowrap">
+    <li><a href="#bilinear_rgba">bilinear_rgba (input, iw, ih, ow, oh[, opts])</a></li>
+    <li><a href="#uint8">uint8 (input, iw, ih, ow, oh, nchannels[, opts])</a></li>
+    <li><a href="#float">float (input, iw, ih, ow, oh, nchannels[, opts])</a></li>
+    <li><a href="#uint8_srgb">uint8_srgb (input, iw, ih, ow, oh, nchannels, alpha[, opts])</a></li>
+    <li><a href="#uint8_srgb_edgemode">uint8_srgb_edgemode (input, iw, ih, ow, oh, nchannels, alpha, wrap[, opts])</a></li>
+    <li><a href="#uint8_generic">uint8_generic (input, iw, ih, ow, oh, nchannels, alpha, wrap, filter, space, alpha)</a></li>
+    <li><a href="#uint16_generic">uint16_generic (input, iw, ih, ow, oh, nchannels, alpha, wrap, filter, space[, opts])</a></li>
+    <li><a href="#float_generic">float_generic (input, iw, ih, ow, oh, nchannels, alpha, wrap, filter, space[, opts])</a></li>
+    <li><a href="#resize">resize (input, iw, ih, ow, oh, datatype, nchannels, alpha, hwrap, vwrap, hfilter, vfilter, space[, opts])</a></li>
+    <li><a href="#resize_subpixel">resize_subpixel (input, iw, ih, ow, oh, datatype, nchannels, alpha, hwrap, vwrap, hfilter, vfilter, space, xscale, yscale, xoff, yoff[, opts])</a></li>
+    <li><a href="#resize_region">resize_region (input, iw, ih, ow, oh, datatype, nchannels, alpha, hwrap, vwrap, hfilter, vfilter, space, s0, t0, s1, t1)</a></li>
+</ul>
+<h2>Tables</h2>
+<ul class="nowrap">
+    <li><a href="#DataType">DataType</a></li>
+    <li><a href="#EdgeMode">EdgeMode</a></li>
+    <li><a href="#Filter">Filter</a></li>
+    <li><a href="#ColorSpace">ColorSpace</a></li>
+    <li><a href="#ResizeFlags">ResizeFlags</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../modules/grayscale.html">grayscale</a></li>
+  <li><a href="../modules/image.html">image</a></li>
+  <li><a href="../modules/ops.html">ops</a></li>
+  <li><strong>resize</strong></li>
+  <li><a href="../modules/write.html">write</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>resize</code></h1>
+<p>Utilities for resizing images.</p>
+<p>
+
+
+<p> Most of the underlying algorithms come courtesy of Jorge L Rodriguez (@VinoBS), from Sean Barrett's <a href="https://github.com/nothings/stb">stb</a>. Any others use
+ the same libraries behind the routines in the <a href="../modules/ops.html#">ops</a> module.</p>
+
+<p> The <strong>Bytes</strong> type&mdash;specified below&mdash;may be any object that implements <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/ByteReader/policy.html">ByteReader</a>,
+ including strings.</p>
+
+<hr/>
+
+<p> <strong>(The comments that follow were adapted from <a href="https://raw.githubusercontent.com/nothings/stb/master/stb_image_resize.h">stb_image_resize.h</a>.)</strong></p>
+
+<p> Written with emphasis on usability, portability, and efficiency. (No
+ SIMD or threads, so it's easily outperformed by libs that use those.)
+ Only scaling and translation is supported, no rotations or shears.
+ Easy API downsamples with Mitchell filter, upsamples with cubic interpolation.</p>
+
+<p> <strong>QUICKSTART</strong></p>
+<pre><code>  output_pixels = impack.resize.uint8(input_pixels, in_w, in_h,
+                           out_w, out_h, num_channels)
+  output_pixels = impack.resize.float(...)
+  output_pixels = impack.resize.uint8_srgb(input_pixels, in_w, in_h,
+                           out_w, out_h,
+                           num_channels, alpha_chan)
+  output_pixels = impack.resize.uint8_srgb_edgemode(
+                           input_pixels, in_w, in_h,
+                           out_w, out_h,
+                           num_channels, alpha_chan, "CLAMP")
+                                                     -- "WRAP"/"REFLECT"/"ZERO"
+</code></pre>
+
+<p> <strong>Additional documentation:</strong></p>
+
+<p> <strong>SRGB &amp; FLOATING POINT REPRESENTATION</strong>
+   The sRGB functions presume IEEE floating point.</p>
+
+<p> <strong>ALPHA CHANNEL</strong>
+   Most of the resizing functions provide the ability to control how
+   the alpha channel of an image is processed. The important things
+   to know about this:</p>
+
+<ol>
+    <li>The best mathematically-behaved version of alpha to use is
+    called "premultiplied alpha", in which the other color channels
+    have had the alpha value multiplied in. If you use premultiplied
+    alpha, linear filtering (such as image resampling done by this
+    library, or performed in texture units on GPUs) does the "right
+    thing". While premultiplied alpha is standard in the movie CGI
+    industry, it is still uncommon in the videogame/real-time world.</li>
+</ol>
+
+<p>   If you linearly filter non-premultiplied alpha, strange effects
+   occur. (For example, the average of 1% opaque bright green
+   and 99% opaque black produces 50% transparent dark green when
+   non-premultiplied, whereas premultiplied it produces 50%
+   transparent near-black. The former introduces green energy
+   that doesn't exist in the source image.)</p>
+
+<ol>
+    <li><p>Artists should not edit premultiplied-alpha images; artists
+    want non-premultiplied alpha images. Thus, art tools generally output
+    non-premultiplied alpha images.</p></li>
+    <li><p>You will get best results in most cases by converting images
+    to premultiplied alpha before processing them mathematically.</p></li>
+    <li><p>If you pass the flag <strong>"ALPHA_PREMULTIPLIED"</strong>, the
+    resizer does not do anything special for the alpha channel;
+    it is resampled identically to other channels. This produces
+    the correct results for premultiplied-alpha images, but produces
+    less-than-ideal results for non-premultiplied-alpha images.</p></li>
+    <li><p>If you do not pass the flag <strong>"ALPHA_PREMULTIPLIED"</strong>,
+    then the resizer weights the contribution of input pixels
+    based on their alpha values, or, equivalently, it multiplies
+    the alpha value into the color channels, resamples, then divides
+    by the resultant alpha value. Input pixels which have alpha = 0 do
+    not contribute at all to output pixels unless <em>all</em> of the input
+    pixels affecting that output pixel have alpha = 0, in which case
+    the result for that pixel is the same as it would be without
+    <strong>"ALPHA_PREMULTIPLIED"</strong>. However, this is only true for
+    input images in integer formats. For input images in float format,
+    input pixels with alpha = 0 have no effect, and output pixels
+    which have alpha = 0 will be 0 in all channels. (For float images,
+    you can manually achieve the same result by adding a tiny epsilon
+    value to the alpha channel of every image, and then subtracting
+    or clamping it at the end.)</p></li>
+    <li><p>You can separately control whether the alpha channel is
+    interpreted as linear or affected by the colorspace. By default
+    it is linear; you almost never want to apply the colorspace.
+    (For example, graphics hardware does not apply sRGB conversion
+    to the alpha channel.)</p></li>
+</ol>
+
+<p> <strong>ADDITIONAL CONTRIBUTORS</strong>
+   Sean Barrett: API design, optimizations</p>
+
+<hr/>
+
+<p> <strong>From stb's project page:</strong></p>
+
+<p> This software is dual-licensed to the public domain and under the following
+ license: you are granted a perpetual, irrevocable license to copy, modify,
+ publish, and distribute this file as you see fit.</p>
+
+<hr/>
+</p>
+
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "bilinear_rgba"></a>
+    <strong>bilinear_rgba (input, iw, ih, ow, oh[, opts])</strong>
+    </dt>
+    <dd>
+    Given some image data, find the results&mdash;also as image data&mdash;of performing a resize,
+ using bilinear filtering. </p>
+
+<p> On iPhone and NEON-capable Android devices, this will use a <a href="https://projectne10.github.io/Ne10/doc/group__IMG__RESIZE.html">NEON-optimized routine</a>.
+ (On Mac and tvOS, an <a href="https://developer.apple.com/reference/accelerate/1509266-vimagescale_argb8888">Accelerate framework routine</a> is used.)
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">input</span>
+            <span class="types"><span class="type">Bytes</span></span>
+         Input image, in RGBA form.
+        </li>
+        <li><span class="parameter">iw</span>
+            <span class="types"><span class="type">uint</span></span>
+         Input image width...
+        </li>
+        <li><span class="parameter">ih</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and height.
+        </li>
+        <li><span class="parameter">ow</span>
+            <span class="types"><span class="type">uint</span></span>
+         Output image width...
+        </li>
+        <li><span class="parameter">oh</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and height.
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+<p> Resize options, which include:</p>
+
+<ul>
+    <li><strong>in_stride</strong>: Bytes per row on input image (<em>iw</em> * 4 by default)...</li>
+    <li><strong>out_stride</strong>: ...and on output image (again, defaults to <em>iw</em> * 4).</li>
+    <li><strong>as_userdata</strong>: Affects how the image data is returned.</li>
+</ul>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
+         Output of the resize operation, in RGBA form.</p>
+
+<p> If <em>opts.as_userdata</em> was true, the data is returned as a userdata that implements <strong>ByteReader</strong>,
+ rather than being converted to a more friendly string. Under some circumstances, this might be worth
+ doing for performance reasons.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "uint8"></a>
+    <strong>uint8 (input, iw, ih, ow, oh, nchannels[, opts])</strong>
+    </dt>
+    <dd>
+    Given some image data, find the results&mdash;also as image data&mdash;of performing a resize,
+ according to the filters described in the summary above.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">input</span>
+            <span class="types"><span class="type">Bytes</span></span>
+         Input image, in <em>nchannels</em>-per-pixel form (bytes).
+        </li>
+        <li><span class="parameter">iw</span>
+            <span class="types"><span class="type">uint</span></span>
+         Input image width...
+        </li>
+        <li><span class="parameter">ih</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and height.
+        </li>
+        <li><span class="parameter">ow</span>
+            <span class="types"><span class="type">uint</span></span>
+         Output image width...
+        </li>
+        <li><span class="parameter">oh</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and height.
+        </li>
+        <li><span class="parameter">nchannels</span>
+            <span class="types"><span class="type">uint</span></span>
+         Number of color channels.
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         As per <a href="../modules/resize.html#bilinear_rgba">bilinear_rgba</a>, except stride defaults are <em>iw</em> * <em>nchannels</em>.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span> or <span class="type">nil</span></span>
+        As per <a href="../modules/resize.html#bilinear_rgba">bilinear_rgba</a>, but in <em>input</em>'s form on success.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "float"></a>
+    <strong>float (input, iw, ih, ow, oh, nchannels[, opts])</strong>
+    </dt>
+    <dd>
+    Variant of <a href="../modules/resize.html#uint8">uint8</a>, with image components as single-precision floats rather than bytes.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">input</span>
+            <span class="types"><span class="type">Bytes</span></span>
+         Input image, in <em>nchannels</em>-per-pixel form (floats).
+        </li>
+        <li><span class="parameter">iw</span>
+            <span class="types"><span class="type">uint</span></span>
+         Input image width...
+        </li>
+        <li><span class="parameter">ih</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and height.
+        </li>
+        <li><span class="parameter">ow</span>
+            <span class="types"><span class="type">uint</span></span>
+         Output image width...
+        </li>
+        <li><span class="parameter">oh</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and height.
+        </li>
+        <li><span class="parameter">nchannels</span>
+            <span class="types"><span class="type">uint</span></span>
+         Number of color channels.
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         As per <a href="../modules/resize.html#uint8">uint8</a>.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span></span>
+        As per <a href="../modules/resize.html#uint8">uint8</a>.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "uint8_srgb"></a>
+    <strong>uint8_srgb (input, iw, ih, ow, oh, nchannels, alpha[, opts])</strong>
+    </dt>
+    <dd>
+    Variant of <a href="../modules/resize.html#uint8">uint8</a> that interprets image data as gamma-corrected sRGB.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">input</span>
+            <span class="types"><span class="type">Bytes</span></span>
+         As per <a href="../modules/resize.html#uint8">uint8</a>, but interpreted as sRGB.
+        </li>
+        <li><span class="parameter">iw</span>
+            <span class="types"><span class="type">uint</span></span>
+         Input image width...
+        </li>
+        <li><span class="parameter">ih</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and height.
+        </li>
+        <li><span class="parameter">ow</span>
+            <span class="types"><span class="type">uint</span></span>
+         Output image width...
+        </li>
+        <li><span class="parameter">oh</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and height.
+        </li>
+        <li><span class="parameter">nchannels</span>
+            <span class="types"><span class="type">uint</span></span>
+         Number of color channels.
+        </li>
+        <li><span class="parameter">alpha</span>
+            <span class="types"><span class="type">uint</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Index, between 1 and <em>nchannels</em> inclusive, of the alpha
+ channel, or <strong>"NONE"</strong> if none exists.
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         As per <a href="../modules/resize.html#uint8">uint8</a>, but adds <strong>flags</strong> as a choice. If present, this may
+ be a string or array of strings, consisting of entries from <a href="../modules/resize.html#ResizeFlags">ResizeFlags</a>. If unsure
+ what theses mean, leaving the flags blank will probably do the right thing.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span></span>
+        As per <a href="../modules/resize.html#uint8">uint8</a>.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "uint8_srgb_edgemode"></a>
+    <strong>uint8_srgb_edgemode (input, iw, ih, ow, oh, nchannels, alpha, wrap[, opts])</strong>
+    </dt>
+    <dd>
+    Variant of <a href="../modules/resize.html#uint8_srgb">uint8_srgb</a> with customizable edge sampling behavior.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">input</span>
+            <span class="types"><span class="type">Bytes</span></span>
+         As per <a href="../modules/resize.html#uint8_srgb">uint8_srgb</a>.
+        </li>
+        <li><span class="parameter">iw</span>
+            <span class="types"><span class="type">uint</span></span>
+         Input image width...
+        </li>
+        <li><span class="parameter">ih</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and height.
+        </li>
+        <li><span class="parameter">ow</span>
+            <span class="types"><span class="type">uint</span></span>
+         Output image width...
+        </li>
+        <li><span class="parameter">oh</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and height.
+        </li>
+        <li><span class="parameter">nchannels</span>
+            <span class="types"><span class="type">uint</span></span>
+         Number of color channels.
+        </li>
+        <li><span class="parameter">alpha</span>
+            <span class="types"><span class="type">uint</span></span>
+         As per <a href="../modules/resize.html#uint8_srgb">uint8_srgb</a>.
+        </li>
+        <li><span class="parameter">wrap</span>
+            <span class="types"><a class="type" href="../modules/resize.html#EdgeMode">EdgeMode</a></span>
+         How to sample edge pixels.
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         As per <a href="../modules/resize.html#uint8_srgb">uint8_srgb</a>.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span></span>
+        As per <a href="../modules/resize.html#uint8">uint8</a>.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "uint8_generic"></a>
+    <strong>uint8_generic (input, iw, ih, ow, oh, nchannels, alpha, wrap, filter, space, alpha)</strong>
+    </dt>
+    <dd>
+    Variant of <a href="../modules/resize.html#uint8">uint8</a> with various customizable parameters.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">input</span>
+            <span class="types"><span class="type">Bytes</span></span>
+         As per <a href="../modules/resize.html#uint8">uint8</a> or <a href="../modules/resize.html#uint8_srgb">uint8_srgb</a>.
+        </li>
+        <li><span class="parameter">iw</span>
+            <span class="types"><span class="type">uint</span></span>
+         Input image width...
+        </li>
+        <li><span class="parameter">ih</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and height.
+        </li>
+        <li><span class="parameter">ow</span>
+            <span class="types"><span class="type">uint</span></span>
+         Output image width...
+        </li>
+        <li><span class="parameter">oh</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and height.
+        </li>
+        <li><span class="parameter">nchannels</span>
+            <span class="types"><span class="type">uint</span></span>
+         Number of color channels.
+        </li>
+        <li><span class="parameter">alpha</span>
+            <span class="types"><span class="type">uint</span></span>
+         As per <a href="../modules/resize.html#uint8_srgb">uint8_srgb</a>.
+        </li>
+        <li><span class="parameter">wrap</span>
+            <span class="types"><a class="type" href="../modules/resize.html#EdgeMode">EdgeMode</a></span>
+         How to sample edge pixels.
+        </li>
+        <li><span class="parameter">filter</span>
+            <span class="types"><a class="type" href="../modules/resize.html#Filter">Filter</a></span>
+         How to filter colors.
+        </li>
+        <li><span class="parameter">space</span>
+            <span class="types"><a class="type" href="../modules/resize.html#ColorSpace">ColorSpace</a></span>
+         How to interpret colors.
+        </li>
+        <li><span class="parameter">alpha</span>
+            <span class="types"><span class="type">uint</span></span>
+         As per <a href="../modules/resize.html#uint8_srgb">uint8_srgb</a>.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span></span>
+        As per <a href="../modules/resize.html#uint8">uint8</a>.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "uint16_generic"></a>
+    <strong>uint16_generic (input, iw, ih, ow, oh, nchannels, alpha, wrap, filter, space[, opts])</strong>
+    </dt>
+    <dd>
+    Variant of <a href="../modules/resize.html#uint8_generic">uint8_generic</a> with image components as 16-bit words rather than bytes.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">input</span>
+            <span class="types"><span class="type">Bytes</span></span>
+         As per <a href="../modules/resize.html#uint8">uint8</a> or <a href="../modules/resize.html#uint8_srgb">uint8_srgb</a>, but with 16-bit components.
+        </li>
+        <li><span class="parameter">iw</span>
+            <span class="types"><span class="type">uint</span></span>
+         Input image width...
+        </li>
+        <li><span class="parameter">ih</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and height.
+        </li>
+        <li><span class="parameter">ow</span>
+            <span class="types"><span class="type">uint</span></span>
+         Output image width...
+        </li>
+        <li><span class="parameter">oh</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and height.
+        </li>
+        <li><span class="parameter">nchannels</span>
+            <span class="types"><span class="type">uint</span></span>
+         Number of color channels.
+        </li>
+        <li><span class="parameter">alpha</span>
+            <span class="types"><span class="type">uint</span></span>
+         As per <a href="../modules/resize.html#uint8_generic">uint8_generic</a>.
+        </li>
+        <li><span class="parameter">wrap</span>
+            <span class="types"><a class="type" href="../modules/resize.html#EdgeMode">EdgeMode</a></span>
+         How to sample edge pixels.
+        </li>
+        <li><span class="parameter">filter</span>
+            <span class="types"><a class="type" href="../modules/resize.html#Filter">Filter</a></span>
+         How to filter colors.
+        </li>
+        <li><span class="parameter">space</span>
+            <span class="types"><a class="type" href="../modules/resize.html#ColorSpace">ColorSpace</a></span>
+         How to interpret colors.
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         As per <a href="../modules/resize.html#uint8_generic">uint8_generic</a>.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span></span>
+        As per <a href="../modules/resize.html#uint8">uint8</a>.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "float_generic"></a>
+    <strong>float_generic (input, iw, ih, ow, oh, nchannels, alpha, wrap, filter, space[, opts])</strong>
+    </dt>
+    <dd>
+    Variant of <a href="../modules/resize.html#uint8_generic">uint8_generic</a> with image components as single-precision floats rather than bytes.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">input</span>
+            <span class="types"><span class="type">Bytes</span></span>
+         As per <a href="../modules/resize.html#float">float</a>, but possibly interpreted as sRGB.
+        </li>
+        <li><span class="parameter">iw</span>
+            <span class="types"><span class="type">uint</span></span>
+         Input image width...
+        </li>
+        <li><span class="parameter">ih</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and height.
+        </li>
+        <li><span class="parameter">ow</span>
+            <span class="types"><span class="type">uint</span></span>
+         Output image width...
+        </li>
+        <li><span class="parameter">oh</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and height.
+        </li>
+        <li><span class="parameter">nchannels</span>
+            <span class="types"><span class="type">uint</span></span>
+         Number of color channels.
+        </li>
+        <li><span class="parameter">alpha</span>
+            <span class="types"><span class="type">uint</span></span>
+         As per <a href="../modules/resize.html#uint8_generic">uint8_generic</a>.
+        </li>
+        <li><span class="parameter">wrap</span>
+            <span class="types"><a class="type" href="../modules/resize.html#EdgeMode">EdgeMode</a></span>
+         How to sample edge pixels.
+        </li>
+        <li><span class="parameter">filter</span>
+            <span class="types"><a class="type" href="../modules/resize.html#Filter">Filter</a></span>
+         How to filter colors.
+        </li>
+        <li><span class="parameter">space</span>
+            <span class="types"><a class="type" href="../modules/resize.html#ColorSpace">ColorSpace</a></span>
+         How to interpret colors.
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         As per <a href="../modules/resize.html#uint8_generic">uint8_generic</a>.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span></span>
+        As per <a href="../modules/resize.html#uint8">uint8</a>.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "resize"></a>
+    <strong>resize (input, iw, ih, ow, oh, datatype, nchannels, alpha, hwrap, vwrap, hfilter, vfilter, space[, opts])</strong>
+    </dt>
+    <dd>
+    Generalizes the API of routines like <a href="../modules/resize.html#uint8_generic">uint8_generic</a> to also allow per-axis and data type customization.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">input</span>
+            <span class="types"><span class="type">Bytes</span></span>
+         Input image, in <em>nchannels</em>-per-pixel form, according to <em>datatype</em>.
+        </li>
+        <li><span class="parameter">iw</span>
+            <span class="types"><span class="type">uint</span></span>
+         Input image width...
+        </li>
+        <li><span class="parameter">ih</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and height.
+        </li>
+        <li><span class="parameter">ow</span>
+            <span class="types"><span class="type">uint</span></span>
+         Output image width...
+        </li>
+        <li><span class="parameter">oh</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and height.
+        </li>
+        <li><span class="parameter">datatype</span>
+            <span class="types"><a class="type" href="../modules/resize.html#DataType">DataType</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">nchannels</span>
+            <span class="types"><span class="type">uint</span></span>
+         Number of color channels.
+        </li>
+        <li><span class="parameter">alpha</span>
+            <span class="types"><span class="type">uint</span></span>
+         As per <a href="../modules/resize.html#uint8_generic">uint8_generic</a>.
+        </li>
+        <li><span class="parameter">hwrap</span>
+            <span class="types"><a class="type" href="../modules/resize.html#EdgeMode">EdgeMode</a></span>
+         How to sample edge pixels, horizontally...
+        </li>
+        <li><span class="parameter">vwrap</span>
+            <span class="types"><a class="type" href="../modules/resize.html#EdgeMode">EdgeMode</a></span>
+         ...and vertically.
+        </li>
+        <li><span class="parameter">hfilter</span>
+            <span class="types"><a class="type" href="../modules/resize.html#Filter">Filter</a></span>
+         How to filter colors, horizontally...
+        </li>
+        <li><span class="parameter">vfilter</span>
+            <span class="types"><a class="type" href="../modules/resize.html#Filter">Filter</a></span>
+         ...and vertically.
+        </li>
+        <li><span class="parameter">space</span>
+            <span class="types"><a class="type" href="../modules/resize.html#ColorSpace">ColorSpace</a></span>
+         How to interpret colors.
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         As per <a href="../modules/resize.html#uint8_generic">uint8_generic</a>.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span></span>
+        As per <a href="../modules/resize.html#uint8">uint8</a>.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "resize_subpixel"></a>
+    <strong>resize_subpixel (input, iw, ih, ow, oh, datatype, nchannels, alpha, hwrap, vwrap, hfilter, vfilter, space, xscale, yscale, xoff, yoff[, opts])</strong>
+    </dt>
+    <dd>
+    Variant of <a href="../modules/resize.html#">resize</a> that takes an explicit scale for subpixel correctness.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">input</span>
+            <span class="types"><span class="type">Bytes</span></span>
+         As per <a href="../modules/resize.html#">resize</a>.
+        </li>
+        <li><span class="parameter">iw</span>
+            <span class="types"><span class="type">uint</span></span>
+         Input image width...
+        </li>
+        <li><span class="parameter">ih</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and height.
+        </li>
+        <li><span class="parameter">ow</span>
+            <span class="types"><span class="type">uint</span></span>
+         Output image width...
+        </li>
+        <li><span class="parameter">oh</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and height.
+        </li>
+        <li><span class="parameter">datatype</span>
+            <span class="types"><a class="type" href="../modules/resize.html#DataType">DataType</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">nchannels</span>
+            <span class="types"><span class="type">uint</span></span>
+         Number of color channels.
+        </li>
+        <li><span class="parameter">alpha</span>
+            <span class="types"><span class="type">uint</span></span>
+         As per <a href="../modules/resize.html#uint8_generic">uint8_generic</a>.
+        </li>
+        <li><span class="parameter">hwrap</span>
+            <span class="types"><a class="type" href="../modules/resize.html#EdgeMode">EdgeMode</a></span>
+         How to sample edge pixels, horizontally...
+        </li>
+        <li><span class="parameter">vwrap</span>
+            <span class="types"><a class="type" href="../modules/resize.html#EdgeMode">EdgeMode</a></span>
+         ...and vertically.
+        </li>
+        <li><span class="parameter">hfilter</span>
+            <span class="types"><a class="type" href="../modules/resize.html#Filter">Filter</a></span>
+         How to filter colors, horizontally...
+        </li>
+        <li><span class="parameter">vfilter</span>
+            <span class="types"><a class="type" href="../modules/resize.html#Filter">Filter</a></span>
+         ...and vertically.
+        </li>
+        <li><span class="parameter">space</span>
+            <span class="types"><a class="type" href="../modules/resize.html#ColorSpace">ColorSpace</a></span>
+         How to interpret colors.
+        </li>
+        <li><span class="parameter">xscale</span>
+            <span class="types"><span class="type">number</span></span>
+         Scale factor along x-axis... (For reference, <a href="../modules/resize.html#resize_region">resize_region</a> uses <code>(ow / iw) / (s1 - s0)</code>.)
+        </li>
+        <li><span class="parameter">yscale</span>
+            <span class="types"><span class="type">number</span></span>
+         ...and y-axis. (<code>(oh / ih) / (t1 - t0)</code>)
+        </li>
+        <li><span class="parameter">xoff</span>
+            <span class="types"><span class="type">number</span></span>
+         Offset along x-axis, to upper-left corner... (For reference, <a href="../modules/resize.html#resize_region">resize_region</a> uses <code>s0 * ow / (s1 - s0)</code>.)
+        </li>
+        <li><span class="parameter">yoff</span>
+            <span class="types"><span class="type">number</span></span>
+         ...and y-axis. (<code>t0 * oh / (t1 - t0)</code>)
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         As per <a href="../modules/resize.html#uint8_generic">uint8_generic</a>.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Bytes</span></span>
+        As per <a href="../modules/resize.html#uint8">uint8</a>.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "resize_region"></a>
+    <strong>resize_region (input, iw, ih, ow, oh, datatype, nchannels, alpha, hwrap, vwrap, hfilter, vfilter, space, s0, t0, s1, t1)</strong>
+    </dt>
+    <dd>
+    Variant of <a href="../modules/resize.html#">resize</a> that allows you to specify the image source tile using texture coordinates, i.e.
+ (<em>s0</em>, <em>t0</em>) and (<em>s1</em>, <em>t1</em>) are the top-left and bottom-right corner (uv addressing style: [0, 1] &times; [0, 1])
+ of a region of the input image to use.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">input</span>
+            <span class="types"><span class="type">Bytes</span></span>
+         As per <a href="../modules/resize.html#">resize</a>.
+        </li>
+        <li><span class="parameter">iw</span>
+            <span class="types"><span class="type">uint</span></span>
+         Input image width...
+        </li>
+        <li><span class="parameter">ih</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and height.
+        </li>
+        <li><span class="parameter">ow</span>
+            <span class="types"><span class="type">uint</span></span>
+         Output image width...
+        </li>
+        <li><span class="parameter">oh</span>
+            <span class="types"><span class="type">uint</span></span>
+         ...and height.
+        </li>
+        <li><span class="parameter">datatype</span>
+            <span class="types"><a class="type" href="../modules/resize.html#DataType">DataType</a></span>
+
+
+
+        </li>
+        <li><span class="parameter">nchannels</span>
+            <span class="types"><span class="type">uint</span></span>
+         Number of color channels.
+        </li>
+        <li><span class="parameter">alpha</span>
+            <span class="types"><span class="type">uint</span></span>
+         As per <a href="../modules/resize.html#uint8_generic">uint8_generic</a>.
+        </li>
+        <li><span class="parameter">hwrap</span>
+            <span class="types"><a class="type" href="../modules/resize.html#EdgeMode">EdgeMode</a></span>
+         How to sample edge pixels, horizontally...
+        </li>
+        <li><span class="parameter">vwrap</span>
+            <span class="types"><a class="type" href="../modules/resize.html#EdgeMode">EdgeMode</a></span>
+         ...and vertically.
+        </li>
+        <li><span class="parameter">hfilter</span>
+            <span class="types"><a class="type" href="../modules/resize.html#Filter">Filter</a></span>
+         How to filter colors, horizontally...
+        </li>
+        <li><span class="parameter">vfilter</span>
+            <span class="types"><a class="type" href="../modules/resize.html#Filter">Filter</a></span>
+         ...and vertically.
+        </li>
+        <li><span class="parameter">space</span>
+            <span class="types"><a class="type" href="../modules/resize.html#ColorSpace">ColorSpace</a></span>
+         How to interpret colors.
+        </li>
+        <li><span class="parameter">s0</span>
+            <span class="types"><span class="type">number</span></span>
+         Upper-left coordinate, u-component...
+        </li>
+        <li><span class="parameter">t0</span>
+            <span class="types"><span class="type">number</span></span>
+         ...and v-component.
+        </li>
+        <li><span class="parameter">s1</span>
+            <span class="types"><span class="type">number</span></span>
+         Bottom-right coordinate, u-component...
+        </li>
+        <li><span class="parameter">t1</span>
+            <span class="types"><span class="type">number</span></span>
+         ...and v-component.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2><a name="Tables"></a>Tables</h2>
+    <dl class="function">
+    <dt>
+    <a name = "DataType"></a>
+    <strong>DataType</strong>
+    </dt>
+    <dd>
+    How to interpret bytes in the most general resize APIs.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">UINT8</span>
+         Components are 8-bit unsigned integers, i.e. 0 to 255 (fairly common for images)...
+        </li>
+        <li><span class="parameter">UINT16</span>
+         ...are 16-bit unsigned integers...
+        </li>
+        <li><span class="parameter">UINT32</span>
+         ...or are 32-bit unsigned integers.
+        </li>
+        <li><span class="parameter">FLOAT</span>
+         Components are single-precision floating-point numbers.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "EdgeMode"></a>
+    <strong>EdgeMode</strong>
+    </dt>
+    <dd>
+    How to handle sampling outside the image.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">CLAMP</span>
+         Samples are clamped to the nearest edge value, e.g. position <code>0</code> snaps to <code>1</code> and
+ <em>n</em> + 1 to <em>n</em>.
+        </li>
+        <li><span class="parameter">REFLECT</span>
+         Samples reflect back across the image, e.g. position <em>n</em> + 3 maps to <em>n</em> - 3.
+        </li>
+        <li><span class="parameter">WRAP</span>
+         Samples wrap around to the other side of the image, e.g. position <em>n</em> + 1 maps to <code>1</code>.
+        </li>
+        <li><span class="parameter">ZERO</span>
+         Samples are read back as values of <code>0</code>.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Filter"></a>
+    <strong>Filter</strong>
+    </dt>
+    <dd>
+    How to filter pixels when changing sizes.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">DEFAULT</span>
+         Use the same filter type that the easy-to-use API chooses.
+        </li>
+        <li><span class="parameter">BOX</span>
+         A trapezoid with one-pixel-wide ramps; same result as box for integer scale ratios.
+        </li>
+        <li><span class="parameter">TRIANGLE</span>
+         On upsampling, produces same results as bilinear texture filtering.
+        </li>
+        <li><span class="parameter">CUBICBSPLINE</span>
+         The cubic B-spline (aka Mitchell-Netrevali with <strong>B</strong> = 1, <strong>C</strong> = 0). Gaussian-esque.
+        </li>
+        <li><span class="parameter">CATMULLROM</span>
+         An interpolating cubic spline.
+        </li>
+        <li><span class="parameter">MITCHELL</span>
+         Mitchell-Netrevali filter with <strong>B</strong> = <strong>C</strong> = &#8531;.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ColorSpace"></a>
+    <strong>ColorSpace</strong>
+    </dt>
+    <dd>
+    How to interpret colors.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">LINEAR</span>
+         Colors map linearly from [0, 255] to [0, 1].
+        </li>
+        <li><span class="parameter">SRGB</span>
+         Colors follow an <a href="https://en.wikipedia.org/wiki/SRGB">sRGB</a> gamma ramp.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ResizeFlags"></a>
+    <strong>ResizeFlags</strong>
+    </dt>
+    <dd>
+    Optional flags to apply to resize operation.
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">ALPHA_PREMULTIPLIED</span>
+         Set this flag if your texture has premultiplied alpha. Otherwise, alpha-weighted
+ resampling will be used (effectively premultiplying, resampling, then unpremultiplying).
+        </li>
+        <li><span class="parameter">ALPHA_USES_COLORSPACE</span>
+         The specified alpha channel should be handled as gamma-corrected value even
+ when doing sRGB operations.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

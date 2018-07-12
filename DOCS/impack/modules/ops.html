@@ -30,15 +30,30 @@
   <li><a href="../api.html">Index</a></li>
 </ul>
 
-<h2>Contents</h2>
-<ul>
-<li><a href="#Functions">Functions</a></li>
-<li><a href="#Tables">Tables</a></li>
+
+
+<h2>Functions</h2>
+<ul class="nowrap">
+    <li><a href="#box_filter">box_filter (input, input_w, input_h, kernel_w, kernel_h, opts)</a></li>
+    <li><a href="#floats_to_unorm8s">floats_to_unorm8s (input, w, h, opts)</a></li>
+    <li><a href="#resize_custom">resize_custom (input, iw, ih, ow, oh, nchannels, opts)</a></li>
+    <li><a href="#resize_region">resize_region (input, iw, ih, ow, oh, nchannels, s0, t0, s1, t1, opts)</a></li>
+    <li><a href="#resize_rgb">resize_rgb (input, iw, ih, ow, oh, nchannels, opts)</a></li>
+    <li><a href="#resize_rgba">resize_rgba (input, iw, ih, ow, oh, opts)</a></li>
+    <li><a href="#resize_subpixel">resize_subpixel (input, iw, ih, ow, oh, nchannels, xscale, yscale, xoff, yoff, opts)</a></li>
+    <li><a href="#rotate">rotate (input, w, h, angle, opts)</a></li>
+    <li><a href="#unorm8s_to_floats">unorm8s_to_floats (input, w, h, opts)</a></li>
 </ul>
-
-
+<h2>Tables</h2>
+<ul class="nowrap">
+    <li><a href="#DataType">DataType</a></li>
+    <li><a href="#EdgeMode">EdgeMode</a></li>
+    <li><a href="#Filter">Filter</a></li>
+    <li><a href="#ColorSpace">ColorSpace</a></li>
+    <li><a href="#ResizeFlags">ResizeFlags</a></li>
+</ul>
 <h2>Modules</h2>
-<ul class="$(kind=='Topics' and '' or 'nowrap'">
+<ul class="nowrap">
   <li><a href="../modules/grayscale.html">grayscale</a></li>
   <li><a href="../modules/image.html">image</a></li>
   <li><strong>ops</strong></li>
@@ -76,18 +91,20 @@
 
 <p> <strong>QUICKSTART</strong></p>
 
-<pre><code>  output_pixels = impack.ops.resize_custom(input_pixels, in_w, in_h,
-                           out_w, out_h, num_channels)
-  output_pixels = impack.ops.resize_custom(input_pixels, in_w, in_h,
-                           out_w, out_h, num_channels, { datatype = "FLOAT" })
-  output_pixels = impack.ops.resize_custom(input_pixels, in_w, in_h,
-                           out_w, out_h, num_channels, { has_alpha = alpha_chan, space = "SRGB" })
-  output_pixels = impack.ops.resize_custom(input_pixels, in_w, in_h,
-                           out_w, out_h, num_channels, {
-                                has_alpha = alpha_chan, space = "SRGB",
-                                wrap = "CLAMP" -- or "WRAP", "REFLECT", "ZERO"
-                            })
-</code></pre>
+
+<pre>
+output_pixels = impack.ops.resize_custom(input_pixels, in_w, in_h,
+                         out_w, out_h, num_channels)
+output_pixels = impack.ops.resize_custom(input_pixels, in_w, in_h,
+                         out_w, out_h, num_channels, { datatype = <span class="string">"FLOAT"</span> })
+output_pixels = impack.ops.resize_custom(input_pixels, in_w, in_h,
+                         out_w, out_h, num_channels, { has_alpha = alpha_chan, space = <span class="string">"SRGB"</span> })
+output_pixels = impack.ops.resize_custom(input_pixels, in_w, in_h,
+                         out_w, out_h, num_channels, {
+                              has_alpha = alpha_chan, space = <span class="string">"SRGB"</span>,
+                              wrap = <span class="string">"CLAMP"</span> <span class="comment">-- or "WRAP", "REFLECT", "ZERO"
+</span>                          })
+</pre>
 
 <p> <strong>Additional documentation:</strong></p>
 
@@ -201,74 +218,9 @@
 </p>
 
 
-<h2><a href="#Functions">Functions</a></h2>
-<table class="function_list">
-	<tr>
-	<td class="name" nowrap><a href="#box_filter">box_filter (input, input_w, input_h, kernel_w, kernel_h, opts)</a></td>
-	<td class="summary">Given some image data, find the results of applying a box filter to it.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#floats_to_unorm8s">floats_to_unorm8s (input, w, h, opts)</a></td>
-	<td class="summary">Converts an image from to floating-point to normalized unsigned 8-bit form, i.e.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#resize_custom">resize_custom (input, iw, ih, ow, oh, nchannels, opts)</a></td>
-	<td class="summary">Generalized variant of <a href="../modules/ops.html#resize_rgb">resize_rgb</a> and <a href="../modules/ops.html#resize_rgba">resize_rgba</a>.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#resize_region">resize_region (input, iw, ih, ow, oh, nchannels, s0, t0, s1, t1, opts)</a></td>
-	<td class="summary">Variant of <a href="../modules/ops.html#resize_custom">resize_custom</a> that allows you to specify the image source tile using texture coordinates, i.e.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#resize_rgb">resize_rgb (input, iw, ih, ow, oh, nchannels, opts)</a></td>
-	<td class="summary">Given some image data, find the results of performing a resize, using the default filter.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#resize_rgba">resize_rgba (input, iw, ih, ow, oh, opts)</a></td>
-	<td class="summary">Given some image data, find the results of performing a resize, using bilinear filtering.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#resize_subpixel">resize_subpixel (input, iw, ih, ow, oh, nchannels, xscale, yscale, xoff, yoff, opts)</a></td>
-	<td class="summary">Variant of <a href="../modules/ops.html#resize_custom">resize_custom</a> that takes an explicit scale for subpixel correctness.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#rotate">rotate (input, w, h, angle, opts)</a></td>
-	<td class="summary">Given some image data, find the results of performing rotation.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#unorm8s_to_floats">unorm8s_to_floats (input, w, h, opts)</a></td>
-	<td class="summary">Converts an image from normalized unsigned 8-bit to floating-point form, i.e.</td>
-	</tr>
-</table>
-<h2><a href="#Tables">Tables</a></h2>
-<table class="function_list">
-	<tr>
-	<td class="name" nowrap><a href="#DataType">DataType</a></td>
-	<td class="summary">Data representations in the resize APIs.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#EdgeMode">EdgeMode</a></td>
-	<td class="summary">How resizes handle sampling outside the image.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#Filter">Filter</a></td>
-	<td class="summary">How pixels are filtered during resizes.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#ColorSpace">ColorSpace</a></td>
-	<td class="summary">How to interpret colors.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#ResizeFlags">ResizeFlags</a></td>
-	<td class="summary">Optional flags to apply to resize operation.</td>
-	</tr>
-</table>
 
-<br/>
-<br/>
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
 
-
-    <h2><a name="Functions"></a>Functions</h2>
     <dl class="function">
     <dt>
     <a name = "box_filter"></a>
@@ -279,6 +231,7 @@
 
 <p> On iPhone and capable Android devices, this will use a <a href="https://projectne10.github.io/Ne10/doc/group__IMG__BOXFILTER.html#gac9ffee47cb54608ada3cf82a6c589924">NEON-optimized routine</a>
  when both kernel dimensions are between 2 and 127, inclusive. Mac and tvOS use an <a href="https://developer.apple.com/reference/accelerate/1515923-vimageconvolve_argb8888">Accelerate framework routine</a>.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -303,7 +256,7 @@
          ...and height, from 1 to <em>input_h</em>. (Ditto.)
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
 
 <p> Filter options, which include:</p>
 
@@ -331,7 +284,7 @@
         <li>
         <strong>nil</strong>, indicating an error.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -346,6 +299,7 @@
     <dd>
     Converts an image from to floating-point to normalized unsigned 8-bit form, i.e.  floats in [0, 1] are
  remapped to [0, 255].
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -362,7 +316,7 @@
          ...and height.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          Conversion options. At the moment, the only option is <strong>channels</strong>, describing the
  number of channels per pixel (by default 4, in keeping with RGBA).
         </li>
@@ -379,7 +333,7 @@
         <li>
         <strong>nil</strong>, indicating an error.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -397,6 +351,7 @@
     </dt>
     <dd>
     Generalized variant of <a href="../modules/ops.html#resize_rgb">resize_rgb</a> and <a href="../modules/ops.html#resize_rgba">resize_rgba</a>.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -425,7 +380,7 @@
          Number of color channels.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
 
 <p> Resize options. These include all the options from <a href="../modules/ops.html#box_filter">box_filter</a>, though the strides
  default to <em>w</em> * <em>nchannels</em> * <strong>bytes_per_component</strong>(<em>datatype</em>).</p>
@@ -465,7 +420,7 @@
         <li>
         <strong>nil</strong>, indicating an error.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -481,6 +436,7 @@
     Variant of <a href="../modules/ops.html#resize_custom">resize_custom</a> that allows you to specify the image source tile using texture coordinates, i.e.
  (<em>s0</em>, <em>t0</em>) and (<em>s1</em>, <em>t1</em>) are the top-left and bottom-right corner (uv addressing style: [0, 1] &times; [0, 1])
  of a region of the input image to use.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -525,7 +481,7 @@
          ...and v-component.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
           As per <a href="../modules/ops.html#resize_custom">resize_custom</a>.
         </li>
     </ul>
@@ -541,7 +497,7 @@
         <li>
         <strong>nil</strong>, indicating an error.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -555,6 +511,7 @@
     </dt>
     <dd>
     Given some image data, find the results of performing a resize, using the default filter.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -583,7 +540,7 @@
          Number of color channels.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          Resize options, as per <a href="../modules/ops.html#box_filter">box_filter</a> (although strides default to <em>w</em> * 3, instead).
         </li>
     </ul>
@@ -599,7 +556,7 @@
         <li>
         <strong>nil</strong>, indicating an error.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -613,6 +570,7 @@
     </dt>
     <dd>
     Given some image data, find the results of performing a resize, using bilinear filtering.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -637,7 +595,7 @@
          ...and height.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          Resize options, as per <a href="../modules/ops.html#box_filter">box_filter</a>.
         </li>
     </ul>
@@ -653,7 +611,7 @@
         <li>
         <strong>nil</strong>, indicating an error.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -667,6 +625,7 @@
     </dt>
     <dd>
     Variant of <a href="../modules/ops.html#resize_custom">resize_custom</a> that takes an explicit scale for subpixel correctness.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -712,7 +671,7 @@
          ...and y-axis. (...and this to <code>t0 * oh / (t1 - t0)</code>.)
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          As per <a href="../modules/ops.html#resize_custom">resize_custom</a>.
         </li>
     </ul>
@@ -728,7 +687,7 @@
         <li>
         <strong>nil</strong>, indicating an error.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -744,6 +703,7 @@
     Given some image data, find the results of performing rotation. </p>
 
 <p> Any non-trivial rotation will leave gaps. Unwritten pixels will be transparent.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -764,7 +724,7 @@
          Rotation angle, in radians.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          Rotate options, as per <a href="../modules/ops.html#box_filter">box_filter</a>.
         </li>
     </ul>
@@ -786,7 +746,7 @@
         <li>
         <strong>nil</strong>, indicating an error.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -801,6 +761,7 @@
     <dd>
     Converts an image from normalized unsigned 8-bit to floating-point form, i.e.  unsigned bytes in
  [0, 255] are remapped to [0, 1].
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -817,7 +778,7 @@
          ...and height.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          Conversion options. At the moment, the only option is <strong>channels</strong>, describing the
  number of channels per pixel (by default 4, in keeping with RGBA).
         </li>
@@ -834,7 +795,7 @@
         <li>
         <strong>nil</strong>, indicating an error.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -847,7 +808,8 @@
 
 </dd>
 </dl>
-    <h2><a name="Tables"></a>Tables</h2>
+    <h2 class="section-header "><a name="Tables"></a>Tables</h2>
+
     <dl class="function">
     <dt>
     <a name = "DataType"></a>
@@ -855,6 +817,7 @@
     </dt>
     <dd>
     Data representations in the resize APIs.
+
 
     <h3>Fields:</h3>
     <ul>
@@ -884,6 +847,7 @@
     <dd>
     How resizes handle sampling outside the image.
 
+
     <h3>Fields:</h3>
     <ul>
         <li><span class="parameter">CLAMP</span>
@@ -912,6 +876,7 @@
     </dt>
     <dd>
     How pixels are filtered during resizes.
+
 
     <h3>Fields:</h3>
     <ul>
@@ -947,6 +912,7 @@
     <dd>
     How to interpret colors.
 
+
     <h3>Fields:</h3>
     <ul>
         <li><span class="parameter">LINEAR</span>
@@ -968,6 +934,7 @@
     </dt>
     <dd>
     Optional flags to apply to resize operation.
+
 
     <h3>Fields:</h3>
     <ul>
@@ -992,7 +959,8 @@
 </div> <!-- id="content" -->
 </div> <!-- id="main" -->
 <div id="about">
-<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2018-07-11 19:35:26 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

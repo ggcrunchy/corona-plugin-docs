@@ -30,15 +30,40 @@
   <li><a href="../api.html">Index</a></li>
 </ul>
 
-<h2>Contents</h2>
-<ul>
-<li><a href="#Functions">Functions</a></li>
-<li><a href="#Tables">Tables</a></li>
+
+
+<h2>Functions</h2>
+<ul class="nowrap">
+    <li><a href="#hdr_to_ldr_gamma">hdr_to_ldr_gamma (gamma)</a></li>
+    <li><a href="#hdr_to_ldr_scale">hdr_to_ldr_scale (scale)</a></li>
+    <li><a href="#info">info (filename[, baseDir=system.ResourceDirectory])</a></li>
+    <li><a href="#info">info (params)</a></li>
+    <li><a href="#info_from_memory">info_from_memory (image)</a></li>
+    <li><a href="#is_hdr">is_hdr (filename[, baseDir=system.ResourceDirectory])</a></li>
+    <li><a href="#is_hdr">is_hdr (params)</a></li>
+    <li><a href="#is_hdr_from_memory">is_hdr_from_memory (image)</a></li>
+    <li><a href="#ldr_to_hdr_gamma">ldr_to_hdr_gamma (gamma)</a></li>
+    <li><a href="#ldr_to_hdr_scale">ldr_to_hdr_scale (scale)</a></li>
+    <li><a href="#load">load (filename[, baseDir=system.ResourceDirectory], opts)</a></li>
+    <li><a href="#load_from_memory">load_from_memory (image, opts)</a></li>
+    <li><a href="#loadf">loadf (filename[, baseDir=system.ResourceDirectory], opts)</a></li>
+    <li><a href="#loadf_from_memory">loadf_from_memory (image, opts)</a></li>
+    <li><a href="#load_image_object">load_image_object (name[, baseDir=system.ResourceDirectory])</a></li>
+    <li><a href="#load_image_object">load_image_object (params)</a></li>
+    <li><a href="#load_image_object_from_memory">load_image_object_from_memory (image)</a></li>
+    <li><a href="#new_color_hsla">new_color_hsla ([h=0[, s=0[, l=0[, a=1]]]])</a></li>
+    <li><a href="#new_color_rgba">new_color_rgba ([r=0[, g=0[, b=0[, a=0]]]])</a></li>
+    <li><a href="#new_image_object">new_image_object (w, h, d, filler)</a></li>
+    <li><a href="#xload">xload (filename[, baseDir=system.ResourceDirectory])</a></li>
+    <li><a href="#xload">xload (params)</a></li>
+    <li><a href="#xload_from_memory">xload_from_memory (image)</a></li>
 </ul>
-
-
+<h2>Tables</h2>
+<ul class="nowrap">
+    <li><a href="#GifFrame">GifFrame</a></li>
+</ul>
 <h2>Modules</h2>
-<ul class="$(kind=='Topics' and '' or 'nowrap'">
+<ul class="nowrap">
   <li><a href="../modules/grayscale.html">grayscale</a></li>
   <li><strong>image</strong></li>
   <li><a href="../modules/ops.html">ops</a></li>
@@ -112,20 +137,24 @@
 </ul>
 
 <p> Basic usage (see HDR discussion below for HDR usage):</p>
-<pre><code>local data, x, y, comp = impack.image.load(filename, 0)
--- ... process data if not nil ...
--- ... x = width, y = height, comp = # 8-bit components per pixel ...
--- ... replace '0' with '1'..'4' to force that many components per pixel
--- ... but comp will always be the number that it would have been if you said 0
-data = nil -- or allow to go out of scope
-</code></pre>
+
+<pre>
+<span class="keyword">local</span> data, x, y, comp = impack.image.<span class="global">load</span>(filename, <span class="number">0</span>)
+<span class="comment">-- ... process data if not nil ...
+</span><span class="comment">-- ... x = width, y = height, comp = # 8-bit components per pixel ...
+</span><span class="comment">-- ... replace '0' with '1'..'4' to force that many components per pixel
+</span><span class="comment">-- ... but comp will always be the number that it would have been if you said 0
+</span>data = <span class="keyword">nil</span> <span class="comment">-- or allow to go out of scope</span>
+</pre>
 
 <p> Standard parameters and results:</p>
-<pre><code>x        -- image width in pixels
-y        -- image height in pixels
-comp     -- # of image components in image file
-req_comp -- if non-zero, # of image components requested in result
-</code></pre>
+
+<pre>
+x        <span class="comment">-- image width in pixels
+</span>y        <span class="comment">-- image height in pixels
+</span>comp     <span class="comment">-- # of image components in image file
+</span>req_comp <span class="comment">-- if non-zero, # of image components requested in result</span>
+</pre>
 
 <p> The return value from an image loader is a string containing
  the pixel data, or <strong>nil</strong> on an allocation failure or if the image is
@@ -142,12 +171,14 @@ req_comp -- if non-zero, # of image components requested in result
 <p> An output image with N components has the following components interleaved
  in this order in each pixel:</p>
 
-<pre><code> N = #comp   components
-   1           grey
-   2           grey, alpha
-   3           red, green, blue
-   4           red, green, blue, alpha
-</code></pre>
+
+<pre>
+N = #comp   components
+  <span class="number">1</span>           grey
+  <span class="number">2</span>           grey, alpha
+  <span class="number">3</span>           red, green, blue
+  <span class="number">4</span>           red, green, blue, alpha
+</pre>
 
 <p> If image loading fails for any reason, the return value will be <strong>nil</strong>,
  along with an extremely brief explanation of why the load failed.</p>
@@ -160,10 +191,12 @@ req_comp -- if non-zero, # of image components requested in result
 
 <p> stb libraries are designed with the following priorities:</p>
 
-<pre><code>1. easy to use
-2. easy to maintain
-3. good performance
-</code></pre>
+
+<pre>
+<span class="number">1.</span> easy to use
+<span class="number">2.</span> easy to maintain
+<span class="number">3.</span> good performance
+</pre>
 
 <p> Sometimes I let "good performance" creep up in priority over "easy to maintain",
  and for best performance I may provide less-easy-to-use APIs that give higher
@@ -200,9 +233,11 @@ req_comp -- if non-zero, # of image components requested in result
  LDR, assuming gamma 2.2 and an arbitrary scale factor defaulting to 1;
  both of these constants can be reconfigured through this interface:</p>
 
-<pre><code> impack.image.hdr_to_ldr_gamma(2.2)
- impack.image.hdr_to_ldr_scale(1.0)
-</code></pre>
+
+<pre>
+impack.image.hdr_to_ldr_gamma(<span class="number">2.2</span>)
+impack.image.hdr_to_ldr_scale(<span class="number">1.0</span>)
+</pre>
 
 <p> (Note, do not use <em>inverse</em> constants; the appropriate inversion will be
  applied internally.)</p>
@@ -210,23 +245,29 @@ req_comp -- if non-zero, # of image components requested in result
 <p> Additionally, there is a new, parallel interface for loading files as
  (linear) floats to preserve the full dynamic range:</p>
 
-<pre><code>local data, x, y, n = impack.image.loadf(filename)
-</code></pre>
+
+<pre>
+<span class="keyword">local</span> data, x, y, n = impack.image.loadf(filename)
+</pre>
 
 <p> If you load LDR images through this interface, those images will
  be promoted to floating point values, run through the inverse of
  constants corresponding to the above:</p>
 
-<pre><code> impack.image.ldr_to_hdr_scale(1.0)
- impack.image.ldr_to_hdr_gamma(2.2)
-</code></pre>
+
+<pre>
+impack.image.ldr_to_hdr_scale(<span class="number">1.0</span>)
+impack.image.ldr_to_hdr_gamma(<span class="number">2.2</span>)
+</pre>
 
 <p> Finally, given a filename or memory block containing image data, you
  can query for the "most appropriate" interface to use (that is, whether
  the image is HDR or not), using:</p>
 
-<pre><code> impack.image.is_hdr(filename)
-</code></pre>
+
+<pre>
+impack.image.is_hdr(filename)
+</pre>
 
 <hr/>
 
@@ -247,98 +288,9 @@ req_comp -- if non-zero, # of image components requested in result
 </p>
 
 
-<h2><a href="#Functions">Functions</a></h2>
-<table class="function_list">
-	<tr>
-	<td class="name" nowrap><a href="#hdr_to_ldr_gamma">hdr_to_ldr_gamma (gamma)</a></td>
-	<td class="summary">Assign the (global) high &rarr; low-dynamic-range gamma mapping.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#hdr_to_ldr_scale">hdr_to_ldr_scale (scale)</a></td>
-	<td class="summary">Assign the (global) high &rarr; low-dynamic-range scale factor.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#info">info (filename[, baseDir=system.ResourceDirectory])</a></td>
-	<td class="summary">Get image dimensions and component count without fully decoding.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#info_from_memory">info_from_memory (image)</a></td>
-	<td class="summary">Memory-based variant of <a href="../modules/image.html#info">info</a>.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#is_hdr">is_hdr (filename[, baseDir=system.ResourceDirectory])</a></td>
-	<td class="summary">Check whether a file contains an HDR image.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#is_hdr_from_memory">is_hdr_from_memory (image)</a></td>
-	<td class="summary">Memory-based variant of <a href="../modules/image.html#is_hdr">is_hdr</a>.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#ldr_to_hdr_gamma">ldr_to_hdr_gamma (gamma)</a></td>
-	<td class="summary">Assign the (global) low &rarr; high-dynamic-range gamma mapping.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#ldr_to_hdr_scale">ldr_to_hdr_scale (scale)</a></td>
-	<td class="summary">Assign the (global) low &rarr; high-dynamic-range scale factor.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#load">load (filename[, baseDir=system.ResourceDirectory], opts)</a></td>
-	<td class="summary">Loads an image into one-byte-per-component form.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#load_from_memory">load_from_memory (image, opts)</a></td>
-	<td class="summary">Memory-based variant of <a href="../modules/image.html#load">load</a>.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#loadf">loadf (filename[, baseDir=system.ResourceDirectory], opts)</a></td>
-	<td class="summary">Loads an image into floating-point form.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#loadf_from_memory">loadf_from_memory (image, opts)</a></td>
-	<td class="summary">Memory-based variant of <a href="../modules/image.html#loadf">loadf</a>.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#load_image_object">load_image_object (name)</a></td>
-	<td class="summary">(<strong>WIP</strong>) Load a Spot image from a file.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#load_image_object_from_memory">load_image_object_from_memory (image)</a></td>
-	<td class="summary">(<strong>WIP</strong>) Load a Spot image from memory.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#new_color_hsla">new_color_hsla ([h=0[, s=0[, l=0[, a=1]]]])</a></td>
-	<td class="summary">(<strong>WIP</strong>) Create a new Spot color in HSLA form.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#new_color_rgba">new_color_rgba ([r=0[, g=0[, b=0[, a=0]]]])</a></td>
-	<td class="summary">(<strong>WIP</strong>) Create a new Spot color in RGBA form.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#new_image_object">new_image_object (w, h, d, filler)</a></td>
-	<td class="summary">(<strong>WIP</strong>) Create a new empty Spot image.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#xload">xload (filename[, baseDir=system.ResourceDirectory])</a></td>
-	<td class="summary">Given a GIF, loads its frames (image data, delay to next frame) into an array.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#xload_from_memory">xload_from_memory (image)</a></td>
-	<td class="summary">Variant of <a href="../modules/image.html#xload">xload</a> that loads from memory.</td>
-	</tr>
-</table>
-<h2><a href="#Tables">Tables</a></h2>
-<table class="function_list">
-	<tr>
-	<td class="name" nowrap><a href="#GifFrame">GifFrame</a></td>
-	<td class="summary">Represents a single frame in a GIF animation.</td>
-	</tr>
-</table>
 
-<br/>
-<br/>
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
 
-
-    <h2><a name="Functions"></a>Functions</h2>
     <dl class="function">
     <dt>
     <a name = "hdr_to_ldr_gamma"></a>
@@ -346,6 +298,7 @@ req_comp -- if non-zero, # of image components requested in result
     </dt>
     <dd>
     Assign the (global) high &rarr; low-dynamic-range gamma mapping.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -371,6 +324,7 @@ req_comp -- if non-zero, # of image components requested in result
     <dd>
     Assign the (global) high &rarr; low-dynamic-range scale factor.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">scale</span>
@@ -395,10 +349,11 @@ req_comp -- if non-zero, # of image components requested in result
     <dd>
     Get image dimensions and component count without fully decoding.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">filename</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          Name of file to query.
         </li>
         <li><span class="parameter">baseDir</span>
@@ -433,11 +388,43 @@ req_comp -- if non-zero, # of image components requested in result
 
 </dd>
     <dt>
+    <a name = "info"></a>
+    <strong>info (params)</strong>
+    </dt>
+    <dd>
+    (<strong>WIP</strong>) Alternate overload of <strong>info</strong>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">params</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         Info parameters. This must include <strong>filename</strong> and may have a <strong>baseDir</strong> field, with meanings as in
+ the other overload.</p>
+
+<p> If an <strong>is_absolute</strong> is present and true, <em>filename</em> is interpreted as an absolute path (any <em>baseDir</em> is ignored). On
+ non-desktop platforms, this raises an error.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">As</span></span>
+        per the other overload.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
     <a name = "info_from_memory"></a>
     <strong>info_from_memory (image)</strong>
     </dt>
     <dd>
     Memory-based variant of <a href="../modules/image.html#info">info</a>.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -478,10 +465,11 @@ req_comp -- if non-zero, # of image components requested in result
     <dd>
     Check whether a file contains an HDR image.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">filename</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          Name of file to query.
         </li>
         <li><span class="parameter">baseDir</span>
@@ -503,11 +491,38 @@ req_comp -- if non-zero, # of image components requested in result
 
 </dd>
     <dt>
+    <a name = "is_hdr"></a>
+    <strong>is_hdr (params)</strong>
+    </dt>
+    <dd>
+    (<strong>WIP</strong>) Alternate overload of <strong>is_hdr</strong>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">params</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         Query parameters. See the table overload of <a href="../modules/image.html#info">info</a> for details.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        As per the other overload.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
     <a name = "is_hdr_from_memory"></a>
     <strong>is_hdr_from_memory (image)</strong>
     </dt>
     <dd>
     Memory-based variant of <a href="../modules/image.html#is_hdr">is_hdr</a>.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -535,6 +550,7 @@ req_comp -- if non-zero, # of image components requested in result
     <dd>
     Assign the (global) low &rarr; high-dynamic-range gamma mapping.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">gamma</span>
@@ -558,6 +574,7 @@ req_comp -- if non-zero, # of image components requested in result
     </dt>
     <dd>
     Assign the (global) low &rarr; high-dynamic-range scale factor.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -583,10 +600,11 @@ req_comp -- if non-zero, # of image components requested in result
     <dd>
     Loads an image into one-byte-per-component form.  Refer to the summary above for further details.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">filename</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          Name of file to load.
         </li>
         <li><span class="parameter">baseDir</span>
@@ -595,7 +613,7 @@ req_comp -- if non-zero, # of image components requested in result
          (<em>default</em> system.ResourceDirectory)
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
 
 <p> Load options, which include:</p>
 
@@ -603,6 +621,8 @@ req_comp -- if non-zero, # of image components requested in result
     <li><strong>as_userdata</strong> Affects how the image data is returned.</li>
     <li><strong>req_comp</strong> When present (and non-0), it should be an integer between 1 and 4, the loaded data
     will have as many components (adding or removing channels as needed).</li>
+    <li><strong>is_absolute</strong>: (<strong>WIP</strong>) If true, <em>filename</em> is interpreted as being an absolute, <em>baseDir</em> being ignored. (On
+    non-desktop platforms, this raises an error.)</li>
     <li>(Support for <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/MemoryBlob/api.html">blobs</a>
     is planned and would be exposed via <em>opts</em>.)</li>
 </ul>
@@ -634,7 +654,7 @@ req_comp -- if non-zero, # of image components requested in result
         <li>
         <strong>nil</strong>, indicating failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -649,6 +669,7 @@ req_comp -- if non-zero, # of image components requested in result
     <dd>
     Memory-based variant of <a href="../modules/image.html#load">load</a>.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">image</span>
@@ -656,7 +677,7 @@ req_comp -- if non-zero, # of image components requested in result
          Undecoded image contents.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          As per <a href="../modules/image.html#load">load</a>
         </li>
     </ul>
@@ -681,7 +702,7 @@ req_comp -- if non-zero, # of image components requested in result
         <li>
         <strong>nil</strong>, indicating failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -696,10 +717,11 @@ req_comp -- if non-zero, # of image components requested in result
     <dd>
     Loads an image into floating-point form.  Refer to the summary above for further details.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">filename</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          Name of file to load.
         </li>
         <li><span class="parameter">baseDir</span>
@@ -708,7 +730,7 @@ req_comp -- if non-zero, # of image components requested in result
          (<em>default</em> system.ResourceDirectory)
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          As per <a href="../modules/image.html#load">load</a>.
         </li>
     </ul>
@@ -733,7 +755,7 @@ req_comp -- if non-zero, # of image components requested in result
         <li>
         <strong>nil</strong>, indicating failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -748,6 +770,7 @@ req_comp -- if non-zero, # of image components requested in result
     <dd>
     Memory-based variant of <a href="../modules/image.html#loadf">loadf</a>.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">image</span>
@@ -755,7 +778,7 @@ req_comp -- if non-zero, # of image components requested in result
          Undecoded image contents.
         </li>
         <li><span class="parameter">opts</span>
-            <span class="types">optional <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+            <span class="types">optional <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
          As per <a href="../modules/image.html#loadf">loadf</a>.
         </li>
     </ul>
@@ -780,7 +803,7 @@ req_comp -- if non-zero, # of image components requested in result
         <li>
         <strong>nil</strong>, indicating failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -790,16 +813,22 @@ req_comp -- if non-zero, # of image components requested in result
 </dd>
     <dt>
     <a name = "load_image_object"></a>
-    <strong>load_image_object (name)</strong>
+    <strong>load_image_object (name[, baseDir=system.ResourceDirectory])</strong>
     </dt>
     <dd>
     (<strong>WIP</strong>) Load a Spot image from a file.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">name</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          Name of file to load.
+        </li>
+        <li><span class="parameter">baseDir</span>
+         Directory to search, as per
+ <a href="https://docs.coronalabs.com/api/library/system/pathForFile.html">system.pathForFile</a>.
+         (<em>default</em> system.ResourceDirectory)
         </li>
     </ul>
 
@@ -814,8 +843,34 @@ req_comp -- if non-zero, # of image components requested in result
         <li>
         <strong>nil</strong>, indicating an error.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "load_image_object"></a>
+    <strong>load_image_object (params)</strong>
+    </dt>
+    <dd>
+    (<strong>WIP</strong>) Alternate overload of <strong>load_image_object</strong>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">params</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         Load parameters. See the table overload of <a href="../modules/image.html#info">info</a> for details.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        As per the other overload.
     </ol>
 
 
@@ -828,6 +883,7 @@ req_comp -- if non-zero, # of image components requested in result
     </dt>
     <dd>
     (<strong>WIP</strong>) Load a Spot image from memory.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -848,7 +904,7 @@ req_comp -- if non-zero, # of image components requested in result
         <li>
         <strong>nil</strong>, indicating an error.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -862,6 +918,7 @@ req_comp -- if non-zero, # of image components requested in result
     </dt>
     <dd>
     (<strong>WIP</strong>) Create a new Spot color in HSLA form.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -898,7 +955,7 @@ req_comp -- if non-zero, # of image components requested in result
         <li>
         <strong>nil</strong>, indicating an error.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -912,6 +969,7 @@ req_comp -- if non-zero, # of image components requested in result
     </dt>
     <dd>
     (<strong>WIP</strong>) Create a new Spot color in RGBA form.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -948,7 +1006,7 @@ req_comp -- if non-zero, # of image components requested in result
         <li>
         <strong>nil</strong>, indicating an error.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -962,6 +1020,7 @@ req_comp -- if non-zero, # of image components requested in result
     </dt>
     <dd>
     (<strong>WIP</strong>) Create a new empty Spot image.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -994,7 +1053,7 @@ req_comp -- if non-zero, # of image components requested in result
         <li>
         <strong>nil</strong>, indicating an error.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
     </ol>
 
@@ -1012,10 +1071,11 @@ req_comp -- if non-zero, # of image components requested in result
 
 <p> A single image buffer (with no delay info) is returned for non-GIF files and for GIFs that have one frame.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">filename</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          Name of file to load.
         </li>
         <li><span class="parameter">baseDir</span>
@@ -1041,7 +1101,7 @@ req_comp -- if non-zero, # of image components requested in result
      <h3>Or</h3>
     <ol>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Image data, in the case there is only one frame or <em>filename</em> was not a GIF.</li>
         <li>
            <span class="types"><span class="type">uint</span></span>
@@ -1058,8 +1118,34 @@ req_comp -- if non-zero, # of image components requested in result
         <li>
         <strong>nil</strong>, indicating failure.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "xload"></a>
+    <strong>xload (params)</strong>
+    </dt>
+    <dd>
+    (<strong>WIP</strong>) Alternate overload of <strong>xload</strong>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">params</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         Load parameters. See the table overload of <a href="../modules/image.html#info">info</a> for details.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        As per the other overload.
     </ol>
 
 
@@ -1072,6 +1158,7 @@ req_comp -- if non-zero, # of image components requested in result
     </dt>
     <dd>
     Variant of <a href="../modules/image.html#xload">xload</a> that loads from memory.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -1092,7 +1179,8 @@ req_comp -- if non-zero, # of image components requested in result
 
 </dd>
 </dl>
-    <h2><a name="Tables"></a>Tables</h2>
+    <h2 class="section-header "><a name="Tables"></a>Tables</h2>
+
     <dl class="function">
     <dt>
     <a name = "GifFrame"></a>
@@ -1100,6 +1188,7 @@ req_comp -- if non-zero, # of image components requested in result
     </dt>
     <dd>
     Represents a single frame in a GIF animation.
+
 
     <h3>Fields:</h3>
     <ul>
@@ -1124,7 +1213,8 @@ req_comp -- if non-zero, # of image components requested in result
 </div> <!-- id="content" -->
 </div> <!-- id="main" -->
 <div id="about">
-<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2018-07-11 19:35:26 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
