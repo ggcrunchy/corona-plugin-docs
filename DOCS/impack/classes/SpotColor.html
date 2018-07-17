@@ -32,29 +32,35 @@
 
 
 
-<h2>Functions</h2>
+<h2>Metamethods</h2>
 <ul class="nowrap">
     <li><a href="#SpotColor:__add">SpotColor:__add ()</a></li>
+    <li><a href="#SpotColor:__div">SpotColor:__div ()</a></li>
+    <li><a href="#SpotColor:__mul">SpotColor:__mul ()</a></li>
+    <li><a href="#SpotColor:__sub">SpotColor:__sub ()</a></li>
+</ul>
+<h2>Methods</h2>
+<ul class="nowrap">
     <li><a href="#SpotColor:add_mutate">SpotColor:add_mutate (color)</a></li>
     <li><a href="#SpotColor:clamp">SpotColor:clamp ()</a></li>
     <li><a href="#SpotColor:clone">SpotColor:clone ()</a></li>
-    <li><a href="#SpotColor:__div">SpotColor:__div ()</a></li>
     <li><a href="#SpotColor:div_mutate">SpotColor:div_mutate (color)</a></li>
-    <li><a href="#SpotColor:__mul">SpotColor:__mul ()</a></li>
     <li><a href="#SpotColor:mul_mutate">SpotColor:mul_mutate (color)</a></li>
     <li><a href="#SpotColor:premultiply">SpotColor:premultiply ()</a></li>
-    <li><a href="#SpotColor:__sub">SpotColor:__sub ()</a></li>
     <li><a href="#SpotColor:sub_mutate">SpotColor:sub_mutate (color)</a></li>
     <li><a href="#SpotColor:to_rgba">SpotColor:to_rgba ()</a></li>
     <li><a href="#SpotColor:unpremultiply">SpotColor:unpremultiply ()</a></li>
+</ul>
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><strong>SpotColor</strong></li>
+  <li><a href="../classes/SpotImage.html">SpotImage</a></li>
 </ul>
 <h2>Modules</h2>
 <ul class="nowrap">
   <li><a href="../modules/grayscale.html">grayscale</a></li>
   <li><a href="../modules/image.html">image</a></li>
   <li><a href="../modules/ops.html">ops</a></li>
-  <li><strong>spot_color</strong></li>
-  <li><a href="../modules/spot_image.html">spot_image</a></li>
   <li><a href="../modules/write.html">write</a></li>
 </ul>
 
@@ -62,7 +68,7 @@
 
 <div id="content">
 
-<h1>Module <code>spot_color</code></h1>
+<h1>Class <code>SpotColor</code></h1>
 <p>Wrapper over <a href="https://github.com/r-lyeh/spot">Spot</a>'s color class.</p>
 <p>
 
@@ -76,7 +82,7 @@
 
 
 
-    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+    <h2 class="section-header "><a name="Metamethods"></a>Metamethods</h2>
 
     <dl class="function">
     <dt>
@@ -95,7 +101,7 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">SpotColor</span></span>
+           <span class="types"><a class="type" href="../classes/SpotColor.html#">SpotColor</a></span>
         The sum of the two colors.
     </ol>
 
@@ -103,6 +109,82 @@
 
 
 </dd>
+    <dt>
+    <a name = "SpotColor:__div"></a>
+    <strong>SpotColor:__div ()</strong>
+    </dt>
+    <dd>
+    Metamethod. </p>
+
+<p> The right-hand argument may be a <strong>SpotColor</strong> or a number (implicitly, a color with four equal values).</p>
+
+<p> Any errors are propagated.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/SpotColor.html#">SpotColor</a></span>
+        The quotient of the two colors.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotColor:__mul"></a>
+    <strong>SpotColor:__mul ()</strong>
+    </dt>
+    <dd>
+    Metamethod. </p>
+
+<p> The right-hand argument may be a <strong>SpotColor</strong> or a number (implicitly, a color with four equal values).</p>
+
+<p> Any errors are propagated.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/SpotColor.html#">SpotColor</a></span>
+        The product of the two colors.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SpotColor:__sub"></a>
+    <strong>SpotColor:__sub ()</strong>
+    </dt>
+    <dd>
+    Metamethod. </p>
+
+<p> The right-hand argument may be a <strong>SpotColor</strong> or a number (implicitly, a color with four equal values).</p>
+
+<p> Any errors are propagated.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/SpotColor.html#">SpotColor</a></span>
+        The difference of the two colors.
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
+
+    <dl class="function">
     <dt>
     <a name = "SpotColor:add_mutate"></a>
     <strong>SpotColor:add_mutate (color)</strong>
@@ -114,7 +196,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">color</span>
-            <span class="types"><span class="type">SpotColor</span></span>
+            <span class="types"><a class="type" href="../classes/SpotColor.html#">SpotColor</a></span>
          Color to add.
         </li>
     </ul>
@@ -149,7 +231,7 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">SpotColor</span></span>
+           <span class="types"><a class="type" href="../classes/SpotColor.html#">SpotColor</a></span>
         New color.
     </ol>
      <h3>Or</h3>
@@ -177,7 +259,7 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">SpotColor</span></span>
+           <span class="types"><a class="type" href="../classes/SpotColor.html#">SpotColor</a></span>
         New color.
     </ol>
      <h3>Or</h3>
@@ -187,30 +269,6 @@
         <li>
            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "SpotColor:__div"></a>
-    <strong>SpotColor:__div ()</strong>
-    </dt>
-    <dd>
-    Metamethod. </p>
-
-<p> The right-hand argument may be a <strong>SpotColor</strong> or a number (implicitly, a color with four equal values).</p>
-
-<p> Any errors are propagated.
-
-
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">SpotColor</span></span>
-        The quotient of the two colors.
     </ol>
 
 
@@ -228,7 +286,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">color</span>
-            <span class="types"><span class="type">SpotColor</span></span>
+            <span class="types"><a class="type" href="../classes/SpotColor.html#">SpotColor</a></span>
          Color to divide by.
         </li>
     </ul>
@@ -252,30 +310,6 @@
 
 </dd>
     <dt>
-    <a name = "SpotColor:__mul"></a>
-    <strong>SpotColor:__mul ()</strong>
-    </dt>
-    <dd>
-    Metamethod. </p>
-
-<p> The right-hand argument may be a <strong>SpotColor</strong> or a number (implicitly, a color with four equal values).</p>
-
-<p> Any errors are propagated.
-
-
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">SpotColor</span></span>
-        The product of the two colors.
-    </ol>
-
-
-
-
-</dd>
-    <dt>
     <a name = "SpotColor:mul_mutate"></a>
     <strong>SpotColor:mul_mutate (color)</strong>
     </dt>
@@ -286,7 +320,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">color</span>
-            <span class="types"><span class="type">SpotColor</span></span>
+            <span class="types"><a class="type" href="../classes/SpotColor.html#">SpotColor</a></span>
          Color to multiply by.
         </li>
     </ul>
@@ -321,7 +355,7 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">SpotColor</span></span>
+           <span class="types"><a class="type" href="../classes/SpotColor.html#">SpotColor</a></span>
         New color.
     </ol>
      <h3>Or</h3>
@@ -331,30 +365,6 @@
         <li>
            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Error message.</li>
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "SpotColor:__sub"></a>
-    <strong>SpotColor:__sub ()</strong>
-    </dt>
-    <dd>
-    Metamethod. </p>
-
-<p> The right-hand argument may be a <strong>SpotColor</strong> or a number (implicitly, a color with four equal values).</p>
-
-<p> Any errors are propagated.
-
-
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">SpotColor</span></span>
-        The difference of the two colors.
     </ol>
 
 
@@ -372,7 +382,7 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">color</span>
-            <span class="types"><span class="type">SpotColor</span></span>
+            <span class="types"><a class="type" href="../classes/SpotColor.html#">SpotColor</a></span>
          Color to subtract.
         </li>
     </ul>
@@ -407,7 +417,7 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">SpotColor</span></span>
+           <span class="types"><a class="type" href="../classes/SpotColor.html#">SpotColor</a></span>
         New color.
     </ol>
      <h3>Or</h3>
@@ -435,7 +445,7 @@
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">SpotColor</span></span>
+           <span class="types"><a class="type" href="../classes/SpotColor.html#">SpotColor</a></span>
         New color.
     </ol>
      <h3>Or</h3>
@@ -458,7 +468,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2018-07-17 17:04:20 </i>
+<i style="float:right;">Last updated 2018-07-17 17:22:35 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
