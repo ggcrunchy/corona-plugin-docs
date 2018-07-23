@@ -257,16 +257,16 @@ function Scene:create (event)
 		local size = max(TexW, TexH) -- msquares normalizes against maximum
 
 		for i = 1, #mlist do
-			local mesh = mlist:GetMesh(i)
-			local mc = mesh:GetColor()
+			local color_mesh = mlist:GetMesh(i)
+			local mc = color_mesh:GetColor()
 
 			for j = 2, #ColorValues do -- 1 = background
 				local color = ColorValues[j]
 
 				if mc == color.uint then
-					local points, verts = mesh:GetPoints(), {}
+					local points, verts = color_mesh:GetPoints(), {}
 
-					for k = 1, #points, mesh:GetDim() do
+					for k = 1, #points, color_mesh:GetDim() do
 						local x, y = points[k], points[k + 1]
 
 						verts[#verts + 1] = size * (x - .5)
@@ -274,7 +274,7 @@ function Scene:create (event)
 					end
 
 					local mesh = display.newMesh(CX, CY, {
-						indices = mesh:GetTriangles(), vertices = verts, mode = "indexed", zeroBasedIndices = true
+						indices = color_mesh:GetTriangles(), vertices = verts, mode = "indexed", zeroBasedIndices = true
 					})
 
 					mesh:setFillColor(color.r, color.g, color.b)
