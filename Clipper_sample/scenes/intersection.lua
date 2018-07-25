@@ -80,31 +80,32 @@ local YOffset = -35
 function Scene:show (event)
 	if event.phase == "did" then
 		-- set up the subject and clip polygons ...
-		local sub = clipper.NewPathArray()
+		local subj = clipper.NewPathArray()
 
-		sub:AddPath(GetEllipsePoints(100, 100, 300, 300))
-		sub:AddPath(GetEllipsePoints(125, 130, 275, 180))
-		sub:AddPath(GetEllipsePoints(125, 220, 275, 270))
+		subj:AddPath(GetEllipsePoints(100, 100, 300, 300))
+		subj:AddPath(GetEllipsePoints(125, 130, 275, 180))
+		subj:AddPath(GetEllipsePoints(125, 220, 275, 270))
 
-		local clp = clipper.NewPathArray()
+		local clip = clipper.NewPathArray()
 
-		clp:AddPath(GetEllipsePoints(140, 70, 220, 320))
+		clip:AddPath(GetEllipsePoints(140, 70, 220, 320))
 
 		-- display the subject and clip polygons ...
-        utils.DrawPolygons(self.view, sub, { r = 0x33 / 0xFF, a = .5, y = YOffset })
-        utils.DrawPolygons(self.view, clp, { b = 0x33 / 0xFF, a = .5, y = YOffset })
+        utils.DrawPolygons(self.view, subj, { r = 0x33 / 0xFF, a = .5, y = YOffset })
+        utils.DrawPolygons(self.view, clip, { b = 0x33 / 0xFF, a = .5, y = YOffset })
 
         -- get the intersection of the subject and clip polygons ...
         local clpr = clipper.NewClipper()
 
-        clpr:AddPaths(sub, "SubjectClosed")
-        clpr:AddPaths(clp, "Clip")
+        clpr:AddPaths(subj, "SubjectClosed")
+        clpr:AddPaths(clip, "Clip")
 
         local solution = clpr:Execute("Intersection", "EvenOdd", "EvenOdd")
 
-        -- finally draw the intersection polygons ...
-        utils.DrawPolygons(self.view, solution, { r = .5, g = .5, b = .5, a = .25, y = YOffset, stroke = Stroke })
+		-- finally draw the intersection polygons ...
+		utils.DrawPolygons(self.view, solution, { r = .5, g = .5, b = .5, a = .25, y = YOffset, stroke = Stroke })
 	end
+	-- TODO: cycle rules, modes?
 end
 
 Scene:addEventListener("show")

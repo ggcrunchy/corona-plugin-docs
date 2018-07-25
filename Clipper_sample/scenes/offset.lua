@@ -1,4 +1,4 @@
---- Scene that demonstrates boundary contours tessellation with the negative winding rule.
+--- Scene that demonstrates path offsetting.
 
 --
 -- Permission is hereby granted, free of charge, to any person obtaining
@@ -24,7 +24,10 @@
 --
 
 -- Modules --
-local winding_bc = require("winding_bc")
+local utils = require("utils")
+
+-- Plugins --
+local clipper = require("plugin.clipper")
 
 -- Corona modules --
 local composer = require("composer")
@@ -38,7 +41,22 @@ local Scene = composer.newScene()
 -- Show --
 function Scene:show (event)
 	if event.phase == "did" then
-		winding_bc.Show(self, "NEGATIVE")
+		local subj =	{348, 257} .. {364, 148} .. {362, 148} ..
+						{326, 241} .. {295, 219} .. {258, 88} ..
+						{440, 129} .. {370, 196} .. {372, 275} .. clipper.ToPath
+		local co = clipper.NewOffset()
+
+		co:AddPath(subj, "Round", "ClosedPolygon")
+
+		local solution = co:Execute(-7)
+		local original = clipper.NewPathArray()
+
+		original:AddPath(subj)
+
+		utils.DrawPolygons(self.view, original, { a = .8, stroke = { .4 } })
+		utils.DrawPolygons(self.view, solution, { r = 0, b = 0, stroke = { 0, 0x99 / 0xFF, 0 } })
+
+		-- TODO: animate, somehow?
 	end
 end
 
@@ -47,26 +65,9 @@ Scene:addEventListener("show")
 -- Hide --
 function Scene:hide (event)
 	if event.phase == "did" then
-		winding_bc.Hide(self)
+		
 	end
 end
-
---[[
-int main()
-{
-Path subj;
-Paths solution;
-subj <<
-IntPoint(348,257) << IntPoint(364,148) << IntPoint(362,148) <<
-IntPoint(326,241) << IntPoint(295,219) << IntPoint(258,88) <<
-IntPoint(440,129) << IntPoint(370,196) << IntPoint(372,275);
-ClipperOffset co;
-co.AddPath(subj, jtRound, etClosedPolygon);
-co.Execute(solution, -7.0);
-
-//draw solution ...
-DrawPolygons(solution, 0x4000FF00, 0xFF009900);
-}]]
 
 Scene:addEventListener("hide")
 

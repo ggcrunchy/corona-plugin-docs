@@ -45,6 +45,7 @@ local timer = timer
 local _AddTriVert_
 local _CancelTimers_
 local _CloseTri_
+local _DrawPolygons_
 local _GetTess_
 
 -- Exports --
@@ -279,6 +280,14 @@ function M.DrawPolygons (group, paths, params)
     end
 end
 
+function M.DrawSinglePolygon (group, path, params)
+	local paths = clipper.NewPathArray()
+
+	paths:AddPath(path)
+
+	_DrawPolygons_(group, paths, params)
+end
+
 -- TODO: DrawPolygonsEx, to handle potentially complex cases that need tessellating
 
 local Tess = libtess2.NewTess()
@@ -327,6 +336,7 @@ end
 _AddTriVert_ = M.AddTriVert
 _CancelTimers_ = M.CancelTimers
 _CloseTri_ = M.CloseTri
+_DrawPolygons_ = M.DrawPolygons
 _GetTess_ = M.GetTess
 
 return M

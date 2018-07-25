@@ -23,14 +23,8 @@
 -- [ MIT license: http://www.opensource.org/licenses/mit-license.php ]
 --
 
--- Standard library imports --
-local cos = math.cos
-local sin = math.sin
-local pi = math.pi
-local random = math.random
-
 -- Plugins --
-local libtess2 = require("plugin.libtess2")
+local clipper = require("plugin.clipper")
 
 -- Modules --
 local utils = require("utils")
@@ -44,77 +38,18 @@ local composer = require("composer")
 
 local Scene = composer.newScene()
 
-local CX, CY = display.contentCenterX, display.contentCenterY
-
-local Count, Radius = 13, 80 -- count = 13 introduces a triangle and quad and is still crude enough to see vertices
-
-local UNDEF = libtess2.Undef()
+local YOffset = -150
 
 function Scene:create ()
-	local verts = {}
+	local sigma = {300, 400} .. {100, 400} .. {200, 300} .. {100, 200} .. {300, 200} .. clipper.ToPath
+	local brush = { 4, -6} .. {6, -6} .. {-4, 6} .. {-6, 6} .. clipper.ToPath
+	local solution = clipper.MinkowskiSum(brush, sigma)
+	
+	utils.DrawPolygons(self.view, solution, { a = .7, y = YOffset, stroke = { .2 } })
+	utils.DrawSinglePolygon(self.view, brush, { r = 0, b = 0, a = .3, x = 300, y = 200 + YOffset })
 
-	for i = 1, Count do
-		local angle = (i - 1) * (2 * pi) / Count
-
-		verts[#verts + 1] = CX + cos(angle) * Radius
-		verts[#verts + 1] = CY + sin(angle) * Radius
-	end
-
-	local tess = utils.GetTess()
-
-	tess:AddContour(verts)
-
-	verts[#verts + 1] = verts[1]
-	verts[#verts + 2] = verts[2]
-
-	tess:Tesselate("POSITIVE", "POLYGONS", 5) -- prefer pentagons
-
-	local elems = tess:GetElements()
-	local verts = tess:GetVertices()
-	local add_vert, close_poly = utils.Polygon()
-
-	for i = 1, tess:GetElementCount() do
-		local base, offset = (i - 1) * 5, 0
-
-		for j = 1, 5 do
-			local index = elems[base + j]
-
-			if index == UNDEF then -- unable to complete pentagon?
-				break
-			end
-
-			add_vert(verts[index * 2 + 1], verts[index * 2 + 2], offset)
-
-			offset = offset + 2
-		end
-
-		close_poly(self.view)
-
-		local polygon = self.view[self.view.numChildren]
-
-		polygon:setFillColor(random(), random(), random())
-	end
+	-- TODO: have it trace out over time...
 end
-
---[[
-Path path = new Path();
-Path pattern = new Path();
-Paths solution = new Paths();
-
-//Greek capital sigma (sum sign) ...
-Int64[] ints1 = new Int64[] { 300, 400, 100, 400, 200, 300, 100, 200, 300, 200 };
-path = IntsToPolygon(ints1);
-
-//diagonal brush pattern ...
-Int64[] ints2 = new Int64[] { 4, -6, 6, -6, -4, 6, -6, 6 };
-pattern = IntsToPolygon(ints2);
-
-solution = Clipper.MinkowskiSum(pattern, path, false);
-//move 'pattern' to the end of 'path' ...
-pattern = TranslatePath(pattern, 300, 200);
-
-//Display solution ± pattern ...
-]]
 
 Scene:addEventListener("create")
 
