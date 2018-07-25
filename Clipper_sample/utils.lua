@@ -1,4 +1,4 @@
---- Utilities for libtess2 plugin.
+--- Utilities for Clipper plugin.
 
 --
 -- Permission is hereby granted, free of charge, to any person obtaining
@@ -33,6 +33,7 @@ local select = select
 local unpack = unpack
 
 -- Plugins --
+local clipper = require("plugin.clipper")
 local libtess2 = require("plugin.libtess2")
 
 -- Corona globals --
@@ -246,6 +247,39 @@ function M.DrawAll (sgroup, ...)
 	
 	DrawShape(sgroup, NumberStillDrawing, ...)
 end
+
+function M.DrawPolygons (group, paths, params)
+    local x, y = params and params.x or 0, params and params.y or 0 -- n.b. fallthrough if x or y nil
+
+    for i = 1, #paths do
+        local path = paths:GetPath(i) -- n.b. copy of path
+        local points, xmax, ymax, xmin, ymin = {}, -huge, -huge, huge, huge
+
+        for j = 1, #path do
+            local x, y = path:GetPoint(j)
+
+            points[#points + 1] = x
+            points[#points + 1] = y
+
+            xmax, ymax = max(xmax, x), max(ymax, y)
+            xmin, ymin = min(xmin, x), min(ymin, y)
+        end
+
+        local poly = display.newPolygon(group, x + .5 * (xmax + xmin), y + .5 * (ymax + ymin), points)
+
+        if params then
+            poly:setFillColor(params.r or 1, params.g or 1, params.b or 1, params.a or 1)
+
+            if params.stroke then
+                poly:setStrokeColor(unpack(params.stroke))
+
+                poly.strokeWidth = params.stroke.width or 1
+            end
+        end
+    end
+end
+
+-- TODO: DrawPolygonsEx, to handle potentially complex cases that need tessellating
 
 local Tess = libtess2.NewTess()
 

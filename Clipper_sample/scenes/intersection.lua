@@ -34,6 +34,9 @@ local round = math.round
 -- Plugins --
 local clipper = require("plugin.clipper")
 
+-- Modules --
+local utils = require("utils")
+
 -- Corona globals --
 local display = display
 
@@ -46,15 +49,17 @@ local composer = require("composer")
 
 local Scene = composer.newScene()
 
+local N = 50
+
+local Delta = 2 * pi / N
+
 local function GetEllipsePoints (x1, y1, x2, y2)
-print("B")
 	local path = clipper.NewPath()
-print("C", path)
 	local cx, cy = .5 * (x1 + x2), .5 * (y1 + y2)
 	local ax, ay, px, py = x2 - cx, y2 - cy, cx, cy -- set previous to center, which should be "not the same"
-print("E")
-	for i = 1, 50 do
-		local angle = 2 * i * pi / 50
+
+	for i = 1, N do
+		local angle = i * Delta
 		local x, y = round(cx + ax * cos(angle)), round(cy + ay * sin(angle))
 
 		if (x - px)^2 + (y - py)^2 > 5 then -- moved at least a few pixels?
@@ -66,55 +71,39 @@ print("E")
 
 	return path
 end
- 
-local function DrawPolygons (group, paths, r, g, b, a)
-	for i = 1, #paths do
-		local path = paths:GetPath(i) -- n.b. copy of path
-		local points = {}
 
-		for j = 1, #path do
-			local x, y = path:GetPoint(j)
+local Stroke = { 0, 0, 1 }
 
-			points[#points + 1] = x
-			points[#points + 1] = y
-		end
+local YOffset = -35
 
-		display.newPolygon(group, display.contentCenterX, display.contentCenterY, points)
-	end
-end
- 
 -- Show --
 function Scene:show (event)
 	if event.phase == "did" then
 		-- set up the subject and clip polygons ...
 		local sub = clipper.NewPathArray()
 
-	print("A")
 		sub:AddPath(GetEllipsePoints(100, 100, 300, 300))
 		sub:AddPath(GetEllipsePoints(125, 130, 275, 180))
 		sub:AddPath(GetEllipsePoints(125, 220, 275, 270))
 
-	print("A")
 		local clp = clipper.NewPathArray()
 
 		clp:AddPath(GetEllipsePoints(140, 70, 220, 320))
 
-	print("A")
 		-- display the subject and clip polygons ...
-		DrawPolygons(sub, 0x33 / 0xFF, 1, 1, .5)
-		DrawPolygons(clp, 1, 1, 0x33 / 0xFF, .5)
-		print("B")
---[[
-  //get the intersection of the subject and clip polygons ...
-  Clipper clpr;
-  clpr.AddPaths(sub, ptSubject, true);
-  clpr.AddPaths(clp, ptClip, true);
-  Paths solution;
-  clpr.Execute(ctIntersection, solution, pftEvenOdd, pftEvenOdd);
-   
-  //finally draw the intersection polygons ...
-  DrawPolygons(solution, 0x40808080);
-]]
+        utils.DrawPolygons(self.view, sub, { r = 0x33 / 0xFF, a = .5, y = YOffset })
+        utils.DrawPolygons(self.view, clp, { b = 0x33 / 0xFF, a = .5, y = YOffset })
+
+        -- get the intersection of the subject and clip polygons ...
+        local clpr = clipper.NewClipper()
+
+        clpr:AddPaths(sub, "SubjectClosed")
+        clpr:AddPaths(clp, "Clip")
+
+        local solution = clpr:Execute("Intersection", "EvenOdd", "EvenOdd")
+
+        -- finally draw the intersection polygons ...
+        utils.DrawPolygons(self.view, solution, { r = .5, g = .5, b = .5, a = .25, y = YOffset, stroke = Stroke })
 	end
 end
 
