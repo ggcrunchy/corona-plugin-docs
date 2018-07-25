@@ -48,7 +48,7 @@ display.newText("Next", next.x, next.y, native.systemFontBold, 14)
 local Description = display.newText("", display.contentCenterX, prev.y, native.systemFontBold, 12)
 
 local Examples = {
---	{ scene = "odd", text = "Odd winding rule" }
+	{ scene = "intersection", text = "Intersecting shapes" }
 --[[
 - Luapower example, more or less
 - Offset curve
