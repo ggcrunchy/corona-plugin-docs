@@ -48,13 +48,13 @@ display.newText("Next", next.x, next.y, native.systemFontBold, 14)
 local Description = display.newText("", display.contentCenterX, prev.y, native.systemFontBold, 12)
 
 local Examples = {
+	{ scene = "csg", text = "Constructive solid geometry" },
 	{ scene = "intersection", text = "Intersecting shapes" },
 	{ scene = "minkowski_sum", text = "Minkowski sum"},
 	{ scene = "offset", text = "Polygon offset" }
 --[[
 - Luapower example, more or less
 - Make SVGs?
-- Terraforming
 - "Art" program
 - Build on libtess2, serialize?
 ]]

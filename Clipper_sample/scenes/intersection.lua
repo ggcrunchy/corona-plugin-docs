@@ -40,6 +40,7 @@ local utils = require("utils")
 -- Corona globals --
 local display = display
 local native = native
+local timer = timer
 
 -- Corona modules --
 local composer = require("composer")
