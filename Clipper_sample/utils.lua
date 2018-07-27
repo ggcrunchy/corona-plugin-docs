@@ -71,6 +71,12 @@ function M.CancelTimers ()
 	end
 end
 
+function M.ClearGroup (group)
+	for i = group.numChildren, 1, -1 do
+		group:remove(i)
+	end
+end
+
 function M.CloseTri (group)
 	Tri[7] = Tri[1]
 	Tri[8] = Tri[2]
@@ -249,24 +255,33 @@ function M.DrawAll (sgroup, ...)
 	DrawShape(sgroup, NumberStillDrawing, ...)
 end
 
+local GetPathOpts = { out = clipper.NewPath() }
+
+local Points = {}
+
 function M.DrawPolygons (group, paths, params)
     local x, y = params and params.x or 0, params and params.y or 0 -- n.b. fallthrough if x or y nil
 
     for i = 1, #paths do
-        local path = paths:GetPath(i) -- n.b. copy of path
-        local points, xmax, ymax, xmin, ymin = {}, -huge, -huge, huge, huge
+        local path, index = paths:GetPath(i, GetPathOpts), 0
+        local xmax, ymax, xmin, ymin = -huge, -huge, huge, huge
 
         for j = 1, #path do
             local x, y = path:GetPoint(j)
 
-            points[#points + 1] = x
-            points[#points + 1] = y
+            Points[index + 1] = x
+            Points[index + 2] = y
 
             xmax, ymax = max(xmax, x), max(ymax, y)
             xmin, ymin = min(xmin, x), min(ymin, y)
+			index = index + 2
         end
 
-        local poly = display.newPolygon(group, x + .5 * (xmax + xmin), y + .5 * (ymax + ymin), points)
+		for j = #Points, index + 1, -1 do
+			Points[j] = nil
+		end
+
+        local poly = display.newPolygon(group, x + .5 * (xmax + xmin), y + .5 * (ymax + ymin), Points)
 
         if params then
             poly:setFillColor(params.r or 1, params.g or 1, params.b or 1, params.a or 1)
