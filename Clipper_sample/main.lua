@@ -48,7 +48,7 @@ display.newText("Next", next.x, next.y, native.systemFontBold, 14)
 local Description = display.newText("", display.contentCenterX, prev.y, native.systemFontBold, 12)
 
 local Examples = {
-	{ scene = "intersection", text = "Intersecting shapes (even-odd rule)" },
+	{ scene = "intersection", text = "Intersecting shapes" },
 	{ scene = "minkowski_sum", text = "Minkowski sum"},
 	{ scene = "offset", text = "Polygon offset" }
 --[[
