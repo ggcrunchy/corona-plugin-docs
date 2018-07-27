@@ -70,20 +70,22 @@ function Scene:create ()
 	self.view:insert(self.pgroup)
 	self.view:insert(self.rgroup)
 
-	self.lcannon, self.rcannon = { x = -50, vx = 1 }, { display.contentWidth + 50, vx = -1 }
+	self.lcannon, self.rcannon = { x = -50, vx = 1 }, { x = display.contentWidth + 50, vx = -1 }
 end
 
 Scene:addEventListener("create")
 
-local Gravity = 10
+local Gravity = 90
 
-local Speed = 500
+local Speed = 185
 
 local KillY = display.contentHeight + 100
 
 local function Fire (cannon)
+	local angle = pi / 3 + random() * pi / 8
+
 	cannon.projectile, cannon.time = true, 0
-	cannon.angle, cannon.speed = pi / 3 + random() * pi / 8, (.95 + random() * .1) * Speed
+	cannon.ca, cannon.sa, cannon.speed = cos(angle), sin(angle), (.95 + random() * .1) * Speed
 end
 
 local function UpdateProjectile (scene, cannon, dt)
@@ -91,9 +93,20 @@ local function UpdateProjectile (scene, cannon, dt)
 		Fire(cannon)
 	end
 
+	local t = cannon.time + dt
+	local x, y = cannon.x + cannon.vx * cannon.ca * cannon.speed * t, display.contentCenterY - cannon.sa * cannon.speed * t + Gravity * t^2 / 2
+
+	if y < KillY then
+		local proj = BuildStar(x, y, 15)
+
+		utils.DrawPolygons(scene.pgroup, proj)
+
+		cannon.time = t
+	else
+		cannon.projectile = false
+	end
 	-- traj: minkowski sum of star over range
 	-- update star: star - traj
-	-- below KillY? remove
 end
 
 local function UpdateRain (scene, dt)
@@ -128,7 +141,7 @@ function Scene:show (event)
 
 		Update(self, 0)
 
-		self.update = timer.performWithDelay(150, function(event)
+		self.update = timer.performWithDelay(50, function(event)
 			local now = event.time / 1000
 
 			Update(self, now - self.now)
