@@ -255,20 +255,17 @@ function M.DrawAll (sgroup, ...)
 	DrawShape(sgroup, NumberStillDrawing, ...)
 end
 
-local GetPathOpts = { out = clipper.NewPath() }
+local Out = clipper.NewPath()
 
 local Points = {}
 
 function M.DrawPolygons (group, paths, params)
     local x, y = params and params.x or 0, params and params.y or 0 -- n.b. fallthrough if x or y nil
 
-    for i = 1, #paths do
-        local path, index = paths:GetPath(i, GetPathOpts), 0
-        local xmax, ymax, xmin, ymin = -huge, -huge, huge, huge
+    for _, path in paths:Paths(Out) do
+        local index, xmax, ymax, xmin, ymin = 0, -huge, -huge, huge, huge
 
-        for j = 1, #path do
-            local x, y = path:GetPoint(j)
-
+        for _, x, y in path:Points() do
             Points[index + 1] = x
             Points[index + 2] = y
 
@@ -277,8 +274,8 @@ function M.DrawPolygons (group, paths, params)
 			index = index + 2
         end
 
-		for j = #Points, index + 1, -1 do
-			Points[j] = nil
+        for i = #Points, index + 1, -1 do
+			Points[i] = nil
 		end
 
         local poly = display.newPolygon(group, x + .5 * (xmax + xmin), y + .5 * (ymax + ymin), Points)
