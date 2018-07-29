@@ -42,6 +42,7 @@ local clipper = require("plugin.clipper")
 local round = math.round
 
 -- Corona globals --
+local graphics = graphics
 local timer = timer
 
 -- Corona modules --
@@ -96,11 +97,15 @@ local function Fire (cannon)
 	cannon.ca, cannon.sa, cannon.speed = cos(angle), sin(angle), (.95 + random() * .1) * Speed
 end
 
-local Slices = 60
+local Slices = 10
 
 local ProjectilePath = clipper.NewPath()
 
 local ProjectileOpts = { r = .2, g = .2, b = .8, stroke = { .7, width = 2 }}
+
+local ProjOpts = { out = clipper.NewPath() }
+
+local MinkowskiOpts = { out = clipper.NewPathArray() }
 
 local function UpdateProjectile (scene, cannon, dt)
 	if not cannon.projectile then
@@ -138,11 +143,11 @@ local function UpdateProjectile (scene, cannon, dt)
     scene.clipper:Clear()
     scene.clipper:AddPaths(scene.star, "SubjectClosed")
 
-    for _, ppath in proj:Paths() do
-        local sweep = clipper.MinkowskiSum(ppath, ProjectilePath)
 
-        scene.clipper:AddPaths(sweep, "Clip")
-    end
+
+    local sweep = clipper.MinkowskiSum(proj:GetPath(1, ProjOpts), ProjectilePath, MinkowskiOpts)
+
+    scene.clipper:AddPaths(sweep, "Clip")
 
     scene.star = scene.clipper:Execute("Difference")
 
@@ -240,6 +245,40 @@ end
 
 local StarOpts = { r = .8, g = .8, b = .8, stroke = { .3, .1, .4, width = 1 } }
 
+local Tess = utils.GetTess()
+
+local Contour, ContourOpts = {}, {}
+
+local ShadeMesh
+
+local function MakeShadeMesh ()
+    local kernel = { category = "generator", name = "shade_mesh" }
+
+    kernel.vertex = [[
+        P_UV varying vec4 v_Color;
+
+        P_UV vec2 VertexKernel (P_UV vec2 pos)
+        {
+            v_Color = vec4(fract(vec3(pos.x * 3.1, pos.x * 1.7 + pos.y * 3.1, pos.y * 2.3)), 1.);
+
+            return pos;
+        }
+    ]]
+
+    kernel.fragment = [[
+        P_UV varying vec4 v_Color;
+
+        P_COLOR vec4 FragmentKernel (P_UV vec2)
+        {
+            return v_Color;
+        }
+    ]]
+
+    graphics.defineEffect(kernel)
+
+    return "generator.custom.shade_mesh"
+end
+
 local function Update (scene, dt)
     utils.ClearGroup(scene.sgroup)
 	utils.ClearGroup(scene.pgroup)
@@ -249,7 +288,25 @@ local function Update (scene, dt)
 	UpdateProjectile(scene, scene.rcannon, dt)
 	UpdateRain(scene, dt)
 
-    utils.DrawPolygons(scene.sgroup, scene.star, StarOpts)
+    for _, path in scene.star:Paths(Out1) do -- n.b. will not conflict with use above
+        local index = 0
+
+        for _, x, y in path:Points() do
+            Contour[index + 1], Contour[index + 2], index = x, y, index + 2
+        end
+
+        ContourOpts.count = .5 * index
+
+        Tess:AddContour(Contour, ContourOpts)
+    end
+
+    utils.Mesh(scene.sgroup, Tess, "ODD")
+
+    ShadeMesh = ShadeMesh or MakeShadeMesh()
+
+    for i = 1, scene.sgroup.numChildren do
+        scene.sgroup[i].fill.effect = ShadeMesh
+    end
 end
 
 local DropCount = 40
