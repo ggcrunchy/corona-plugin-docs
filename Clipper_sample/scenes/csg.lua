@@ -27,7 +27,6 @@
 local abs = math.abs
 local cos = math.cos
 local huge = math.huge
-local ipairs = ipairs
 local pi = math.pi
 local random = math.random
 local sin = math.sin
@@ -56,7 +55,7 @@ local Scene = composer.newScene()
 
 local FillTypeOpts = { fill_type = "NonZero" }
 
-local function BuildStar (cx, cy, radius)
+local function BuildStar (cx, cy, radius, how)
 	local path = clipper.NewPath()
 
 	for i = 1, 5 do
@@ -66,19 +65,41 @@ local function BuildStar (cx, cy, radius)
 		path:AddPoint(x, y)
 	end
 
-	return clipper.SimplifyPolygon(path, FillTypeOpts)
+	return how == "raw" and path or clipper.SimplifyPolygon(path, FillTypeOpts)
 end
+
+local DropCount = 40
+
+local HalfDim = 4
 
 -- Create --
 function Scene:create ()
 	self.sgroup, self.pgroup, self.rgroup = display.newGroup(), display.newGroup(), display.newGroup()
 
+	self.view:insert(self.sgroup)
 	self.view:insert(self.pgroup)
 	self.view:insert(self.rgroup)
 
+	for i = 1, DropCount do
+		local drop = display.newRect(self.rgroup, 0, 0, 2 * HalfDim, 2 * HalfDim)
+
+		drop:setFillColor(.7)
+		drop:setStrokeColor(.4)
+
+		drop.strokeWidth = 1
+	end
+	
 	self.lcannon, self.rcannon = { x = -50, vx = 1 }, { x = display.contentWidth + 50, vx = -1 }
 
     self.clipper = clipper.NewClipper()
+
+	self.AA = display.newText(self.view, "", 50, 150, native.systemFontBold, 24)
+	self.BB = display.newText(self.view, "", 50, 200, native.systemFontBold, 24)
+	self.CC = display.newText(self.view, "", 50, 250, native.systemFontBold, 24)
+
+	self.AA.anchorX, self.AA.x = 0, 0
+	self.BB.anchorX, self.BB.x = 0, 0
+	self.CC.anchorX, self.CC.x = 0, 0
 end
 
 Scene:addEventListener("create")
@@ -103,11 +124,9 @@ local ProjectilePath = clipper.NewPath()
 
 local ProjectileOpts = { r = .2, g = .2, b = .8, stroke = { .7, width = 2 }}
 
-local ProjOpts = { out = clipper.NewPath() }
-
 local MinkowskiOpts = { out = clipper.NewPathArray() }
 
-local function UpdateProjectile (scene, cannon, dt)
+local function AuxUpdateProjectiles (scene, cannon, dt)
 	if not cannon.projectile then
 		Fire(cannon)
 	end
@@ -138,20 +157,10 @@ local function UpdateProjectile (scene, cannon, dt)
         t = t + dt
     end
 
-	local proj = BuildStar(0, 0, 15)
-
-    scene.clipper:Clear()
-    scene.clipper:AddPaths(scene.star, "SubjectClosed")
-
-
-
-    local sweep = clipper.MinkowskiSum(proj:GetPath(1, ProjOpts), ProjectilePath, MinkowskiOpts)
+	local proj = BuildStar(0, 0, 15, "raw")
+    local sweep = clipper.MinkowskiSum(proj, ProjectilePath, MinkowskiOpts)
 
     scene.clipper:AddPaths(sweep, "Clip")
-
-    scene.star = scene.clipper:Execute("Difference")
-
-    clipper.SimplifyPolygons(scene.star)
 
     if cannon.projectile then
 		utils.DrawPolygons(scene.pgroup, BuildStar(px, py, 15), ProjectileOpts)
@@ -160,7 +169,17 @@ local function UpdateProjectile (scene, cannon, dt)
     cannon.time = t
 end
 
-local Drop = { -4, -4, 4, -4, 4, 4, -4, 4 }
+local function UpdateProjectiles (scene, dt)
+    scene.clipper:Clear()
+    scene.clipper:AddPaths(scene.star, "SubjectClosed")
+
+	AuxUpdateProjectiles(scene, scene.lcannon, dt)
+	AuxUpdateProjectiles(scene, scene.rcannon, dt)
+
+	scene.star = scene.clipper:Execute("Difference")
+end
+
+local Drop = { -HalfDim, -HalfDim, HalfDim, -HalfDim, HalfDim, HalfDim, -HalfDim, HalfDim }
 
 local DropSpeed = 50
 
@@ -178,23 +197,21 @@ local DiffOpts = { out = clipper.NewPathArray() }
 
 local Out1, Out2 = clipper.NewPath(), clipper.NewPath()
 
-local function Collided (paths, path)
-    local collided = false -- use flag rather than return to let iterators reset
+local function Collided (paths, x, y)
+    local collided = false -- use flag rather than return to let iterator reset
 
     for _, p in paths:Paths(Out1) do
-        local solution = clipper.MinkowskiDiff(p, path, DiffOpts)
-
-        for _, spath in solution:Paths(Out2) do
-            if clipper.PointInPolygon(0, 0, spath) then
-                collided = true
-            end
-        end
+		collided = collided or clipper.PointInPolygon(x, y, p) -- somewhat crude but MinkowskiDiff() hits the frame rate pretty hard
+							or clipper.PointInPolygon(x - HalfDim, y - HalfDim, p)
+							or clipper.PointInPolygon(x + HalfDim, y - HalfDim, p)
+							or clipper.PointInPolygon(x - HalfDim, y + HalfDim, p)
+							or clipper.PointInPolygon(x + HalfDim, y + HalfDim, p)
     end
 
     return collided
 end
 
-local NumSlots = 15
+local NumSlots = 25
 
 local Left, Right = 5, 1.75 * display.contentWidth
 
@@ -208,38 +225,35 @@ local function UpdateRain (scene, dt)
 
     local any = false
 
-    for _, drop in ipairs(scene.drops) do
-        if not drop.active then
-            drop.x, drop.y, drop.active = Left + random(0, NumSlots) * Space, -10, true
+    for i = 1, scene.rgroup.numChildren do
+		local drop = scene.rgroup[i]
+
+        if not drop.isVisible then--active then
+            drop.x, drop.y, drop.isVisible = Left + random(0, NumSlots) * Space, -10, true
+			drop.vx, drop.vy = (.75 + random() * .5) * DropVX, (.75 + random() * .5) * DropVY
         end
 
-        local x, y = round(drop.x + DropVX * dt), round(drop.y + DropVY * dt)
+        local x, y = round(drop.x + drop.vx * dt), round(drop.y + drop.vy * dt)
 
         if x < -10 or y > KillY then
-            drop.active = false
-        else
-            DropPath:Clear()
+            drop.isVisible = false
+        elseif Collided(scene.star, x, y) then
+			DropPath:Clear()
 
-            for j = 1, #Drop, 2 do
-                DropPath:AddPoint(x + Drop[j], y + Drop[j + 1])
-            end
+			for j = 1, #Drop, 2 do
+				DropPath:AddPoint(x + Drop[j], y + Drop[j + 1])
+			end
 
-            if Collided(scene.star, DropPath) then
-                scene.clipper:AddPath(DropPath, "SubjectClosed")
+			scene.clipper:AddPath(DropPath, "SubjectClosed")
 
-                drop.active, any = false, true
-            else
-                utils.DrawSinglePolygon(scene.rgroup, DropPath, RainOpts)
-
-                drop.x, drop.y = x, y
-            end
-        end
+			drop.isVisible, any = false, true
+		else
+			drop.x, drop.y = x, y
+		end
     end
 
     if any then
         scene.star = scene.clipper:Execute("Union", FillTypeOpts)
-
-        clipper.SimplifyPolygons(scene.star)
     end
 end
 
@@ -254,23 +268,33 @@ local ShadeMesh
 local function MakeShadeMesh ()
     local kernel = { category = "generator", name = "shade_mesh" }
 
-    kernel.vertex = [[
-        P_UV varying vec4 v_Color;
-
-        P_UV vec2 VertexKernel (P_UV vec2 pos)
-        {
-            v_Color = vec4(fract(vec3(pos.x * 3.1, pos.x * 1.7 + pos.y * 3.1, pos.y * 2.3)), 1.);
-
-            return pos;
-        }
-    ]]
-
     kernel.fragment = [[
-        P_UV varying vec4 v_Color;
-
-        P_COLOR vec4 FragmentKernel (P_UV vec2)
+		// Created by inigo quilez - iq/2013
+		// License Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+		P_POSITION float hash1 (P_UV float n)
+		{
+		#if !defined(GL_ES) || defined(GL_FRAGMENT_PRECISION_HIGH)
+			return fract(sin(n) * 43758.5453);
+		#else
+			return fract(sin(n) * 43.7585453);
+		#endif
+			// TODO: Find a way to detect the precision and tune these!
+		}
+		// Created by inigo quilez - iq/2013
+		// License Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+		P_POSITION float IQ (P_POSITION vec2 x)
+		{
+			P_POSITION vec2 p = floor(x);
+			P_POSITION vec2 f = fract(x);
+			f = f * f * (3.0 - 2.0 * f);
+			P_POSITION float n = p.x + p.y * 57.0;
+			return mix(mix(hash1(n +  0.0), hash1(n +  1.0), f.x),
+					   mix(hash1(n + 57.0), hash1(n + 58.0), f.x), f.y);
+		}
+		
+        P_COLOR vec4 FragmentKernel (P_UV vec2 uv)
         {
-            return v_Color;
+            return vec4(IQ(gl_FragCoord.xy), IQ(uv.yx), IQ(gl_FragCoord.zw), 1.);
         }
     ]]
 
@@ -282,12 +306,12 @@ end
 local function Update (scene, dt)
     utils.ClearGroup(scene.sgroup)
 	utils.ClearGroup(scene.pgroup)
-	utils.ClearGroup(scene.rgroup)
 
-	UpdateProjectile(scene, scene.lcannon, dt)
-	UpdateProjectile(scene, scene.rcannon, dt)
+	UpdateProjectiles(scene, dt)
 	UpdateRain(scene, dt)
 
+    clipper.SimplifyPolygons(scene.star)
+local a=system.getTimer()
     for _, path in scene.star:Paths(Out1) do -- n.b. will not conflict with use above
         local index = 0
 
@@ -299,7 +323,7 @@ local function Update (scene, dt)
 
         Tess:AddContour(Contour, ContourOpts)
     end
-
+scene.AA.text = ("CONTOURS: %i"):format(system.getTimer() - a)
     utils.Mesh(scene.sgroup, Tess, "ODD")
 
     ShadeMesh = ShadeMesh or MakeShadeMesh()
@@ -309,16 +333,14 @@ local function Update (scene, dt)
     end
 end
 
-local DropCount = 40
-
 -- Show --
 function Scene:show (event)
 	if event.phase == "did" then
-        self.drops, self.star = {}, BuildStar(display.contentCenterX, display.contentCenterY, 150)
+        self.star = BuildStar(display.contentCenterX, display.contentCenterY, 150)
 
-        for i = 1, DropCount do
-            self.drops[i] = {}
-        end
+		for i = 1, self.rgroup.numChildren do
+			self.rgroup[i].isVisible = false
+		end
 
 		Update(self, 0)
 
@@ -339,14 +361,9 @@ function Scene:hide (event)
 	if event.phase == "did" then
 		utils.ClearGroup(self.sgroup)
 		utils.ClearGroup(self.pgroup)
-		utils.ClearGroup(self.rgroup)
 		timer.cancel(self.update)
 
         self.lcannon.projectile, self.rcannon.projectile = false, false
-
-        for _, drop in ipairs(self.drops) do
-            drop.active = false
-        end
 
         self.before = nil
 	end
