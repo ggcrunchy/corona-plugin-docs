@@ -68,7 +68,7 @@ local function BuildStar (cx, cy, radius, how)
 	return how == "raw" and path or clipper.SimplifyPolygon(path, FillTypeOpts)
 end
 
-local DropCount = 40
+local DropCount = 60
 
 local HalfDim = 4
 
@@ -92,14 +92,6 @@ function Scene:create ()
 	self.lcannon, self.rcannon = { x = -50, vx = 1 }, { x = display.contentWidth + 50, vx = -1 }
 
     self.clipper = clipper.NewClipper()
-
-	self.AA = display.newText(self.view, "", 50, 150, native.systemFontBold, 24)
-	self.BB = display.newText(self.view, "", 50, 200, native.systemFontBold, 24)
-	self.CC = display.newText(self.view, "", 50, 250, native.systemFontBold, 24)
-
-	self.AA.anchorX, self.AA.x = 0, 0
-	self.BB.anchorX, self.BB.x = 0, 0
-	self.CC.anchorX, self.CC.x = 0, 0
 end
 
 Scene:addEventListener("create")
@@ -181,7 +173,7 @@ end
 
 local Drop = { -HalfDim, -HalfDim, HalfDim, -HalfDim, HalfDim, HalfDim, -HalfDim, HalfDim }
 
-local DropSpeed = 50
+local DropSpeed = 70
 
 local DropVX, DropVY = -4, 3
 
@@ -228,7 +220,7 @@ local function UpdateRain (scene, dt)
     for i = 1, scene.rgroup.numChildren do
 		local drop = scene.rgroup[i]
 
-        if not drop.isVisible then--active then
+        if not drop.isVisible then
             drop.x, drop.y, drop.isVisible = Left + random(0, NumSlots) * Space, -10, true
 			drop.vx, drop.vy = (.75 + random() * .5) * DropVX, (.75 + random() * .5) * DropVY
         end
@@ -260,8 +252,6 @@ end
 local StarOpts = { r = .8, g = .8, b = .8, stroke = { .3, .1, .4, width = 1 } }
 
 local Tess = utils.GetTess()
-
-local Contour, ContourOpts = {}, {}
 
 local ShadeMesh
 
@@ -303,6 +293,8 @@ local function MakeShadeMesh ()
     return "generator.custom.shade_mesh"
 end
 
+local Buffer = clipper.NewBuffer()
+
 local function Update (scene, dt)
     utils.ClearGroup(scene.sgroup)
 	utils.ClearGroup(scene.pgroup)
@@ -311,19 +303,12 @@ local function Update (scene, dt)
 	UpdateRain(scene, dt)
 
     clipper.SimplifyPolygons(scene.star)
-local a=system.getTimer()
+
     for _, path in scene.star:Paths(Out1) do -- n.b. will not conflict with use above
-        local index = 0
-
-        for _, x, y in path:Points() do
-            Contour[index + 1], Contour[index + 2], index = x, y, index + 2
-        end
-
-        ContourOpts.count = .5 * index
-
-        Tess:AddContour(Contour, ContourOpts)
+        Buffer:Convert(path, "float") -- MUCH faster than gathering points into arrays
+        Tess:AddContour(Buffer)
     end
-scene.AA.text = ("CONTOURS: %i"):format(system.getTimer() - a)
+
     utils.Mesh(scene.sgroup, Tess, "ODD")
 
     ShadeMesh = ShadeMesh or MakeShadeMesh()
@@ -338,7 +323,7 @@ function Scene:show (event)
 	if event.phase == "did" then
         self.star = BuildStar(display.contentCenterX, display.contentCenterY, 150)
 
-		for i = 1, self.rgroup.numChildren do
+        for i = 1, self.rgroup.numChildren do
 			self.rgroup[i].isVisible = false
 		end
 
