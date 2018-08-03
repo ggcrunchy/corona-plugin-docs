@@ -45,6 +45,10 @@ local Description = display.newText("", display.contentCenterX, prev.y, native.s
 
 local Examples = {
 	{ scene = "masks_and_meshes", text = "Paint, Then Convert To Masks + Meshes" },
+	-- { scene = "color_key", text = "Color Key From Image" } (nanosvg)
+	-- { scene = "static_objects", text = "Paint, Then Convert To Obstacles" }
+	-- { scene = "gospers_glider_gun", text = "Gosper's Glider Gun" } (metal?)
+	-- { scene = "plotting", text = "Plotting a function" }
 --[[
 - SVG stuff from tests
 - 3D examples when "object3d" is ready
@@ -52,6 +56,7 @@ local Examples = {
 - Color-keyed paint example
 - Something with float array
 - Use serialize to send actual floats?
+- Physics obstacles
 ]]
 }
 

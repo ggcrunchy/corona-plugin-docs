@@ -24,12 +24,12 @@
 --
 
 -- Standard library imports --
+local assert = assert
 local floor = math.floor
 local huge = math.huge
 local max = math.max
 local min = math.min
 local sqrt = math.sqrt
-local select = select
 local unpack = unpack
 
 -- Plugins --
@@ -37,6 +37,7 @@ local libtess2 = require("plugin.libtess2")
 
 -- Corona globals --
 local display = display
+local graphics = graphics
 local system = system
 local timer = timer
 
@@ -59,16 +60,6 @@ function M.AddTriVert (x, y, offset)
 	Tri[offset + 1], Tri[offset + 2] = x, y
 end
 
-local Timers = {}
-
-function M.CancelTimers ()
-	for i = #Timers, 1, -1 do
-		timer.cancel(Timers[i])
-
-		Timers[i] = nil
-	end
-end
-
 function M.CloseTri (group)
 	Tri[7] = Tri[1]
 	Tri[8] = Tri[2]
@@ -76,175 +67,27 @@ function M.CloseTri (group)
 	display.newLine(group, unpack(Tri))
 end
 
-local Ray = {} -- recycle the ray
+local function AuxEncode (x, y)
+    assert(x >= 0 and x <= 1024, "Invalid x")
+    assert(y >= 0 and y <= 1024, "Invalid y")
 
-local function DrawRay (group, sx, sy, ex, ey)
-	local dx, dy = ex - sx, ey - sy
-	local len = sqrt(dx^2 + dy^2)
-	local head_len = min(3, .5 * len)
-	local tail_len = len - head_len
+    x, y = floor(x + .5), floor(y + .5)
 
-	dx, dy = dx / len, dy / len
+    local signed = y == 1024
 
-	local nx, ny = -dy, dx
-	local tx, ty = sx + dx * tail_len, sy + dy * tail_len
+    if signed then
+        y = 1023
+    end
 
-	Ray[ 1], Ray[ 2] = sx, sy
-	Ray[ 3], Ray[ 4] = tx, ty
-	Ray[ 5], Ray[ 6] = tx + nx * head_len, ty + ny * head_len
-	Ray[ 7], Ray[ 8] = ex, ey
-	Ray[ 9], Ray[10] = tx - nx * head_len, ty - ny * head_len
-	Ray[11], Ray[12] = tx, ty
+    local xhi = floor(x / 64)
+    local xlo = x - xhi * 64
+    local xy = (1 + (xlo * 1024 + y) * 2^-16) * 2^xhi
 
-	local ray = display.newLine(group, unpack(Ray))
-
-	ray:setStrokeColor(1, 0, 0)
+    return signed and -xy or xy
 end
 
-local NumberStillDrawing
-
-local RayTime = 120
-
-local function NoOp () end
-
-local function GetContours (x, y, shape, on_begin, on_end, on_add_vertex)
-	on_begin, on_end, on_add_vertex = on_begin or NoOp, on_end or NoOp, on_add_vertex or NoOp
-
-	local si, has_prev = 1
-
-	repeat
-		local entry = shape[si]
-
-		if not entry or entry == "sep" then
-			si, has_prev = si + 1 -- only relevant when switching contour
-
-			on_end()
-		else
-			if not has_prev then
-				on_begin()
-
-				has_prev = true
-			end
-
-			on_add_vertex(entry + x, shape[si + 1] + y)
-
-			si = si + 2
-		end
-	until not entry -- cancel case
-end
-
-local function DrawShape (sgroup, n, shape, ...)
-	if n > 0 then
-		local group = display.newGroup()
-
-		sgroup:insert(group)
-
-		local since, pri, psx, psy, ptx, pty = system.getTimer()
-		local on_done, on_all_done = sgroup.on_done, sgroup.on_all_done
-		local on_begin_contour = sgroup.on_begin_contour
-		local on_end_contour = sgroup.on_end_contour
-		local on_add_vertex = sgroup.on_add_vertex
-
-		Timers[#Timers + 1] = timer.performWithDelay(35, function(event)
-			local elapsed, n = event.time - since, group.numChildren
-			local timeouts = floor(elapsed / RayTime)
-			local last, t = timeouts + 1, elapsed / RayTime - timeouts
-			local ri, si, first, sx, sy, return_to = 1, 1
-			local x, y = shape.x or 0, shape.y or 0
-
-			repeat
-				local entry = shape[si]
-
-				if not entry then -- finished?
-					timer.cancel(event.source)
-
-					if pri then -- see notes below
-						group:remove(pri)
-
-						DrawRay(group, psx, psy, ptx, pty)
-					end
-
-					local tess = _GetTess_()
-
-					if on_begin_contour or on_end_contour or on_add_vertex then
-						GetContours(x, y, shape, on_begin_contour, on_end_contour, on_add_vertex)
-					end
-
-					if on_done then
-						on_done(sgroup, tess)
-					end
-					
-					NumberStillDrawing = NumberStillDrawing - 1
-
-					if NumberStillDrawing == 0 and on_all_done then
-						on_all_done(sgroup)
-					end
-				elseif entry == "sep" then -- switching contours?
-					si, sx = si + 1
-				elseif sx then -- have a previous point?
-					local tx, ty = entry + x, shape[si + 1] + y
-
-					if ri > n or ri == last then -- ray not yet drawn and / or in progress?
-						local px, py = tx, ty
-
-						if ri == last then -- interpolate if in progress
-							px, py = sx + t * (tx - sx), sy + t * (ty - sy)
-						end
-
-						if ri == n then -- need to replace current entry?
-							group:remove(n)
-						else
-							n = n + 1
-						end
-
-						if pri == ri - 1 then -- finish previous interpolation, if necessary...
-							group:remove(pri)
-
-							DrawRay(group, psx, psy, ptx, pty)
-						end
-
-						pri, psx, psy, ptx, pty = ri, sx, sy, tx, ty -- ...since it will probably miss the last stretch
-
-						DrawRay(group, sx, sy, px, py)
-					end
-
-					ri = ri + 1
-
-					if ri > last then -- past currently drawing ray?
-						break
-					else
-						local next_entry = shape[si + 2]
-
-						if return_to then -- just did a loop
-							si, return_to = return_to
-						elseif not next_entry or next_entry == "sep" then -- ending shape?
-							si, return_to = first, si + 2
-						else -- normal ray
-							si = si + 2
-						end
-
-						sx, sy = tx, ty
-					end
-				else -- start of contour
-					first, si, sx, sy = si, si + 2, entry + x, shape[si + 1] + y
-				end
-			until not entry -- cancel case, see above
-		end, 0)
-
-		DrawShape(sgroup, n - 1, ...)
-	end
-end
-
-function M.DrawAll (sgroup, ...)
-	NumberStillDrawing = select("#", ...)
-
-	for i = sgroup.numChildren, 1, -1 do
-		sgroup:remove(i)
-	end
-
-	_CancelTimers_()
-	
-	DrawShape(sgroup, NumberStillDrawing, ...)
+function M.EncodeTenBitsPair (x, y)
+    return AuxEncode(x * 1024, y * 1024)
 end
 
 local Tess = libtess2.NewTess()
@@ -289,6 +132,57 @@ function M.PolyTris (group, tess, rule)
 		end
 	end
 end
+
+local Kernel
+
+function M.SetVertexColorShader (mesh)
+	if not Kernel then
+		Kernel = { category = "generator", name = "vertex_colors" }
+
+		Kernel.vertex = [[
+			P_DEFAULT vec2 TenBitsPair (P_DEFAULT float xy)
+			{          
+				P_DEFAULT float axy = abs(xy);
+				P_DEFAULT float bin = floor(log2(axy));
+				P_DEFAULT float num = exp2(16. - bin) * axy - 65536.;
+				P_DEFAULT float rest = floor(num / 1024.);
+				P_DEFAULT float y = num - rest * 1024.;
+				P_DEFAULT float y_bias = step(0., -xy);
+
+				return vec2(bin * 64. + rest, y + y_bias);
+			}
+
+			P_DEFAULT vec2 UnitPair (P_DEFAULT float xy)
+			{
+				return TenBitsPair(xy) / 1024.;
+			}
+
+			varying P_COLOR vec4 v_RGBA;
+
+			P_POSITION vec2 VertexKernel (P_POSITION vec2 pos)
+			{
+				v_RGBA.rg = UnitPair(CoronaTexCoord.x);
+				v_RGBA.ba = UnitPair(CoronaTexCoord.y);
+
+				return pos;
+			}
+		]]
+
+		Kernel.fragment = [[
+			varying P_COLOR vec4 v_RGBA;
+
+			P_COLOR vec4 FragmentKernel (P_UV vec2 uv)
+			{
+				return v_RGBA;
+			}
+		]]
+
+		graphics.defineEffect(Kernel)
+	end
+
+	mesh.fill.effect = "generator.custom.vertex_colors"
+end
+
 
 _AddTriVert_ = M.AddTriVert
 _CancelTimers_ = M.CancelTimers

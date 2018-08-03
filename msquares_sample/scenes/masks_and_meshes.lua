@@ -31,6 +31,9 @@ local ipairs = ipairs
 local max = math.max
 local random = math.random
 
+-- Modules --
+local utils = require("utils")
+
 -- Plugins --
 local bytemap = require("plugin.Bytemap")
 local msquares = require("plugin.msquares")
@@ -205,6 +208,10 @@ end
 BounceParams.onComplete = DoBounce
 RotateParams.onComplete = DoRotate
 
+local function RandomScale ()
+	return .725 + random() * .275
+end
+
 -- Create --
 function Scene:create (event)
 	local canvas = display.newRect(self.view, CX, CY, TexW, TexH)
@@ -264,9 +271,12 @@ function Scene:create (event)
 				local color = ColorValues[j]
 
 				if mc == color.uint then
-					local points, verts = color_mesh:GetPoints(), {}
+					local points, uvs, verts = color_mesh:GetPoints(), {}, {}
 
 					for k = 1, #points, color_mesh:GetDim() do
+						uvs[#uvs + 1] = utils.EncodeTenBitsPair(RandomScale() * color.r, RandomScale() * color.g)
+						uvs[#uvs + 1] = utils.EncodeTenBitsPair(RandomScale() * color.b, RandomScale())
+
 						local x, y = points[k], points[k + 1]
 
 						verts[#verts + 1] = size * (x - .5)
@@ -274,10 +284,11 @@ function Scene:create (event)
 					end
 
 					local mesh = display.newMesh(CX, CY, {
-						indices = color_mesh:GetTriangles(), vertices = verts, mode = "indexed", zeroBasedIndices = true
+						indices = color_mesh:GetTriangles(), uvs = uvs, vertices = verts, mode = "indexed", zeroBasedIndices = true
 					})
 
-					mesh:setFillColor(color.r, color.g, color.b)
+					utils.SetVertexColorShader(mesh)
+
 					mesh:translate(mesh.path:getVertexOffset())
 
 					DoBounce(mesh)
