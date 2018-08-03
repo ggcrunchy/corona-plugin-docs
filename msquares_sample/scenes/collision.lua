@@ -44,6 +44,27 @@ end
 
 Scene:addEventListener("show")
 
+--[[
+	P_COLOR vec4 FragmentKernel (P_UV vec2 uv)
+	{
+		P_COLOR vec4 data = texture2D(CoronaSampler0, uv);
+		P_UV vec3 n = vec3(2. * data.yz - 1., 0.);
+		
+		n.z = sqrt(max(1. - dot(n, n), 0.));
+
+		P_UV vec3 ldir = vec3(ldir_xy * data.x, 3.75 * CoronaVertexUserData.w);
+
+		ldir = normalize(ldir);
+
+		P_UV float sim = max(dot(n, ldir), 0.);
+		P_UV vec3 r = reflect(ldir, n);
+		P_COLOR vec3 m = .35 * (vec3(.1 * IQ(r.xy), .3 * IQ(r.yz), .1 * IQ(r.xz) * data.x) + .5);
+		P_COLOR vec4 color = vec4(mix(m, vec3(pow(1. - r.x, data.x)), .15) + vec3(pow(sim, 60.)), 1.);
+//if (true) return vec4(data.yz,0.,1.);
+		return clamp(color, 0., 1.) * smoothstep(.75, 1., data.a);
+	}
+]]
+
 -- Hide --
 function Scene:hide (event)
 	if event.phase == "did" then

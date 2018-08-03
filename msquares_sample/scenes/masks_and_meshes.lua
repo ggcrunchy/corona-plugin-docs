@@ -212,6 +212,8 @@ local function RandomScale ()
 	return .725 + random() * .275
 end
 
+local ButtonX, ButtonY = 410, 100
+
 -- Create --
 function Scene:create (event)
 	local canvas = display.newRect(self.view, CX, CY, TexW, TexH)
@@ -246,7 +248,9 @@ function Scene:create (event)
 
 	frame:toFront()
 
-	local go = Button(self.view, "Go!", 410, 100, function()
+	local reset
+
+	local go = Button(self.view, "Go!", ButtonX, ButtonY, function()
 		local mask = bytemap.newTexture{
 			width = RoundToMultipleOf4(TexW + 6), height = RoundToMultipleOf4(TexH + 6), format = "mask"
 		}
@@ -299,6 +303,9 @@ function Scene:create (event)
 			end
 		end
 	end, 0, 0, 1)
+
+	-- reset button
+
 	local about = display.newText(self.view, "Drag inside the rect to paint using the frame color", CX, 65, native.systemFontBold, 15)
 
 	-- Go! button / Reset (depending on what's going on)
@@ -333,6 +340,8 @@ function Scene:hide (event)
 		if self.m_mask then
 			self.m_mask:releaseSelf()
 		end
+
+		-- go / reset
 
 		self.m_canvas.m_texture, self.m_mask = nil
 	end
