@@ -46,7 +46,7 @@ local Description = display.newText("", display.contentCenterX, prev.y, native.s
 local Examples = {
 	{ scene = "masks_and_meshes", text = "Paint, Then Convert To Masks + Meshes" },
 	-- { scene = "color_key", text = "Color Key From Image" } (nanosvg)
-	-- { scene = "obstacles", text = "Paint, Then Convert To Obstacles" }
+	{ scene = "obstacles", text = "Paint, Then Convert To Obstacles" }
 	-- { scene = "gosper", text = "Gosper's Glider Gun" } (metal?)
 	-- { scene = "plotting", text = "Plotting a function" }
 --[[
