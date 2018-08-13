@@ -24,7 +24,6 @@
 --
 
 -- Modules --
-local shapes = require("shapes")
 local utils = require("utils")
 
 -- Corona modules --
