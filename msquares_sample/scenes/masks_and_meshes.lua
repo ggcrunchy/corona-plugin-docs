@@ -64,15 +64,7 @@ local Colors = {
 local ColorValues = {}
 
 for i = 1, #Colors, 3 do
-	local r, g, b = Colors[i], Colors[i + 1], Colors[i + 2]
-
-	ColorValues[#ColorValues + 1] = {
-		bytes = char(r, g, b),
-		uint = r * 2^16 + g * 2^8 + b,
-		r = r / 0xFF,
-		g = g / 0xFF,
-		b = b / 0xFF
-	}
+	ColorValues[#ColorValues + 1] = utils.ColorValueFromOctets(Colors[i], Colors[i + 1], Colors[i + 2])
 end
 
 local UnmaskedColor = ColorValues[1].bytes

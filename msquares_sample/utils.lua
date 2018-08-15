@@ -25,6 +25,7 @@
 
 -- Standard library imports --
 local assert = assert
+local char = string.char
 local floor = math.floor
 local huge = math.huge
 local max = math.max
@@ -105,7 +106,7 @@ local function RenderStencil (nrows, c0, r0, w, h, stencil, row_func, touch)
                 local col = c0 + coff
 
                 if col >= 1 and col <= w and stencil[index] == 1 then
-                    touch(rbase + col, col)
+                    touch(rbase + col, col, row)
                 end
 
                 index = index + 1
@@ -169,6 +170,16 @@ function M.CloseTri (group)
 	Tri[8] = Tri[2]
 
 	display.newLine(group, unpack(Tri))
+end
+
+function M.ColorValueFromOctets (r, g, b)
+	return {
+		bytes = char(r, g, b),
+		uint = r * 2^16 + g * 2^8 + b,
+		r = r / 0xFF,
+		g = g / 0xFF,
+		b = b / 0xFF
+	}
 end
 
 local function AuxEncode (x, y)
