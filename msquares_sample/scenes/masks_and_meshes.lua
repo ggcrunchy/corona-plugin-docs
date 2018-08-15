@@ -32,7 +32,6 @@ local max = math.max
 local random = math.random
 
 -- Modules --
-local line = require("iterator.line")
 local utils = require("utils")
 
 -- Plugins --
@@ -53,24 +52,6 @@ local composer = require("composer")
 --
 
 local Scene = composer.newScene()
-
-local Stencil = {
-	w = 7,
-
-	0, 0, 1, 1, 1, 0, 0,
-	0, 1, 1, 1, 1, 1, 0,
-	1, 1, 1, 1, 1, 1, 1,
-	1, 1, 1, 1, 1, 1, 1,
-	1, 1, 1, 1, 1, 1, 1,
-	0, 1, 1, 1, 1, 1, 0,
-	0, 0, 1, 1, 1, 0, 0
-}
-
-assert(#Stencil % Stencil.w == 0, "Missing values")
-
-local NRows = #Stencil / Stencil.w
-local ColOffset = floor(Stencil.w / 2)
-local RowOffset = floor(NRows / 2)
 
 local Colors = {
 	0x70, 0x70, 0x70,
@@ -94,122 +75,61 @@ for i = 1, #Colors, 3 do
 	}
 end
 
+local UnmaskedColor = ColorValues[1].bytes
+
+local Unmask, Mask = char(0xFF), char(0)
+
 local CellW, CellH = 100, 80
 local CellSize = 2
 local TexW, TexH = CellW * CellSize, CellH * CellSize
 
-local function RoundToMultipleOf4 (x)
-	x = x + 3
+local CanvasTouch
 
-	return x - x % 4
-end
+do
+    local Opts = {}
 
-local Opts = {}
+    local Color, MaskOp, MaskBytes, Texture
 
-local Opaque, Transparent = char(0xFF), char(0)
+    CanvasTouch = utils.CanvasTouchFunc(TexW, TexH,
 
-local function ShowButton (button, show)
-	button.parent.isVisible = not not show
-end
+    {
+        w = 7,
 
-local function CanvasTouch (event)
-	local phase, target = event.phase, event.target
+        0, 0, 1, 1, 1, 0, 0,
+        0, 1, 1, 1, 1, 1, 0,
+        1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1,
+        0, 1, 1, 1, 1, 1, 0,
+        0, 0, 1, 1, 1, 0, 0
+    },
 
-	if phase == "began" or phase == "moved" then
-		if phase == "began" then
-			display.getCurrentStage():setFocus(target)
+    function(canvas)
+        Color, Texture = canvas.m_color, canvas.m_texture
+        MaskOp, MaskBytes = Color == UnmaskedColor and Unmask or Mask, canvas.m_mask_bytes
+    end, function(index, col)
+        if MaskOp ~= MaskBytes[index] then
+            Opts.x1, Opts.x2 = col, col
 
-			target.touched = true
-		elseif not target.touched then
-			return false
-		end
+            Texture:SetBytes(Color, Opts)
 
-		-- Render any visible part of the brush and update the texture and mask.
-		local color, mask_bytes = target.m_color, target.m_mask_bytes
-		local texture, mask = target.m_texture, color == ColorValues[1].bytes and Opaque or Transparent
-		local bounds = target.contentBounds
-		local c0_cur, c0_prev = floor(event.x - bounds.xMin) - ColOffset
-		local r0_cur, r0_prev = floor(event.y - bounds.yMin) - RowOffset
+            MaskBytes[index] = MaskOp
 
-        if phase == "moved" then
-            c0_prev, r0_prev = target.m_old_c0, target.m_old_r0
-        end
+            Scene.m_nmasked = Scene.m_nmasked + (MaskOp == Mask and 1 or -1)
 
-        target.m_old_c0, target.m_old_r0 = c0_cur, r0_cur
-
-        for c0, r0 in line.LineIter(c0_prev or c0_cur, r0_prev or r0_cur, c0_cur, r0_cur) do
-            local index = 1
-
-            for roff = 1, NRows do
-                local row = r0 + roff
-
-                if row > TexH then
-                    break
-                elseif row >= 1 then
-                    local rbase = (row - 1) * TexW
-
-                    Opts.y1, Opts.y2 = row, row
-
-                    for coff = 1, Stencil.w do
-                        local col = c0 + coff
-
-                        if col >= 1 and col <= TexW then
-                            if Stencil[index] == 1 and mask ~= mask_bytes[rbase + col] then
-                                Opts.x1, Opts.x2 = col, col
-
-                                texture:SetBytes(color, Opts)
-
-                                mask_bytes[rbase + col] = mask
-
-                                Scene.nmasked = Scene.nmasked + (mask == Transparent and 1 or -1)
-
-                                if mask == Transparent and Scene.nmasked == 1 then
-                                    ShowButton(Scene.go, true)
-                                elseif mask == Opaque and Scene.nmasked == 0 then
-                                    ShowButton(Scene.go, false)
-                                end
-                            end
-                        end
-
-                        index = index + 1
-                    end
-                else
-                    index = index + Stencil.w
-                end
+            if MaskOp == Mask and Scene.m_nmasked == 1 then
+                utils.ShowButton(Scene.m_go, true)
+            elseif MaskOp == Unmask and Scene.m_nmasked == 0 then
+                utils.ShowButton(Scene.m_go, false)
             end
         end
+    end, function()
+        Texture:invalidate()
 
-		texture:invalidate()
-	elseif phase == "ended" or phase == "cancelled" then
-		display.getCurrentStage():setFocus(nil)
-
-		target.touched = false
-	end
-
-	return true
-end
-
-local function Button (view, text, x, y, action, r, g, b)
-	local bgroup = display.newGroup()
-	local button = display.newRoundedRect(bgroup, x, y, 100, 25, 12)
-	local fr, fg, fb = r / 0xFF, g / 0xFF, b / 0xFF
-
-	button:addEventListener("touch", function(event)
-		if event.phase == "began" then
-			action()
-		end
-
-		return true
-	end)
-	button:setFillColor(r, g, b)
-
-	local str = display.newText(bgroup, text, 0, button.y, native.systemFontBold, 15)
-
-	str.anchorX, str.x = 0, x - 35
-
-	view:insert(bgroup)
-
-	return button
+        Color, MaskBytes, Texture = nil
+    end, function(row)
+        Opts.y1, Opts.y2 = row, row
+    end)
 end
 
 local CX, CY = display.contentCenterX, display.contentCenterY
@@ -257,25 +177,27 @@ local function Reset (canvas, mask_bytes, texture)
     canvas:setMask(nil)
 
 	for i = 1, TexW * TexH do
-		mask_bytes[i] = Opaque
+		mask_bytes[i] = Unmask
 	end
 
-	ShowButton(Scene.go, false)
-	ShowButton(Scene.reset, false)
+	utils.ShowButton(Scene.m_go, false)
+	utils.ShowButton(Scene.m_reset, false)
 
-	Scene.nmasked = 0
+	Scene.m_nmasked = 0
 
-	texture:SetBytes(ColorValues[1].bytes:rep(#mask_bytes))
+	texture:SetBytes(UnmaskedColor:rep(#mask_bytes))
 
-	if Scene.m_mesh_group then
-		for i = 1, Scene.m_mesh_group.numChildren do
-			transition.cancel(Scene.m_mesh_group[i])
-		end
+    transition.cancel("mesh")
 
-		Scene.m_mesh_group:removeSelf()
+	display.remove(Scene.m_mesh_group)
 		
-		Scene.m_mesh_group = nil
-	end
+	Scene.m_mesh_group = nil
+end
+
+local function RoundToMultipleOf4 (x)
+    x = x + 3
+
+    return x - x % 4
 end
 
 -- Create --
@@ -296,13 +218,13 @@ function Scene:create (event)
 
 	local current
 
-	self.update_current_color = timer.performWithDelay(150, function()
+	self.m_update_current_color = timer.performWithDelay(150, function()
 		if current then
 			current:setStrokeColor(random(), random(), random())
 		end
 	end, 0)
 
-	timer.pause(self.update_current_color)
+	timer.pause(self.m_update_current_color)
 	
 	local function RectTouch (event)
 		local phase, rect = event.phase, event.target
@@ -331,12 +253,12 @@ function Scene:create (event)
 		return true
 	end
 
-	self.color_group = display.newGroup()
+	self.m_color_group = display.newGroup()
 	
-	self.view:insert(self.color_group)
+	self.view:insert(self.m_color_group)
 	
 	for i, color in ipairs(ColorValues) do		
-		local rect = display.newRect(self.color_group, 65, y, 50, 25)
+		local rect = display.newRect(self.m_color_group, 65, y, 50, 25)
 
 		rect.m_index, rect.m_color = i, color
 
@@ -356,10 +278,10 @@ function Scene:create (event)
 
 	frame:toFront()
 
-	self.go = Button(self.view, "Go!", ButtonX, ButtonY, function()
+	self.m_go = utils.Button(self.view, "Go!", ButtonX, ButtonY, function()
 		FadeParams.alpha = 0
 
-		transition.to(self.color_group, FadeParams)
+		transition.to(self.m_color_group, FadeParams)
 
 		local mask = bytemap.newTexture{
 			width = RoundToMultipleOf4(TexW + 6), height = RoundToMultipleOf4(TexH + 6), format = "mask"
@@ -417,11 +339,11 @@ function Scene:create (event)
 			end
 		end
 
-		ShowButton(self.go, false)
-		ShowButton(self.reset, true)
+		utils.ShowButton(self.m_go, false)
+		utils.ShowButton(self.m_reset, true)
 	end, 0, 0, 1)
 
-	self.reset = Button(self.view, "Reset", ButtonX, ButtonY, function()
+	self.m_reset = utils.Button(self.view, "Reset", ButtonX, ButtonY, function()
 		local canvas = self.m_canvas
 
 		Reset(canvas, canvas.m_mask_bytes, canvas.m_texture)
@@ -430,12 +352,10 @@ function Scene:create (event)
 
 		FadeParams.alpha = 1
 
-		transition.to(self.color_group, FadeParams)
+		transition.to(self.m_color_group, FadeParams)
 	end, 0, 0, 1)
 	
 	local about = display.newText(self.view, "Drag inside the rect to paint using the frame color", CX, 65, native.systemFontBold, 15)
-
-	-- Go! button / Reset (depending on what's going on)
 end
 
 Scene:addEventListener("create")
@@ -451,9 +371,9 @@ function Scene:show (event)
 
 		self.m_canvas.m_mask_bytes, self.m_canvas.m_texture = mask_bytes, texture
 
-		timer.resume(self.update_current_color)
+		timer.resume(self.m_update_current_color)
 
-		self.color_group.alpha = 1
+		self.m_color_group.alpha = 1
 	end
 end
 
@@ -468,11 +388,9 @@ function Scene:hide (event)
 			self.m_mask:releaseSelf()
 		end
 
-		-- go / reset
-
 		self.m_canvas.m_texture, self.m_mask = nil
 
-		timer.pause(self.update_current_color)
+		timer.pause(self.m_update_current_color)
 	end
 end
 

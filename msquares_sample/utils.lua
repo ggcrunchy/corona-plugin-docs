@@ -35,9 +35,13 @@ local unpack = unpack
 -- Plugins --
 local libtess2 = require("plugin.libtess2")
 
+-- Modules --
+local line = require("iterator.line")
+
 -- Corona globals --
 local display = display
 local graphics = graphics
+local native = native
 local system = system
 local timer = timer
 
@@ -58,6 +62,106 @@ local Tri = {} -- recycle the triangle
 
 function M.AddTriVert (x, y, offset)
 	Tri[offset + 1], Tri[offset + 2] = x, y
+end
+
+function M.Button (view, text, x, y, action, r, g, b)
+    local bgroup = display.newGroup()
+    local button = display.newRoundedRect(bgroup, x, y, 100, 25, 12)
+
+    button:addEventListener("touch", function(event)
+        if event.phase == "began" then
+            action()
+        end
+
+        return true
+    end)
+    button:setFillColor(r, g, b)
+
+    local str = display.newText(bgroup, text, 0, button.y, native.systemFontBold, 15)
+
+    str.anchorX, str.x = 0, x - 35
+
+    view:insert(bgroup)
+
+    return button
+end
+
+local function DefRowFunc () end
+
+local function RenderStencil (nrows, c0, r0, w, h, stencil, row_func, touch)
+    local index = 1
+
+    for roff = 1, nrows do
+        local row = r0 + roff
+
+        if row > h then
+            break
+        elseif row >= 1 then
+            local rbase = (row - 1) * w
+
+            row_func(row)
+
+            for coff = 1, stencil.w do
+                local col = c0 + coff
+
+                if col >= 1 and col <= w and stencil[index] == 1 then
+                    touch(rbase + col, col)
+                end
+
+                index = index + 1
+            end
+        else
+            index = index + stencil.w
+        end
+    end
+end
+
+function M.CanvasTouchFunc (w, h, stencil, prep, touch, finish, row_func)
+    assert(#stencil % stencil.w == 0, "Missing values")
+
+    local nrows = #stencil / stencil.w
+    local col_offset = floor(stencil.w / 2)
+    local row_offset = floor(nrows / 2)
+
+    row_func = row_func or DefRowFunc
+
+    return function(event)
+        local phase, target = event.phase, event.target
+
+        if phase == "began" or phase == "moved" then
+            if phase == "began" then
+                display.getCurrentStage():setFocus(target)
+
+                target.touched = true
+            elseif not target.touched then
+                return false
+            end
+
+            local bounds = target.contentBounds
+            local c0_cur, c0_prev = floor(event.x - bounds.xMin) - col_offset
+            local r0_cur, r0_prev = floor(event.y - bounds.yMin) - row_offset
+
+            prep(target)
+
+            if phase == "moved" then
+                c0_prev, r0_prev = target.m_old_c0, target.m_old_r0
+            end
+
+            target.m_old_c0, target.m_old_r0 = c0_cur, r0_cur
+
+            for c0, r0 in line.LineIter(c0_prev or c0_cur, r0_prev or r0_cur, c0_cur, r0_cur) do
+                RenderStencil(nrows, c0, r0, w, h, stencil, row_func, touch)
+            end
+
+            finish(target)
+        elseif phase == "ended" or phase == "cancelled" then
+            display.getCurrentStage():setFocus(nil)
+
+            target.touched = false
+        end
+
+        return true
+    end
 end
 
 function M.CloseTri (group)
@@ -183,6 +287,9 @@ function M.SetVertexColorShader (mesh)
 	mesh.fill.effect = "generator.custom.vertex_colors"
 end
 
+function M.ShowButton (button, show)
+    button.parent.isVisible = not not show
+end
 
 _AddTriVert_ = M.AddTriVert
 _CancelTimers_ = M.CancelTimers
