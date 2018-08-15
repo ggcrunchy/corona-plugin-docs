@@ -32,6 +32,7 @@ local max = math.max
 local random = math.random
 
 -- Modules --
+local line = require("iterator.line")
 local utils = require("utils")
 
 -- Plugins --
@@ -126,47 +127,57 @@ local function CanvasTouch (event)
 		-- Render any visible part of the brush and update the texture and mask.
 		local color, mask_bytes = target.m_color, target.m_mask_bytes
 		local texture, mask = target.m_texture, color == ColorValues[1].bytes and Opaque or Transparent
-		local bounds, index = target.contentBounds, 1
-		local c0 = floor(event.x - bounds.xMin) - ColOffset
-		local r0 = floor(event.y - bounds.yMin) - RowOffset
+		local bounds = target.contentBounds
+		local c0_cur, c0_prev = floor(event.x - bounds.xMin) - ColOffset
+		local r0_cur, r0_prev = floor(event.y - bounds.yMin) - RowOffset
 
-		for roff = 1, NRows do
-			local row = r0 + roff
+        if phase == "moved" then
+            c0_prev, r0_prev = target.m_old_c0, target.m_old_r0
+        end
 
-			if row > TexH then
-				break
-			elseif row >= 1 then
-				local rbase = (row - 1) * TexW
+        target.m_old_c0, target.m_old_r0 = c0_cur, r0_cur
 
-				Opts.y1, Opts.y2 = row, row
+        for c0, r0 in line.LineIter(c0_prev or c0_cur, r0_prev or r0_cur, c0_cur, r0_cur) do
+            local index = 1
 
-				for coff = 1, Stencil.w do
-					local col = c0 + coff
+            for roff = 1, NRows do
+                local row = r0 + roff
 
-					if col >= 1 and col <= TexW then
-						if Stencil[index] == 1 and mask ~= mask_bytes[rbase + col] then
-							Opts.x1, Opts.x2 = col, col
+                if row > TexH then
+                    break
+                elseif row >= 1 then
+                    local rbase = (row - 1) * TexW
 
-							texture:SetBytes(color, Opts)
+                    Opts.y1, Opts.y2 = row, row
 
-							mask_bytes[rbase + col] = mask
+                    for coff = 1, Stencil.w do
+                        local col = c0 + coff
 
-							Scene.nmasked = Scene.nmasked + (mask == Transparent and 1 or -1)
+                        if col >= 1 and col <= TexW then
+                            if Stencil[index] == 1 and mask ~= mask_bytes[rbase + col] then
+                                Opts.x1, Opts.x2 = col, col
 
-							if mask == Transparent and Scene.nmasked == 1 then
-								ShowButton(Scene.go, true)
-							elseif mask == Opaque and Scene.nmasked == 0 then
-								ShowButton(Scene.go, false)
-							end
-						end
-					end
+                                texture:SetBytes(color, Opts)
 
-					index = index + 1
-				end
-			else
-				index = index + Stencil.w
-			end
-		end
+                                mask_bytes[rbase + col] = mask
+
+                                Scene.nmasked = Scene.nmasked + (mask == Transparent and 1 or -1)
+
+                                if mask == Transparent and Scene.nmasked == 1 then
+                                    ShowButton(Scene.go, true)
+                                elseif mask == Opaque and Scene.nmasked == 0 then
+                                    ShowButton(Scene.go, false)
+                                end
+                            end
+                        end
+
+                        index = index + 1
+                    end
+                else
+                    index = index + Stencil.w
+                end
+            end
+        end
 
 		texture:invalidate()
 	elseif phase == "ended" or phase == "cancelled" then
@@ -242,12 +253,14 @@ end
 
 local FadeParams = {}
 
-local function Reset (mask_bytes, texture)
+local function Reset (canvas, mask_bytes, texture)
+    canvas:setMask(nil)
+
 	for i = 1, TexW * TexH do
 		mask_bytes[i] = Opaque
 	end
 
-	ShowButton(Scene.go, true)
+	ShowButton(Scene.go, false)
 	ShowButton(Scene.reset, false)
 
 	Scene.nmasked = 0
@@ -411,10 +424,9 @@ function Scene:create (event)
 	self.reset = Button(self.view, "Reset", ButtonX, ButtonY, function()
 		local canvas = self.m_canvas
 
-		Reset(canvas.m_mask_bytes, canvas.m_texture)
+		Reset(canvas, canvas.m_mask_bytes, canvas.m_texture)
 
 		canvas.m_texture:invalidate()
-		canvas:setMask(nil)
 
 		FadeParams.alpha = 1
 
@@ -433,7 +445,7 @@ function Scene:show (event)
 	if event.phase == "did" then
 		local mask_bytes, texture = {}, bytemap.newTexture{ width = TexW, height = TexH, format = "rgb" }
 
-		Reset(mask_bytes, texture)
+		Reset(self.m_canvas, mask_bytes, texture)
 
 		self.m_canvas.fill = { type = "image", filename = texture.filename, baseDir = texture.baseDir }
 
