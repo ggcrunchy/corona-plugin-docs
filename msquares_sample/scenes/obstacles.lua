@@ -55,8 +55,6 @@ local CellW, CellH = 100, 80
 local CellSize = 2
 local TexW, TexH = CellW * CellSize, CellH * CellSize
 
-local Opaque, Transparent = char(0xFF), char(0)
-
 local CanvasTouch
 
 do
@@ -83,7 +81,7 @@ do
     end, function(_, col)
 		Opts.x1, Opts.x2 = col, col
 
-        Texture:SetBytes(CullColor.bytes, Opts)
+        Texture:SetBytes(Color, Opts)
     end, function()
         Texture:invalidate()
 
@@ -94,25 +92,39 @@ do
 end
 
 local CX, CY = display.contentCenterX, display.contentCenterY
-local Y0 = display.screenOriginY
-
-local function RandomScale ()
-	return .725 + random() * .275
-end
 
 local ButtonX, ButtonY = 410, 100
+
+local DefFrameGray, DefFrameWidth = .9, 2
+
+local UnselectedScale = .8
+
+local function Unselect (object)
+    local color = object.m_color
+
+    object:setStrokeColor(color.r * UnselectedScale, color.g * UnselectedScale, color.b * UnselectedScale)
+end
+
+local FadeParams = {}
 
 local function Reset (canvas)
 	canvas:addEventListener("touch", CanvasTouch)
 
-	timer.performWithDelay(1, function()
-		display.remove(Scene.m_ball_group)
+    utils.ShowButton(Scene.m_go, true)
+    utils.ShowButton(Scene.m_reset, false)
 
-		Scene.m_ball_group = nil
+    if Scene.m_ball_group then
+        timer.performWithDelay(1, function()
+            Scene.m_ball_group:removeSelf()
 
-		physics.stop()
-	end)
+            Scene.m_ball_group = nil
+
+            physics.stop()
+        end)
+    end
 end
+
+local NBallCols, NBallRows = 10, 7
 
 -- Create --
 function Scene:create (event)
@@ -127,32 +139,74 @@ function Scene:create (event)
 
 	frame:setFillColor(0, 0)
 
-	frame.alpha, frame.strokeWidth = .7, 6
---[[
-	local what, y = "Empty", 95
+    frame.alpha = .7
 
-	for i, color in ipairs(ColorValues) do
-		local function Body ()
-			canvas.m_color = color.bytes
+    local update_timer, update_selection = utils.SelectionStrokeHighlighter()
 
-			frame:setStrokeColor(color.r, color.g, color.b)
-		end
+    timer.pause(update_timer)
 
-		local button = Button(self.view, what, 65, y, Body, color.r, color.g, color.b)
+    self.m_update_current_color = update_timer
 
-		if i == 1 then
-			Body()
-		end
+    local function RectTouch (event)
+        local phase, rect = event.phase, event.target
 
-		what, y = ("Object #%i"):format(i), y + 32
-	end
-]]
+        if phase == "began" then
+            local color = rect.m_color
+
+            canvas.m_color = color.bytes
+
+            if rect.m_index > 1 then
+                frame:setStrokeColor(color.r, color.g, color.b)
+
+                frame.strokeWidth = 6
+            else
+                frame:setStrokeColor(DefFrameGray)
+
+                frame.strokeWidth = DefFrameWidth
+            end
+
+            update_selection(rect, Unselect)
+        end
+
+        return true
+    end
+
+    self.m_color_group = display.newGroup()
+
+    self.view:insert(self.m_color_group)
+
+    for i = 1, 2 do
+        local rect = display.newRect(self.m_color_group, 105, 95 + (i - 1) * 32, 50, 25)
+        local color = i == 1 and { r = 1, g = 1, b = 1, bytes = char(0):rep(4) } or CullColor
+        local text = display.newText(self.m_color_group, i == 1 and "Clear" or "Paint", 0, rect.y, native.systemFont, 15)
+
+        text.anchorX, text.x = 1, rect.contentBounds.xMin - 5
+
+        rect.m_index, rect.m_color = i, color
+
+        rect:addEventListener("touch", RectTouch)
+
+        rect.strokeWidth = 2
+
+        if i == 1 then
+            rect:dispatchEvent{ phase = "began", name = "touch", target = rect }
+            rect:setFillColor(0)
+        else
+            rect:setFillColor(color.r, color.g, color.b)
+
+            Unselect(rect)
+        end
+    end
+
 	frame:toFront()
 
 	self.m_go = utils.Button(self.view, "Go!", ButtonX, ButtonY, function()
 		local mlist = msquares.color(canvas.m_texture:GetBytes(), TexW, TexH, CellSize, CullColor.uint, 3)
 		local size = max(TexW, TexH) -- msquares normalizes against maximum
-		local chain_params = { connectFirstAndLastChainVertex = true }
+
+        physics.start()
+
+        local chain_params = { connectFirstAndLastChainVertex = true }
 
 		for i = 1, #mlist do
 			local mesh = mlist:GetMesh(i)
@@ -180,11 +234,11 @@ function Scene:create (event)
 
 		self.view:insert(self.m_ball_group)
 
-		physics.start()
-		
-		for row = 1, 9 do
-			for col = 1, 10 do
-				local ball = display.newCircle(self.m_ball_group, cbounds.xMin + col * (cbounds.xMax - cbounds.xMin) / 11, cbounds.yMin - row * 7, 2)
+        local dw = (cbounds.xMax - cbounds.xMin) / (NBallCols + 1)
+
+        for row = 1, NBallRows do
+			for col = 1, NBallCols do
+				local ball = display.newCircle(self.m_ball_group, cbounds.xMin + col * dw, cbounds.yMin - row * 7, 2)
 
 				ball:setFillColor(random(), random(), random())
 
@@ -205,10 +259,13 @@ function Scene:create (event)
 	self.m_reset = utils.Button(self.view, "Reset", ButtonX, ButtonY, function()
 		Reset(canvas)
 
+        canvas.m_texture:SetBytes(char(0):rep(TexW * TexH * 4))
+        canvas.m_texture:invalidate()
+
 		utils.ShowButton(self.m_reset, false)
 	end, 0, 0, 1)
 
-	utils.ShowButton(self.m_reset, false)
+    utils.ShowButton(self.m_reset, false)
 	
 	local about = display.newText(self.view, "Drag inside the rect to paint or clear obstacles", CX, 65, native.systemFontBold, 15)
 
@@ -231,7 +288,11 @@ function Scene:show (event)
 		self.m_canvas.fill = { type = "image", filename = texture.filename, baseDir = texture.baseDir }
 
 		self.m_canvas.m_texture = texture
-	end
+
+        timer.resume(self.m_update_current_color)
+
+        self.m_color_group.alpha = 1
+    end
 end
 
 Scene:addEventListener("show")
@@ -244,6 +305,8 @@ function Scene:hide (event)
 		self.m_canvas.m_texture:releaseSelf()
 
 		self.m_canvas.m_texture = nil
+
+        timer.pause(self.m_update_current_color)
 	end
 end
 

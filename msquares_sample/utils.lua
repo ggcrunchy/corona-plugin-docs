@@ -27,14 +27,7 @@
 local assert = assert
 local char = string.char
 local floor = math.floor
-local huge = math.huge
-local max = math.max
-local min = math.min
-local sqrt = math.sqrt
-local unpack = unpack
-
--- Plugins --
-local libtess2 = require("plugin.libtess2")
+local random = math.random
 
 -- Modules --
 local line = require("iterator.line")
@@ -43,14 +36,7 @@ local line = require("iterator.line")
 local display = display
 local graphics = graphics
 local native = native
-local system = system
 local timer = timer
-
--- Cached module references --
-local _AddTriVert_
-local _CancelTimers_
-local _CloseTri_
-local _GetTess_
 
 -- Exports --
 local M = {}
@@ -58,12 +44,6 @@ local M = {}
 --
 --
 --
-
-local Tri = {} -- recycle the triangle
-
-function M.AddTriVert (x, y, offset)
-	Tri[offset + 1], Tri[offset + 2] = x, y
-end
 
 function M.Button (view, text, x, y, action, r, g, b)
     local bgroup = display.newGroup()
@@ -165,13 +145,6 @@ function M.CanvasTouchFunc (w, h, stencil, prep, touch, finish, row_func)
     end
 end
 
-function M.CloseTri (group)
-	Tri[7] = Tri[1]
-	Tri[8] = Tri[2]
-
-	display.newLine(group, unpack(Tri))
-end
-
 function M.ColorValueFromOctets (r, g, b)
 	return {
 		bytes = char(r, g, b),
@@ -205,47 +178,20 @@ function M.EncodeTenBitsPair (x, y)
     return AuxEncode(x * 1024, y * 1024)
 end
 
-local Tess = libtess2.NewTess()
+function M.SelectionStrokeHighlighter ()
+    local current
 
-function M.GetTess ()
-	return Tess
-end
+    return timer.performWithDelay(150, function()
+        if current then
+            current:setStrokeColor(random(), random(), random())
+        end
+    end, 0), function(target, unselect)
+        if current and current ~= target then
+            unselect(current)
+        end
 
-function M.Polygon ()
-	local verts, xmax, ymax, xmin, ymin = {}, -huge, -huge, huge, huge
-
-	return function(x, y, offset)
-		verts[offset + 1], verts[offset + 2] = x, y
-
-		xmax, ymax = max(x, xmax), max(y, ymax)
-		xmin, ymin = min(x, xmin), min(y, ymin)
-	end, function(group)
-		display.newPolygon(group, (xmax + xmin) / 2, (ymax + ymin) / 2, verts)
-
-		verts, xmax, ymax, xmin, ymin = {}, -huge, -huge, huge, huge
-	end
-end
-
-function M.PolyTris (group, tess, rule)
-	if tess:Tesselate(rule, "POLYGONS") then
-		local elems = tess:GetElements()
-		local verts = tess:GetVertices()
-		local add_vert, close = group.add_vert or _AddTriVert_, group.close or _CloseTri_
-
-		for i = 1, tess:GetElementCount() do
-			local base, offset = (i - 1) * 3, 0 -- for an interesting error (good to know for debugging), hoist offset out of the loop
-
-			for j = 1, 3 do
-				local index = elems[base + j]
-
-				add_vert(verts[index * 2 + 1], verts[index * 2 + 2], offset)
-
-				offset = offset + 2
-			end
-
-			close(group)
-		end
-	end
+        current = target
+    end
 end
 
 local Kernel
@@ -301,10 +247,5 @@ end
 function M.ShowButton (button, show)
     button.parent.isVisible = not not show
 end
-
-_AddTriVert_ = M.AddTriVert
-_CancelTimers_ = M.CancelTimers
-_CloseTri_ = M.CloseTri
-_GetTess_ = M.GetTess
 
 return M

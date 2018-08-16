@@ -205,26 +205,21 @@ function Scene:create (event)
 
 	frame.alpha = .7
 
-	local what, y = "Empty", 95
+    local update_timer, update_selection = utils.SelectionStrokeHighlighter()
 
-	local current
+    timer.pause(update_timer)
 
-	self.m_update_current_color = timer.performWithDelay(150, function()
-		if current then
-			current:setStrokeColor(random(), random(), random())
-		end
-	end, 0)
-
-	timer.pause(self.m_update_current_color)
+    self.m_update_current_color = update_timer
 	
 	local function RectTouch (event)
 		local phase, rect = event.phase, event.target
-		local color, index = rect.m_color, rect.m_index
 
 		if phase == "began" then
-			canvas.m_color = color.bytes
+            local color = rect.m_color
 
-			if index > 1 then
+            canvas.m_color = color.bytes
+
+			if rect.m_index > 1 then
 				frame:setStrokeColor(color.r, color.g, color.b)
 
 				frame.strokeWidth = 6
@@ -234,11 +229,7 @@ function Scene:create (event)
 				frame.strokeWidth = DefFrameWidth
 			end
 
-			if current and current ~= rect then
-				Unselect(current)
-			end
-
-			current = rect
+			update_selection(rect, Unselect)
 		end
 
 		return true
@@ -247,9 +238,9 @@ function Scene:create (event)
 	self.m_color_group = display.newGroup()
 	
 	self.view:insert(self.m_color_group)
-	
-	for i, color in ipairs(ColorValues) do		
-		local rect = display.newRect(self.m_color_group, 65, y, 50, 25)
+
+	for i, color in ipairs(ColorValues) do
+		local rect = display.newRect(self.m_color_group, 65, 95 + (i - 1) * 32, 50, 25)
 
 		rect.m_index, rect.m_color = i, color
 
@@ -263,8 +254,6 @@ function Scene:create (event)
 		else
 			Unselect(rect)
 		end
-
-		what, y = ("Object #%i"):format(i), y + 32
 	end
 
 	frame:toFront()
