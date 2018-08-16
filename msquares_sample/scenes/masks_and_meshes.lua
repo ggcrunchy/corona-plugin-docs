@@ -166,6 +166,7 @@ end
 local FadeParams = {}
 
 local function Reset (canvas, mask_bytes, texture)
+	canvas:addEventListener("touch", CanvasTouch)
     canvas:setMask(nil)
 
 	for i = 1, TexW * TexH do
@@ -195,8 +196,6 @@ end
 -- Create --
 function Scene:create (event)
 	local canvas = display.newRect(self.view, CX, CY, TexW, TexH)
-
-	canvas:addEventListener("touch", CanvasTouch)
 
 	self.m_canvas = canvas
 
@@ -331,6 +330,8 @@ function Scene:create (event)
 			end
 		end
 
+		canvas:removeEventListener("touch", CanvasTouch)
+		
 		utils.ShowButton(self.m_go, false)
 		utils.ShowButton(self.m_reset, true)
 	end, 0, 0, 1)

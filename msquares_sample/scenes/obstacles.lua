@@ -25,9 +25,7 @@
 
 -- Standard library imports --
 local char = string.char
-local concat = table.concat
 local floor = math.floor
-local ipairs = ipairs
 local max = math.max
 local random = math.random
 
@@ -40,6 +38,7 @@ local msquares = require("plugin.msquares")
 
 -- Corona globals --
 local physics = physics
+local timer = timer
 
 -- Corona modules --
 local composer = require("composer")
@@ -103,6 +102,18 @@ end
 
 local ButtonX, ButtonY = 410, 100
 
+local function Reset (canvas)
+	canvas:addEventListener("touch", CanvasTouch)
+
+	timer.performWithDelay(1, function()
+		display.remove(Scene.m_ball_group)
+
+		Scene.m_ball_group = nil
+
+		physics.stop()
+	end)
+end
+
 -- Create --
 function Scene:create (event)
 	local canvas = display.newRect(self.view, CX, CY, TexW, TexH)
@@ -138,8 +149,6 @@ function Scene:create (event)
 ]]
 	frame:toFront()
 
-	local reset
-
 	self.m_go = utils.Button(self.view, "Go!", ButtonX, ButtonY, function()
 		local mlist = msquares.color(canvas.m_texture:GetBytes(), TexW, TexH, CellSize, CullColor.uint, 3)
 		local size = max(TexW, TexH) -- msquares normalizes against maximum
@@ -171,6 +180,8 @@ function Scene:create (event)
 
 		self.view:insert(self.m_ball_group)
 
+		physics.start()
+		
 		for row = 1, 9 do
 			for col = 1, 10 do
 				local ball = display.newCircle(self.m_ball_group, cbounds.xMin + col * (cbounds.xMax - cbounds.xMin) / 11, cbounds.yMin - row * 7, 2)
@@ -180,12 +191,20 @@ function Scene:create (event)
 				physics.addBody(ball)
 			end
 		end
-		
+
+		physics.addBody(self.m_r1, "static")
+		physics.addBody(self.m_r2, "static")
+		physics.addBody(self.m_r3, "static")
+
+		canvas:removeEventListener("touch", CanvasTouch)
+
 		utils.ShowButton(self.m_go, false)
 		utils.ShowButton(self.m_reset, true)
 	end, 0, 0, 1)
 
 	self.m_reset = utils.Button(self.view, "Reset", ButtonX, ButtonY, function()
+		Reset(canvas)
+
 		utils.ShowButton(self.m_reset, false)
 	end, 0, 0, 1)
 
@@ -207,17 +226,11 @@ Scene:addEventListener("create")
 -- Show --
 function Scene:show (event)
 	if event.phase == "did" then
-		physics.start()
-
 		local texture = bytemap.newTexture{ width = TexW, height = TexH, format = "rgb" }
 
 		self.m_canvas.fill = { type = "image", filename = texture.filename, baseDir = texture.baseDir }
 
 		self.m_canvas.m_texture = texture
-
-		physics.addBody(self.m_r1, "static")
-		physics.addBody(self.m_r2, "static")
-		physics.addBody(self.m_r3, "static")
 	end
 end
 
@@ -226,7 +239,7 @@ Scene:addEventListener("show")
 -- Hide --
 function Scene:hide (event)
 	if event.phase == "did" then
-		physics.stop()
+		Reset(self.m_canvas)
 
 		self.m_canvas.m_texture:releaseSelf()
 
