@@ -212,7 +212,7 @@ function Scene:create (event)
 			local mesh = mlist:GetMesh(i)
 			local boundary = mesh:GetBoundary()
 
-			for j = 1, #boundary do
+			for j = 1, #(boundary or "") do -- in empty case, do nothing
 				local body, points, verts = display.newCircle(0, 0, 5), boundary[j], {}
 
 				body.alpha = .025
