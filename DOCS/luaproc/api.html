@@ -34,7 +34,7 @@
 
 
 <h2>Modules</h2>
-<ul class="$(kind=='Topics' and '' or 'nowrap'">
+<ul class="nowrap">
   <li><strong>luaproc</strong></li>
 </ul>
 
@@ -47,10 +47,9 @@
 <p>
 
 
-<p> Some additional (upcoming) features have been added, among them support for shared variables and events. The latter
- are built atop <a href="https://github.com/efficient/libcuckoo">libcuckoo</a> and <a href="https://github.com/neosmart/pevents">pevents</a> respectively.
- (Corona uses an older libstdc++ on iOS, making libcuckoo difficult if not impossible to support. In its place, unordered maps are used
- together with libdispatch, though alternatives are under investigation.)</p>
+<p> Some additional features have been added, among them support for shared variables and events. The latter are
+ built atop <a href="https://github.com/efficient/libcuckoo">libcuckoo</a> and <a href="https://github.com/neosmart/pevents">pevents</a>
+ respectively.</p>
 
 <p> To use the plugin, add the following in <code>build.settings</code>:</p>
 
@@ -337,7 +336,8 @@
 <br/>
 
 
-    <h2><a name="Functions"></a>Functions</h2>
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
     <dl class="function">
     <dt>
     <a name = "newproc"></a>
@@ -383,7 +383,7 @@
 
 <p> The final error is handled according to <strong>report_method</strong>. By default, it gets printed to the console.</p>
 
-<p> With the <strong>"alert"</strong> method, something like <code>luaproc.alert("crash_report", tostring(error))</code> is performed, allowing the
+<p> With the <strong>"alert"</strong> method, something like <code>luaproc.alert(&quot;crash_report&quot;, tostring(error))</code> is performed, allowing the
  application to respond to the error. Example use cases include:</p>
 
 <ul>
@@ -393,10 +393,11 @@
 
 <p> When the method is <strong>"ignore"</strong>, the error is silent.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">lua_code</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          String of Lua code.
         </li>
     </ul>
@@ -442,6 +443,7 @@ end)
 </code></pre>
 
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">f</span>
@@ -479,14 +481,15 @@ end)
 <p> In the main state, this will be performed immediately. Otherwise, alerts will fire during an <strong>enterFrame</strong>; if Lua is
  trying to close, this will do nothing.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">message</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          User-defined message.
         </li>
         <li><span class="parameter">payload</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <span class="type">number</span>, <span class="type">boolean</span> or <span class="type">nil</span></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <span class="type">number</span>, <span class="type">boolean</span> or <span class="type">nil</span></span>
          User-defined payload.
         </li>
     </ul>
@@ -506,6 +509,7 @@ end)
     </dt>
     <dd>
     (<strong>WIP</strong>) Create a new event for process scheduling.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -527,7 +531,7 @@ end)
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
         If an event was created, its name. Otherwise, <strong>nil</strong>.
     </ol>
 
@@ -549,6 +553,7 @@ end)
     <dd>
     (<strong>WIP</strong>) Create a shared integer variable.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">value</span>
@@ -560,7 +565,7 @@ end)
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Name of new integer.
     </ol>
 
@@ -581,6 +586,7 @@ end)
     <dd>
     (<strong>WIP</strong>) Create a shared number variable.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">value</span>
@@ -592,7 +598,7 @@ end)
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Name of new number.
     </ol>
 
@@ -616,10 +622,11 @@ end)
 <p> Lua processes waiting to send or receive messages on destroyed channels have their execution resumed and receive an error
  message indicating the channel was destroyed.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">channel_name</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          Name of communication channel.
         </li>
     </ul>
@@ -650,10 +657,11 @@ end)
 
 <p> This must not be called while waiting for the event.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">name</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          Name of event, cf. <a href="api.html#create_event">create_event</a>.
         </li>
     </ul>
@@ -684,10 +692,11 @@ end)
 
 <p> While not encouraged, this may be safely mixed with <a href="api.html#update_integer">update_integer</a> operations on the variable.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">Name</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          of number, cf. <a href="api.html#create_integer">create_integer</a>.
         </li>
     </ul>
@@ -706,10 +715,11 @@ end)
 
 <p> While not encouraged, this may be safely mixed with <a href="api.html#update_number">update_number</a> operations on the variable.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">Name</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          of number, cf. <a href="api.html#create_number">create_number</a>.
         </li>
     </ul>
@@ -725,6 +735,7 @@ end)
     </dt>
     <dd>
     (<strong>WIP</strong>) Get an estimate of available hardware concurrency, e.g.  for <a href="api.html#setnumworkers">setnumworkers</a>.
+
 
 
     <h3>Returns:</h3>
@@ -748,6 +759,7 @@ end)
 <p> Calling this outside the main state results in an error.
 
 
+
     <h3>Returns:</h3>
     <ol>
 
@@ -766,10 +778,11 @@ end)
     <dd>
     (<strong>WIP</strong>) Get a shared integer atomically, if present.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">name</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          Name of integer.
         </li>
     </ul>
@@ -797,10 +810,11 @@ end)
     <dd>
     (<strong>WIP</strong>) Get a shared number atomically, if present.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">name</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          Name of number.
         </li>
     </ul>
@@ -829,6 +843,7 @@ end)
     Return the number of active workers (pthreads).
 
 
+
     <h3>Returns:</h3>
     <ol>
 
@@ -852,6 +867,7 @@ end)
     Check whether the running process is in the main state.
 
 
+
     <h3>Returns:</h3>
     <ol>
 
@@ -869,6 +885,7 @@ end)
     </dt>
     <dd>
     Check whether <em>luaproc</em> is waiting for processes to finish, either after a call to <a href="api.html#wait">wait</a> or when closing down.
+
 
 
     <h3>Returns:</h3>
@@ -893,10 +910,11 @@ end)
     <dd>
     Creates a new channel identified by string name.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">channel_name</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          Name of new communication channel.
         </li>
     </ul>
@@ -925,10 +943,11 @@ end)
     <dd>
     (<strong>WIP</strong>) DOCME!
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">name</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
 
 
 
@@ -957,10 +976,11 @@ end)
 <p> Calling this synchronously from Corona's thread results in an error unless a corresponding send has already fired. As with <a href="api.html#send">send</a>,
  this is usually desired, to avoid Corona blocking; <a href="api.html#receive_allow_from_main">receive_allow_from_main</a> is provided to circumvent this protection.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">channel_name</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          Name of communication channel.
         </li>
         <li><span class="parameter">asynchronous</span>
@@ -999,6 +1019,7 @@ end)
 
 
 
+
 </dd>
     <dt>
     <a name = "recycle"></a>
@@ -1006,6 +1027,7 @@ end)
     </dt>
     <dd>
     Set the maximum number of Lua processes to recycle.  The default number is zero, i.e. no Lua processes are recycled.
+
 
     <h3>Parameters:</h3>
     <ul>
@@ -1039,10 +1061,11 @@ end)
     <dd>
     (<strong>WIP</strong>) Reset an event.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">name</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          Name of event, cf. <a href="api.html#create_event">create_event</a>.
         </li>
     </ul>
@@ -1073,10 +1096,11 @@ end)
 <p> Calling this from Corona's thread results in an error if the channel is not already waiting for the results. This is usually desired,
  as Corona would be likely to block; <a href="api.html#send_allow_from_main">send_allow_from_main</a> is provided in case the more dangerous behavior is necessary.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">channel_name</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          Name of communication channel.
         </li>
         <li><span class="parameter">...</span>
@@ -1113,6 +1137,7 @@ end)
 
 
 
+
 </dd>
     <dt>
     <a name = "set_event"></a>
@@ -1121,10 +1146,11 @@ end)
     <dd>
     (<strong>WIP</strong>) Set an event.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">name</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          Name of event, cf. <a href="api.html#create_event">create_event</a>.
         </li>
     </ul>
@@ -1155,6 +1181,7 @@ end)
 
 <p> No return, raises error if worker could not be created.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">number_of_workers</span>
@@ -1184,6 +1211,7 @@ end)
 
 <p> <strong>N.B.</strong> At the moment, this does not respect Corona's suspend and resume logic.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">ms</span>
@@ -1208,14 +1236,15 @@ end)
 
 <p> Concurrent updates are atomic (cf. the summary for <em>op</em>, below), but have no specific order.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">name</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          Name of integer, cf. <a href="api.html#create_integer">create_integer</a>.
         </li>
         <li><span class="parameter">op</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          Binary update operation, which may be one of:</p>
 
 <ul>
@@ -1262,14 +1291,15 @@ end)
     <dd>
     (<strong>WIP</strong>) DOCME!
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">name</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          Name of integer, cf. <a href="api.html#update_integer">update_integer</a>.
         </li>
         <li><span class="parameter">op</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          As per <a href="api.html#update_integer">update_integer</a>.
         </li>
         <li><span class="parameter">expected</span>
@@ -1309,14 +1339,15 @@ end)
 
 <p> The additional details from <a href="api.html#update_integer">update_integer</a> apply here as well.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">name</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          Name of number, cf. <a href="api.html#create_number">create_number</a>.
         </li>
         <li><span class="parameter">op</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          Binary update operation, which may be <strong>"assign"</strong>, <strong>"add"</strong> or <strong>"sub"</strong>, cf. <a href="api.html#update_integer">update_integer</a>.
         </li>
         <li><span class="parameter">delta</span>
@@ -1348,7 +1379,10 @@ end)
     Wait until all Lua processes have finished, then continues program execution. </p>
 
 <p> It only makes sense to call this function from the main Lua script, i.e. from Corona's thread. Moreover, this function is
- implicitly called when the main Lua script finishes executing, e.g. on a simulator reset or when the app is about to exit.
+ implicitly called when the main Lua script finishes executing, e.g. on a simulator reset or when the app is about to exit.</p>
+
+<p> <strong>TODO</strong> This and other time-based functions should be robust against suspends and accommodate exits
+
 
 
 
@@ -1371,6 +1405,7 @@ end)
  graceful early exits are desired. Furthermore, any infinite loop <strong>must</strong> use this, or Corona will hang on exit.
 
 
+
     <h3>Returns:</h3>
     <ol>
 
@@ -1389,10 +1424,11 @@ end)
     <dd>
     (<strong>WIP</strong>) Wait until all events in a group are set.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">events</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">{string,...}</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">{string,...}</a></span>
          One or more names of events, cf. <a href="api.html#create_event">create_event</a>.
         </li>
         <li><span class="parameter">wait</span>
@@ -1408,7 +1444,7 @@ end)
         <li>
         <strong>true</strong>, indicating success.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         First name in <em>events</em>.</li>
     </ol>
      <h3>Or</h3>
@@ -1433,10 +1469,11 @@ end)
     <dd>
     (<strong>WIP</strong>) Wait until at least one event in a group is set.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">events</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">{string,...}</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">{string,...}</a></span>
          One or more names of events, cf. <a href="api.html#create_event">create_event</a>.
         </li>
         <li><span class="parameter">wait</span>
@@ -1452,7 +1489,7 @@ end)
         <li>
         <strong>true</strong>, indicating success.</li>
         <li>
-           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         Name of set event from <em>events</em> with lowest index.</li>
     </ol>
      <h3>Or</h3>
@@ -1477,10 +1514,11 @@ end)
     <dd>
     (<strong>WIP</strong>) Wait until an event is set.
 
+
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">name</span>
-            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
          Name of event, cf. <a href="api.html#create_event">create_event</a>.
         </li>
         <li><span class="parameter">wait</span>
@@ -1494,7 +1532,7 @@ end)
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">boolean</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+           <span class="types"><span class="type">boolean</span> or <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
         If <em>wait</em> elapsed before the event was set, <strong>"timeout"</strong> is returned.</p>
 
 <p> Otherwise, returns a boolean indicating whether the wait succeeded.
@@ -1510,7 +1548,8 @@ end)
 </div> <!-- id="content" -->
 </div> <!-- id="main" -->
 <div id="about">
-<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.0</a></i>
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2018-09-03 18:03:55 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
