@@ -152,7 +152,7 @@ local function AuxUpdateProjectiles (scene, cannon, dt)
 	local proj = BuildStar(0, 0, 15, "raw")
     local sweep = clipper.MinkowskiSum(proj, ProjectilePath, MinkowskiOpts)
 
-    scene.clipper:AddPaths(sweep, "Clip")
+    scene.clipper:AddPaths(sweep, "Clip") -- "ClipClosed")
 
     if cannon.projectile then
 		utils.DrawPolygons(scene.pgroup, BuildStar(px, py, 15), ProjectileOpts)

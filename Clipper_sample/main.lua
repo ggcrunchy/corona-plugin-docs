@@ -50,7 +50,8 @@ local Examples = {
 	{ scene = "csg", text = "Constructive solid geometry" },
 	{ scene = "intersection", text = "Intersecting shapes" },
 	{ scene = "minkowski_sum", text = "Minkowski sum"},
-	{ scene = "offset", text = "Polygon offset" }
+	{ scene = "offset", text = "Polygon offset" },
+--	{ scene = "polytree", text = "Polytree solutions" }
 --[[
 - Luapower example, more or less
 - Make SVGs?
@@ -58,94 +59,6 @@ local Examples = {
 - Build on libtess2, serialize?
 ]]
 }
-
---[=[
-
-Example from http://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Classes/PolyTree/_Body.htm
-
---[[
- polytree: 
-    Contour = ()
-    ChildCount = 1
-    Childs[0]: 
-        Contour = ((10,10),(100,10),(100,100),(10,100))
-        IsHole = False
-        ChildCount = 1
-        Childs[0]: 
-            Contour = ((20,20),(20,90),(90,90),(90,20))
-            IsHole = True
-            ChildCount = 2
-            Childs[0]: 
-                Contour = ((30,30),(50,30),(50,50),(30,50))
-                IsHole = False
-                ChildCount = 0
-            Childs[1]: 
-                Contour = ((60,60),(80,60),(80,80),(60,80))
-                IsHole = False
-                ChildCount = 0
-]]
-
-local outer = display.newLine(10, 10, 100, 10, 100, 100, 10, 100 --[[ ]], 10, 10)
-local inner = display.newLine(20, 20, 20, 90, 90, 90, 90, 20 --[[ ]], 20, 20)
-
-local box1 = display.newLine(30, 30, 50, 30, 50, 50, 30, 50 --[[ ]], 30, 30)
-local box2 = display.newLine(60, 60, 80, 60, 80, 80, 60, 80 --[[ ]], 60, 60)
-
-outer.strokeWidth = 4
-inner.strokeWidth = 4
-box1.strokeWidth = 4
-box2.strokeWidth = 4
-
-]=]
-
---[=[
-local CX, CY = display.contentCenterX, display.contentCenterY
-
-local CW, CH = display.contentWidth, display.contentHeight
-
-local arrowhead = display.newLine(CW - 95, CY, 100, CY, CW - 175, CH - 250)
-
-arrowhead.strokeWidth = 3
-
-local function Loop (x, y, ...)
-	local line = display.newLine(x, y, ...)
-
-	line:append(x, y)
-
-	return line
-end
-
-local box = Loop(145, CY - 100, CW - 175, CY - 110, CW - 175, CH - 300, 150, CH - 315)
-
-box.strokeWidth = 3
-
-local poly = Loop(55, CY - 120, CX - 10, CY - 200, CW - 120, CY + 100, 180, CH - 235, CX, CY + 120)
-
-poly.strokeWidth = 3
-
-local curve = display.newLine(50, CH - 315, 
-	86, 638, 120, 620, 150, 592,
-	174, 576, 192, 562,
-	226, 500, 232, 478,
-	240, 442, 252, 404, 263, 384, 272, 370,
-	285, 352, 294, 344,
-	318, 330, 352, 318, 384, 314)
-
-curve.strokeWidth = 3
-
---[[
-local r = display.newRect(CX, CY, CW, CH)
-
-r:toBack()
-r:setFillColor(1,0,0)
-r:addEventListener("touch", function(event)
-	if event.phase == "ended" then
-		print("!!", event.x, event.y)
-	end
-
-	return true
-end)]]
-]=]
 
 local Index = 1
 
