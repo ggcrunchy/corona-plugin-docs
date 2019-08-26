@@ -1,0 +1,306 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Documentation</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>MemoryBlob</h1>
+
+<ul>
+  <li><a href="../api.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><strong>core</strong></li>
+</ul>
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/ConsumerQueueRef.html">ConsumerQueueRef</a></li>
+  <li><a href="../classes/MemoryBlob.html">MemoryBlob</a></li>
+  <li><a href="../classes/ProducerQueueRef.html">ProducerQueueRef</a></li>
+  <li><a href="../classes/QueueRef.html">QueueRef</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>core</code></h1>
+<p>Various free functions used by memory blobs.</p>
+<p>
+
+</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#ExistsInStorage">ExistsInStorage (id)</a></td>
+	<td class="summary">(<strong>WIP</strong>) Check whether an entry exists in storage.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#GetBlobDispatcher">GetBlobDispatcher ()</a></td>
+	<td class="summary">Get the dispatcher used by blob-related events, in order to add / remove listeners.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#GetQueueReference">GetQueueReference (id, token)</a></td>
+	<td class="summary">(<strong>WIP</strong>, in probation) Acquire a <a href="https://ggcrunchy.github.io/corona-pluin-docs/DOCS/luaproc/api.html">Lua process</a>-local
+ reference to a queue created by <a href="../modules/core.html#NewQueue">NewQueue</a>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#IsBlob">IsBlob (object, type)</a></td>
+	<td class="summary">Indicates whether an object is a <strong>MemoryBlob</strong>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#New">New (opts)</a></td>
+	<td class="summary">Create a new memory blob.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#NewQueue">NewQueue ([size=0])</a></td>
+	<td class="summary">(<strong>WIP</strong>, in probation) Create a new concurrent queue that may be enqueued and dequeued by multiple <a href="https://ggcrunchy.github.io/corona-pluin-docs/DOCS/luaproc/api.html">Lua processes</a>.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "ExistsInStorage"></a>
+    <strong>ExistsInStorage (id)</strong>
+    </dt>
+    <dd>
+    (<strong>WIP</strong>) Check whether an entry exists in storage.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">id</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Stored entry's lookup ID, cf. <a href="../classes/MemoryBlob.html#MemoryBlob:Submit">MemoryBlob:Submit</a>.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        The entry exists?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "GetBlobDispatcher"></a>
+    <strong>GetBlobDispatcher ()</strong>
+    </dt>
+    <dd>
+    Get the dispatcher used by blob-related events, in order to add / remove listeners. </p>
+
+<p> Calling this outside <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/luaproc/api.html#is_main_state">Corona's main thread</a>
+ results in an error.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">EventDispatcher</span></span>
+        Dispatcher.
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../classes/MemoryBlob.html#MemoryBlob:Submit">MemoryBlob:Submit</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "GetQueueReference"></a>
+    <strong>GetQueueReference (id, token)</strong>
+    </dt>
+    <dd>
+    (<strong>WIP</strong>, in probation) Acquire a <a href="https://ggcrunchy.github.io/corona-pluin-docs/DOCS/luaproc/api.html">Lua process</a>-local
+ reference to a queue created by <a href="../modules/core.html#NewQueue">NewQueue</a>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">id</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Queue ID, as returned by <a href="../modules/core.html#NewQueue">NewQueue</a>.
+        </li>
+        <li><span class="parameter">token</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
+         If absent, a garden-variety queue reference is returned. Otherwise, may be <strong>"consumer"</strong>
+ or <strong>"producer"</strong> to acquire the corresponding token-bearing reference.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/ConsumerQueueRef.html#">ConsumerQueueRef</a>, <a class="type" href="../classes/ProducerQueueRef.html#">ProducerQueueRef</a>, <a class="type" href="../classes/QueueRef.html#">QueueRef</a> or <span class="type">nil</span></span>
+        Queue reference, or <strong>nil</strong> on error, e.g. for invalid IDs.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "IsBlob"></a>
+    <strong>IsBlob (object, type)</strong>
+    </dt>
+    <dd>
+    Indicates whether an object is a <strong>MemoryBlob</strong>.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">object</span>
+         Object to check.
+        </li>
+        <li><span class="parameter">type</span>
+            <span class="types">optional <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         If present, refine the query to only consider blobs of a given type, cf. <a href="../modules/core.html#New">New</a>.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Is <em>object</em> a blob?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "New"></a>
+    <strong>New (opts)</strong>
+    </dt>
+    <dd>
+    Create a new memory blob. </p>
+
+<p> No assumptions should be made about the original contents; whatever the allocator provides is left intact.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a>, <span class="type">uint</span> or <span class="type">nil</span></span>
+         Blob creation options.</p>
+
+<p> When <em>opts</em> is a table, it may contain the following options:</p>
+
+<ul>
+    <li><strong>alignment</strong>: If specified, the memory alignment, which must be a multiple of 2, &ge; 4. The
+    blob's memory will start at an address that is a multiple of this value, which is useful and / or
+    needed e.g. for SIMD operations. By default, blobs use the Lua allocator's alignment.
+    <br/><br/>
+    Currently, the upper limit is 1024, one level beyond <a href="https://en.wikipedia.org/wiki/Advanced_Vector_Extensions#Advanced_Vector_Extensions_2">AVX2</a> support.</li>
+    <li><strong>resizable</strong>: If true, the blob can be resized. Off by default.</li>
+    <li><strong>size</strong>: Blob size in bytes, &ge; 0. For resizable blobs, this is the blob's initial size;
+    otherwise, it specifies the fixed size. If absent, 0.</li>
+    <li><strong>type</strong>: A string that will be used to name the blob userdata's metatable; if absent, uses a default.
+    <br/><br/>
+    Blobs themselves make no further use of this value; rather it is exposed as a convenience, e.g. so
+    plugin authors can identify their own blobs via <a href="../modules/core.html#IsBlob">IsBlob</a>.</li>
+</ul>
+
+<p> If <em>opts</em> is an integer, it specifies the fixed size (&ge; 0) of the blob to create.</p>
+
+<p> For any other value of <em>opts</em>, a resizable blob will be created.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/MemoryBlob.html#">MemoryBlob</a></span>
+        The new blob.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "NewQueue"></a>
+    <strong>NewQueue ([size=0])</strong>
+    </dt>
+    <dd>
+    (<strong>WIP</strong>, in probation) Create a new concurrent queue that may be enqueued and dequeued by multiple <a href="https://ggcrunchy.github.io/corona-pluin-docs/DOCS/luaproc/api.html">Lua processes</a>.  (<strong>TODO</strong>: flesh
+ out from library docs)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">size</span>
+            <span class="types"><span class="type">uint</span></span>
+         Number of elements in a full queue, honored by some of the enqueue operations. A
+ <em>size</em> of 0 will be given a reasonable default.
+         (<em>default</em> 0)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        An ID referring to the queue, for later lookup by <a href="../modules/core.html#GetQueueReference">GetQueueReference</a>.
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2019-08-20 13:37:59 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

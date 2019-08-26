@@ -1,0 +1,311 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Documentation</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>MemoryBlob</h1>
+
+<ul>
+  <li><a href="../api.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Methods">Methods</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/ConsumerQueueRef.html">ConsumerQueueRef</a></li>
+  <li><a href="../classes/MemoryBlob.html">MemoryBlob</a></li>
+  <li><a href="../classes/ProducerQueueRef.html">ProducerQueueRef</a></li>
+  <li><strong>QueueRef</strong></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/core.html">core</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>QueueRef</code></h1>
+<p>TODO</p>
+<p>
+
+</p>
+
+
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#QueueRef:Enqueue">QueueRef:Enqueue (data[, opts])</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#QueueRef:EnqueueBulk">QueueRef:EnqueueBulk (data[, opts])</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#QueueRef:Size">QueueRef:Size ()</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#QueueRef:TryDequeue">QueueRef:TryDequeue ([opts])</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#QueueRef:TryDequeueBulk">QueueRef:TryDequeueBulk (n[, opts])</a></td>
+	<td class="summary">DOCME</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#QueueRef:TryEnqueue">QueueRef:TryEnqueue ()</a></td>
+	<td class="summary">DOCME (as per Enqueue but will fail if queue full)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#QueueRef:TryEnqueueBulk">QueueRef:TryEnqueueBulk ()</a></td>
+	<td class="summary">DOCME (as per EnqueueBulk but will fail if queue full)</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "QueueRef:Enqueue"></a>
+    <strong>QueueRef:Enqueue (data[, opts])</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">data</span>
+            <span class="types"><span class="type">Bytes</span></span>
+         (as per Submit)
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         May include
+ <em> <strong>align</strong>: as per something, target blob
+ </em> <strong>key</strong>: expose this?
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        OK?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "QueueRef:EnqueueBulk"></a>
+    <strong>QueueRef:EnqueueBulk (data[, opts])</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">data</span>
+            <span class="types"><span class="type">{Bytes...}</span></span>
+         (as per Submit)
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         May also include
+ * <strong>count</strong>: Number of elements to enqueue; by default, <code>#data</code>.
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        OK?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "QueueRef:Size"></a>
+    <strong>QueueRef:Size ()</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        approximate number of elements in queue (not exact since multiple threads might be hammering on it)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "QueueRef:TryDequeue"></a>
+    <strong>QueueRef:TryDequeue ([opts])</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+<ul>
+    <li><strong>key</strong>: stuff</li>
+    <li><strong>out</strong>: If a <strong>Blob</strong>, used as output and return value (swapping per Submit)</li>
+</ul>
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Blob</span>, <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
+        out
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "QueueRef:TryDequeueBulk"></a>
+    <strong>QueueRef:TryDequeueBulk (n[, opts])</strong>
+    </dt>
+    <dd>
+    DOCME
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">uint</span></span>
+
+
+
+        </li>
+        <li><span class="parameter">opts</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+
+
+<ul>
+    <li><strong>key</strong>: stuff</li>
+    <li><strong>out</strong>: If a table, used as output and return value, but corresponding <strong>Blob</strong> entries used as per TryDequeue</li>
+</ul>
+
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        N</li>
+        <li>
+           <span class="types"><span class="type">{Blob</span> or <span class="type">string...}</span></span>
+
+
+</li>
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+        0 for no result
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "QueueRef:TryEnqueue"></a>
+    <strong>QueueRef:TryEnqueue ()</strong>
+    </dt>
+    <dd>
+    DOCME (as per Enqueue but will fail if queue full)
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "QueueRef:TryEnqueueBulk"></a>
+    <strong>QueueRef:TryEnqueueBulk ()</strong>
+    </dt>
+    <dd>
+    DOCME (as per EnqueueBulk but will fail if queue full)
+
+
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2019-08-20 13:37:59 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

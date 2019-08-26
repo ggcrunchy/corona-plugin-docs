@@ -1,0 +1,543 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Documentation</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>MemoryBlob</h1>
+
+<ul>
+  <li><a href="../api.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Methods">Methods</a></li>
+<li><a href="#Metamethods">Metamethods</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/ConsumerQueueRef.html">ConsumerQueueRef</a></li>
+  <li><strong>MemoryBlob</strong></li>
+  <li><a href="../classes/ProducerQueueRef.html">ProducerQueueRef</a></li>
+  <li><a href="../classes/QueueRef.html">QueueRef</a></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/core.html">core</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>MemoryBlob</code></h1>
+<p>An object that represents a memory blob, with various useful operations.</p>
+<p>
+
+</p>
+
+
+<h2><a href="#Methods">Methods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#MemoryBlob:Append">MemoryBlob:Append (bytes)</a></td>
+	<td class="summary">Add bytes to the end of the blob.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MemoryBlob:Clone">MemoryBlob:Clone ()</a></td>
+	<td class="summary">Create a clone of the blob.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MemoryBlob:GetBytes">MemoryBlob:GetBytes ([i1=1[, i2=#self]])</a></td>
+	<td class="summary">Dump the blob's contents as a string of bytes.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MemoryBlob:GetProperties">MemoryBlob:GetProperties (out)</a></td>
+	<td class="summary">
+<p>Populate a table with the following blob properties:</p>
+
+<ul>
+    <li><strong>alignment</strong>: As per <a href="../modules/core.html#New">New</a>, an integer &ge; 0, with 0 meaning default alignment.</li>
+</ul>
+</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MemoryBlob:Insert">MemoryBlob:Insert (pos, bytes)</a></td>
+	<td class="summary">Insert bytes into the blob, starting at position <em>pos</em>.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MemoryBlob:IsLocked">MemoryBlob:IsLocked ()</a></td>
+	<td class="summary">Indicates whether writes to this blob are restricted (via the native API).</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MemoryBlob:Remove">MemoryBlob:Remove ([i1=1[, i2=#self]])</a></td>
+	<td class="summary">Remove a range of bytes from the blob.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MemoryBlob:Submit">MemoryBlob:Submit ()</a></td>
+	<td class="summary">(<strong>WIP</strong>, in probation) Submit this blob's contents to storage.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MemoryBlob:Sync">MemoryBlob:Sync (id)</a></td>
+	<td class="summary">(<strong>WIP</strong>, in probation) Synchronize this blob with an entry in storage, which then ceases to exist.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#MemoryBlob:Write">MemoryBlob:Write (pos, bytes)</a></td>
+	<td class="summary">Write bytes to the blob, starting at position <em>pos</em>, overwriting the blob's contents.</td>
+	</tr>
+</table>
+<h2><a href="#Metamethods">Metamethods</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#MemoryBlob:__len">MemoryBlob:__len ()</a></td>
+	<td class="summary">Metamethod.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Methods"></a>Methods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "MemoryBlob:Append"></a>
+    <strong>MemoryBlob:Append (bytes)</strong>
+    </dt>
+    <dd>
+    Add bytes to the end of the blob. </p>
+
+<p> This is a no-op for fixed-size and locked blobs.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">bytes</span>
+            <span class="types"><span class="type">Bytes</span></span>
+         Bytes to write.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        Number of bytes actually written.
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="../classes/MemoryBlob.html#MemoryBlob:IsLocked">MemoryBlob:IsLocked</a></li>
+         <li><a href="../classes/MemoryBlob.html#MemoryBlob:IsLocked">MemoryBlob:IsLocked</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "MemoryBlob:Clone"></a>
+    <strong>MemoryBlob:Clone ()</strong>
+    </dt>
+    <dd>
+    Create a clone of the blob. </p>
+
+<p> The clone inherits the alignment, resizability, size, and type of the original blob.</p>
+
+<p> Initially, the clone will contain a copy of the parent's current contents. The two blobs are independent,
+ however; changes to one's contents are not reflected in the other.</p>
+
+<p> Clones begin unlocked.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="../classes/MemoryBlob.html#">MemoryBlob</a></span>
+        Cloned blob.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MemoryBlob:GetBytes"></a>
+    <strong>MemoryBlob:GetBytes ([i1=1[, i2=#self]])</strong>
+    </dt>
+    <dd>
+    Dump the blob's contents as a string of bytes. </p>
+
+<p> If either index refers to a position outside the blob, or <em>i1</em> &gt; <em>i2</em> (after normalizing any
+ negative indices), an empty string is returned.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">i1</span>
+            <span class="types"><span class="type">uint</span></span>
+         Index of first byte. If negative, the index counts down from the end of the blob, much like
+ certain Lua <a href="https://docs.coronalabs.com/api/library/string/sub.html">string functions</a>.
+         (<em>default</em> 1)
+        </li>
+        <li><span class="parameter">i2</span>
+            <span class="types"><span class="type">uint</span></span>
+         Index of last byte. Again, indices may be negative.
+         (<em>default</em> #self)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Copy of current blob contents.
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../classes/MemoryBlob.html#MemoryBlob:__len">MemoryBlob:__len</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "MemoryBlob:GetProperties"></a>
+    <strong>MemoryBlob:GetProperties (out)</strong>
+    </dt>
+    <dd>
+
+<p>Populate a table with the following blob properties:</p>
+
+<ul>
+    <li><strong>alignment</strong>: As per <a href="../modules/core.html#New">New</a>, an integer &ge; 0, with 0 meaning default alignment. </li>
+    <li><strong>resizable</strong>: As per <a href="../modules/core.html#New">New</a>, a boolean indicating resizability.</li>
+</ul>
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">out</span>
+            <span class="types">optional <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         Table to populate and return. If absent, a fresh table is created.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        Properties table.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MemoryBlob:Insert"></a>
+    <strong>MemoryBlob:Insert (pos, bytes)</strong>
+    </dt>
+    <dd>
+    Insert bytes into the blob, starting at position <em>pos</em>. </p>
+
+<p> The current contents from <em>pos</em> onward are moved ahead #<em>bytes</em> positions to make room. In the case of
+ fixed-size blobs, any bytes moved beyond the end of the blob are thrown away.</p>
+
+<p> This is a no-op for locked blobs.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">pos</span>
+            <span class="types"><span class="type">int</span></span>
+         Insert position, between 1 and #<em>self</em>, inclusive. A negative index may also be provided,
+ cf. <a href="../classes/MemoryBlob.html#MemoryBlob:GetBytes">MemoryBlob:GetBytes</a> for details.</p>
+
+<p> Resizable blobs may also use position #<em>self</em> + 1, with behavior like <code>self:Append(bytes)</code>.</p>
+
+<p> No bytes are inserted when the position lies outside the legal range.
+        </li>
+        <li><span class="parameter">bytes</span>
+            <span class="types"><span class="type">Bytes</span></span>
+         Bytes to insert.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        Number of bytes actually inserted.
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="../classes/MemoryBlob.html#MemoryBlob:Append">MemoryBlob:Append</a></li>
+         <li><a href="../classes/MemoryBlob.html#MemoryBlob:IsLocked">MemoryBlob:IsLocked</a></li>
+         <li><a href="../classes/MemoryBlob.html#MemoryBlob:__len">MemoryBlob:__len</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "MemoryBlob:IsLocked"></a>
+    <strong>MemoryBlob:IsLocked ()</strong>
+    </dt>
+    <dd>
+    Indicates whether writes to this blob are restricted (via the native API). </p>
+
+<p> Certain MemoryBlob methods will early-out when given a locked blob, cf. various summaries.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        The blob is locked?
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "MemoryBlob:Remove"></a>
+    <strong>MemoryBlob:Remove ([i1=1[, i2=#self]])</strong>
+    </dt>
+    <dd>
+    Remove a range of bytes from the blob. </p>
+
+<p> Any bytes beyond <em>i2</em> will be moved down to fill the vacated positions.</p>
+
+<p> Naturally, resizable blobs will shrink. Since fixed-size blobs cannot do this, there will be <em>i2</em> -
+ <em>i1</em> + 1 "extra" bytes at the end, after elements move down; these will be left as-is.</p>
+
+<p> This is a no-op for locked blobs.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">i1</span>
+            <span class="types"><span class="type">int</span></span>
+         Index of first byte to remove, cf. <a href="../classes/MemoryBlob.html#MemoryBlob:GetBytes">MemoryBlob:GetBytes</a>.
+         (<em>default</em> 1)
+        </li>
+        <li><span class="parameter">i2</span>
+            <span class="types"><span class="type">int</span></span>
+         Index of last byte to remove, ditto.
+         (<em>default</em> #self)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        Number of bytes actually removed.
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="../classes/MemoryBlob.html#MemoryBlob:IsLocked">MemoryBlob:IsLocked</a></li>
+         <li><a href="../classes/MemoryBlob.html#MemoryBlob:__len">MemoryBlob:__len</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "MemoryBlob:Submit"></a>
+    <strong>MemoryBlob:Submit ()</strong>
+    </dt>
+    <dd>
+    (<strong>WIP</strong>, in probation) Submit this blob's contents to storage.  This is a mechanism geared toward
+ sharing memory among <a href="https://ggcrunchy.github.io/corona-pluin-docs/DOCS/luaproc/api.html">Lua processes</a>,
+ which can even be done without copying when certain conditions are met (cf. <a href="../classes/MemoryBlob.html#MemoryBlob:Sync">MemoryBlob:Sync</a> for details,
+ as well as the comments about resizable blobs that follow).</p>
+
+<p> Essentially, an empty resizable blob with the same alignment is first created in storage.</p>
+
+<p> If the original blob is resizable, its contents are swapped directly into the stored entry.</p>
+
+<p> Fixed-size blobs cannot do this, so something like <code>entry:Append(fixed\_blob)</code> is done instead.</p>
+
+<p> To keep memory under control, any blobs in storage left unsynchronized will be evicted after a few frames have
+ gone by (on average, 5). Listeners for <strong>"stale_entry"</strong> will be sent a message each time this happens (cf.
+ <a href="../modules/core.html#GetBlobDispatcher">GetBlobDispatcher</a>), with an <strong>id</strong> field containing the former entry's ID.</p>
+
+<p> This is a no-op for locked, resizable blobs.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
+        On success, an ID for later use by <a href="../classes/MemoryBlob.html#MemoryBlob:Sync">MemoryBlob:Sync</a>. Otherwise, <strong>nil</strong>.
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="../modules/core.html#ExistsInStorage">core.ExistsInStorage</a></li>
+         <li><a href="../classes/MemoryBlob.html#MemoryBlob:Append">MemoryBlob:Append</a></li>
+         <li><a href="../classes/MemoryBlob.html#MemoryBlob:IsLocked">MemoryBlob:IsLocked</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "MemoryBlob:Sync"></a>
+    <strong>MemoryBlob:Sync (id)</strong>
+    </dt>
+    <dd>
+    (<strong>WIP</strong>, in probation) Synchronize this blob with an entry in storage, which then ceases to exist. </p>
+
+<p> For fixed-size blobs, this is essentially <code>self:Write(1, bytes)</code>, with <em>bytes</em> being the entry's contents.</p>
+
+<p> With resizable blobs, the same is true, but the blob's length is also trimmed to #<em>bytes</em>, if necessary.
+ When the blob and stored entry have a common alignment (cf. <a href="../classes/MemoryBlob.html#MemoryBlob:Submit">MemoryBlob:Submit</a>), the blob simply assumes
+ ownership of the latter's contents, forgoing a potentially expensive copy.</p>
+
+<p> This operation is designed for safe communication between <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/luaproc/api.html">Lua processes</a>.</p>
+
+<p> This is a no-op for locked blobs, or if <em>id</em> does not refer to a valid entry.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">id</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Stored entry's lookup ID, cf. <a href="../classes/MemoryBlob.html#MemoryBlob:Submit">MemoryBlob:Submit</a>.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        Synchronization succeeded?
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="../modules/core.html#ExistsInStorage">core.ExistsInStorage</a></li>
+         <li><a href="../classes/MemoryBlob.html#MemoryBlob:IsLocked">MemoryBlob:IsLocked</a></li>
+         <li><a href="../classes/MemoryBlob.html#MemoryBlob:Write">MemoryBlob:Write</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "MemoryBlob:Write"></a>
+    <strong>MemoryBlob:Write (pos, bytes)</strong>
+    </dt>
+    <dd>
+    Write bytes to the blob, starting at position <em>pos</em>, overwriting the blob's contents. </p>
+
+<p> Resizable blobs will grow to accommodate these bytes, if necessary, whereas writes to fixed-size
+ blobs will stop if they reach the end.</p>
+
+<p> This is a no-op for locked blobs.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">pos</span>
+            <span class="types"><span class="type">int</span></span>
+         Write position, between 1 and #<em>self</em>, inclusive.  A negative index may also be provided,
+ cf. <a href="../classes/MemoryBlob.html#MemoryBlob:GetBytes">MemoryBlob:GetBytes</a> for details.</p>
+
+<p> Resizable blobs may also use position #<em>self</em> + 1, with behavior like <code>self:Append(bytes)</code>.</p>
+
+<p> No bytes are written when the position lies outside the legal range.
+        </li>
+        <li><span class="parameter">bytes</span>
+            <span class="types"><span class="type">Bytes</span></span>
+         Bytes to write.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        Number of bytes actually written.
+    </ol>
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="../classes/MemoryBlob.html#MemoryBlob:Append">MemoryBlob:Append</a></li>
+         <li><a href="../classes/MemoryBlob.html#MemoryBlob:IsLocked">MemoryBlob:IsLocked</a></li>
+         <li><a href="../classes/MemoryBlob.html#MemoryBlob:__len">MemoryBlob:__len</a></li>
+    </ul>
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Metamethods"></a>Metamethods</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "MemoryBlob:__len"></a>
+    <strong>MemoryBlob:__len ()</strong>
+    </dt>
+    <dd>
+    Metamethod.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">uint</span></span>
+        Current size of blob, in bytes.
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2019-08-20 13:37:59 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
