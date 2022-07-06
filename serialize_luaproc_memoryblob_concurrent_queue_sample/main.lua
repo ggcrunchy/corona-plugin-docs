@@ -22,7 +22,7 @@
 -- [ MIT license: http://www.opensource.org/licenses/mit-license.php ]
 --
 -- Plugins --
-local luaproc = require("plugin.luaproc")
+local lproc = require("plugin.luaproc")
 local memory_blob = require("plugin.MemoryBlob")
 local serialize = require "plugin.serialize"
 
@@ -32,11 +32,11 @@ local marshal = serialize.marshal
 local cx, cy = display.contentCenterX, display.contentCenterY
 local message = display.newText("Capturing serialized table", cx, cy, native.systemFont, 19)
 -- Register serialize's entry point with luaproc.
-luaproc.preload("serialize", serialize.Reloader)
-luaproc.preload("MemoryBlob", memory_blob.Reloader)
+lproc.preload("serialize", serialize.Reloader)
+lproc.preload("MemoryBlob", memory_blob.Reloader)
 -- Respond to alerts from another process.
 local has_doubled = false
-luaproc.get_alert_dispatcher():addEventListener("alerts", function(event)
+lproc.get_alert_dispatcher():addEventListener("alerts", function(event)
     if event.payload == true then
         message.text = "Doubling all values"
         has_doubled = true
@@ -98,7 +98,7 @@ end, 15)
 -- Encode a table as a string so that it can be captured. Launch a process to
 -- decode and operate on it asynchronously.
 local bytes = marshal.encode{ t = 37, a = 16, d = 4 }
-luaproc.newproc(function()
+lproc.newproc(function()
     local math = require("math")
     local marshal = require("serialize").marshal
     local memory_blob = require("MemoryBlob")
@@ -173,7 +173,7 @@ luaproc.newproc(function()
         get_contents = GetContents, t = original
     })
 end)
-luaproc.newproc(function()
+lproc.newproc(function()
     local math = require("math")
     local marshal = require("serialize").marshal
     local memory_blob = require("MemoryBlob")

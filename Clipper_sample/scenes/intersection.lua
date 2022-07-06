@@ -118,7 +118,7 @@ local function AuxUpdate (scene, ri)
 
     -- get the intersection of the subject and clip polygons ...
     scene.clipper:AddPaths(scene.subject, "SubjectClosed")
-    scene.clipper:AddPaths(scene.clip, "Clip") -- "ClipClosed")
+    scene.clipper:AddPaths(scene.clip, "ClipClosed")
 
     local rule = Rules[ri]
     local solution = scene.clipper:Execute("Intersection", rule, rule)

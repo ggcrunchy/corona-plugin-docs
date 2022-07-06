@@ -24,7 +24,7 @@
 --
 
 -- Plugins --
-local luaproc = require("plugin.luaproc")
+local lproc = require("plugin.luaproc")
 local serialize = require "plugin.serialize"
 
 -- Modules --
@@ -35,12 +35,12 @@ local cx, cy = display.contentCenterX, display.contentCenterY
 local message = display.newText("Capturing serialized table", cx, cy, native.systemFont, 19)
 
 -- Register serialize's entry point with luaproc.
-luaproc.preload("serialize", serialize.Reloader)
+lproc.preload("serialize", serialize.Reloader)
 
 -- Respond to alerts from another process.
 local has_doubled = false
 
-luaproc.get_alert_dispatcher():addEventListener("alerts", function(event)
+lproc.get_alert_dispatcher():addEventListener("alerts", function(event)
 	if event.payload == true then
 		message.text = "Doubling all values"
 		has_doubled = true
@@ -62,7 +62,7 @@ end)
 -- decode and operate on it asynchronously.
 local bytes = marshal.encode{ t = 37, a = 16, d = 4 }
 
-luaproc.newproc(function()
+lproc.newproc(function()
 	local marshal = require("serialize").marshal
 	local string = require("string")
 

@@ -7,8 +7,9 @@ settings =
 		-- supported = { "landscapeLeft", "landscapeRight", "portrait", "portraitUpsideDown", },
 	},
 	plugins = {
-    --    ["plugin.serialize"] = { publisherId = "com.xibalbastudios" },
-	--	["plugin.luaproc"] = { publisherId = "com.xibalbastudios" }
+        ["plugin.serialize"] = { publisherId = "com.xibalbastudios" },
+		["plugin.luaproc"] = { publisherId = "com.xibalbastudios" },
+    ["plugin.MemoryBlob"] = { publisherId = "com.xibalbastudios" }
 	},
 	iphone =
 	{

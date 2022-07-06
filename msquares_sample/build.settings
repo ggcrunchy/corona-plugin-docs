@@ -7,7 +7,7 @@ settings =
 		-- supported = { "landscapeLeft", "landscapeRight", "portrait", "portraitUpsideDown", },
 	},
 	plugins = {
-		["plugin.Bytemap"] = { publisherId = "com.xibalbastudios" },
+		 ["plugin.Bytemap"] = { publisherId = "com.xibalbastudios" },
 		["plugin.memoryBitmap"] = { publisherId = "com.coronalabs" },
         ["plugin.msquares"] = { publisherId = "com.xibalbastudios" }
 	},
