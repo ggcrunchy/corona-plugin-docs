@@ -24,7 +24,7 @@
 --
 
 -- Plugins --
-local lproc = require("plugin.luaproc")
+local luaproc = require("plugin.luaproc")
 local memory_blob = require("plugin.MemoryBlob")
 local serialize = require "plugin.serialize"
 
@@ -36,8 +36,8 @@ local cx, cy = display.contentCenterX, display.contentCenterY
 local message = display.newText("Capturing serialized table", cx, cy, native.systemFont, 19)
 
 -- Register serialize's entry point with luaproc.
-lproc.preload("serialize", serialize.Reloader)
-lproc.preload("MemoryBlob", memory_blob.Reloader)
+luaproc.preload("serialize", serialize.Reloader)
+luaproc.preload("MemoryBlob", memory_blob.Reloader)
 
 memory_blob.GetBlobDispatcher():addEventListener("stale_entry", function(event)
 	print("BYE", event.id)
@@ -46,7 +46,7 @@ end)
 -- Respond to alerts from another process.
 local has_doubled = false
 
-lproc.get_alert_dispatcher():addEventListener("alerts", function(event)
+luaproc.get_alert_dispatcher():addEventListener("alerts", function(event)
 	if event.payload == true then
 		message.text = "Doubling all values"
 		has_doubled = true
@@ -74,7 +74,7 @@ local b3 = memory_blob.New{ size = #S3 }
 b1:Write(1, S1)
 b2:Write(3, S3)
 
-lproc.get_alert_dispatcher():addEventListener("blobs", function(event)
+luaproc.get_alert_dispatcher():addEventListener("blobs", function(event)
 	local what, blob = event.payload
 	local index, id = what:sub(1, 1), what:sub(3)
 
@@ -103,10 +103,9 @@ end, 0)
 -- decode and operate on it asynchronously.
 local bytes = marshal.encode{ t = 37, a = 16, d = 4 }
 
-lproc.newproc(function()
+luaproc.newproc(function()
 	local marshal = require("serialize").marshal
 	local memory_blob = require("MemoryBlob")
-	local string = require("string")
 
 	luaproc.sleep(2500)
 
