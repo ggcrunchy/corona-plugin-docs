@@ -139,14 +139,16 @@ local function EnumerateBackends ()
       for j = 1, 11 do
         local gSoloud = soloud.createCore{ backend = name, channels = j }
 
-        if gSoloud and gSoloud:getBackendChannels() == j then
-          utils.Text(
-            (
-              "Channels: %d%s\n"
-            ):format(
-              gSoloud:getBackendChannels(), GetChannelString(gSoloud:getBackendChannels())
+        if gSoloud then
+          if gSoloud:getBackendChannels() == j then
+            utils.Text(
+              (
+                "Channels: %d%s\n"
+              ):format(
+                gSoloud:getBackendChannels(), GetChannelString(gSoloud:getBackendChannels())
+              )
             )
-          )
+          end
 
           gSoloud:destroy()
         end

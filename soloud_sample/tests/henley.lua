@@ -43,7 +43,7 @@ local gSoloud = soloud.createCore{ flags = { "CLIP_ROUNDOFF", "ENABLE_VISUALIZAT
 local gSpeechBus = soloud.createBus()
 local gSpeechQueue = soloud.createQueue()
 
-local gSpeechPhrase = {}
+local gSpeechPhrase, gVizsnPhrase = {}, {}
 
 --
 --
@@ -309,11 +309,12 @@ gSoloud:play(gSpeechBus, 0.5)
 
 for i = 1, 16 do
   gSpeechPhrase[i] = soloud.createSpeech()
+  gVizsnPhrase[i] = soloud.createVizsn()
 end
 
-local gWords = {}
+local first = true
 
-local first8 = true
+local gWords = {}
 
 --
 --
@@ -348,23 +349,28 @@ speech_phrase.text = "" -- reset
 local PreviousWord = "."
 
 patterns.Loop(function()
-  if gSpeechQueue:getQueueCount() < 2 then
-    local offset = first8 and 0 or 8
+  local n = #gSpeechPhrase
 
-    for i = 1, 8 do
+  if gSpeechQueue:getQueueCount() < 4 then
+    local half = n / 2
+    local offset = first and 0 or half
+
+    first = not first
+
+    for i = offset + 1, offset + half do
       local word = RandomNext(PreviousWord)
+      local from = random() < .5 and gSpeechPhrase or gVizsnPhrase
 
-      gSpeechPhrase[offset + i]:setText(word)
-      gWords[offset + i] = word
+      from[i]:setText(word)
+
+      gWords[i] = word
 
       -- TODO add random parameters...
 
-      gSpeechQueue:play(gSpeechPhrase[offset + i])
+      gSpeechQueue:play(from[i])
 
       PreviousWord = word
     end
-
-    first8 = not first8
   end
 
   --
@@ -375,9 +381,11 @@ patterns.Loop(function()
 
   speech_queue.text = ("Speech queue     : %d"):format(gSpeechQueue:getQueueCount())
 
-  for i = 1, #gSpeechPhrase do
-		if gSpeechQueue:isCurrentlyPlaying(gSpeechPhrase[i]) then
-      speech_phrase.text = gWords[i]
+  for i = 1, n do
+    local is_speech = gSpeechQueue:isCurrentlyPlaying(gSpeechPhrase[i])
+
+		if is_speech or gSpeechQueue:isCurrentlyPlaying(gVizsnPhrase[i]) then
+      speech_phrase.text = ("Saying: %s (%s)"):format(gWords[i], is_speech and "Speech" or "Vizsn")
 
       break
     end

@@ -107,7 +107,8 @@ function M.AddFilterSelection (core, filter_list, x0, y0)
     local pfgroup = utils.Begin("vanilla")
 
     layout:Restore(pinfo)
-    layout:Rebase()
+    layout:NextColumn(10)
+    layout:RebaseY()
 
     local sep = utils.Separator(15)
 
