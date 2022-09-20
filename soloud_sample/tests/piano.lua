@@ -24,15 +24,15 @@
 --
 
 -- Standard library imports --
-local abs = math.abs
-local cos = math.cos
 local exp = math.exp
+local floor = math.floor
 local fmod = math.fmod
 local huge = math.huge
+local pi = math.pi
 local pow = math.pow
-local random = math.random
 local setmetatable = setmetatable
 local sin = math.sin
+local sqrt = math.sqrt
 
 -- Modules --
 local patterns = require("patterns")
@@ -201,7 +201,7 @@ local BasicwaveParams = {
 
 					local v = soloud.generateWaveform(waveform, fmod(superwave_detune * f, 1.0)) * ADSR:val(t, huge) * superwave_scale
 
-          buffer:setAt(i, buffer:getAt(i) + v)
+          buffer:addAt(i, v)
 				end
 
 				offset, t = offset + 1, t + d
@@ -250,6 +250,16 @@ end
 --
 --
 
+-- The synth computation is rather heavyweight, so some optimizations follow. Much of this
+-- also included added the operations in question to float buffers natively. The original
+-- Lua code has been left behind, albeit commented out.
+
+local Root = sqrt(14.71280603)
+
+--
+--
+--
+
 --[[
   generates the wavetable
     f		- the fundamental frequency (eg. 440 Hz)
@@ -258,11 +268,11 @@ end
     *smp	- a pointer to allocated memory that can hold N samples
 ]]
 function PADsynth:synth (f, bw, bwscale, smp)
-  local freq_amp, harmonics, sample_count = self.freq_amp, self.harmonics, self.sample_count
+  local harmonics, freq_amp, sample_count = self.harmonics, self.freq_amp, #smp
   
-  for i = 1, sample_count / 2 do
-    freq_amp[i] = 0.0 -- default, all the frequency amplitudes are zero
-  end
+  -- for i = 1, sample_count / 2 do
+  freq_amp:zero() -- freq_amp[i] = 0.0 -- default, all the frequency amplitudes are zero
+  -- end
 
   for nh = 2, #harmonics do
     local rF = f * self:relF(nh)
@@ -273,18 +283,41 @@ function PADsynth:synth (f, bw, bwscale, smp)
     local bwi = bw_Hz / (2.0 * self.samplerate)
     local fi = rF / self.samplerate
 
-    for i = 1, sample_count / 2 do
-      -- here you can optimize, by avoiding to compute the profile for the full frequency (usually it's zero or very close to zero)
+    -- Optimization, cf. PADsynth:profile():
+    -- x * x > 14.71280603
+    -- x = ((i - 1) / sample_count - fi) / bwi
+    -- root = sqrt(14.71280603)
+    -- high (x > +root):
+    -- ((i - 1) / sample_count - fi) / bwi > root
+    -- (i - 1) / sample_count - fi > root * bwi
+    -- (i - 1) / sample_count > root * bwi + fi
+    -- i > sample_count * (root * bwi + fi) + 1
+    -- low (x < -root):
+    -- i < sample_count * (fi - root * bwi) + 1
+    local nth = harmonics[nh] / bwi
+    local low = floor(sample_count * (fi - Root * bwi) + 1)
+    local high = floor(sample_count * (Root * bwi + fi) + 1)
+
+    if high < low then -- if bwi < 0, reverse
+      low, high = high, low
+    end
+
+    for i = low, high do -- sample_count / 2 do
+      -- ^^ optimized, to avoid computing the profile for the full frequency (usually it's zero or very close to zero)
       local hprofile = self:profile((i - 1) / sample_count - fi, bwi)
 
-      freq_amp[i] = freq_amp[i] + hprofile * harmonics[nh]
+      freq_amp:addAt(i, hprofile * nth) -- freq_amp[i] = freq_amp[i] + hprofile * nth
     end
   end
 
   -- Convert the freq_amp array to complex array (real/imaginary) by making the phases random
+  local phases = soloud.createFloatBuffer(#freq_amp)
+
+  phases:fillRandom(0, 2 * pi)
+--[[
   local j = 0
 
-  for i = 1, self.sample_count / 2 do
+  for i = 1, sample_count / 2 do
     local phase = random() * 2.0 * 3.14159265358979
 
     smp:setAt(j + 1, freq_amp[i] * cos(phase))
@@ -292,11 +325,12 @@ function PADsynth:synth (f, bw, bwscale, smp)
 
     j = j + 2
   end
-
-  smp:ifft(self.sample_count)
+]]
+  smp:populateFromAmplitudeAndPhase(freq_amp, phases)
+  smp:ifft(sample_count)
 
   -- normalize the output
-  local max = 0.0
+  local max = smp:getAbsMax() --[[0.0
 
   for i = 1, sample_count do
     local amp = abs(smp:getAt(i))
@@ -304,17 +338,17 @@ function PADsynth:synth (f, bw, bwscale, smp)
     if amp > max then
       max = amp
     end
-  end
+  end]]
 
   if max < 0.000001 then
     max = 0.000001
   end
 
-  max = max * .5
-
+  smp:divideByN(max * .5)
+--[[
   for i = 1, sample_count do
     smp:setAt(i, smp:getAt(i) / max)
-  end
+  end]]
 end
 
 --
@@ -347,11 +381,14 @@ function PADsynth:profile (fi, bwi)
 
   x = x * x
 
+--[[
+  -- cf. PADsynth:synth()
   if x > 14.71280603 then
     return 0 -- this avoids computing the e^(-x^2) where its results are very close to zero
   else
-    return exp(-x) / bwi
-  end
+]]
+  return exp(-x) -- / bwi (baked into nth, in synth())
+-- end
 end
 
 --
@@ -373,8 +410,8 @@ local function MakePADsynth (N, samplerate, number_harmonics)
 	harmonics[2] = 1.0 -- default, the first harmonic has the amplitude 1.0
 
   return setmetatable({
-    sample_count = N, samplerate = samplerate,
-    freq_amp = {}, -- Amplitude spectrum
+    --[[sample_count = N, ]]samplerate = samplerate,
+    freq_amp = soloud.createFloatBuffer(N / 2)--[[{}]], -- Amplitude spectrum
     harmonics = harmonics
   }, PADsynth)
 end

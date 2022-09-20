@@ -32,6 +32,7 @@ local type = type
 -- Solar2D globals --
 local display = display
 local native = native
+local system = system
 
 -- Solar2D modules --
 local layout = require("layout")
@@ -49,7 +50,13 @@ local background = display.newImageRect("graphics/soloud_bg.png", display.conten
 background.x, background.y = display.contentCenterX, display.contentCenterY
 background.alpha = .6
 
-widget.setTheme("widget_theme_android_holo_light")
+local platform = system.getInfo("platform")
+
+if platform == "ios" or platform == "tvos" then
+  widget.setTheme("widget_theme_ios7")
+else
+  widget.setTheme("widget_theme_android_holo_light")
+end
 
 --
 --
@@ -689,24 +696,31 @@ function M.UpdateWave (wave, buffer, hscale)
 
   hscale = 40 * (hscale or 1)
 
-  local x, y1, line
+  local old_x, old_y, x, line
 
   for _, v in buffer:values() do
     local y = 40 + v * hscale
 
-    if x then
-      if line then
-        line:append(x + 2, y)
-      else
-        line = display.newLine(wave, x, y1, x + 2, y)
-      end
-
+    if old_x then
       x = x + 2
+
+      local dist_sq = (x - old_x)^2 + (y - old_y)^2
+
+      if dist_sq > 5.5 then
+        if line then
+          line:append(x, y)
+        else
+          line = display.newLine(wave, old_x, old_y, x, y)
+        end
+
+        old_x, old_y = x, y
+      end
     else
-      x, y1 = wave.x0 + 1, y -- kludge: omit leftmost (and rightmost ) point; since
-                             -- waves consist of points, rather than intervals, they
-                             -- end up being two pixels short if both are using two-
-                             -- pixel segments and the same size of box
+      old_x, old_y = wave.x0 + 1, y -- kludge: omit leftmost (and rightmost ) point; since
+                                    -- waves consist of points, rather than intervals, they
+                                    -- end up being two pixels short if both are using two-
+                                    -- pixel segments and the same size of box
+      x = old_x
     end
   end
 
