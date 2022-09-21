@@ -39,7 +39,6 @@ local patterns = require("patterns")
 local utils = require("utils")
 
 -- Plugins --
-local bit = require("plugin.bit")
 local soloud = require("plugin.soloud")
 
 -- Solar2D globals --
@@ -251,7 +250,7 @@ end
 --
 
 -- The synth computation is rather heavyweight, so some optimizations follow. Much of this
--- also included added the operations in question to float buffers natively. The original
+-- also included adding the operations in question to float buffers natively. The original
 -- Lua code has been left behind, albeit commented out.
 
 local Root = sqrt(14.71280603)
@@ -427,7 +426,7 @@ local function GeneratePadsynth (target, harmonic_count, harmonics, bandwidth, b
   size_pow = size_pow or 18
 
   if harmonic_count > 0 and harmonics and size_pow >= 8 and size_pow <= 24 then
-		local len = bit.lshift(1, size_pow)
+		local len = 2^size_pow
     local buf = soloud.createFloatBuffer(len)
   
     local p = MakePADsynth(len, sample_rate, harmonic_count)
