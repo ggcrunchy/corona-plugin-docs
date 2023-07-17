@@ -30,7 +30,7 @@ local composer = require("composer")
 
 local W, H = display.contentWidth, display.contentHeight
 local ButtonW, ButtonH = 100, 30
-local prev = display.newRoundedRect(5 + ButtonW / 2, H - ButtonH / 2 - 25, ButtonW, ButtonH, 12)
+local prev = display.newRoundedRect(5 + ButtonW / 2, H - ButtonH / 2 - 55, ButtonW, ButtonH, 12)
 local next = display.newRoundedRect(W - ButtonW / 2 - 5, prev.y, ButtonW, ButtonH, 12)
 
 prev:setFillColor(0, 0, 1)
@@ -43,22 +43,21 @@ local Description = display.newText("", display.contentCenterX, prev.y, native.s
 
 local Examples = {
 	{ scene = "basic", text = "Basic string (stretched)" },
-	{ scene = "pixels", text = "Glyph pixels (see console)" },
-	{ scene = "mesh", text = "Glyph meshes" },
+	{ scene = "pixels", text = "Glyph pixels" },
+	{ scene = "mesh", text = "Glyph meshes (geometry)" },
 	{ scene = "contour", text = "Glyph contours" },
-	{ scene = "masked", text = "Glyphs to mask" }
+	{ scene = "masked", text = "Glyphs as mask" }
 --[[
-NOTES for future ideas:
+Things to try:
 
+- Rich text
+- Text field
 - UTF-8
 - Right-to-left
-- Animated patterns, etc.
 - Following a curve
 - Packing a bitmap
-- Using a blob
-- Outlining
-- Squishy physics
-- Build on above libs, maybe "object3d"...
+- https://developer.nvidia.com/gpugems/gpugems3/part-iv-image-effects/chapter-25-rendering-vector-art-gpu
+- 3D model?
 ]]
 }
 

@@ -32,10 +32,10 @@ local utils = require("utils")
 -- Plugins --
 local bytemap = require("plugin.Bytemap")
 
--- Corona globals --
+-- Solar2D globals --
 local display = display
 
--- Corona modules --
+-- Solar2D modules --
 local composer = require("composer")
 
 --
@@ -47,59 +47,50 @@ local Scene = composer.newScene()
 -- Show --
 function Scene:show (event)
 	if event.phase == "did" then
+    local screen = bytemap.newTexture{ width = 85, height = 18, format = "rgb" } -- n.b. try smaller values to see clip / wrap artifacts
+
+    --
+    --
+    --
+
+    -- comments from the example:
+      -- note that this stomps the old data, so where character boxes overlap (e.g. 'lj') it's wrong
+      -- because this API is really for baking character bitmaps into textures. if you want to render
+      -- a sequence of characters, you really need to render each bitmap to a temp buffer, then
+      -- "alpha blend" that into the working buffer
+    -- when packing, glyphs are separated into distinct quads, and thus overlap isn't an issue
+
 		local font = utils.FontFromText("Mayan")
-        local xpos = 2 -- leave a little padding in case the character extends left
-        local text = "Heljo World!" -- intentionally misspelled to show 'lj' brokenness (TODO: revise to demonstrate)
-        local screen = bytemap.newTexture{ width = 79, height = 20, format = "rgb" }
+    local ascent, scale = font:GetFontVMetrics(), font:ScaleForPixelHeight(15)
 
-        local scale = font:ScaleForPixelHeight(15)
-        local ascent = font:GetFontVMetrics()
-        local baseline = floor(ascent * scale)
+    utils.SubpixelLine{
+      text = "Heljo World!", -- in Arial, 'lj' was broken; Mayan has the issue with 'rl' instead ('l' stomps the right side)
+      font = font, scale = scale,
+      current = 2, baseline = floor(ascent * scale) + 2,
 
-        local i, n = 1, #text
-
-        for i = 1, n do
-            local ch = text:byte(i)
-            local xshift = xpos % 1
-            local advance, lsb = font:GetCodepointHMetrics(ch)
-        --  local x0, y0, x1, y1 = font:GetCodepointBitmapBoxSubpixel(ch, scale, scale, xshift, 0)
-		--	local w, h = x1 - x0, y1 - y0
-		--	N.B. the following supplies the details from the above as conveniences
-            local bitmap, w, h, x0, y0 = font:GetCodepointBitmapSubpixel(scale, scale, xshift, 0, ch)
-
-			if bitmap then -- might be space, etc. (with box we would get w = h = 0)
-				local xf, yf = floor(xpos) + x0, baseline + y0
-
-				screen:SetBytes(bitmap, {
-					x1 = xf + 1, y1 = yf + 1, x2 = xf + w, y2 = yf + h,
+      listener = function(bitmap, x, y, w, h)
+        screen:SetBytes(bitmap, {
+					x1 = x + 1, y1 = y + 1, x2 = x + w, y2 = y + h,
 					format = "grayscale"
 				})
-			end
+      end
+    }
 
-			-- TODO: this is not in the current sample but should return later using the Make APIs
-            -- note that this stomps the old data, so where character boxes overlap (e.g. 'lj') it's wrong
-            -- because this API is really for baking character bitmaps into textures. if you want to render
-            -- a sequence of characters, you really need to render each bitmap to a temp buffer, then
-            -- "alpha blend" that into the working buffer
+    --
+    --
+    --
 
-            xpos = xpos + advance * scale
+    local object = display.newImage(screen.filename, screen.baseDir)
 
-            if i < n then
-                xpos = xpos + scale * font:GetCodepointKernAdvance(ch, text:byte(i + 1))
+		object:scale(5, 5) -- zoom in
 
-                i = i + 1
-            end
-        end
+    object.x, object.y = display.contentCenterX, display.contentCenterY
 
-        local simage = display.newImage(screen.filename, screen.baseDir)
+    --
+    --
+    --
 
-        simage:toBack()
-
-        simage.x, simage.y = display.contentCenterX, display.contentCenterY
-
-		simage:scale(5, 5) -- zoom in on the word
-
-		self.m_object, self.m_screen = simage, screen
+		self.m_object, self.m_screen = object, screen
 	end
 end
 

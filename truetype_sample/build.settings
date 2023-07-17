@@ -7,15 +7,13 @@ settings =
 		-- supported = { "landscapeLeft", "landscapeRight", "portrait", "portraitUpsideDown", },
 	},
 	plugins = {
-        ["plugin.truetype"] = {
-            publisherId = "com.xibalbastudios",
-        },
+    ["plugin.truetype"] = { publisherId = "com.xibalbastudios" },
 		["plugin.Bytemap"] = { publisherId = "com.xibalbastudios" },
-		-- available at: https://marketplace.coronalabs.com/plugin/byte-map
+		["plugin.clipper"] = { publisherId = "com.xibalbastudios" },
 		["plugin.libtess2"] = { publisherId = "com.xibalbastudios" },
-		-- available at: https://marketplace.coronalabs.com/plugin/libtess2
-		["plugin.MemoryBlob"] = { publisherId = "com.xibalbastudios" }
-		-- available at: https://marketplace.coronalabs.com/plugin/memory-blob
+		["plugin.MemoryBlob"] = { publisherId = "com.xibalbastudios" },
+		["plugin.utf8"] = { publisherId = "com.coronalabs" },
+    ["plugin.memoryBitmap"] = { publisherId = "com.coronalabs" }
 	},
 	iphone =
 	{

@@ -148,7 +148,7 @@ Monotone demo plays a "monotone" tracker song with various interative options an
     to = "tests.tedsid",
     about = [[
 tedsid demonstrates the MOS TED and SID synthesis engines.]],
-    NYI = true -- files missing / not loading
+    --NYI = true -- files missing / not loading
 
   },
 

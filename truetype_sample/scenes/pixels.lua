@@ -25,12 +25,21 @@
 
 -- Standard library imports --
 local floor = math.floor
+local min = math.min
 
 -- Modules --
 local utils = require("utils")
 
--- Corona modules --
+-- Plugins --
+local memoryBitmap = require("plugin.memoryBitmap")
+
+-- Solar2D modules --
 local composer = require("composer")
+
+-- Solar2D globals --
+local display = display
+local graphics = graphics
+local timer = timer
 
 --
 --
@@ -38,41 +47,135 @@ local composer = require("composer")
 
 local Scene = composer.newScene()
 
-local function Print (bitmap, w, h)
-    local index, text = 1, " .:ioVM@"
+--
+--
+--
 
-    for _ = 1, h do
-        local line = ""
+graphics.defineEffect{
+  category = "filter", name = "outline",
 
-        for _ = 1, w do
-            local pos = floor(bitmap:sub(index, index):byte() / 32) + 1
+  fragment = [[
+    P_COLOR vec4 FragmentKernel (P_UV vec2 uv)
+    {
+      P_COLOR vec4 color = texture2D(CoronaSampler0, uv);
 
-            line, index = line .. text:sub(pos, pos), index + 1
-        end
+      return mix(vec4(1., 0., 0., 1.), color, smoothstep(0., .1775, abs(color.r - .1775)));
+    }
+  ]]
+}
 
-        print(line)
+--
+--
+--
+
+local function Print (dx, n, extra, bitmap, w, h, xoff, yoff)
+  local tex = memoryBitmap.newTexture{ width = w + 2 * extra, height = h + 2 * extra }
+  local rect, x, y = display.newImageRect(Scene.view, tex.filename, tex.baseDir, w * n, h * n), 1, 1
+
+  rect.x, rect.y = display.contentCenterX + dx, display.contentCenterY
+
+  for grayscale in bitmap:gmatch(".") do
+    local intensity = grayscale:byte()
+
+    if intensity > 0 then
+      local gray = intensity / 255
+
+      tex:setPixel(x + extra, y + extra, gray, gray, gray)
     end
+
+    x = x + 1
+
+    if x > w then
+      x, y = 1, y + 1
+    end
+  end
+
+  tex:invalidate()
+  tex:releaseSelf()
+  
+  return rect
 end
 
--- Show --
+--
+--
+--
+
+local CodeList = "abcdefghijklmnopqrstuvwxyz0123456789"
+
+local function GetCodepoint (index)
+  index = (index - 1) % #CodeList + 1
+
+  return CodeList:sub(index, index):byte()
+end
+
+--
+--
+--
+
 function Scene:show (event)
 	if event.phase == "did" then
-		local font = utils.FontFromText("8-BIT WONDER")
-		local bitmap, w, h = font:GetCodepointBitmap(0, font:ScaleForPixelHeight(20), ("a"):byte())
+		local font = utils.FontFromText("Mayan")--"8-BIT WONDER")
 
-        Print(bitmap, w, h)
+    local function ShowGlyphs (event)
+      display.remove(self.m_bitmap)
+      display.remove(self.m_subpixel)
+      display.remove(self.m_sdf)
+
+      --
+      --
+      --
+
+      local value = GetCodepoint(event.count + 1) -- offset to accommodate `count = 0` call
+
+      self.m_bitmap = Print(-100, 3, 1, font:GetCodepointBitmap(0, font:ScaleForPixelHeight(20), value))
+      self.m_subpixel = Print(0, 1, 0, font:GetCodepointBitmapSubpixel(
+        0.4972374737262726, 0.4986416995525360,
+        0.2391788959503174, 0.1752119064331055,
+        value))
+
+      self.m_sdf = Print(100, 3, 1, font:GetCodepointSDF(font:ScaleForPixelHeight(32), value, 4, 128, 128 / 4))
+ 
+      --
+      --
+      --
+ 
+      self.m_sdf.fill.effect = "filter.custom.outline"
+
+      --
+      --
+      --
+
+      self.m_subpixel:scale(.2, .2)
+      self.m_sdf:scale(.25, .25)
+    end
+
+    ShowGlyphs{ count = 0 } -- long-ish delay, so show the first set separately
+
+    self.m_timer = timer.performWithDelay(750, ShowGlyphs, 0)
 	end
 end
 
 Scene:addEventListener("show")
 
--- Hide --
+--
+--
+--
+
 function Scene:hide (event)
 	if event.phase == "did" then
+    timer.cancel(self.m_timer)
+    display.remove(self.m_bitmap)
+    display.remove(self.m_subpixel)
+    display.remove(self.m_sdf)
 
+    self.m_timer, self.m_bitmap, self.m_subpixel, self.m_sdf = nil
 	end
 end
 
 Scene:addEventListener("hide")
+
+--
+--
+--
 
 return Scene

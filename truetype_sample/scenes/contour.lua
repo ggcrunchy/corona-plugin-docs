@@ -24,16 +24,19 @@
 --
 
 -- Standard library imports --
+local ceil = math.ceil
+local floor = math.floor
 local random = math.random
 
 -- Modules --
 local utils = require("utils")
 
--- Corona globals --
+-- Solar2D globals --
 local display = display
+local timer = timer
 local transition = transition
 
--- Corona modules --
+-- Solar2D modules --
 local composer = require("composer")
 
 --
@@ -42,97 +45,157 @@ local composer = require("composer")
 
 local Scene = composer.newScene()
 
-local CX, CY = display.contentCenterX - 100, display.contentCenterY + 50
+--
+--
+--
 
-local Count, XScale, YScale = 3, .175, -.175
-
-local FadeInParams = { alpha = 1 }
-local FadeOutParams = { alpha = 0, onComplete = display.remove }
-
-local function NewPoint (group, x, y)
-	local point = display.newCircle(group, x, y, 2)
-
-	point:setFillColor(random(), random(), random())
-
-	point.alpha, FadeInParams.delay = 0, FadeInParams.delay + 125
-
-	transition.to(point, FadeInParams)
+local function NewPoint (x, y, positions)
+  positions[#positions + 1] = x
+  positions[#positions + 1] = y
 end
 
--- Show --
+--
+--
+--
+
+local DoContours = utils.MakeContourListener{ add_point = NewPoint, move = NewPoint }
+
+--
+--
+--
+
+local PixelTime = 15
+
+--
+--
+--
+
+local FadeInParams, FadeOutParams, SpinParams = { alpha = .625 }, { alpha = 0 }, {}
+
+local function SpawnObject (active, stash, x, y)
+  local n, object = stash.numChildren
+
+  if n > 0 then
+    object = stash[n]
+  else
+    object = display.newRect(0, 0, .45, .45)
+
+    object:setFillColor(0, 0)
+    
+    object.alpha, object.strokeWidth = 0, 1
+  end
+
+  object.x, object.y = random(x - 2, x + 2), random(y - 2, y + 2)
+
+  object:setStrokeColor(random(), random(), random())
+  active:insert(object)
+
+  SpinParams.rotation = random(-235, 235)
+  SpinParams.time = random(300, 700)
+
+  transition.to(object, FadeInParams)
+  transition.to(object, SpinParams)
+end
+
+--
+--
+--
+
 function Scene:show (event)
 	if event.phase == "did" then
-		local tgroup = display.newGroup()
+    local active, stash = display.newGroup(), display.newGroup()
 
-		self.view:insert(tgroup)
+    stash.isVisible = false
 
-		self.m_text_group = tgroup
+    self.m_active = active
+    self.m_stash = stash
 
-		local font = utils.FontFromText("Mayan")
-        local scale = font:ScaleForPixelHeight(15)
-        local text = "3d!7g8mMne"
-        local n, xpos, ypos = #text, 50, 200
-		local vis_index = 1
+    self.view:insert(active)
+    self.view:insert(stash)
 
-		FadeInParams.delay = 0
+    --
+    --
+    --
+    
+    function FadeInParams:onComplete ()
+      if self.removeSelf then
+        FadeOutParams.time = random(3600, 5800)
 
-        for char_index = 1, n do
-            local ch, cgroup = text:byte(char_index), display.newGroup()
-            local advance, lsb = font:GetCodepointHMetrics(ch)
-			local shape = font:GetCodepointShape(ch)
-			local points, px, py
+        transition.to(self, FadeOutParams)
+      end
+    end
+    
+    function FadeOutParams:onComplete ()
+      if self.removeSelf then
+        stash:insert(self)
+      end
+    end
 
-			tgroup:insert(cgroup)
+    --
+    --
+    --
 
-			for shape_index = 1, #(shape or "") do -- account for non-shapes e.g. spaces
-				local what, x, y, cx, cy = shape:GetVertex(shape_index)
+		local font, positions = utils.FontFromText("Mayan"), { segment_lines = true }
 
-				if what == "line_to" then
-					local xk, yk, dx, dy = xpos + px * XScale, ypos + py * YScale, (x - px) / Count, (y - py) / Count
+    utils.ShapesLine{
+      text = "3d!7g8mMn", font = font,
+      scale = font:ScaleForPixelHeight(15) * 5.5,
+      current = 25, baseline = 200,
+      listener = DoContours, arg = positions
+    }
 
-					for _ = 1, Count do
-						NewPoint(cgroup, xk, yk)
+    --
+    --
+    --
 
-						xk, yk = xk + dx * XScale, yk + dy * YScale
-					end
-				elseif what == "curve_to" then
-					for i = 1, Count - 1 do
-						local t = i / Count
-						local s = 1 - t
-						local a, b, c = s^2, 2 * s * t, t^2
-						local xx, yy = a * px + b * cx + c * x, a * py + b * cy + c * y
+    local index, was, start = 1, 0
 
-						NewPoint(cgroup, xpos + xx * XScale, ypos + yy * YScale)
-					end
-				else
-					NewPoint(cgroup, xpos + x, ypos + y)
-				end
+    self.m_timer = timer.performWithDelay(25, function(event)
+      start = start or event.time
 
-				px, py = x, y
-			end
+      local now = (event.time - start) / PixelTime
+      local pos = floor(now)
 
-			FadeOutParams.delay = FadeInParams.delay + 75
+      for _ = ceil(was), pos do
+        local x, y = positions[index], positions[index + 1]
 
-			transition.to(cgroup, FadeOutParams)
+        if x then
+          for _ = 1, 3 do
+            SpawnObject(active, stash, x, y)
+          end
+        else
+          timer.cancel(event.source) -- TODO: or reset
+        end
 
-            xpos = xpos + advance * scale
+        index = index + 2
+      end
 
-            if char_index < n then
-                xpos = xpos + scale * font:GetCodepointKernAdvance(ch, text:byte(char_index + 1))
-            end
-		end
+      was = now
+    end, 0)
 	end
 end
 
 Scene:addEventListener("show")
 
--- Hide --
+--
+--
+--
+
 function Scene:hide (event)
 	if event.phase == "did" then
-		self.m_text_group:removeSelf()
+		self.m_active:removeSelf()
+		self.m_stash:removeSelf()
+
+    timer.cancel(self.m_timer)
+
+    self.m_active, self.m_stash, self.m_timer = nil
 	end
 end
 
 Scene:addEventListener("hide")
+
+--
+--
+--
 
 return Scene
