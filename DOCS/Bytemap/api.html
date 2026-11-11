@@ -85,6 +85,10 @@
 	<td class="summary">Create and populate a new <strong>Bytemap</strong> from a <strong>JPEG</strong> or <strong>PNG</strong> file.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#getReloadCount">getReloadCount ()</a></td>
+	<td class="summary">Get how many times <strong>reloadable</strong> bytemaps have decoded their file contents again.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#Bytemap:BindBlob">Bytemap:BindBlob (blob)</a></td>
 	<td class="summary">Bind a <a href="https://ggcrunchy.github.io/corona-plugin-docs/DOCS/MemoryBlob/api.html">memory blob</a> to the bytemap,
  making it the data source.</td>
@@ -204,6 +208,16 @@ R3 G3 B3 A3 | R4 G4 B4 A4
     <br/><br/>
     Using this is an error on non-desktop platforms.</li>
     <li><strong>is_non_external</strong>: As per <a href="api.html#newTexture">newTexture</a>.</li>
+    <li><strong>reloadable</strong>: If true (<strong>"rgba"</strong> format only), the bytemap keeps the encoded file contents instead of the
+    decoded pixels. The pixels are decoded whenever Solar2D asks for them (the first upload, or again after a lost
+    graphics context, e.g. when an Android app resumes) and freed once that is done, so in between only the compressed
+    image stays in memory.
+    <br/><br/>
+    Writing pixels with <a href="api.html#Bytemap:SetBytes">Bytemap:SetBytes</a>, binding a blob with <a href="api.html#Bytemap:BindBlob">Bytemap:BindBlob</a>, or calling <strong>PremultiplyAlpha</strong>
+    turns it back into an ordinary bytemap that keeps its pixels, so edits are not lost. A call that fails or writes
+    nothing leaves it reloadable. Anything else that reads the pixels, such as <a href="api.html#Bytemap:GetBytes">Bytemap:GetBytes</a> or
+    <a href="https://docs.coronalabs.com/api/library/graphics/newOutline.html">graphics.newOutline</a>, decodes them again each
+    time. See also <a href="api.html#Bytemap:Deallocate">Bytemap:Deallocate</a> and <a href="api.html#getReloadCount">getReloadCount</a>.</li>
     <li><strong>TODO</strong>: A premultiply flag is under consideration.</li>
 </ul>
 
@@ -215,6 +229,37 @@ R3 G3 B3 A3 | R4 G4 B4 A4
 
            <span class="types"><span class="type">Bytemap</span> or <span class="type">nil</span></span>
         The new bytemap, or <strong>nil</strong> on error.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "getReloadCount"></a>
+    <strong>getReloadCount ()</strong>
+    </dt>
+    <dd>
+    Get how many times <strong>reloadable</strong> bytemaps have decoded their file contents again. </p>
+
+<p> A decode is counted each time pixels are needed after an earlier upload freed them, cf. <a href="api.html#loadTexture">loadTexture</a>.
+ The counts are shared by all bytemaps and only go up. The first should stay low in normal use, rising when Solar2D
+ re-uploads textures, e.g. after a lost graphics context on Android. A count that keeps climbing suggests textures
+ are being re-uploaded every frame or every screen.
+ <br/><br/>
+ A decode fails if the file contents can no longer be decoded at the original size, e.g. when memory runs out. The
+ texture then draws transparent until its next upload, and an error is logged.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        Number of successful decodes so far.</li>
+        <li>
+           <span class="types"><span class="type">uint</span></span>
+        Number of failed decodes so far.</li>
     </ol>
 
 
@@ -280,7 +325,11 @@ R3 G3 B3 A3 | R4 G4 B4 A4
  are needed. </p>
 
 <p> This is a convenience method that performs <code>self:BindBlob(dummy)</code>, where <em>dummy</em> is a (lazily created) zero-length,
- fixed-size blob. See <a href="api.html#Bytemap:BindBlob">Bytemap:BindBlob</a> for details.
+ fixed-size blob. See <a href="api.html#Bytemap:BindBlob">Bytemap:BindBlob</a> for details.</p>
+
+<p> For a <strong>reloadable</strong> bytemap (cf. <a href="api.html#loadTexture">loadTexture</a>), this instead frees any decoded pixels it still holds, and the next
+ upload decodes them again from the stored file contents, so the texture still draws correctly. Pixels still waiting
+ for their first upload are kept, since that upload frees them anyway.
 
 
 
